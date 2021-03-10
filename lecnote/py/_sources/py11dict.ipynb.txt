@@ -1,0 +1,378 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.2-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python3",
+   "display_name": "Python 3.9.2 64-bit",
+   "metadata": {
+    "interpreter": {
+     "hash": "ac2eaa0ea0ebeafcc7822e65e46aa9d4f966f30b695406963e145ea4a91cd4fc"
+    }
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "source": [
+    "# 辞書を作ってみる\n",
+    "\n",
+    "効率よく辞書を作る方法を学んで、データ構造と計算量の関係の理解を深めていきましょう。\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 辞書とは\n",
+    "\n",
+    "**辞書 (dict)** は、文字列を検索のキーとして、キーに対応付けられた値を取り出す簡単なデータベースです。\n",
+    "\n",
+    "|キー   |値     |\n",
+    "|------|-------|\n",
+    "|apple |120|\n",
+    "|banana |100|\n",
+    "|orange |200|\n",
+    "|pineapple |50|\n",
+    "|grape |300|\n",
+    "\n",
+    "**キー(key)** は、「主キー制約」などに用いられるデータベース用語です。\n",
+    "データセットにおいて、重複しないユニークな値であれば文字列でなくても構いません。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "辞書の別称\n",
+    "\n",
+    "辞書は、色々な呼称がある。\n",
+    "\n",
+    "* ハッシュ表 (hash table)\n",
+    "* 連想記憶配列\n",
+    "* キー・バリュー・ストア (Key Value Store, KVS)\n",
+    "* マップ (map) : キーから値への写像 (mapping) という意味\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 線形探索による辞書\n",
+    "\n",
+    "辞書のもっとも簡単な実装は、キーと値のペア線形リストで保持する方法です。\n",
+    "\n",
+    "```python\n",
+    "DataBase = [\n",
+    "    ('apple', 120), \n",
+    "    ('banana', 100),\n",
+    "    ('orange', 100), \n",
+    "    ('pineapple', 50),\n",
+    "    ('grape', 300), \n",
+    "]\n",
+    "```\n",
+    "\n",
+    "線形リストの前から順番にキーを調べていくことで、キーに対応付けられた値を探すことができます。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "300\n"
+     ]
+    }
+   ],
+   "source": [
+    "DataBase = [\n",
+    "    ('apple', 120), \n",
+    "    ('banana', 100),\n",
+    "    ('orange', 100), \n",
+    "    ('pineapple', 50),\n",
+    "    ('grape', 300), \n",
+    "]\n",
+    "\n",
+    "def linear_find(key):\n",
+    "    for entry in DataBase:\n",
+    "        # entry には、('apple', 120)のようなタプルが順番に\n",
+    "        ekey, evalue = entry\n",
+    "        if ekey == key: \n",
+    "            return evalue\n",
+    "    # 見つからない場合は、KeyErrorにする \n",
+    "    raise KeyError(key)\n",
+    "\n",
+    "print(linear_find('grape')) # 300 と 表 示 さ れ る"
+   ]
+  },
+  {
+   "source": [
+    "線形探索は単純ですが、検索速度はリストの大きさ $N$ に依存します。平均計算量は、線形時間 $O(N)$ となります。計算量としては悪くありません。しかし、辞書は他のアルゴリズムから頻繁に使われるため、組み合わせによってはコストが大きくなる可能性があります。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "線形探索(Linear Search)\n",
+    "\n",
+    "リストを前から順番に探索する手法\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 二分探索による辞書\n",
+    "\n",
+    "英和辞典を思い浮かべてください。単語を調べるとき、前から順番に全ての単語をみて探すことはしません(よね?)。なぜなら、英和辞典はアルファベット順に並んでいて、orange という単語は 前より後ろの方にあることは明らかだからです。\n",
+    "\n",
+    "同じように、線形リストの内容を検索する前にアルファベット順に並べておけば、英和辞典のように調べられるようになります。\n",
+    "\n",
+    "![]()\n",
+    "\n",
+    "ポイントは、リストの中央を調べて、探しているキーがリストの前半にあるか、それとも後半にあ るか、調べることです。前半にあったら、また前半の中央を調べるように繰り返します。後半の場 合も同様に繰り返します。リストの探索域を狭めていき、空になるまで繰り返します。\n",
+    "\n",
+    "リストの探索域が半分になっていくので、二分探索 (binary search) と呼ばれます。\n",
+    "\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "DataBase.sort()\n",
+    "def binary_find(key, start=0, end=len(DataBase)): \n",
+    "    mid = start + end // 2\n",
+    "    # 中央のタプルをとる \n",
+    "    x, y = DataBase[mid] \n",
+    "    if x == key:\n",
+    "        return value \n",
+    "    elif key < x:\n",
+    "        # key は前半にある\n",
+    "        end = mid \n",
+    "    else:\n",
+    "        # key は後半にある\n",
+    "        start = mid + 1 \n",
+    "    if end - start > 0:\n",
+    "        # 新しい探索域が空でなければ再帰的に調べる\n",
+    "        return binary_find(key, start, end) \n",
+    "    # 見つからない場合は、KeyErrorにする\n",
+    "    raise KeyError(key)\n",
+    "\n",
+    "print(key('grape')) # 300 と 表 示 さ れ る"
+   ]
+  },
+  {
+   "source": [
+    "二分探索は、平均計算量は、探索域が 2 分の 1 に絞られていくので、対数時間 $O(log N )$ となります。\n",
+    "実用上も理論上も心配のいらない計算量といえます。しかし、頻繁にデータベースが更新され るときは注意が必要になります。データベースが更新される度に、ソートしていたら、ソート・ア ルゴリズムの計算量 $O(N log N )$ の計算コストが必要になります。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "二分探索 (Binary Search)\n",
+    "\n",
+    "探索域を分割する分割統治法による探索アルゴリズム\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## ハッシュ法による辞書\n",
+    "\n",
+    "最後に、定数計算時間 O(1) でアクセスできる辞書の作り方をみてみましょう。定数時間ということは、辞書の大きさがどんなに大きくなっても計算コストは一定であるという夢のアルゴリズムといえます。\n",
+    "\n",
+    "まず、配列は「O(1) で要素にアクセスできるデータ構造」ということを思い出しておきましょう。 \n",
+    "だから、辞書のキーを配列のインデックスに変換できれば、配列に格納できるようになります。\n",
+    "\n",
+    "Python は、オブジェクトのハッシュ値(整数)を計算する組み込み関数 `hash(x)` を提供しています。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('apple', hash('apple'))\n",
+    "print('orange', hash('orange'))\n",
+    "print('banana', hash('banana'))\n",
+    "print('pineapple', hash('pineapple'))\n",
+    "print('grape', hash('grape'))"
+   ]
+  },
+  {
+   "source": [
+    "残念ながら、ハッシュ値は大き過ぎるので、そのままインデックスにすることはできません。しかし、適切な大きさ$M$でモジュロを計算すると、よい感じの値になってくれます。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "M = 89\n",
+    "print('apple', hash('apple') % M )\n",
+    "print('orange', hash('orange') % M )\n",
+    "print('banana', hash('banana' % M) )\n",
+    "print('pineapple', hash('pineapple') %M )\n",
+    "print('grape', hash('grape') %M )"
+   ]
+  },
+  {
+   "source": [
+    "この `hash(key) % M` を配列のインデックスにして配列に格納すると、$O(1)$ で検索できるようになり ます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "M = 89\n",
+    "HashDB = [0] * M\n",
+    "def hash_set(key, value): \n",
+    "    HashDB[hash(key) % M] = value\n",
+    "\n",
+    "hash_set('apple', 120) \n",
+    "hash_set('orange', 100)\n",
+    "hash_set('banana', 200) \n",
+    "hash_set('pineapple', 50)\n",
+    "hash_set('grape', 300) \n",
+    "\n",
+    "print(hash_find('grape'))"
+   ]
+  },
+  {
+   "source": [
+    "### ハッシュ法と衝突\n",
+    "\n",
+    "ハッシュ表の原理をみてきました。計算量の少ないアルゴリズムは原理も実装もシンプルなことが多いです。ただし、一つだけ困ったことが残っています。それは、$M$ の値が小さいと、時々、モジュロをとったハッシュ値が同じ値になってしまうことです。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "M = ７\n",
+    "print('apple', hash('apple') % M )\n",
+    "print('orange', hash('orange') % M )\n",
+    "print('banana', hash('banana' % M) )\n",
+    "print('pineapple', hash('pineapple') %M )\n",
+    "print('grape', hash('grape') %M )"
+   ]
+  },
+  {
+   "source": [
+    "上の場合では、’apple’ と’banana’ の値は、共に HashDB[2] に格納されることになります。このような状態を**衝突 (collision)** と呼びます。\n",
+    "\n",
+    "ハッシュ表では、十分に大きなハッシュ表を作れば、衝突の発生頻度は下げられますが、原理的に回避することはできません。衝突が発生したとき、データを消さないようにする仕組みが必要になります。\n",
+    "\n",
+    "* **連鎖法** 衝突を起こしても、線形リストにつないで値を格納する\n",
+    "* **開番地法** 衝突が発生したとき、ハッシュ表の空いている位置を探して格納する\n",
+    "\n",
+    "上記、以外にもハッシュ法のサイズを伸長して、衝突の発生頻度を下げるなど、各種の工夫が行われています。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 結論：ありがたく辞書を使おう\n",
+    "\n",
+    "Python は、ハッシュ表に基づく高性能な辞書をユーザに提供してくれています。よほどのことがない限り、自分で辞書を開発する必要はありません。むしろ、使いこなせるようにならないと、プログラミングの神様からバチが当たりますよ。\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "DataBase = { \n",
+    "    'apple': 120,\n",
+    "    'banana': 100, \n",
+    "    'orange': 100,\n",
+    "    'pineapple': 50,\n",
+    "    'grape', 300, \n",
+    "}\n",
+    "print(DataBase['grape']) #300 と 表 示 さ れ る"
+   ]
+  },
+  {
+   "source": [
+    "__覚えておきたい主な辞書(d)の操作__\n",
+    "\n",
+    "|  | |\n",
+    "|--|-|\n",
+    "|`d = {}` | 空の辞書を生成し、d という名前にする|\n",
+    "|`d[key]` | `key` に対する値をえる (key がない場合はエラー) \n",
+    "|`d.get(key,v)`| `key に対する値をえる (key がない場合は v を使う)|\n",
+    "|`key in d`| 辞書内`d`に `key` が存在するかどうか?`|\n",
+    "|`d[key]=v`| `key` に対応する値`v`をセットする|\n",
+    "|`len(d)`  | 辞書 `d` の大きさ(キーの数) をえる|\n",
+    "|`d.keys()`| 辞書 d のキーのリストをえる|\n",
+    "   "
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 演習問題\n",
+    "\n",
+    "集計処理\n",
+    "バケット法\n",
+    "連想配列\n",
+    "\n",
+    "* [塩基対](https://atcoder.jp/contests/abc122/tasks/abc122_a): 辞書で解いて見ましょう\n",
+    "* [鏡餅](https://atcoder.jp/contests/abc085/tasks/abc085_b)\n",
+    "* [Not Found](https://atcoder.jp/contests/abc071/tasks/abc071_b)\n",
+    "* [K種類以下のボール](https://atcoder.jp/contests/abc081/tasks/arc086_a)"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  }
+ ]
+}

@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>11. 辞書を作ってみる &mdash; Python Programming 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="12. 動的計画法" href="py12dp.html" />
+    <link rel="prev" title="10. ソートと計算量" href="py09sort.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python Programming 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">11. 辞書を作ってみる</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#辞書とは">11.1. 辞書とは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#線形探索による辞書">11.2. 線形探索による辞書</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#二分探索による辞書">11.3. 二分探索による辞書</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ハッシュ法による辞書">11.4. ハッシュ法による辞書</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ハッシュ法と衝突">11.4.1. ハッシュ法と衝突</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#結論：ありがたく辞書を使おう">11.5. 結論：ありがたく辞書を使おう</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">11.6. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python Programming 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">11. </span>辞書を作ってみる</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/py11dict.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="辞書を作ってみる">
+<h1><span class="section-number">11. </span>辞書を作ってみる<a class="headerlink" href="#辞書を作ってみる" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>効率よく辞書を作る方法を学んで、データ構造と計算量の関係の理解を深めていきましょう。</p>
+<div class="section" id="辞書とは">
+<h2><span class="section-number">11.1. </span>辞書とは<a class="headerlink" href="#辞書とは" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>辞書 (dict)</strong> は、文字列を検索のキーとして、キーに対応付けられた値を取り出す簡単なデータベースです。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 75%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>キー</p></th>
+<th class="head"><p>値</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>apple</p></td>
+<td><p>120</p></td>
+</tr>
+<tr class="row-odd"><td><p>banana</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-even"><td><p>orange</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="row-odd"><td><p>pineapple</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-even"><td><p>grape</p></td>
+<td><p>300</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>キー(key)</strong> は、「主キー制約」などに用いられるデータベース用語です。 データセットにおいて、重複しないユニークな値であれば文字列でなくても構いません。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">辞書の別称</p>
+<p>辞書は、色々な呼称がある。</p>
+<ul class="simple">
+<li><p>ハッシュ表 (hash table)</p></li>
+<li><p>連想記憶配列</p></li>
+<li><p>キー・バリュー・ストア (Key Value Store, KVS)</p></li>
+<li><p>マップ (map) : キーから値への写像 (mapping) という意味</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="線形探索による辞書">
+<h2><span class="section-number">11.2. </span>線形探索による辞書<a class="headerlink" href="#線形探索による辞書" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>辞書のもっとも簡単な実装は、キーと値のペア線形リストで保持する方法です。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DataBase</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>線形リストの前から順番にキーを調べていくことで、キーに対応付けられた値を探すことができます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">DataBase</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">linear_find</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">DataBase</span><span class="p">:</span>
+        <span class="c1"># entry には、(&#39;apple&#39;, 120)のようなタプルが順番に</span>
+        <span class="n">ekey</span><span class="p">,</span> <span class="n">evalue</span> <span class="o">=</span> <span class="n">entry</span>
+        <span class="k">if</span> <span class="n">ekey</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">evalue</span>
+    <span class="c1"># 見つからない場合は、KeyErrorにする</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">linear_find</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">))</span> <span class="c1"># 300 と 表 示 さ れ る</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+300
+</pre></div></div>
+</div>
+<p>線形探索は単純ですが、検索速度はリストの大きさ <span class="math notranslate nohighlight">\(N\)</span> に依存します。平均計算量は、線形時間 <span class="math notranslate nohighlight">\(O(N)\)</span> となります。計算量としては悪くありません。しかし、辞書は他のアルゴリズムから頻繁に使われるため、組み合わせによってはコストが大きくなる可能性があります。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">線形探索(Linear Search)</p>
+<p>リストを前から順番に探索する手法</p>
+</div>
+</div>
+<div class="section" id="二分探索による辞書">
+<h2><span class="section-number">11.3. </span>二分探索による辞書<a class="headerlink" href="#二分探索による辞書" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>英和辞典を思い浮かべてください。単語を調べるとき、前から順番に全ての単語をみて探すことはしません(よね?)。なぜなら、英和辞典はアルファベット順に並んでいて、orange という単語は 前より後ろの方にあることは明らかだからです。</p>
+<p>同じように、線形リストの内容を検索する前にアルファベット順に並べておけば、英和辞典のように調べられるようになります。</p>
+<p>ポイントは、リストの中央を調べて、探しているキーがリストの前半にあるか、それとも後半にあ るか、調べることです。前半にあったら、また前半の中央を調べるように繰り返します。後半の場 合も同様に繰り返します。リストの探索域を狭めていき、空になるまで繰り返します。</p>
+<p>リストの探索域が半分になっていくので、二分探索 (binary search) と呼ばれます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">DataBase</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">binary_find</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">DataBase</span><span class="p">)):</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">end</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="c1"># 中央のタプルをとる</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+        <span class="c1"># key は前半にある</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">mid</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># key は後半にある</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># 新しい探索域が空でなければ再帰的に調べる</span>
+        <span class="k">return</span> <span class="n">binary_find</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+    <span class="c1"># 見つからない場合は、KeyErrorにする</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">))</span> <span class="c1"># 300 と 表 示 さ れ る</span>
+</pre></div>
+</div>
+</div>
+<p>二分探索は、平均計算量は、探索域が 2 分の 1 に絞られていくので、対数時間 <span class="math notranslate nohighlight">\(O(log N )\)</span> となります。 実用上も理論上も心配のいらない計算量といえます。しかし、頻繁にデータベースが更新され るときは注意が必要になります。データベースが更新される度に、ソートしていたら、ソート・ア ルゴリズムの計算量 <span class="math notranslate nohighlight">\(O(N log N )\)</span> の計算コストが必要になります。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">二分探索 (Binary Search)</p>
+<p>探索域を分割する分割統治法による探索アルゴリズム</p>
+</div>
+</div>
+<div class="section" id="ハッシュ法による辞書">
+<h2><span class="section-number">11.4. </span>ハッシュ法による辞書<a class="headerlink" href="#ハッシュ法による辞書" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>最後に、定数計算時間 O(1) でアクセスできる辞書の作り方をみてみましょう。定数時間ということは、辞書の大きさがどんなに大きくなっても計算コストは一定であるという夢のアルゴリズムといえます。</p>
+<p>まず、配列は「O(1) で要素にアクセスできるデータ構造」ということを思い出しておきましょう。 だから、辞書のキーを配列のインデックスに変換できれば、配列に格納できるようになります。</p>
+<p>Python は、オブジェクトのハッシュ値(整数)を計算する組み込み関数 <code class="docutils literal notranslate"><span class="pre">hash(x)</span></code> を提供しています。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>残念ながら、ハッシュ値は大き過ぎるので、そのままインデックスにすることはできません。しかし、適切な大きさ<span class="math notranslate nohighlight">\(M\)</span>でモジュロを計算すると、よい感じの値になってくれます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">89</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span> <span class="o">%</span> <span class="n">M</span><span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">)</span> <span class="o">%</span><span class="k">M</span> )
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">)</span> <span class="o">%</span><span class="k">M</span> )
+</pre></div>
+</div>
+</div>
+<p>この <code class="docutils literal notranslate"><span class="pre">hash(key)</span> <span class="pre">%</span> <span class="pre">M</span></code> を配列のインデックスにして配列に格納すると、<span class="math notranslate nohighlight">\(O(1)\)</span> で検索できるようになり ます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">89</span>
+<span class="n">HashDB</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">M</span>
+<span class="k">def</span> <span class="nf">hash_set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">HashDB</span><span class="p">[</span><span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+<span class="n">hash_set</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">hash_set</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">hash_set</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">hash_set</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">hash_set</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">hash_find</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ハッシュ法と衝突">
+<h3><span class="section-number">11.4.1. </span>ハッシュ法と衝突<a class="headerlink" href="#ハッシュ法と衝突" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ハッシュ表の原理をみてきました。計算量の少ないアルゴリズムは原理も実装もシンプルなことが多いです。ただし、一つだけ困ったことが残っています。それは、<span class="math notranslate nohighlight">\(M\)</span> の値が小さいと、時々、モジュロをとったハッシュ値が同じ値になってしまうことです。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">７</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span> <span class="o">%</span> <span class="n">M</span><span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">)</span> <span class="o">%</span><span class="k">M</span> )
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">)</span> <span class="o">%</span><span class="k">M</span> )
+</pre></div>
+</div>
+</div>
+<p>上の場合では、’apple’ と’banana’ の値は、共に HashDB[2] に格納されることになります。このような状態を<strong>衝突 (collision)</strong> と呼びます。</p>
+<p>ハッシュ表では、十分に大きなハッシュ表を作れば、衝突の発生頻度は下げられますが、原理的に回避することはできません。衝突が発生したとき、データを消さないようにする仕組みが必要になります。</p>
+<ul class="simple">
+<li><p><strong>連鎖法</strong> 衝突を起こしても、線形リストにつないで値を格納する</p></li>
+<li><p><strong>開番地法</strong> 衝突が発生したとき、ハッシュ表の空いている位置を探して格納する</p></li>
+</ul>
+<p>上記、以外にもハッシュ法のサイズを伸長して、衝突の発生頻度を下げるなど、各種の工夫が行われています。</p>
+</div>
+</div>
+<div class="section" id="結論：ありがたく辞書を使おう">
+<h2><span class="section-number">11.5. </span>結論：ありがたく辞書を使おう<a class="headerlink" href="#結論：ありがたく辞書を使おう" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Python は、ハッシュ表に基づく高性能な辞書をユーザに提供してくれています。よほどのことがない限り、自分で辞書を開発する必要はありません。むしろ、使いこなせるようにならないと、プログラミングの神様からバチが当たりますよ。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">DataBase</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;apple&#39;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+    <span class="s1">&#39;banana&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">&#39;pineapple&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">DataBase</span><span class="p">[</span><span class="s1">&#39;grape&#39;</span><span class="p">])</span> <span class="c1">#300 と 表 示 さ れ る</span>
+</pre></div>
+</div>
+</div>
+<p><strong>覚えておきたい主な辞書(d)の操作</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">=</span> <span class="pre">{}</span></code></p></td>
+<td><p>空の辞書を生成し、d という名前にする</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">d[key]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">key</span></code> に対する値をえる (key がない場合はエラー)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">d.get(key,v)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">に対する値をえる</span> <span class="pre">(key</span> <span class="pre">がない場合は</span> <span class="pre">v</span> <span class="pre">を使う)|</span> <span class="pre">|</span></code>key in d<code class="docutils literal notranslate"><span class="pre">|</span> <span class="pre">辞書内</span></code>d<code class="docutils literal notranslate"><span class="pre">に</span></code>key<code class="docutils literal notranslate"><span class="pre">が存在するかどうか?</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">d[key]=v</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">key</span></code> に対応する値<code class="docutils literal notranslate"><span class="pre">v</span></code>をセットする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">len(d)</span></code></p></td>
+<td><p>辞書 <code class="docutils literal notranslate"><span class="pre">d</span></code> の大きさ(キーの数) をえる</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">d.keys()</span></code></p></td>
+<td><p>辞書 d のキーのリストをえる</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="演習問題">
+<h2><span class="section-number">11.6. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>集計処理 バケット法 連想配列</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc122/tasks/abc122_a">塩基対</a>: 辞書で解いて見ましょう</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc085/tasks/abc085_b">鏡餅</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc071/tasks/abc071_b">Not Found</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc081/tasks/arc086_a">K種類以下のボール</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="py12dp.html" class="btn btn-neutral float-right" title="12. 動的計画法" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="py09sort.html" class="btn btn-neutral float-left" title="10. ソートと計算量" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Pythonプログラミングとアルゴリズムの基礎 &mdash; Python Programming 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="1. プログラミングの練習を始めよう" href="py01oj.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Python Programming 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Python Programming 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Pythonプログラミングとアルゴリズムの基礎</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="python">
+<h1>Pythonプログラミングとアルゴリズムの基礎<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>本講義ノートは、
+日本女子大学で提供しているPythonプログラミングの講義ノートを加筆・修正してまとめたものです。
+今までの講義の内容が含まれるため、かなり膨大です。
+自習して理解を深めるための解説もあるため、授業では全ての内容を扱うわけではありません。</p>
+<p>Python 言語の文法は、１年次に「<strong>既に習っていること</strong>」を前提にしています。
+だから、文法は軽く復習する程度に留め、Google Colabや AtCoder を使いながら、
+プログラミング技量を高めていくことを目指します。</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py01oj.html#Colabとプログラミング">1.1. Colabとプログラミング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py01oj.html#プログラムの構造と入出力">1.2. プログラムの構造と入出力</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py01oj.html#オンラインジャッジに挑戦">1.3. オンラインジャッジに挑戦</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py01oj.html#頻出の入出力例">1.4. 頻出の入出力例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py01oj.html#演習問題">1.5. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py02eval.html#計算してみよう">2.1. 計算してみよう</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py02eval.html#式と評価">2.2. 式と評価</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py02eval.html#変数">2.3. 変数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py02eval.html#変数とよくある間違い">2.4. 変数とよくある間違い</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py02eval.html#演習問題">2.5. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py03if.html#命題と論理式">3.1. 命題と論理式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py03if.html#条件分岐">3.2. 条件分岐</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py03if.html#条件式（三項演算子）">3.3. 条件式（三項演算子）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py03if.html#繰り返し(while文とfor文)">3.4. 繰り返し(while文とfor文)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py03if.html#演習問題">3.5. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py04forlist.html#リストとは">4.1. リストとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py04forlist.html#リストの操作">4.2. リストの操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py04forlist.html#N回繰り返す">4.3. N回繰り返す</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py04forlist.html#演習問題">4.4. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py05string.html#文字と文字列">5.1. 文字と文字<strong>列</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="py05string.html#文字列操作">5.2. 文字列操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py05string.html#見本">5.3. 見本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py05string.html#演習問題">5.4. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py07func.html#関数を定義する">6.1. 関数を定義する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py07func.html#再帰とは">6.2. 再帰とは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py07func.html#ラムダ式と高階関数">6.3. ラムダ式と高階関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py07func.html#演習問題">6.4. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py06tips.html#良いコードとは">7.1. 良いコードとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py06tips.html#アプローチ">7.2. アプローチ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py06tips.html#複雑な問題へのアプローチ">7.3. 複雑な問題へのアプローチ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py06tips.html#演習問題">7.4. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py08algo.html#アルゴリズムとは？">8.1. アルゴリズムとは？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py08algo.html#アルゴリズムの特徴">8.2. アルゴリズムの特徴</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py08algo.html#演習問題">8.3. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py10prime.html#TODO">9.1. TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py10prime.html#見本">9.2. 見本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py10prime.html#演習問題">9.3. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py09sort.html#ソートとは？">10.1. ソートとは？</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py09sort.html#ソートアルゴリズム">10.2. ソートアルゴリズム</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py09sort.html#クイックソート">10.3. クイックソート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py09sort.html#アルゴリズム選択">10.4. アルゴリズム選択</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py09sort.html#見本">10.5. 見本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py09sort.html#演習問題">10.6. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py11dict.html#辞書とは">11.1. 辞書とは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py11dict.html#線形探索による辞書">11.2. 線形探索による辞書</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py11dict.html#二分探索による辞書">11.3. 二分探索による辞書</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py11dict.html#ハッシュ法による辞書">11.4. ハッシュ法による辞書</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py11dict.html#結論：ありがたく辞書を使おう">11.5. 結論：ありがたく辞書を使おう</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py11dict.html#演習問題">11.6. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py12dp.html#TODO">12.1. TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py12dp.html#見本">12.2. 見本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py12dp.html#演習問題">12.3. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py13search.html#TODO">13.1. TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py13search.html#見本">13.2. 見本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py13search.html#演習">13.3. 演習</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py14pil.html#モジュールの準備">14.1. モジュールの準備</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py14pil.html#キャンバス">14.2. キャンバス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py14pil.html#アニメーションを作る">14.3. アニメーションを作る</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py14pil.html#見本">14.4. 見本</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="py01oj.html" class="btn btn-neutral float-right" title="1. プログラミングの練習を始めよう" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

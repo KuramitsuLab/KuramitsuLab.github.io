@@ -1,0 +1,116 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.1-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python3",
+   "display_name": "Python 3.9.1 64-bit",
+   "metadata": {
+    "interpreter": {
+     "hash": "ac2eaa0ea0ebeafcc7822e65e46aa9d4f966f30b695406963e145ea4a91cd4fc"
+    }
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "source": [
+    "# データサイエンスへの道\n",
+    "\n",
+    "教師あり機械学習の基礎となる回帰について学びます。\n",
+    "ボストンハウジングという有名問題\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 今回のお題\n",
+    "\n",
+    "プログラミングでは、複数の値をひとまとめのデータとして扱いたいケースが多くあります。\n",
+    "\n",
+    "__もしデータをひとつひとつ変数で識別すると__:\n",
+    "\n",
+    "```python\n",
+    "a1 = 1\n",
+    "a2 = 2\n",
+    "a3 = 3\n",
+    "print(a1, a2, a3)  #３つが限界だな..\n",
+    "```\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 演習問題\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Let's try\n",
+    "\n",
+    "`2 ** (1//2)` が、正しく $\\sqrt{2}$ にならない理由を考えてみよう\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "<div class=\"alert alert-warning\">\n",
+    "\n",
+    "(プログラミングの)$N$個数える\n",
+    "\n",
+    "プログラミングでは、原則、「**0から**$N-1$まで」のように数えます。\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "### 平均点\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（平均点）**\n",
+    "\n",
+    "期末試験は5人受験した。\n",
+    "点数が40点未満の生徒は全員，補習を受け，成績が40点になった。\n",
+    "5人の平均点を求めよ。\n",
+    "\n",
+    "入力例：\n",
+    "```\n",
+    "10\n",
+    "65\n",
+    "100\n",
+    "30\n",
+    "95\n",
+    "```\n",
+    "\n",
+    "出力例：\n",
+    "```\n",
+    "68\n",
+    "```\n",
+    "\n",
+    "[AtCoder (JOI2014 予選)](https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a)\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "__(解法) リストを使う場合__\n",
+    "\n",
+    "1. 期末試験を記録する空の得点リスト `scores` を用意する\n",
+    "2. 5人分繰り返し、点数を読んで、`scores` に追加する \n",
+    "3. 平均点は `sum(scores) // 5`\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  }
+ ]
+}

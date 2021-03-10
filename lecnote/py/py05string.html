@@ -1,0 +1,961 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5. 文字と情報 &mdash; Python Programming 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="6. 関数、再帰関数、そして高階関数" href="py07func.html" />
+    <link rel="prev" title="4. リストと繰り返し" href="py04forlist.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python Programming 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. 文字と情報</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#文字と文字列">5.1. 文字と文字<strong>列</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#文字列">5.1.1. 文字列</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#文字列と文字リスト">5.1.2. 文字列と文字リスト</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#文字列操作">5.2. 文字列操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#見本">5.3. 見本</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#平均点">5.3.1. 平均点</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">5.4. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python Programming 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">5. </span>文字と情報</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/py05string.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="文字と情報">
+<h1><span class="section-number">5. </span>文字と情報<a class="headerlink" href="#文字と情報" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>人類の扱う情報の大半は、文字によって伝えられます。したがって、文字や文字列を扱うことは、情報処理の基本中の基本と言えます。今回は、Pythonの文字列処理を練習しましょう。</p>
+<div class="section" id="文字と文字列">
+<h2><span class="section-number">5.1. </span>文字と文字<strong>列</strong><a class="headerlink" href="#文字と文字列" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>文字は、コンピュータの内部では、文字コードと呼ばれる番号で表現されています。</p>
+<img alt="ascii-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a3570dc4-ba9d-26a1-39e3-2ee18a50ae56.png" />
+<p>文字コードは覚える必要はありません。Python の関数で相互に変換することができます。</p>
+<p><strong>文字コードcから文字へ</strong>: <code class="docutils literal notranslate"><span class="pre">chr(c)</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">chr</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;A&#39;
+</pre></div></div>
+</div>
+<p><strong>文字cから文字コードへ</strong>: <code class="docutils literal notranslate"><span class="pre">chr('A')</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="mi">65</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Pythonの文字</p>
+<p>Pythonでは、文字は1文字長の文字列に過ぎません。ユニコードに対応しているため、日本語も１文字として扱うことができます。</p>
+</div>
+<p>文字 <code class="docutils literal notranslate"><span class="pre">c</span></code> の種類の判定は文字コードに基づいておこないます。 Python は便利な文字列メソッドも用意してくれているので、通常は２つ目の書き方を使います。</p>
+<p><strong>数字の判定</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;0&#39;</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="s1">&#39;9&#39;</span>   <span class="c1"># もしくは、c.isdigit()</span>
+</pre></div>
+</div>
+<p><strong>英大文字の判定</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;A&#39;</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="s1">&#39;Z&#39;</span>　<span class="c1"># もしくは、c.isupper()</span>
+</pre></div>
+</div>
+<p><strong>英小文字の判定</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;a&#39;</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="s1">&#39;z&#39;</span> <span class="c1"># もしくは c.islower()</span>
+</pre></div>
+</div>
+<div class="section" id="文字列">
+<h3><span class="section-number">5.1.1. </span>文字列<a class="headerlink" href="#文字列" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>文字列は、文字通り、文字の列です。 リストと同じように、文字列を先頭から数えて i 番目の文字のように取り出すことができます。</p>
+<p><strong>例. 文字列の最初の文字</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;ABC&quot;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># 最初の1文字</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;A&#39;
+</pre></div></div>
+</div>
+<p>Python は、文字と文字列を区別しません。文字は長さ 1 の文字列となります。<code class="docutils literal notranslate"><span class="pre">&quot;A&quot;</span></code>も<code class="docutils literal notranslate"><span class="pre">'A'</span></code>もどちらも文字列リテラルです。文字列<code class="docutils literal notranslate"><span class="pre">s</span></code>の長さは、リストと同様に<code class="docutils literal notranslate"><span class="pre">len(s)</span></code>で得られます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;Hello, World&#39;</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>特殊な文字は、エスケープシーケンスで表現できます。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>エスケープシーケンス</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\\</span></code></p></td>
+<td><p>バックスラッシュ</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\'</span></code></p></td>
+<td><p>一重引用符</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\&quot;</span></code></p></td>
+<td><p>二重引用符</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\a</span></code></p></td>
+<td><p>ASCII 端末ベル</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\b</span></code></p></td>
+<td><p>ASCII バックスペース</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\f</span></code></p></td>
+<td><p>ASCII フォームフィード</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\n</span></code></p></td>
+<td><p>ASCII 行送り</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\r</span></code></p></td>
+<td><p>ASCII 復帰</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\t</span></code></p></td>
+<td><p>ASCII 水平タブ</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\v</span></code></p></td>
+<td><p>ASCII 垂直タブ</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\xhh</span></code></p></td>
+<td><p>16進数hhを持つASCII文字</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\Uxxxxxxxx</span></code></p></td>
+<td><p>32ビットのUnicode文字</p></td>
+</tr>
+</tbody>
+</table>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;Hello</span><span class="se">\n</span><span class="s1">World</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>複数行にわたる文字列(テキスト)は、トリプルクオート(<code class="docutils literal notranslate"><span class="pre">'''</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>)で囲むことでも記述できます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">吾輩は猫である</span>
+<span class="s2">名前はまだない</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="文字列と文字リスト">
+<h3><span class="section-number">5.1.2. </span>文字列と文字リスト<a class="headerlink" href="#文字列と文字リスト" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Pythonのデータ構造は、オブジェクト指向プログラミングの設計手法にしたがって、操作がよく共通化されています。例えば、列の特徴があるデータ構造は、全て<code class="docutils literal notranslate"><span class="pre">len()</span></code>で列の長さが取れ、インデックスで<span class="math notranslate nohighlight">\(n\)</span>番目の値が得られるようになっています。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;abc&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;s[0]&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;s[-1]&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;len(a)&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a[0]&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a[-1]&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+</pre></div>
+</div>
+</div>
+<p>文字列と「文字のリスト」の大きな違いは、破壊的な操作、つまり変更できるかどうかにあります。 リストは変更できますが、文字列は変更できません。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">不変性</p>
+<p>値が変更できないこと</p>
+</div>
+<p>もし文字列の並びを変更したいときは、文字列を文字リストに変換して操作することができます。</p>
+<ul class="simple">
+<li><p>文字列から文字リストに変換する: <code class="docutils literal notranslate"><span class="pre">cs</span> <span class="pre">=</span> <span class="pre">list(s)</span></code></p></li>
+<li><p><strong>文字リストを変更する</strong></p></li>
+<li><p>文字リストから文字列に戻す <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">&quot;&quot;.join(cs)</span></code></p></li>
+</ul>
+<div class="admonition tip"><p><strong>例題（文字列のソート）</strong></p>
+<p>入力された文字列をアルファベット順（文字コード順）に並べ変えた文字列にしよう。</p>
+<p>入力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hello</span>
+</pre></div>
+</div>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ehllo</span>
+</pre></div>
+</div>
+</div><p>文字列を文字のリストに変換し、<code class="docutils literal notranslate"><span class="pre">sort()</span></code>でソートします。 ソートしたのち、再度、文字列に変換して戻します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>  <span class="c1"># 文字のリストに変換</span>
+<span class="n">cs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span> <span class="c1"># 文字列に変換</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ehllo
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="文字列操作">
+<h2><span class="section-number">5.2. </span>文字列操作<a class="headerlink" href="#文字列操作" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>文字列は、メソッドを使って文字列操作することができます。 Pythonは、便利なメソッドが揃っているので是非使えるように練習しておきましょう。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>基本操作</strong></p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">len(s)</span></code></p></td>
+<td><p>文字列<code class="docutils literal notranslate"><span class="pre">s</span></code>の文字数</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s[i]</span></code></p></td>
+<td><p>文字列<code class="docutils literal notranslate"><span class="pre">s</span></code>の<code class="docutils literal notranslate"><span class="pre">i</span></code>番目の文字</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s[i:j]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">i</span></code> 番目から <code class="docutils literal notranslate"><span class="pre">j</span></code> 番目までの部分文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s[i:]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">i</span></code> 番目から末尾までの部分文字列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s[i:j]</span></code></p></td>
+<td><p>先頭から<code class="docutils literal notranslate"><span class="pre">j</span></code>番目までの部分文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">s</span></code></p></td>
+<td><p>文字列sにxが含まれるかどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.find(x)</span></code></p></td>
+<td><p>文字列s内の最初のxの位置(ない場合は-1)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.rfind(x)</span></code></p></td>
+<td><p>文字列s内の最後のxの位置(ない場合は-1)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.count(x)</span></code></p></td>
+<td><p>文字列s内のxの出現回数</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>新しい文字列</strong></p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p>空の文字数</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">str(e)</span></code></p></td>
+<td><p>eの文字列表記</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">f&quot;{e}&quot;</span></code></p></td>
+<td><p>書式文字列中に式eを埋め込んだ文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.join(a)</span></code></p></td>
+<td><p>文字列リストaをsで連結した文字列</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>文字列の判定</strong></p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.startswith(x)</span></code></p></td>
+<td><p>文字列sがxで始まるかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.endswith(x)</span></code></p></td>
+<td><p>文字列sがxで終わるかどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.isupper()</span></code></p></td>
+<td><p>文字列sが英大文字かどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.islower()</span></code></p></td>
+<td><p>文字列sが英小文字かどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.isdigit()</span></code></p></td>
+<td><p>文字列sが数字かどうか</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>文字列の変形</strong></p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">+</span> <span class="pre">t</span></code></p></td>
+<td><p>文字列sをtを連結した文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">*</span> <span class="pre">n</span></code></p></td>
+<td><p>文字列sをn回連結した文字列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s[::-1]</span></code></p></td>
+<td><p>文字列sを反転した文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.replace(o,</span> <span class="pre">n)</span></code></p></td>
+<td><p>文字列 s 内の o を n に置き換えた文字列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.upper()</span></code></p></td>
+<td><p>文字列 s を英大文字に変換した文字列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.lower()</span></code></p></td>
+<td><p>文字列 s を英小文字に変換した文字列</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">list(s)</span></code></p></td>
+<td><p>文字列 s の文字リスト</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.split(c)</span></code></p></td>
+<td><p>文字列 s を c で分割した文字列のリスト</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip"><p><strong>例題（文字列操作）</strong></p>
+<p>次の文字列を文字列操作によって求める</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'Hello'</span></code>を全て英大文字に変換する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'Hello'</span></code>の中に含まれる<code class="docutils literal notranslate"><span class="pre">l</span></code>の数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'12'</span></code>, <code class="docutils literal notranslate"><span class="pre">'50'</span></code>, <code class="docutils literal notranslate"><span class="pre">'00'</span></code>を<code class="docutils literal notranslate"><span class="pre">':'</span></code>で連結した文字列</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1,3,4,8</span></code>を数字のリスト(<code class="docutils literal notranslate"><span class="pre">[1,3,4,8]</span></code>)に変換する</p></li>
+</ol>
+</div></div>
+<div class="section" id="見本">
+<h2><span class="section-number">5.3. </span>見本<a class="headerlink" href="#見本" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">(1//2)</span></code> が、正しく <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> にならない理由を考えてみよう</p>
+</div>
+<p>まずは、リストを使わなくても解ける問題ですが、リストの練習を兼ねて解いてみましょう。</p>
+<div class="section" id="平均点">
+<h3><span class="section-number">5.3.1. </span>平均点<a class="headerlink" href="#平均点" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="admonition tip"><p><strong>例題（平均点）</strong></p>
+<p>期末試験は5人受験した。 点数が40点未満の生徒は全員，補習を受け，成績が40点になった。 5人の平均点を求めよ。</p>
+<p>入力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>
+<span class="mi">65</span>
+<span class="mi">100</span>
+<span class="mi">30</span>
+<span class="mi">95</span>
+</pre></div>
+</div>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a">AtCoder (JOI2014 予選)</a></p>
+</div><p><strong>(解法) リストを使う場合</strong></p>
+<ol class="arabic simple">
+<li><p>期末試験を記録する空の得点リスト <code class="docutils literal notranslate"><span class="pre">scores</span></code> を用意する</p></li>
+<li><p>5人分繰り返し、点数を読んで、<code class="docutils literal notranslate"><span class="pre">scores</span></code> に追加する</p></li>
+<li><p>平均点は <code class="docutils literal notranslate"><span class="pre">sum(scores)</span> <span class="pre">//</span> <span class="pre">5</span></code></p></li>
+</ol>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max(a)</span></code></p></td>
+<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の最大値</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min(a)</span></code></p></td>
+<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の最小値</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum(a)</span></code></p></td>
+<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の合計値</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="演習問題">
+<h2><span class="section-number">5.4. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc149/tasks/abc149_a">文字列の連結</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc152/tasks/abc152_b">文字列の比較</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc154/tasks/abc154_b">文字の置き換え</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc115/tasks/abc115_a">クリスマスイブ</a>: if文使わずに書いてみよう</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc139/tasks/abc139_a">天気予報</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc073/tasks/abc073_a">９月９日</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc171/tasks/abc171_a">アルファベット</a>: 英大文字か英小文字の判定</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc131/tasks/abc131_a">セキュリティコード</a>: 入力しやすい</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc160/tasks/abc160_a">Coffee</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc060/tasks/abc060_a">しりとり</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc111/tasks/abc111_a">文字列の置き換え</a>: ちょっと工夫してください</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc145/tasks/abc145_b">エコー</a>: 部分文字列の練習です</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc168/tasks/abc168_b">…</a>: 実用的な文字列処理</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc072/tasks/abc072_b">奇数文字目</a>: スライスでもできます</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc184/tasks/abc184_b">クイズ</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="py07func.html" class="btn btn-neutral float-right" title="6. 関数、再帰関数、そして高階関数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="py04forlist.html" class="btn btn-neutral float-left" title="4. リストと繰り返し" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

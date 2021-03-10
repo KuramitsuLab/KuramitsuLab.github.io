@@ -1,0 +1,1090 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "ds2021_pandas.ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "toc_visible": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3.9.1 64-bit",
+      "metadata": {
+        "interpreter": {
+          "hash": "ac2eaa0ea0ebeafcc7822e65e46aa9d4f966f30b695406963e145ea4a91cd4fc"
+        }
+      }
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "4rIjZuzeLMLC"
+      },
+      "source": [
+        "# 表データを使いこなそう\n",
+        "\n",
+        "今回は、データ分析と言えば、避けては通れないPandas の使い方を学び、\n",
+        "表データの操作を練習します。\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "vy7eolxRLQM1"
+      },
+      "source": [
+        "## Pandas とは\n",
+        "\n",
+        "Pandas とは、表データを扱うPython モジュールで、表計算ソフト (Excel)やリレーショナルデータベースの操作を Python から手軽に行えるようにしてくれます。 \n",
+        "\n",
+        "次のように`pandas`モジュールをインポートして使います。\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "8LBqj9HyLPx2"
+      },
+      "source": [
+        "import pandas as pd"
+      ],
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "source": [
+        "Pandas は、とても高機能です。\n",
+        "\n",
+        "本講義では、Pandas でデータ分析をする必須の機能だけ紹介し、ハンズオン演習で体験します。\n",
+        "\n",
+        "* 暗記するものではありません。\n",
+        "* どういうデータ処理や操作ができるか、覚えましょう。\n",
+        "* 使うときは、Google 等で調べながら使ってください。"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "EN9C9KxLLWd9"
+      },
+      "source": [
+        "### データの用意\n",
+        "\n",
+        "Pandas の使い方に慣れるために、小さな練習用のデータを作成して、\n",
+        "そちらを使って演習していきます。\n",
+        "\n",
+        "Colabのファイル書き込み機能(`%%file`)を使って、\n",
+        "演習用のCSVファイル `arashi.csv`を作ります。\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "iqpdkN5hLVJw",
+        "outputId": "18f61b19-86c7-4996-b3e3-7f44e2b2d301"
+      },
+      "source": [
+        "%%file arashi.csv\n",
+        "名前,出身,生年,身長,血液型\n",
+        "相葉雅紀,千葉,1982,175,AB\n",
+        "松本潤,東京都,1983,172,A\n",
+        "二宮和也,東京都,1983,168,A\n",
+        "大野智,東京都,1980,166,A\n",
+        "櫻井翔,東京都,1983,171,A"
+      ],
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Overwriting arashi.csv\n"
+          ]
+        }
+      ]
+    },
+    {
+      "source": [
+        "あとから表データの結合で用いますので、もうひとつ `junk.csv` も作っておきましょう。"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JKhr9gxRPcdx",
+        "outputId": "1820a0a2-893b-486d-f90b-31932a77c9c3"
+      },
+      "source": [
+        "%%file junk.csv\n",
+        "name,height,weight\n",
+        "大野智,166,52.0\n",
+        "相葉雅紀,176,58.0\n",
+        "二宮和也,168,52.0\n",
+        "松本潤,173,62.0\n",
+        "カビゴン,210,460.0"
+      ],
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Overwriting junk.csv\n"
+          ]
+        }
+      ]
+    },
+    {
+      "source": [
+        "CSV ファイルは、表計算ソフト(Excel)のファイルをデータ処理しやすく、カンマ区切り形式のテキストで出力したものです。\n",
+        "\n",
+        "当然、Excel 等の表計算ソフトで開いてみることができます。\n",
+        "\n",
+        "<div class=\"alert alert-info\">\n",
+        "\n",
+        "Let's try\n",
+        "\n",
+        "ちゃんと`arashi.csv`が作成されているか、`head`コマンドで確認してみよう。\n",
+        "\n",
+        "</div>\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "B3TZckSVMjow"
+      },
+      "source": [
+        "## 基本操作\n",
+        "\n",
+        "Pandas は、表データを効率よく操作できます。\n",
+        "\n",
+        "Pandas 用語では、表データのことをデータフレーム(DataFrame)と呼びますが、本資料では表データと呼びます。\n",
+        "\n",
+        "__用語の説明__\n",
+        "\n",
+        "* カラム: 行方向のデータ\n",
+        "* インデックス: 列方向のデータ\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "mfxdmvgkLuIO"
+      },
+      "source": [
+        "### CSVファイルの読み込み\n",
+        "\n",
+        "Pandas では、`pd.read_csv()`を用いると、CSVファイルから表データを読み込めます。\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 204
+        },
+        "id": "isjUsaRrLFEK",
+        "outputId": "7fe17209-ff96-4192-8d2a-aaf754fd4f21"
+      },
+      "source": [
+        "data = pd.read_csv('arashi.csv')\n",
+        "data.head()  # 最初の5行のみ表示"
+      ],
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身    生年   身長 血液型\n",
+              "0  相葉雅紀   千葉  1982  175  AB\n",
+              "1   松本潤  東京都  1983  172   A\n",
+              "2  二宮和也  東京都  1983  168   A\n",
+              "3   大野智  東京都  1980  166   A\n",
+              "4   櫻井翔  東京都  1983  171   A"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982</td>\n      <td>175</td>\n      <td>AB</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>172</td>\n      <td>A</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>168</td>\n      <td>A</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980</td>\n      <td>166</td>\n      <td>A</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>171</td>\n      <td>A</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "source": [
+        "読み込んで表データは、`data`という名前にしてあります。\n",
+        "表データへの操作は、`data.head()`のようにメソッドで行ます。"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "BCQ3n8IFMvb-"
+      },
+      "source": [
+        "### 属性名からカラム(列)を取り出す\n",
+        "\n",
+        "Pandas では、属性ごとのデータ処理が多くなります。\n",
+        "まず、属性名`'名前'`のデータを取り出してみましょう。\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JyGaiMSMMu5e",
+        "outputId": "3db2de9d-589f-4c63-957a-2c2cf311a944"
+      },
+      "source": [
+        "data['名前']"
+      ],
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0    相葉雅紀\n",
+              "1     松本潤\n",
+              "2    二宮和也\n",
+              "3     大野智\n",
+              "4     櫻井翔\n",
+              "Name: 名前, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 5
+        }
+      ]
+    },
+    {
+      "source": [
+        "取り出した属性データは、Pythonの列(シーケンス）として、`for`文などで処理できます。"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6g8QRS_ULFsh",
+        "outputId": "6e39ae77-113f-4a01-f3dd-531b6bd42232"
+      },
+      "source": [
+        "for name in data['名前']:\n",
+        "  print(name)"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "相葉雅紀\n松本潤\n二宮和也\n大野智\n櫻井翔\n"
+          ]
+        }
+      ]
+    },
+    {
+      "source": [
+        "### 属性(列データ）の追加\n",
+        "\n",
+        "新しい属性、つまり列データを追加してみましょう。\n",
+        "\n",
+        "表データ中には、５人分のデータがあるため、リストとして５人分のデータを代入すると、\n",
+        "新しい属性を追加することができます。\n",
+        "\n",
+        "__例. 性別を追加する__\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 7,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身    生年   身長 血液型  性別\n",
+              "0  相葉雅紀   千葉  1982  175  AB  男性\n",
+              "1   松本潤  東京都  1983  172   A  男性\n",
+              "2  二宮和也  東京都  1983  168   A  男性\n",
+              "3   大野智  東京都  1980  166   A  男性\n",
+              "4   櫻井翔  東京都  1983  171   A  男性"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982</td>\n      <td>175</td>\n      <td>AB</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>172</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>168</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980</td>\n      <td>166</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>171</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 7
+        }
+      ],
+      "source": [
+        "data['性別'] = ['男性', '男性', '男性', '男性', '男性']  # ['男性'] * 5 \n",
+        "\n",
+        "data #表示"
+      ]
+    },
+    {
+      "source": [
+        "\n",
+        "<div class=\"alert alert-info\">\n",
+        "\n",
+        "上級者向け: 列に数式を適用する\n",
+        "\n",
+        "`apply`を使えば、各列データに関数やラムダ式を適用した列がえられます。\n",
+        "\n",
+        "```\n",
+        "data['年齢'] = data['生年'].apply(lambda x: 2021 - x)\n",
+        "```\n",
+        "\n",
+        "\n",
+        "\n",
+        "</div>\n",
+        "\n",
+        "\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "LURXrrOTUdcj"
+      },
+      "source": [
+        "### n行目のデータを取り出す\n",
+        "\n",
+        "表データの列ごとへのアクセスは、`.iloc`プロパティを通して行ます。"
+      ]
+    },
+    {
+      "source": [
+        "data.iloc[0]"
+      ],
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "H7Rt5c6wNlSe",
+        "outputId": "e7f2d733-001e-4cb4-8b4f-7b3bb0669361"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "名前     相葉雅紀\n",
+              "出身       千葉\n",
+              "生年     1982\n",
+              "身長      175\n",
+              "血液型      AB\n",
+              "性別       男性\n",
+              "Name: 0, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nMeywOerN19Q",
+        "outputId": "d971dcfa-83ea-487f-f134-979760d9b074"
+      },
+      "source": [
+        "for values in data.iloc[0]:\n",
+        "  print(values)"
+      ],
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "相葉雅紀\n千葉\n1982\n175\nAB\n男性\n"
+          ]
+        }
+      ]
+    },
+    {
+      "source": [
+        "### セルの値\n",
+        "インデックスと属性の組み合わせで、表データをセルの値を指定して取り出すことができます。\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "id": "b5Ks0MEbNuzF",
+        "outputId": "e813220b-a544-456b-ec34-b1fa3c6846d6"
+      },
+      "source": [
+        "data.iloc[0]['出身']"
+      ],
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "'千葉'"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 10
+        }
+      ]
+    },
+    {
+      "source": [
+        "### 表データの出力\n",
+        "\n",
+        "Pandas で操作した表データは、`.to_csv()`でCSVファイルに保存できます。\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 12,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "data.to_csv('arashi2.csv', index=False)  #インデックスなしで出力"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 13,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "名前,出身,生年,身長,血液型,性別\n相葉雅紀,千葉,1982,175,AB,男性\n松本潤,東京都,1983,172,A,男性\n二宮和也,東京都,1983,168,A,男性\n大野智,東京都,1980,166,A,男性\n櫻井翔,東京都,1983,171,A,男性\n"
+          ]
+        }
+      ],
+      "source": [
+        "!cat data.csv"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "KlC6n0mAOONm"
+      },
+      "source": [
+        "## Pandas とリレーショナル代数\n",
+        "\n",
+        "Pandas のリレーショナル代数の操作をみていきましょう。\n",
+        "\n",
+        "データベース実習を履修している人は、SQLを思い出しながら試していきましょう。"
+      ]
+    },
+    {
+      "source": [
+        "### 選択(selection)\n",
+        "\n",
+        "選択は、指定した条件に合う行を取り出します。データを抽出するフィルターの役割になります。\n",
+        "\n",
+        "__例__\n",
+        "```sql\n",
+        "SELECT * FROM data WHERE '身長 >= 170'\n",
+        "```\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 142
+        },
+        "id": "yleiqcGHPI85",
+        "outputId": "445fab1f-5444-4957-ed87-3993ee57ce62"
+      },
+      "source": [
+        "data[data['身長'] >= 170]"
+      ],
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身    生年   身長 血液型  性別\n",
+              "0  相葉雅紀   千葉  1982  175  AB  男性\n",
+              "1   松本潤  東京都  1983  172   A  男性\n",
+              "4   櫻井翔  東京都  1983  171   A  男性"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982</td>\n      <td>175</td>\n      <td>AB</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>172</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>171</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 14
+        }
+      ]
+    },
+    {
+      "source": [
+        "複雑な条件は、`.query()`メソッドを用いて与えることもできます。"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 16,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "    名前   出身    生年   身長 血液型  性別\n",
+              "1  松本潤  東京都  1983  172   A  男性\n",
+              "4  櫻井翔  東京都  1983  171   A  男性"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>172</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>171</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 16
+        }
+      ],
+      "source": [
+        "data.query('身長 >= 170 and 血液型 == \"A\"')"
+      ]
+    },
+    {
+      "source": [
+        "### 射影(projection)\n",
+        "\n",
+        "射影（projection）は、表データから属性を限定した表データを返します。\n",
+        "Pandasでは、抽出したい属性名をリストにして渡します。\n",
+        "\n",
+        "__SQL例__\n",
+        "\n",
+        "```sql\n",
+        "SELECT 名前,生年,血液型 FROM data\n",
+        "```\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 17,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前    生年 血液型\n",
+              "0  相葉雅紀  1982  AB\n",
+              "1   松本潤  1983   A\n",
+              "2  二宮和也  1983   A\n",
+              "3   大野智  1980   A\n",
+              "4   櫻井翔  1983   A"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>生年</th>\n      <th>血液型</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>1982</td>\n      <td>AB</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>1983</td>\n      <td>A</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>1983</td>\n      <td>A</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>1980</td>\n      <td>A</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>1983</td>\n      <td>A</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 17
+        }
+      ],
+      "source": [
+        "data[['名前', '生年', '血液型']]"
+      ]
+    },
+    {
+      "source": [
+        "### 表の連結\n",
+        "\n",
+        "複数のファイルに入っている表データをまとめてひとつにしたいことがあります。\n",
+        "\n",
+        "単純に縦方向に連結したいときは、`pd.concat()`を使って連結します。\n",
+        "\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 20,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身    生年   身長 血液型   性別\n",
+              "0  相葉雅紀   千葉  1982  175  AB   男性\n",
+              "1   松本潤  東京都  1983  172   A   男性\n",
+              "2  二宮和也  東京都  1983  168   A   男性\n",
+              "3   大野智  東京都  1980  166   A   男性\n",
+              "4   櫻井翔  東京都  1983  171   A   男性\n",
+              "0  相葉雅紀   千葉  1982  175  AB  NaN\n",
+              "1   松本潤  東京都  1983  172   A  NaN\n",
+              "2  二宮和也  東京都  1983  168   A  NaN\n",
+              "3   大野智  東京都  1980  166   A  NaN\n",
+              "4   櫻井翔  東京都  1983  171   A  NaN"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982</td>\n      <td>175</td>\n      <td>AB</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>172</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>168</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980</td>\n      <td>166</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>171</td>\n      <td>A</td>\n      <td>男性</td>\n    </tr>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982</td>\n      <td>175</td>\n      <td>AB</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>172</td>\n      <td>A</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>168</td>\n      <td>A</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980</td>\n      <td>166</td>\n      <td>A</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>171</td>\n      <td>A</td>\n      <td>NaN</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 20
+        }
+      ],
+      "source": [
+        "data2 = pd.read_csv('arashi.csv') #もう一度読む\n",
+        "pd.concat([data, data2])"
+      ]
+    },
+    {
+      "source": [
+        "今度は、最初に作ったもう一つのCSVファイル junk.csvを読み込んで、連結してみます。"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 25,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   name  height  weight\n",
+              "0   大野智     166    52.0\n",
+              "1  相葉雅紀     176    58.0\n",
+              "2  二宮和也     168    52.0\n",
+              "3   松本潤     173    62.0\n",
+              "4  カビゴン     210   460.0"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>name</th>\n      <th>height</th>\n      <th>weight</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>大野智</td>\n      <td>166</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>相葉雅紀</td>\n      <td>176</td>\n      <td>58.0</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>168</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>松本潤</td>\n      <td>173</td>\n      <td>62.0</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>カビゴン</td>\n      <td>210</td>\n      <td>460.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 25
+        }
+      ],
+      "source": [
+        "data2 = pd.read_csv('junk.csv')\n",
+        "data2"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 26,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身      生年     身長  血液型   性別  name  height  weight\n",
+              "0  相葉雅紀   千葉  1982.0  175.0   AB   男性   NaN     NaN     NaN\n",
+              "1   松本潤  東京都  1983.0  172.0    A   男性   NaN     NaN     NaN\n",
+              "2  二宮和也  東京都  1983.0  168.0    A   男性   NaN     NaN     NaN\n",
+              "3   大野智  東京都  1980.0  166.0    A   男性   NaN     NaN     NaN\n",
+              "4   櫻井翔  東京都  1983.0  171.0    A   男性   NaN     NaN     NaN\n",
+              "0   NaN  NaN     NaN    NaN  NaN  NaN   大野智   166.0    52.0\n",
+              "1   NaN  NaN     NaN    NaN  NaN  NaN  相葉雅紀   176.0    58.0\n",
+              "2   NaN  NaN     NaN    NaN  NaN  NaN  二宮和也   168.0    52.0\n",
+              "3   NaN  NaN     NaN    NaN  NaN  NaN   松本潤   173.0    62.0\n",
+              "4   NaN  NaN     NaN    NaN  NaN  NaN  カビゴン   210.0   460.0"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n      <th>name</th>\n      <th>height</th>\n      <th>weight</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982.0</td>\n      <td>175.0</td>\n      <td>AB</td>\n      <td>男性</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>172.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>168.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980.0</td>\n      <td>166.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>171.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>0</th>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>大野智</td>\n      <td>166.0</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>相葉雅紀</td>\n      <td>176.0</td>\n      <td>58.0</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>二宮和也</td>\n      <td>168.0</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>松本潤</td>\n      <td>173.0</td>\n      <td>62.0</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>カビゴン</td>\n      <td>210.0</td>\n      <td>460.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 26
+        }
+      ],
+      "source": [
+        "pd.concat([data, data2])  #縦方向に連結"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 27,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身    生年   身長 血液型  性別  name  height  weight\n",
+              "0  相葉雅紀   千葉  1982  175  AB  男性   大野智     166    52.0\n",
+              "1   松本潤  東京都  1983  172   A  男性  相葉雅紀     176    58.0\n",
+              "2  二宮和也  東京都  1983  168   A  男性  二宮和也     168    52.0\n",
+              "3   大野智  東京都  1980  166   A  男性   松本潤     173    62.0\n",
+              "4   櫻井翔  東京都  1983  171   A  男性  カビゴン     210   460.0"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n      <th>name</th>\n      <th>height</th>\n      <th>weight</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982</td>\n      <td>175</td>\n      <td>AB</td>\n      <td>男性</td>\n      <td>大野智</td>\n      <td>166</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>172</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>相葉雅紀</td>\n      <td>176</td>\n      <td>58.0</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>168</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>二宮和也</td>\n      <td>168</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980</td>\n      <td>166</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>松本潤</td>\n      <td>173</td>\n      <td>62.0</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>171</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>カビゴン</td>\n      <td>210</td>\n      <td>460.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 27
+        }
+      ],
+      "source": [
+        "pd.concat([data, data2], axis=1)  #横方向に連結"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "3w_5UlFvPZcl"
+      },
+      "source": [
+        "### 表データの結合(join)\n",
+        "\n",
+        "表データの結合は、ふたつの表データのある属性をキーにして、キーが同じ値であれば一つの行にまとめる操作です。\n",
+        "\n",
+        "`pd.merge()`で次のように結合します。\n",
+        "\n",
+        "__`名前`と`name`をキーにする__\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 204
+        },
+        "id": "G-2diGRLQ2VR",
+        "outputId": "6db468da-751e-4ae0-fa4c-39adfe59e71f"
+      },
+      "source": [
+        "pd.merge(data, data2, left_on='名前', right_on='name')\n"
+      ],
+      "execution_count": 28,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身    生年   身長 血液型  性別  name  height  weight\n",
+              "0  相葉雅紀   千葉  1982  175  AB  男性  相葉雅紀     176    58.0\n",
+              "1   松本潤  東京都  1983  172   A  男性   松本潤     173    62.0\n",
+              "2  二宮和也  東京都  1983  168   A  男性  二宮和也     168    52.0\n",
+              "3   大野智  東京都  1980  166   A  男性   大野智     166    52.0"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n      <th>name</th>\n      <th>height</th>\n      <th>weight</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982</td>\n      <td>175</td>\n      <td>AB</td>\n      <td>男性</td>\n      <td>相葉雅紀</td>\n      <td>176</td>\n      <td>58.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>172</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>松本潤</td>\n      <td>173</td>\n      <td>62.0</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983</td>\n      <td>168</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>二宮和也</td>\n      <td>168</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980</td>\n      <td>166</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>大野智</td>\n      <td>166</td>\n      <td>52.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 28
+        }
+      ]
+    },
+    {
+      "source": [
+        "ふたつの表データは結合されましたが、データが一部消えてしまいました。\n",
+        "これは、Pandas では何も指定しなければ、一番条件の厳しい内部結合が用いられるためです。\n",
+        "\n",
+        "__結合の方法__\n",
+        "* 内部結合 `inner`: 両方にキーが存在するとき結合\n",
+        "* 外部結合 `outer`: どちらか一方にキーが存在するとき結合\n",
+        "* 左外部結合 `left`: 左側にキーが存在するとき \n",
+        "* 右外部結合 `right`: 右側にキーが存在するとき\n",
+        "\n",
+        "`left`が良さそうですが、`outer`で結合してみます。"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 35,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身      生年     身長  血液型   性別  name  height  weight\n",
+              "0  相葉雅紀   千葉  1982.0  175.0   AB   男性  相葉雅紀   176.0    58.0\n",
+              "1   松本潤  東京都  1983.0  172.0    A   男性   松本潤   173.0    62.0\n",
+              "2  二宮和也  東京都  1983.0  168.0    A   男性  二宮和也   168.0    52.0\n",
+              "3   大野智  東京都  1980.0  166.0    A   男性   大野智   166.0    52.0\n",
+              "4   櫻井翔  東京都  1983.0  171.0    A   男性   NaN     NaN     NaN\n",
+              "5   NaN  NaN     NaN    NaN  NaN  NaN  カビゴン   210.0   460.0"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n      <th>name</th>\n      <th>height</th>\n      <th>weight</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982.0</td>\n      <td>175.0</td>\n      <td>AB</td>\n      <td>男性</td>\n      <td>相葉雅紀</td>\n      <td>176.0</td>\n      <td>58.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>172.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>松本潤</td>\n      <td>173.0</td>\n      <td>62.0</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>168.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>二宮和也</td>\n      <td>168.0</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980.0</td>\n      <td>166.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>大野智</td>\n      <td>166.0</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>171.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>5</th>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>カビゴン</td>\n      <td>210.0</td>\n      <td>460.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 35
+        }
+      ],
+      "source": [
+        "pd.merge(data, data2, left_on='名前', right_on='name', how='outer')"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "M9kdCA0_RaqR"
+      },
+      "source": [
+        "また、属性名が英語だったり、日本だったり不統一です。\n",
+        "少し整頓しておきましょう。\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 204
+        },
+        "id": "kTLubWA-WEqd",
+        "outputId": "72fd9e75-ece5-484f-88ed-af4a73bb8e49"
+      },
+      "source": [
+        "# data, data2を外部結合した表データを新しく ARASHI とする\n",
+        "ARASHI = pd.merge(data, data2, left_on='名前', right_on='name', how='outer')\n",
+        "ARASHI.drop('name', axis=1, inplace=True)\n",
+        "ARASHI.drop('height', axis=1, inplace=True)\n",
+        "ARASHI.drop(5, axis=0, inplace=True)  #index=5を消す\n",
+        "ARASHI.rename(columns={'weight': '体重'}, inplace=True)\n",
+        "ARASHI"
+      ],
+      "execution_count": 31,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身      生年     身長 血液型  性別    体重\n",
+              "0  相葉雅紀   千葉  1982.0  175.0  AB  男性  58.0\n",
+              "1   松本潤  東京都  1983.0  172.0   A  男性  62.0\n",
+              "2  二宮和也  東京都  1983.0  168.0   A  男性  52.0\n",
+              "3   大野智  東京都  1980.0  166.0   A  男性  52.0\n",
+              "4   櫻井翔  東京都  1983.0  171.0   A  男性   NaN"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n      <th>体重</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982.0</td>\n      <td>175.0</td>\n      <td>AB</td>\n      <td>男性</td>\n      <td>58.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>172.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>62.0</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>168.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980.0</td>\n      <td>166.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>171.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>NaN</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 31
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "PLIELsPbVD39"
+      },
+      "source": [
+        "## データ分析の準備\n",
+        "\n",
+        "次回からPandas を用いて、より本格的なデータ分析を始めます。\n",
+        "\n",
+        "### 欠損値のチェック\n",
+        "\n",
+        "世の中のデータは、データ値が欠けていることがあります。\n",
+        "今回の練習データでは、`NaN`と表示されている値が、欠損値になります。\n",
+        "データ件数が少ない場合は、目視でみつかる場合がありますが、\n",
+        "データ件数が多くなると、手作業で探すのは無理です。\n",
+        "\n",
+        "欠損値をチェックすることが必要になります。\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 32,
+      "metadata": {},
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "名前     0\n",
+              "出身     0\n",
+              "生年     0\n",
+              "身長     0\n",
+              "血液型    0\n",
+              "性別     0\n",
+              "体重     1\n",
+              "dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 32
+        }
+      ],
+      "source": [
+        "ARASHI.isnull().sum()"
+      ]
+    },
+    {
+      "source": [
+        "\n",
+        "欠損値が見つかったときは、\n",
+        "欠損値を処理するアプローチとしては：\n",
+        "\n",
+        "* `dropna()`：データが欠損している行や列を削除する\n",
+        "* `fillna()`：データが欠損している要素を別の値で穴埋めする\n",
+        "\n",
+        "どのように処理するかは、データ分析の目的によって異なります。\n",
+        "今回は、メンバーを消してしまったら、大変なことになりますので、\n",
+        "__欠損値の値を平均値で補完する__ことで対応してみます。\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 204
+        },
+        "id": "t3JTNJzDU_z4",
+        "outputId": "afaa2623-ea55-47fe-a4b4-fb155f0c73a9"
+      },
+      "source": [
+        "ARASHI.fillna(ARASHI.mean(), inplace=True)\n",
+        "ARASHI"
+      ],
+      "execution_count": 33,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     名前   出身      生年     身長 血液型  性別    体重\n",
+              "0  相葉雅紀   千葉  1982.0  175.0  AB  男性  58.0\n",
+              "1   松本潤  東京都  1983.0  172.0   A  男性  62.0\n",
+              "2  二宮和也  東京都  1983.0  168.0   A  男性  52.0\n",
+              "3   大野智  東京都  1980.0  166.0   A  男性  52.0\n",
+              "4   櫻井翔  東京都  1983.0  171.0   A  男性  56.0"
+            ],
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>名前</th>\n      <th>出身</th>\n      <th>生年</th>\n      <th>身長</th>\n      <th>血液型</th>\n      <th>性別</th>\n      <th>体重</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>相葉雅紀</td>\n      <td>千葉</td>\n      <td>1982.0</td>\n      <td>175.0</td>\n      <td>AB</td>\n      <td>男性</td>\n      <td>58.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>松本潤</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>172.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>62.0</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>二宮和也</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>168.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>大野智</td>\n      <td>東京都</td>\n      <td>1980.0</td>\n      <td>166.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>52.0</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>櫻井翔</td>\n      <td>東京都</td>\n      <td>1983.0</td>\n      <td>171.0</td>\n      <td>A</td>\n      <td>男性</td>\n      <td>56.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+          },
+          "metadata": {},
+          "execution_count": 33
+        }
+      ]
+    },
+    {
+      "source": [
+        "メモ\n",
+        "```\n",
+        "data['Age'].fillna(20)                   # 列Ageの欠損値を20で穴埋め\n",
+        "data['Age'].fillna(data['Age'].mean())   # 列Ageの欠損値をAgeの平均値で穴埋め\n",
+        "data['Age'].fillna(data['Age'].median()) # 列Ageの欠損値をAgeの中央値で穴埋め\n",
+        "data['Age'].fillna(data['Age'].mode())   # 列Ageの欠損値をAgeの最頻値で穴埋め\n",
+        "```"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": []
+    },
+    {
+      "source": [
+        "### グループごとの集計\n",
+        "\n",
+        "groupby は、同じ値を持つデータをまとめて、それぞれの塊に対して共通の操作を行いたい時に使う。例えば一番簡単な使い方として、city ごとの price の平均を求めるには次のようにする。groupby で出来た GroupBy オブジェクトに対して、平均をとる mean メソッドを呼ぶと良い。\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "ARASHI.groupby('血液型')"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": []
+    },
+    {
+      "source": [
+        "## コースワーク\n",
+        "\n",
+        "コースワークは、次回までの演習課題です。\n",
+        "次回の授業でたぶん解説をします。\n",
+        "\n",
+        "<div class=\"admonition tip\">\n",
+        "\n",
+        "**演習（BMI.CSV）**\n",
+        "\n",
+        "指定された３つのCSVファイルをまとめてひとつのCSVファイルする。\n",
+        "\n",
+        "1. 完成したファイルは `bmi.csv` として保存する\n",
+        "2. 体重を横軸にして、ヒストグラムを書いてみる\n",
+        "3. 身長と体重の分布図を描画する\n",
+        "\n",
+        "</div>\n",
+        "\n",
+        "__課題の進め方__\n",
+        "\n",
+        "[ワークシート](https://colab.research.google.com/github/kkuramitsu/class2021/blob/master/notebooks/course04-pandas.ipynb)をColab上で開いて、自分のDriveにコピーする\n",
+        "\n"
+      ],
+      "cell_type": "markdown",
+      "metadata": {}
+    }
+  ]
+}

@@ -1,0 +1,1041 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.2-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python3",
+   "display_name": "Python 3.9.2 64-bit",
+   "metadata": {
+    "interpreter": {
+     "hash": "ac2eaa0ea0ebeafcc7822e65e46aa9d4f966f30b695406963e145ea4a91cd4fc"
+    }
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "source": [
+    "# 関数、再帰関数、そして高階関数\n",
+    "\n",
+    "より抽象度の高いプログラミングを目指して、関数、ラムダ式、高階関数の考え方を習得します。\n",
+    "\n",
+    "<img src=\"http://s3.amazonaws.com/lyah/fx.png\"/>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 関数を定義する\n",
+    "\n",
+    "今まで、`print(x)`関数や`max(x,y)`を使ってプログラミングをしてきました。\n",
+    "今回は、まず関数を定義する方法を覚えましょう。\n",
+    "\n",
+    "### 関数定義\n",
+    "\n",
+    "関数定義は、`def`文を用いて行います。\n",
+    "\n",
+    "__関数定義の構文__\n",
+    "```python\n",
+    "def 関数名(パラメータ):\n",
+    "  関数本体のコード(値を計算する)\n",
+    "  return 値\n",
+    "```\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（関数定義）**\n",
+    "\n",
+    "次の関数を定義してみよう。\n",
+    "\n",
+    "1. $f(x) = x + 1$\n",
+    "2. $f(x) = x + a$\n",
+    "3. $f(a, b) = \\begin{cases}\n",
+    "    a & (a>b) \\\\\n",
+    "    b & (otherwise)\n",
+    "  \\end{cases}$\n",
+    "4. $f(x) = \\begin{cases}\n",
+    "    1 & (n=0) \\\\\n",
+    "    x \\cdot x^{n-1} & (otherwise)\n",
+    "  \\end{cases}$\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "\n",
+    "__1.__: $f(x) = x + 1$\n",
+    "\n",
+    "パラメータは`x`, 関数の結果は`x+1`になります。\n",
+    "関数の結果は、`return`文を用いて返すようにします。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def f(x):\n",
+    "    return x + 1"
+   ]
+  },
+  {
+   "source": [
+    "一旦、関数を定義してしまうと、あとは、`f(0)`, `f(1)`のように用いることができます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "f(0) = 1\nf(1) = 2\nf(2) = 3\nf(3) = 4\nf(4) = 5\nf(5) = 6\nf(6) = 7\nf(7) = 8\nf(8) = 9\nf(9) = 10\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(10):\n",
+    "    print(f'f({i}) =', f(i))\n"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "関数本体に書けること\n",
+    "\n",
+    "Python の関数は、パラメータを受け取り、計算して結果を返すプログラムです。\n",
+    "途中で、任意のPython コードを用いて計算することができます。\n",
+    "\n",
+    "```python\n",
+    "def f(x):\n",
+    "    print('引数': x)\n",
+    "    a = x + 1\n",
+    "    return a\n",
+    "```\n",
+    "`return`が最終的な関数の評価結果になります。\n",
+    "`return`以降のコードは（もし書いてあったとしても）無視されます。\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "__2__: $f(x) = x + a$\n",
+    "\n",
+    "ちょっと数学にありがちな「その$a$はどこから出てきたのかな？」と思ってしまう関数定義です。\n",
+    "次の２通りの実装方法があります。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "## xもaもパラメータ化する\n",
+    "def f(x, a):\n",
+    "    return x + a"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "## a をグローバル変数にする\n",
+    "a = 1\n",
+    "def f(x):\n",
+    "    return x + a"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "グローバル変数とローカル変数\n",
+    "\n",
+    "グローバル変数は、トップレベルで定義された変数で全ての関数から参照することができる。\n",
+    "一方、ローカル変数は関数内で定義された変数で関数内でのみ参照することができる。\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "__3.__ $f(a, b) = \\begin{cases}\n",
+    "    a & (a>b) \\\\\n",
+    "    b & (otherwise)\n",
+    "  \\end{cases}$\n",
+    "\n",
+    "  いわゆる`max(a,b)`を定義します。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def f(a, b):\n",
+    "    if a > b:\n",
+    "        return a\n",
+    "    else:\n",
+    "        return b"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def f(a, b):\n",
+    "    if a > b:\n",
+    "        return a  # 一度、return したら、それ以降は無視される\n",
+    "    return b"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def f(a, b):\n",
+    "    return a if a > b else b  # 条件式"
+   ]
+  },
+  {
+   "source": [
+    "__4.__ $f(x) = \\begin{cases}\n",
+    "    1 & (n=0) \\\\\n",
+    "    x \\cdot x^{n-1} & (otherwise)\n",
+    "  \\end{cases}$\n",
+    "\n",
+    "n乗を計算しています。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "ここで、$f(x) = x^{n}$ということに注意すれば、$f(x) = \\begin{cases}\n",
+    "    1 & (n=0) \\\\\n",
+    "    x \\cdot f(x-1) & (otherwise)\n",
+    "  \\end{cases}$\n",
+    "\n",
+    "これを素直に直すと："
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def f(x):\n",
+    "    if x == 0:\n",
+    "        return 1\n",
+    "    return x * f(x-1)"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "再帰関数(recursive function)\n",
+    "\n",
+    "自分自身を再度呼び出す関数のこと\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 値を返さない関数\n",
+    "\n",
+    "Python の関数は、値を返す必要はありません。\n",
+    "プログラムの機能単位にまとめて、関数を定義することができます。\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（長方形の描画）**\n",
+    "\n",
+    "次の関数を定義してみよう。\n",
+    "\n",
+    "1. `rect(w, h)`: 縦`h`横`w`の長方形を`#`で表示する\n",
+    "2. `square(w)`: 縦`h`横`h`の正方形を`#`表示する\n",
+    "\n",
+    "__出力__: `rect(4, 3)`\n",
+    "```\n",
+    "####\n",
+    "####\n",
+    "####\n",
+    "```\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "素直に、二重ループを用いて長方形を書いてみます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "####\n####\n####\n"
+     ]
+    }
+   ],
+   "source": [
+    "def rect(w, h):\n",
+    "    for y in range(h):\n",
+    "        for x in range(w):\n",
+    "            print('#', end='') #改行なしで #を出力\n",
+    "        print() # 改行\n",
+    "\n",
+    "rect(4, 3)"
+   ]
+  },
+  {
+   "source": [
+    "正方形は、長方形の縦横の長さが等しい場合なので.. "
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "#####\n#####\n#####\n#####\n#####\n"
+     ]
+    }
+   ],
+   "source": [
+    "def square(w):\n",
+    "    rect(w, w)\n",
+    "square(5)"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "関数を作る\n",
+    "\n",
+    "プログラミングで難しいのは、関数を作る判断です。\n",
+    "</div>"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 再帰とは\n",
+    "\n",
+    "**再帰 (recursion)** とは、あるものについて記述するときに、それ自身への参照が含まれる形式の記述のことです。\n",
+    "\n",
+    "__例__ アメリカ合衆国憲法の条文(抜粋) によるアメリカ市民とは、\n",
+    "\n",
+    "* アメリカ合衆国内で生まれた子供 \n",
+    "* もしくは、アメリカ市民の子供\n",
+    "\n",
+    "数学では、漸化式の形式でよくあらわれます。\n",
+    "\n",
+    "__例__: 階乗 $a_n = n!$\n",
+    "\n",
+    "$a_n = \\begin{cases}\n",
+    "    1 & (n=1) \\\\\n",
+    "    n \\cdot a_{n-1} & (n>1)\n",
+    "  \\end{cases}$\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 繰り返しと再帰関数\n",
+    "\n",
+    "繰り返しは、「再帰関数で書き直せますよ」という話を例題で示します。\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（階乗）**\n",
+    "\n",
+    "$n!$を求める関数`factorial(n)`を定義してみよう。\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "まず、繰り返しで解いてみます。\n",
+    "\n",
+    "$$n! = n \\times n-1 \\times ... \\times 2 \\times 1$$\n",
+    "\n",
+    "なので、$\\times$の数に注目すると、$n-1$回、掛け算することになります。\n",
+    "繰り返す回数がわかれば、あとは$N$回繰り返す構文を用いて計算します。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "120\n"
+     ]
+    }
+   ],
+   "source": [
+    "def factorial(n):\n",
+    "    result = 1\n",
+    "    for i in range(2, n+1):\n",
+    "        result = i * result\n",
+    "    return result\n",
+    "print(factorial(5))\n"
+   ]
+  },
+  {
+   "source": [
+    "再帰関数による解法\n",
+    "\n",
+    "\n",
+    "$factorinal(n)=n!$なので、\n",
+    "\n",
+    "$factorial(n) = \\begin{cases}\n",
+    "    1 & (n=1) \\\\\n",
+    "    n \\cdot factorial(n-1) & (n>1)\n",
+    "  \\end{cases}$\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "120\n"
+     ]
+    }
+   ],
+   "source": [
+    "def factorial(n):\n",
+    "    if n == 1:\n",
+    "        return 1\n",
+    "    else:\n",
+    "        return n * factorial(n-1)\n",
+    "\n",
+    "print(factorial(5))"
+   ]
+  },
+  {
+   "source": [
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "再帰構造とループ\n",
+    "\n",
+    "再帰構造はループ (while 文, for 文) とプログラム意味論的には等価です。\n",
+    "\n",
+    "* ループは再帰で書き直すことができる. \n",
+    "* 再帰はループで書き直すことができる.\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "どちらが良いか? \n",
+    "\n",
+    "プログラマは、次のように派閥がわかれています。\n",
+    "\n",
+    "* **ループ派:** まずはループで書く\n",
+    "* **再帰派:** とにかく何でも再帰で書く\n",
+    "\n",
+    "__ループの利点__\n",
+    "\n",
+    "* 性能がよい\n",
+    "* **スタックオーバーフロー (stack overflow)** を心配しなくてよい.\n",
+    "\n",
+    "__再帰の利点__\n",
+    "\n",
+    "* コードから、数学的な意味が把握しやすい\n",
+    "* 末尾再帰の最適化がない言語は使わなければよい（意味不明）\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "注意\n",
+    "\n",
+    "倉光は再帰派（少数）なので、再帰に対し好意的です。\n",
+    "</div>\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### スタックオーバーフローとは何か？\n",
+    "\n",
+    "再帰関数を書くときは、スタックオーバーフローに注意しましょう。\n",
+    "\n",
+    "スタック・オーバーフロー (stack overflow) は、再帰関数に限らずに関数のコールスタックを使い切ったときに発生します。プログラミングでは、わりとよく発生するバグです。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "コールスタック\n",
+    "\n",
+    "プログラミング言語は、関数の引数やローカル変数はスタックデータ構造に保存しています。\n",
+    "\n",
+    "* 関数を適用(コールする)と、引数とローカル変数は push される \n",
+    "* 関数をリターンすると、pop される\n",
+    "\n",
+    "コールスタックは有限なのでスタック・オーバーフローが発生します。\n",
+    "</div>\n",
+    "\n",
+    "コールスタックと再帰関数の関係は、最初の `factorial(n)`に`print()`を入れて、確認しておきましょう。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "120\n"
+     ]
+    }
+   ],
+   "source": [
+    "def factorial(n):\n",
+    "    #print(f'引数{n}でコール')\n",
+    "    if n == 1:\n",
+    "        res = 1\n",
+    "    else:\n",
+    "        res = n * factorial(n-1)\n",
+    "    #print(f'n={n}の結果として{res}を返す')\n",
+    "    return res    \n",
+    "\n",
+    "print(factorial(5))"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Let's Try\n",
+    "\n",
+    "スタックオーバーフローを発生させてみましょう\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "再帰関数では簡単に発生します。例えば、`factorial(-1)`などを呼んでみると、いつまでも再帰呼び出しを続けて、コールスタックを使い切ります。\n",
+    "\n",
+    "実行するときは、`print()`はコメントアウトしておいた方がよいかも。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "error",
+     "ename": "RecursionError",
+     "evalue": "maximum recursion depth exceeded in comparison",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mRecursionError\u001b[0m                            Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-17-2a6fc6f38288>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      8\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mres\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      9\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 10\u001b[0;31m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfactorial\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m<ipython-input-17-2a6fc6f38288>\u001b[0m in \u001b[0;36mfactorial\u001b[0;34m(n)\u001b[0m\n\u001b[1;32m      4\u001b[0m         \u001b[0mres\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m1\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m     \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 6\u001b[0;31m         \u001b[0mres\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mn\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0mfactorial\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mn\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      7\u001b[0m     \u001b[0;31m#print(f'n={n}の結果として{res}を返す')\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      8\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mres\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "... last 1 frames repeated, from the frame below ...\n",
+      "\u001b[0;32m<ipython-input-17-2a6fc6f38288>\u001b[0m in \u001b[0;36mfactorial\u001b[0;34m(n)\u001b[0m\n\u001b[1;32m      4\u001b[0m         \u001b[0mres\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m1\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m     \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 6\u001b[0;31m         \u001b[0mres\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mn\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0mfactorial\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mn\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      7\u001b[0m     \u001b[0;31m#print(f'n={n}の結果として{res}を返す')\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      8\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mres\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mRecursionError\u001b[0m: maximum recursion depth exceeded in comparison"
+     ]
+    }
+   ],
+   "source": [
+    "def factorial(n):\n",
+    "    #print(f'引数{n}でコール')\n",
+    "    if n == 1:\n",
+    "        res = 1\n",
+    "    else:\n",
+    "        res = n * factorial(n-1)\n",
+    "    #print(f'n={n}の結果として{res}を返す')\n",
+    "    return res    \n",
+    "\n",
+    "print(factorial(-1))"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-warning\">\n",
+    "\n",
+    "RecursionError: スタックオーバーフローのこと\n",
+    "\n",
+    "```\n",
+    "RecursionError: maximum recursion depth exceeded in comparison\n",
+    "```\n",
+    "</div>\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 閑話休題：入社面談より\n",
+    "\n",
+    "google関数は、研究室の学生が過去 G 社の入社面談を受けたとき、ホワイトボードの前で「ちょっと書いてみて」と聞かれた設問です。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "ホワイトボード・コーディング\n",
+    "\n",
+    "面接でプログラミング力を試させること。\n",
+    "      ただ、書くだけでなく、エレガントなコーディングやセンスも問われる。\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**課題（入社面談より）**\n",
+    "\n",
+    "整数 x を反転させる関数 g(x) を定義してみてください。 \n",
+    "\n",
+    "__g(x) の例__\n",
+    "```\n",
+    "print(g(12))   # => 21\n",
+    "print(g(1234)) # => 4321\n",
+    "print(g(90))   # => 9\n",
+    "```\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "次回、回答例を示しますので、腕試しで `g(x)` を定義してみよう。\n",
+    "もちろん、エレガントかどうかは置いておいて、コーディングセンスも問われます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## ラムダ式と高階関数\n",
+    "\n",
+    "ラムダ式や高階関数は、もともと関数型プログラミング言語に由来し、Python では上級？技法（少なくとも初心者むけの技法ではない）に位置するものです。\n",
+    "\n",
+    "だから、飛ばしてもらっても構いませんと言いたいところですが、３年生むけのデータサイエンスや機械学習では、容赦なく使われるのでやはりここでしっかり抑えておいて欲しいです。\n",
+    "\n",
+    "### 関数も値\n",
+    "\n",
+    "Python3 は、関数自体も整数や文字列などと同じく、値として扱えるようになっていま す。このような関数のことを、**第一級オブジェクト (first-class object)** とも呼びます。\n",
+    "\n",
+    "まず、関数が値であるとはどういうことなのか確認しておきましょう。数値をひとつ増 やす succ(n) 関数を定義してみた例をみてください。\n",
+    "\n",
+    "__関数 succ(n) の定義__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "1\n"
+     ]
+    }
+   ],
+   "source": [
+    "def succ(x):\n",
+    "    return x+1\n",
+    "print(succ(0)) "
+   ]
+  },
+  {
+   "source": [
+    "関数は、`succ(0)` のように引数を適用することで呼び出すことができます。実は、ここ で `succ` という識別子は**関数を値として保持している変数名**にもなっています。だから、 `type(succ)` とすると、その値の型を調べることができます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "function"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 19
+    }
+   ],
+   "source": [
+    "type(succ)"
+   ]
+  },
+  {
+   "source": [
+    "関数は、変数名 `succ` に代入された値なので、整数や文字列と同じように他の変数に代入することができます。すると、代入された変数名の方から、`succ` 関数を呼び出せるようになります。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "1\n"
+     ]
+    }
+   ],
+   "source": [
+    "f = succ\n",
+    "print(f(0))"
+   ]
+  },
+  {
+   "source": [
+    "__注意__: 変数 `f` は、`succ` と同じ関数を参照しているため、`f(0)` は `succ(0)` と同じ結果となります。\n",
+    "\n",
+    "### ラムダ式\n",
+    "\n",
+    "ラムダ式 (lambda expression) は、関数を値として、直接定義する記法です。関数名を\n",
+    "付ける必要はないため、無名関数とも呼ばれます。先ほどの succ 関数は、ラムダ式を用いると、\n",
+    "次のように直接、値として書き直すことができます。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "g = lambda x: x+1\n",
+    "print(g(1))"
+   ],
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": null,
+   "outputs": []
+  },
+  {
+   "source": [
+    "ラムダ式は、Aronzo Church の λ 計算 (λx.x + 1) に由来していますが、プログラミン グ言語のラムダ式は、単に、関数を値として定義するための記法に過ぎません。β 簡約や Church 数などを理解しなくとも、恐れるところはありません。\n",
+    "\n",
+    "Python3 のラムダ式は、式しか与えることができません。つまり、制御構造などが含まれたプログラムは、ラムダ式として定義することはできず、`def succ(n): ` の例のように、名前付きの関数として一旦、定義し、関数名から参照することになります。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 高階関数\n",
+    "\n",
+    "**高階関数 (high-order function)** とは、「関数をパラメータにとる関数」のことです。関数が値として変数に代入できるなら、当然、関数もパラメータにできるわけですが、結果として、より抽象度の高い関数が定義できるようになります。\n",
+    "\n",
+    "ここでは、代表的な高階関数である map 関数と filter 関数を例に高階関数の仕組みを理解していきましょう。\n",
+    "\n",
+    "__map関数__\n",
+    "\n",
+    "`map(f,xs)` のパラメータは、関数 `f` とリスト `xs` をとります。リスト`xs`から、 順番に要素を取り出し、各要素に関数 `f` を適用します。最終的に、新しいリストに関数 `f` の適用した結果を入れて、返します。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def map(f, xs) :\n",
+    "    mapped = []\n",
+    "    for x in xs:\n",
+    "        mapped.append(f(x))\n",
+    "    return mapped"
+   ]
+  },
+  {
+   "source": [
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[2, 3, 4]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 24
+    }
+   ],
+   "source": [
+    "map(succ, [1, 2, 3])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[2, 4, 6]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 26
+    }
+   ],
+   "source": [
+    "map(lambda x : x * 2, [1, 2, 3])"
+   ]
+  },
+  {
+   "source": [
+    "__filter関数__\n",
+    "\n",
+    "filter(f,xs) のパラメータは、関数 `f` とリスト `xs` をとります。リスト`xs`から、 順番に要素を取り出し、各要素に関数 f でフィルタします。最終的に、関数`f`の適用結果が真だった要素だけのリストを作り、結果として返します。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def filter(f, xs) :\n",
+    "    filtered = []\n",
+    "    for x in xs:\n",
+    "        if f(x):\n",
+    "            filtered.append(x)\n",
+    "    return filtered"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[1, 3]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 29
+    }
+   ],
+   "source": [
+    "filter(lambda x: x % 2 == 1, [1, 2, 3])"
+   ]
+  },
+  {
+   "source": [
+    "なお、Python3 では、map 関数と filter 関数は組み込み関数として定義されているため、ふだんは自分で定義する必要はありません。\n",
+    "\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Let's try\n",
+    "\n",
+    "そろそろ、おなじみの`map(int, input().split())`がどんな処理をしているか説明できますね。\n",
+    "\n",
+    "</div>\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 内包記法と高階関数\n",
+    "\n",
+    "最後に、リスト内包記法は`map()`関数と`filter()`関数が融合した構文だと言うことを確認しておきましょう。\n",
+    "\n",
+    "__外延定義__: $A = \\{ 1, 2, 3, 5, 8, 13, 21, 34, 55 \\}$\n",
+    "```python\n",
+    "A = [1, 2, 3, 5, 8, 13, 21, 34, 55]\n",
+    "```\n",
+    "\n",
+    "__内包定義__: $B = \\{ 2x | x \\in A \\}$\n",
+    "\n",
+    "```\n",
+    "B = [2*x for x in A]\n",
+    "B = list(lambda x: 2 * x, A)  # mapの描き直し\n",
+    "```\n",
+    "\n",
+    "__内包定義__: $C = \\{ x | x \\in A, \\mbox{xは奇数} \\}$\n",
+    "\n",
+    "```\n",
+    "C = [x for x in A　if x % 2 == 1]\n",
+    "C = list(filter(lambda x: x % 2 == 1, A))  # filter版\n",
+    "```\n",
+    "\n",
+    "__内包定義__: $D = \\{ 2x | x \\in A, \\mbox{xは奇数} \\}$\n",
+    "\n",
+    "```\n",
+    "D = [2 * x for x in A　if x % 2 == 1]\n",
+    "D = list(map(lambda x: 2*x, filter(lambda x: x % 2 == 1, A)))  # map,fliter版\n",
+    "```"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "内包記法\n",
+    "\n",
+    "高階関数のmap()とfilter()をミックスしたことが簡単に書けます。\n",
+    "Pythonでは、内包記法を積極的に活用していきましょう。\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 演習問題\n",
+    "\n",
+    "できる限り、関数を定義して使っていきましょう。\n",
+    "\n",
+    "* [ReLU](https://atcoder.jp/contests/abc183/tasks/abc183_a)\n",
+    "* [$a+a^2+a^3$](https://atcoder.jp/contests/abc172/tasks/abc172_a): 関数定義しましょう！\n",
+    "* [行列式](https://atcoder.jp/contests/abc184/tasks/abc184_a)\n",
+    "* [大きい数字](https://atcoder.jp/contests/abc187/tasks/abc187_a)\n",
+    "* [スマホ中毒](https://atcoder.jp/contests/abc185/tasks/abc185_b)\n",
+    "* [ほぼGCD](https://atcoder.jp/contests/abc182/tasks/abc182_b)\n",
+    "* [FizzBuzzの和](https://atcoder.jp/contests/abc162/tasks/abc162_b): 有名なFizzBuzz問題のバリエーション\n",
+    "* [入国審査]](https://atcoder.jp/contests/abc155/tasks/abc155_b)\n",
+    "* [ビンゴ](https://atcoder.jp/contests/abc157/tasks/abc157_b): ビンゴを判定する関数定義しましょう\n",
+    "* [列車のチケット](https://atcoder.jp/contests/abc079/tasks/abc079_c)\n",
+    "* [ラリー](https://atcoder.jp/contests/abc156/tasks/abc156_c)\n",
+    "* [グリッド圧縮](https://atcoder.jp/contests/abc107/tasks/abc107_b)\n",
+    "* [７５５](https://atcoder.jp/contests/abc114/tasks/abc114_c) 再帰関数を使います\n",
+    "\n",
+    "<!--\n",
+    "\n",
+    "* [異世界数式](https://atcoder.jp/contests/colopl2018-final-open/tasks/colopl2018_final_b): いわゆる構文解析の問題です。\n",
+    "\n",
+    "* [多項式の零点の個](https://atcoder.jp/contests/ttpc2019/tasks/ttpc2019_l): 構文解析\n",
+    "-->\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  }
+ ]
+}

@@ -1,0 +1,227 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.1-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python3",
+   "display_name": "Python 3.9.1 64-bit",
+   "metadata": {
+    "interpreter": {
+     "hash": "ac2eaa0ea0ebeafcc7822e65e46aa9d4f966f30b695406963e145ea4a91cd4fc"
+    }
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "source": [
+    "# 自然言語処理にむけて\n",
+    "\n",
+    "最後の仕上げとして、自然言語処理を学びます。\n",
+    "\n",
+    "今回、使うモジュールの準備"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import spacy"
+   ]
+  },
+  {
+   "source": [
+    "## 形態素解析\n",
+    "\n",
+    "言語における意味の基本単位は語 (word) です。まず、語を取り出す方法からみていきましょう。\n",
+    "\n",
+    "### 英語と日本語\n",
+    "\n",
+    "自然言語処理は、言語の種類によって難しさや扱い方が異なります。\n",
+    "\n",
+    "* (英語文) I bought a book \n",
+    "* (日本語文) 私は本を買った\n",
+    "\n",
+    "英語は、空白で区切られたものを語と考えることができます。\n",
+    "したがって、Python の標準文字列ライブラリだけで、簡単に語を取り出すことができます。\n",
+    "\n",
+    "__英語の字句解析__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "['I', 'bought', 'a', 'book']"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 1
+    }
+   ],
+   "source": [
+    "s = \"I bought a book\"\n",
+    "s.split()"
+   ]
+  },
+  {
+   "source": [
+    "日本語では、まず語の区切りを判定する必要があります。\n",
+    "しかし、この語の区切りを判定するのが かなりの難処理です。\n",
+    "\n",
+    "この難処理を行ってくれるのが形態素解析ライブラリです。\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### spaCy/GINZA\n",
+    "\n",
+    "spaCy は、Explosion AI 社の開発するオープンソースの自然言語処理ライブラリです。2019 年に、 リクルート AI 研究所と国立言語研究所の研究成果である GiNZA が登場し、実用的な日本語処理が 手軽に利用できるようになりました。\n",
+    "\n",
+    "まずは、GiNZA の導入から始めましょう。`pip install ginza` を入力するだけで、 spaCy を含めて、自然言語処理に必要なライブラリがまとめてインストールされます。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "0 私 私 PRON 代名詞\n1 は は ADP 助詞-係助詞\n2 本 本 NOUN 名詞-普通名詞-一般\n3 を を ADP 助詞-格助詞\n4 買っ 買う VERB 動詞-一般\n5 た た AUX 助動詞\n"
+     ]
+    }
+   ],
+   "source": [
+    "import spacy\n",
+    "nlp = spacy.load('ja_ginza') \n",
+    "\n",
+    "doc = nlp(\"私は本を買った\") #形態素解析\n",
+    "for word in doc:\n",
+    "    print(word.i, word.orth_, word.lemma_, word.pos_, word.tag_)"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Let's try\n",
+    "\n",
+    "自然言語処理と形態素解析の良い練習問題は、「自然言語処理１００本ノック」にあります。\n",
+    "\n",
+    "http://www.cl.ecei.tohoku.ac.jp/nlp100/\n",
+    "\n",
+    "Web上には、解説記事がたくさん掲載されていますので、参考にしながら解いてみると実力がつきます。\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "source": [
+    "## 演習問題\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Let's try\n",
+    "\n",
+    "`2 ** (1//2)` が、正しく $\\sqrt{2}$ にならない理由を考えてみよう\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "<div class=\"alert alert-warning\">\n",
+    "\n",
+    "(プログラミングの)$N$個数える\n",
+    "\n",
+    "プログラミングでは、原則、「**0から**$N-1$まで」のように数えます。\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "### 平均点\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（平均点）**\n",
+    "\n",
+    "期末試験は5人受験した。\n",
+    "点数が40点未満の生徒は全員，補習を受け，成績が40点になった。\n",
+    "5人の平均点を求めよ。\n",
+    "\n",
+    "入力例：\n",
+    "```\n",
+    "10\n",
+    "65\n",
+    "100\n",
+    "30\n",
+    "95\n",
+    "```\n",
+    "\n",
+    "出力例：\n",
+    "```\n",
+    "68\n",
+    "```\n",
+    "\n",
+    "[AtCoder (JOI2014 予選)](https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a)\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "__(解法) リストを使う場合__\n",
+    "\n",
+    "1. 期末試験を記録する空の得点リスト `scores` を用意する\n",
+    "2. 5人分繰り返し、点数を読んで、`scores` に追加する \n",
+    "3. 平均点は `sum(scores) // 5`\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ]
+}

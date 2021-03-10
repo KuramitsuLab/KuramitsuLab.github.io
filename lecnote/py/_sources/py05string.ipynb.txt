@@ -1,0 +1,476 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.1-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python3",
+   "display_name": "Python 3",
+   "language": "python"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "source": [
+    "# 文字と情報\n",
+    "\n",
+    "人類の扱う情報の大半は、文字によって伝えられます。したがって、文字や文字列を扱うことは、情報処理の基本中の基本と言えます。今回は、Pythonの文字列処理を練習しましょう。\n",
+    "\n",
+    "\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 文字と文字**列**\n",
+    "\n",
+    "文字は、コンピュータの内部では、文字コードと呼ばれる番号で表現されています。\n",
+    "\n",
+    "![ascii-fs8.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a3570dc4-ba9d-26a1-39e3-2ee18a50ae56.png)\n",
+    "\n",
+    "文字コードは覚える必要はありません。Python の関数で相互に変換することができます。\n",
+    "\n",
+    "__文字コードcから文字へ__: `chr(c)`\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "'A'"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 1
+    }
+   ],
+   "source": [
+    "chr(65)"
+   ]
+  },
+  {
+   "source": [
+    "__文字cから文字コードへ__: `chr('A')`"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "65"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Pythonの文字\n",
+    "\n",
+    "Pythonでは、文字は1文字長の文字列に過ぎません。ユニコードに対応しているため、日本語も１文字として扱うことができます。\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "文字 `c` の種類の判定は文字コードに基づいておこないます。\n",
+    "Python は便利な文字列メソッドも用意してくれているので、通常は２つ目の書き方を使います。\n",
+    "\n",
+    "__数字の判定__\n",
+    "```\n",
+    "'0' <= c and c <= '9'   # もしくは、c.isdigit()\n",
+    "```\n",
+    "\n",
+    "__英大文字の判定__\n",
+    "```\n",
+    "'A' <= c and c <= 'Z'　# もしくは、c.isupper()\n",
+    "```\n",
+    "\n",
+    "__英小文字の判定__\n",
+    "```\n",
+    "'a' <= c and c <= 'z' # もしくは c.islower()\n",
+    "```\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 文字列\n",
+    "\n",
+    "文字列は、文字通り、文字の列です。\n",
+    "リストと同じように、文字列を先頭から数えて i 番目の文字のように取り出すことができます。\n",
+    "\n",
+    "__例. 文字列の最初の文字__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "'A'"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 2
+    }
+   ],
+   "source": [
+    "s = \"ABC\"\n",
+    "s[0]   # 最初の1文字"
+   ]
+  },
+  {
+   "source": [
+    "Python は、文字と文字列を区別しません。文字は長さ 1 の文字列となります。`\"A\"`も`'A'`もどちらも文字列リテラルです。文字列`s`の長さは、リストと同様に`len(s)`で得られます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s = 'Hello, World'\n",
+    "len(s)"
+   ]
+  },
+  {
+   "source": [
+    "特殊な文字は、エスケープシーケンスで表現できます。\n",
+    "\n",
+    "|エスケープシーケンス|意味 |\n",
+    "|----|----|\n",
+    "|`\\\\`|\tバックスラッシュ|\n",
+    "|`\\'`|\t一重引用符|\n",
+    "|`\\\"`|\t二重引用符|\n",
+    "|`\\a`|\tASCII 端末ベル|\n",
+    "|`\\b`|\tASCII バックスペース|\n",
+    "|`\\f`|\tASCII フォームフィード|\n",
+    "|`\\n`|\tASCII 行送り|\n",
+    "|`\\r`|\tASCII 復帰|\n",
+    "|`\\t`|\tASCII 水平タブ|\n",
+    "|`\\v`|\tASCII 垂直タブ|\n",
+    "|`\\xhh`|\t16進数hhを持つASCII文字|\n",
+    "|`\\Uxxxxxxxx`|\t32ビットのUnicode文字|\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s = 'Hello\\nWorld\\n'\n",
+    "len(s)"
+   ]
+  },
+  {
+   "source": [
+    "複数行にわたる文字列(テキスト)は、トリプルクオート(`'''`, `\"\"\"`)で囲むことでも記述できます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s = \"\"\"\n",
+    "吾輩は猫である\n",
+    "名前はまだない\n",
+    "\"\"\"\n",
+    "len(s)"
+   ]
+  },
+  {
+   "source": [
+    "### 文字列と文字リスト\n",
+    "\n",
+    "Pythonのデータ構造は、オブジェクト指向プログラミングの設計手法にしたがって、操作がよく共通化されています。例えば、列の特徴があるデータ構造は、全て`len()`で列の長さが取れ、インデックスで$n$番目の値が得られるようになっています。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s = \"abc\"\n",
+    "print(len(s))\n",
+    "print('s[0]', s[0])\n",
+    "print('s[-1]', s[-1])\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = ['a', 'b', 'c']\n",
+    "print('len(a)', len(a))\n",
+    "print('a[0]', a[0])\n",
+    "print('a[-1]', a[-1])\n"
+   ]
+  },
+  {
+   "source": [
+    "文字列と「文字のリスト」の大きな違いは、破壊的な操作、つまり変更できるかどうかにあります。\n",
+    "リストは変更できますが、文字列は変更できません。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "不変性\n",
+    "\n",
+    "値が変更できないこと\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "もし文字列の並びを変更したいときは、文字列を文字リストに変換して操作することができます。\n",
+    "\n",
+    "* 文字列から文字リストに変換する: `cs = list(s)`\n",
+    "* **文字リストを変更する**\n",
+    "* 文字リストから文字列に戻す `s = \"\".join(cs)`"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（文字列のソート）**\n",
+    "\n",
+    "入力された文字列をアルファベット順（文字コード順）に並べ変えた文字列にしよう。\n",
+    "\n",
+    "入力例：\n",
+    "```\n",
+    "hello\n",
+    "```\n",
+    "\n",
+    "出力例：\n",
+    "```\n",
+    "ehllo\n",
+    "```\n",
+    "</div>\n",
+    "\n",
+    "文字列を文字のリストに変換し、`sort()`でソートします。\n",
+    "ソートしたのち、再度、文字列に変換して戻します。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "ehllo\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = \"hello\"\n",
+    "cs = list(s)  # 文字のリストに変換\n",
+    "cs.sort()\n",
+    "s = ''.join(cs) # 文字列に変換\n",
+    "print(s)"
+   ]
+  },
+  {
+   "source": [
+    "## 文字列操作\n",
+    "\n",
+    "文字列は、メソッドを使って文字列操作することができます。\n",
+    "Pythonは、便利なメソッドが揃っているので是非使えるように練習しておきましょう。\n",
+    "\n",
+    "|**基本操作**||\n",
+    "|--|--|\n",
+    "|`len(s)`|文字列`s`の文字数|\n",
+    "|`s[i]`|文字列`s`の`i`番目の文字|\n",
+    "|`s[i:j]`|`i` 番目から `j` 番目までの部分文字列|\n",
+    "|`s[i:]`|`i` 番目から末尾までの部分文字列|\n",
+    "|`s[i:j]`|先頭から`j`番目までの部分文字列|\n",
+    "|`x in s`|文字列sにxが含まれるかどうか|\n",
+    "|`s.find(x)`|文字列s内の最初のxの位置(ない場合は-1)|\n",
+    "|`s.rfind(x)`|文字列s内の最後のxの位置(ない場合は-1)|\n",
+    "|`s.count(x)`|文字列s内のxの出現回数|\n",
+    "\n",
+    "|**新しい文字列**||\n",
+    "|--|--|\n",
+    "|`\"\"`|空の文字数|\n",
+    "|`str(e)`|eの文字列表記|\n",
+    "|`f\"{e}\"`| 書式文字列中に式eを埋め込んだ文字列|\n",
+    "|`s.join(a)`| 文字列リストaをsで連結した文字列|\n",
+    "\n",
+    "|**文字列の判定**||\n",
+    "|--|--|\n",
+    "|`s.startswith(x)`|文字列sがxで始まるかどうか|\n",
+    "|`s.endswith(x)`|文字列sがxで終わるかどうか|\n",
+    "|`s.isupper()`|文字列sが英大文字かどうか|\n",
+    "|`s.islower()`|文字列sが英小文字かどうか|\n",
+    "|`s.isdigit()`|文字列sが数字かどうか|\n",
+    "\n",
+    "|**文字列の変形**||\n",
+    "|--|--|\n",
+    "|`s + t`|文字列sをtを連結した文字列|\n",
+    "|`s * n`|文字列sをn回連結した文字列|\n",
+    "|`s[::-1]`|文字列sを反転した文字列|\n",
+    "|`s.replace(o, n)`|文字列 s 内の o を n に置き換えた文字列|\n",
+    "|`s.upper()`|文字列 s を英大文字に変換した文字列|\n",
+    "|`s.lower()`|文字列 s を英小文字に変換した文字列|\n",
+    "|`list(s)`|文字列 s の文字リスト|\n",
+    "|`s.split(c)`|文字列 s を c で分割した文字列のリスト|\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（文字列操作）**\n",
+    "\n",
+    "次の文字列を文字列操作によって求める\n",
+    "\n",
+    "1. `'Hello'`を全て英大文字に変換する\n",
+    "2. `'Hello'`の中に含まれる`l`の数\n",
+    "3. `'12'`, `'50'`, `'00'`を`':'`で連結した文字列\n",
+    "4. `1,3,4,8`を数字のリスト(`[1,3,4,8]`)に変換する\n",
+    "\n",
+    "\n",
+    "</div>\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 見本\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Let's try\n",
+    "\n",
+    "`2 ** (1//2)` が、正しく $\\sqrt{2}$ にならない理由を考えてみよう\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "まずは、リストを使わなくても解ける問題ですが、リストの練習を兼ねて解いてみましょう。\n",
+    "\n",
+    "### 平均点\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（平均点）**\n",
+    "\n",
+    "期末試験は5人受験した。\n",
+    "点数が40点未満の生徒は全員，補習を受け，成績が40点になった。\n",
+    "5人の平均点を求めよ。\n",
+    "\n",
+    "入力例：\n",
+    "```\n",
+    "10\n",
+    "65\n",
+    "100\n",
+    "30\n",
+    "95\n",
+    "```\n",
+    "\n",
+    "出力例：\n",
+    "```\n",
+    "68\n",
+    "```\n",
+    "\n",
+    "[AtCoder (JOI2014 予選)](https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a)\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "__(解法) リストを使う場合__\n",
+    "\n",
+    "1. 期末試験を記録する空の得点リスト `scores` を用意する\n",
+    "2. 5人分繰り返し、点数を読んで、`scores` に追加する \n",
+    "3. 平均点は `sum(scores) // 5`\n",
+    "\n",
+    "\n",
+    "\n",
+    "|Python|説明|\n",
+    "|--------|-------------|\n",
+    "|`max(a)`|数列`a`の最大値|\n",
+    "|`min(a)`|数列`a`の最小値|\n",
+    "|`sum(a)`|数列`a`の合計値| \n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 演習問題\n",
+    "\n",
+    "* [文字列の連結](https://atcoder.jp/contests/abc149/tasks/abc149_a)\n",
+    "* [文字列の比較](https://atcoder.jp/contests/abc152/tasks/abc152_b)\n",
+    "* [文字の置き換え](https://atcoder.jp/contests/abc154/tasks/abc154_b)\n",
+    "* [クリスマスイブ](https://atcoder.jp/contests/abc115/tasks/abc115_a): if文使わずに書いてみよう\n",
+    "* [天気予報](https://atcoder.jp/contests/abc139/tasks/abc139_a)\n",
+    "* [９月９日](https://atcoder.jp/contests/abc073/tasks/abc073_a)\n",
+    "* [アルファベット](https://atcoder.jp/contests/abc171/tasks/abc171_a): 英大文字か英小文字の判定\n",
+    "* [セキュリティコード](https://atcoder.jp/contests/abc131/tasks/abc131_a): 入力しやすい\n",
+    "* [Coffee](https://atcoder.jp/contests/abc160/tasks/abc160_a)\n",
+    "* [しりとり](https://atcoder.jp/contests/abc060/tasks/abc060_a)\n",
+    "* [文字列の置き換え](https://atcoder.jp/contests/abc111/tasks/abc111_a): ちょっと工夫してください\n",
+    "* [エコー](https://atcoder.jp/contests/abc145/tasks/abc145_b): 部分文字列の練習です\n",
+    "* [...](https://atcoder.jp/contests/abc168/tasks/abc168_b): 実用的な文字列処理\n",
+    "* [奇数文字目](https://atcoder.jp/contests/abc072/tasks/abc072_b): スライスでもできます\n",
+    "\n",
+    "* [クイズ](https://atcoder.jp/contests/abc184/tasks/abc184_b)"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  }
+ ]
+}

@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>入力とリスト &mdash; Python Programming 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python Programming 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python Programming 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>入力とリスト</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/gc.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="id1">
+<h1>入力とリスト<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>最もよく使うのが入力からN個の数値を読むときです。
+そのまま、リストとして取り出せます。</p>
+<p><strong>1行に数値が$N$個ある場合</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">6</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">8</span> <span class="mi">13</span> 
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p><strong>1行に数値が$N$個ある場合</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="n">a</span>
+</pre></div>
+</div>
+<p><strong>$N$行に数値がある場合</strong></p>
+<p>入力例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> 
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> 
+<span class="mi">5</span> <span class="mi">8</span> <span class="mi">13</span>
+<span class="mi">21</span> <span class="mi">34</span> <span class="mi">55</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()])</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>リストを使う裏技<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition tip"><p><strong>(問題: おつり)</strong></p>
+<p>レジで1000円札を1枚出した時，もらうおつりに含まれる硬貨の枚数を求めるプログラムを作成せよ．</p>
+<p>入力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>
+<span class="mi">65</span>
+<span class="mi">100</span>
+<span class="mi">30</span>
+<span class="mi">95</span>
+</pre></div>
+</div>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://atcoder.jp/contests/joi2008yo/tasks/joi2008yo_a">AtCoder (JOI2008 予選)</a></p>
+</div><p><strong>(解法) リストを使うと簡単です</strong></p>
+<ol class="simple">
+<li><p>硬貨の種類を<code class="docutils literal notranslate"><span class="pre">coins</span> <span class="pre">=</span> <span class="pre">[500,</span> <span class="pre">100,</span> <span class="pre">50,</span> <span class="pre">10,</span> <span class="pre">5,</span> <span class="pre">1]</span></code>のようにリストにする</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coins</span></code>を順番に何枚使うかしらべる</p></li>
+<li><p>合計枚数を出力する</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="id3">
+<h1>演習問題<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>まずは、リストを使わなくても解ける問題ですが、リストの練習を兼ねて解いてみましょう。</p>
+<div class="section" id="id4">
+<h2>平均点<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition tip"><p><strong>例題（平均点）</strong></p>
+<p>期末試験は5人受験した。
+点数が40点未満の生徒は全員，補習を受け，成績が40点になった。
+5人の平均点を求めよ。</p>
+<p>入力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>
+<span class="mi">65</span>
+<span class="mi">100</span>
+<span class="mi">30</span>
+<span class="mi">95</span>
+</pre></div>
+</div>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a">AtCoder (JOI2014 予選)</a></p>
+</div><p><strong>(解法) リストを使う場合</strong></p>
+<ol class="simple">
+<li><p>期末試験を記録する空の得点リスト <code class="docutils literal notranslate"><span class="pre">scores</span></code> を用意する</p></li>
+<li><p>5人分繰り返し、点数を読んで、<code class="docutils literal notranslate"><span class="pre">scores</span></code> に追加する</p></li>
+<li><p>平均点は <code class="docutils literal notranslate"><span class="pre">sum(scores)</span> <span class="pre">//</span> <span class="pre">5</span></code></p></li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h2>リスト<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition tip"><p><strong>(問題： 共通要素)</strong></p>
+<p>長さ $n$の整数列 $a$と長さ$m$の整数列$b$が与えられる。
+$a$と$b$の両方に出現する整数を全て昇順(小さいから大きい順)で出力せよ。</p>
+<p>入力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>
+<span class="mi">65</span>
+<span class="mi">100</span>
+<span class="mi">30</span>
+<span class="mi">95</span>
+</pre></div>
+</div>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://atcoder.jp/contests/joi2021yo1a/tasks/joi2021_yo1a_c">情報オリンピック一次予選(2021)</a></p>
+</div><p><strong>(解法1) まずはこちらを解けるようにしよう</strong></p>
+<ol class="simple">
+<li><p>あらかじめ、昇順で <code class="docutils literal notranslate"><span class="pre">a</span></code> をソートしておきます</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a[0]</span></code>から<code class="docutils literal notranslate"><span class="pre">a[n-1]</span></code>まで順番に、<code class="docutils literal notranslate"><span class="pre">b</span></code>に含まれているか調べる</p></li>
+</ol>
+<p><strong>(解法2) 数列の代わりに集合を用いる</strong></p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code> と<code class="docutils literal notranslate"><span class="pre">b</span></code>を**集合(set)**に変換し、集合積$A \cap B$を計算する</p></li>
+<li><p>$A \cap B$を昇順にソートして出力する</p></li>
+</ol>
+<div class="alert alert-info"><p>集合とリスト</p>
+<p>集合は重複を認めない順序のない値の集まりです。
+リストをマスターしたら、集合も使えるようになっておきましょう。</p>
+</div><div class="admonition tip"><p><strong>(問題： 最長昇順連続部分列)</strong></p>
+<p>長さ $n$の正整数列 $a$が与えられる.
+$a$の連続部分列のうち、昇順(小さいから大きい順)に並んでいる列の最長のものの長さを求めよ</p>
+<p>[JOI 2019/2020 一次予選[(https://atcoder.jp/contests/joi2020yo1c/tasks/joi2020_yo1c_c)</p>
+</div><p><strong>(解法) 繰り返しを2回使います</strong></p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a[i]</span> <span class="pre">&lt;=</span> <span class="pre">a[i+1]</span></code>となる<code class="docutils literal notranslate"><span class="pre">i</span></code>を探す</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code>が見つかったら、<code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">i</span></code>として<code class="docutils literal notranslate"><span class="pre">a[j]</span> <span class="pre">&lt;=</span> <span class="pre">a[j+1]</span></code>がいくつ続くか調べる</p></li>
+</ol>
+</div>
+<div class="section" id="copy">
+<h2>(裏技) 複数行の入力をCOPYする方法<a class="headerlink" href="#copy" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Colabは、プログラミング学習用に便利な道具ですが、
+必ずしもオンラインジャッジに適した作りになっていません。
+特に、入力データを手で毎回入力するのは面倒です。</p>
+<p>\begin{multicols}{2}
+そこで、手入力の代わりにデータをコピペできるように裏技を用意しました。
+オリジナルの\CC{input()}関数を書き換えてしまうので、ほぼ\textbf{禁術}です。
+\columnbreak
+\begin{center}
+\includegraphics[width=5cm]{./figs/copy.pdf}
+\end{center}</p>
+<p>\end{multicols}</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install -U git+https://github.com/KuramitsuLab/kolab.git
+from kolab.regio import In, input
+</pre></div>
+</div>
+<p>\begin{PyOut}
+...
+Successfully installed kolab-0.0.2
+\end{PyOut}</p>
+<p>入力データは、\verb|%%In|と1行目に書いたコードセルにコピーします。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">In</span>
+<span class="mi">3</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>実行ボタンを押すと、入力データは{\Colab}に登録されます。
+次回、Python プログラムを実行するとき、
+<code class="docutils literal notranslate"><span class="pre">%%In</span></code>にコピーした入力が読み込まれるようになります。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>複雑な入力を扱うときは、是非、活用してください。</p>
+<p>\begin{cbox}{input()を元に戻すには}
+新しいノートブックを開くと、\verb|input()|は元通りに戻ります
+\end{cbox}</p>
+<p>\subsection{最初の情報オリンピック}</p>
+<p>それでは、最初の情報オリンピック（予選）の問題に挑戦してみましょう。</p>
+<p>\hr
+\HBold{(問題: 合計時間)}
+太郎君は 3カ所の店を訪ねることを日課にしている． 家を出発し， 決まった順番で
+3 カ所の店を回った後，家に帰る． ときどき，ストップウォッチを使って，各区間を移動するのに何秒かかったかを計り，その秒数を記録す る．
+ある日の計測結果が与えられたとき，この日の移動時間の合計が何分何秒かを求めるプログラムを作成せよ．</p>
+<p>\URL{https://atcoder.jp/contests/joi2011yo/tasks/joi2011yo_a}</p>
+<p>\hr</p>
+<p>\begin{flushright}
+\includegraphics[width=4cm]{./figs/pencil.pdf}
+\end{flushright}</p>
+<p>\vspace{-3cm}
+\emph{手順}
+\begin{enumerate}
+\item 問題文をしっかり読んでみる\
+(紙と鉛筆で図示しながら読むとよい)
+\item 入力例と出力例をみて、問題を正しく理解したか確認する
+\item {\Colab}上で入出力プログラムを書いてみる
+\item サンプルの入出力で動作を試してみる\
+(出力結果が出力例と{\color{red} 空白や改行を含めて完全に一致するか}確認する)
+\item オンラインジャッジに提出する
+\end{enumerate}</p>
+<p>\begin{cbox}{模範回答}
+研究問題の模範回答は講義ノートの最後にあります
+\end{cbox}</p>
+<p>\newpage
+\section{過去問の研究}</p>
+<p>if文が書けるようになると、プログラミングできる幅が広がります。
+いくつか情報オリンピックの過去問にチャレンジして、練習していきましょう。</p>
+<p>%\newpage</p>
+<p>\hr
+\HBold{(問題： 3つの整数)}
+3つの整数 a, b, cが与えられる。
+a, b, c はそれぞれ$1$または$2$である.
+$1$と$2$のうち、どちらが多いか</p>
+<p>JOI 2019/2020 一次予選: \URL{https://atcoder.jp/contests/joi2020yo1a/tasks/joi2020_yo1a_a}</p>
+<p>\hr</p>
+<p>\emph{(解法1)}
+\begin{enumerate}
+\item 変数\CC{a}が$1$か$2$で場合分けする
+\item (1. の条件のもと）変数\CC{b}が$1$か$2$で場合分けする
+\item (2. の条件のもと）変数\CC{c}が$1$か$2$で場合分けする
+\end{enumerate}</p>
+<p>\emph{(解法2)}
+\begin{enumerate}
+\item $2$が多くなるのは、$a+b+c$がどのような場合か考える
+\end{enumerate}</p>
+<p>\hr
+\HBold{(問題：成績)}
+3回の試験の点数
+$a, b, c$が与えられたとき、
+3回の試験の点数のうち高い方から 2つを足し合わせた合計を出力する</p>
+<p>JOI 2019/2020 一次予選: \URL{https://atcoder.jp/contests/joi2020yo1b/tasks/joi2020_yo1b_a}</p>
+<p>\hr</p>
+<p>\emph{(解法1)}
+\begin{enumerate}
+\item $a \le b \le c$のとき、$b+c$
+\item $a, b, c$の残りの大小関係の組み合わせをすべて調べる
+\end{enumerate}</p>
+<p>\emph{(解法2)}
+\begin{enumerate}
+\item 求める最小値は$a + b + c$から$min(a,b,c)$を引いた値である
+\end{enumerate}</p>
+<p>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\hr
+\HBold{(問題： 鉛筆)}
+文房具店では鉛筆がセットX, Yで売られている．
+セット Xは $a$本で $b$円，セット Yは $c$本で $d$円である。
+セットXかセットYのどちらのみを選び、$n$本以上の鉛筆を購入する最小金額を求めよ。</p>
+<p>JOI 2017/2018 予選: \URL{https://atcoder.jp/contests/joi2018yo/tasks/joi2018_yo_a}</p>
+<p>\hr</p>
+<p>\emph{(解法)} 落ち着いて、順番に解いていきましょう
+\begin{enumerate}
+\item セットX を選んだときの金額を求める
+\item セットY を選んだときの金額を求める
+\item 上記の小さい金額を求める
+\end{enumerate}</p>
+<p>\hr
+\HBold{(問題： ソーシャルゲーム)}
+ソーシャルゲームでは，1日ログインするたびに $a$枚のコインが得られる．
+また，7日連続でログインすると，追加で$b$ 枚のコインが得られる．
+$c$枚のコインを得るためにログインしなければならない回数の最小値を求めよ．</p>
+<p>JOI 2018/2019 予選: \URL{https://atcoder.jp/contests/joi2019yo/tasks/joi2019_yo_a}</p>
+<p>\hr</p>
+<p>\emph{(解法1)} 落ち着いて数式化する
+\begin{itemize}
+\item はじめの $\lfloor c / (7a+b)\rfloor$ 週間は，毎日ログインする．
+\item 残りの必要なコインの枚数を $d$ とすると、
+$\lfloor (d + a - 1) / a \rfloor$日、ログインが必要となる
+\end{itemize}</p>
+<p>\emph{(解法2)} シミュレーション（繰り返しの構造を持ちます）
+\begin{enumerate}
+\item $d$ 日目に獲得したコインを $x$ 枚とする
+\item \verb|d = 1| から始め、$x &lt; c$ の間、以下を繰り返す
+\begin{itemize}
+\item 毎日 \verb|x += a|, \verb|d += 1|
+\item \verb|d % 7 == 0| のとき、 \verb|x += b|
+\end{itemize}
+\item $d$ 日目を出力する
+\end{enumerate}</p>
+<p>\if0
+\hr
+\HBold{(研究：X に最も近い値)}
+整数 $x, l, r$が与えられる。$l$以上、$r$以下の整数のうち、$x$との絶対値が最も小さいものを出力せよ</p>
+<p>JOI 2019/2020 一次予選: \URL{https://atcoder.jp/contests/joi2020yo1c/tasks/joi2020_yo1c_a}</p>
+<p>\fi</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

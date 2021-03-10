@@ -1,0 +1,1018 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10. ソートと計算量 &mdash; Python Programming 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="11. 辞書を作ってみる" href="py11dict.html" />
+    <link rel="prev" title="9. 整数アルゴリズム" href="py10prime.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python Programming 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">10. ソートと計算量</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ソートとは？">10.1. ソートとは？</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ソートライブラリ">10.1.1. ソートライブラリ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#準備:-スワップ操作">10.1.2. 準備: スワップ操作</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ソートアルゴリズム">10.2. ソートアルゴリズム</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#選択ソート">10.2.1. 選択ソート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#バブルソート">10.2.2. バブルソート</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#クイックソート">10.3. クイックソート</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#メモリ効率を気にしない実装法">10.3.1. メモリ効率を気にしない実装法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#アルゴリズム選択">10.4. アルゴリズム選択</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#計算量の見積もり">10.4.1. 計算量の見積もり</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ループを見る">ループを見る</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#データ分割に着目">データ分割に着目</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#見本">10.5. 見本</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#平均点">10.5.1. 平均点</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">10.6. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python Programming 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">10. </span>ソートと計算量</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/py09sort.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="ソートと計算量">
+<h1><span class="section-number">10. </span>ソートと計算量<a class="headerlink" href="#ソートと計算量" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>今回は、ソートアルゴリズムを題材にして、アルゴリズム選択を考えてみます。</p>
+<div class="section" id="ソートとは？">
+<h2><span class="section-number">10.1. </span>ソートとは？<a class="headerlink" href="#ソートとは？" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>ソート(sort, 整列)</strong> とは、順番をそろえて並び替える操作です。 ランキングや大学入試の合格者判定など、ソートは日常のあらゆる場面で活用されているアルゴリズムと言えます。</p>
+<p>例えば、 次のような数列を昇順にソートすると:</p>
+<img alt="sort-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d476c3d-0c93-f9b3-8ff6-613c876c5597.png" />
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">ソートの順序</p>
+<p>日常よく用いる「小さい順」と呼ばず、英語圏の「値が大きくなっていく様子」から昇順と呼 びます。</p>
+<ul class="simple">
+<li><p><strong>昇順ソート (ascending sort)</strong>: <span class="math notranslate nohighlight">\(x &lt; y\)</span> の順序で並べる</p></li>
+<li><p><strong>降順ソート (descending sort)</strong>: <span class="math notranslate nohighlight">\(x &gt; y\)</span> の順序で並べる</p></li>
+</ul>
+</div>
+<div class="section" id="ソートライブラリ">
+<h3><span class="section-number">10.1.1. </span>ソートライブラリ<a class="headerlink" href="#ソートライブラリ" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Python は、リスト<code class="docutils literal notranslate"><span class="pre">L</span></code>に対してソートを行う手段を2つ提供しています。</p>
+<p><strong>メソッド</strong>: リスト <code class="docutils literal notranslate"><span class="pre">L</span></code> を書き換えてソートする</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>組込み関数</strong>: リスト <code class="docutils literal notranslate"><span class="pre">L</span></code> を書き換えず、ソートされた新しいリストを返す</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">L2</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ソートは、数値だけでなく、<span class="math notranslate nohighlight">\(x &lt; y\)</span> が定義されている集まり、つまり<strong>全順序集合 (total ordered set)</strong>に対して行うことができます。Python では、文字列もタプルも比較演算子で比較できるため、リストの要素が全て比較できるときはソート可能です。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="s2">&quot;A&quot;</span> <span class="o">&lt;</span> <span class="s2">&quot;B&quot;</span>   <span class="c1"># 文字列の比較</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>　 <span class="c1"># タプルの比較</span>
+</pre></div>
+</div>
+</div>
+<p>日常の Python プログラミングでは、このようなソート・ライブラリを活用すれば充分です。</p>
+<div class="admonition tip"><p><strong>例題（ソート）</strong></p>
+<p>A さん、B さん、C さん、D さん、E さんの成績データが次のとおり与えられています。 成績の良い順に並べて表示するプログラムを書いてください。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">66</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="mi">83</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div><p>そのまま、S をソートすると名前順で並べらられるので、<code class="docutils literal notranslate"><span class="pre">(75,</span> <span class="pre">’A’)</span></code> の順でペアを作り直して、ソートします。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">S</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">66</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="mi">83</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">I</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span> <span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">S</span><span class="p">:</span>
+    <span class="n">I</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">score</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+    <span class="n">I</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span> <span class="c1">#ソートする</span>
+    <span class="n">I</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="c1">#逆順に</span>
+
+<span class="k">for</span> <span class="n">score</span> <span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">I</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span> <span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>このようにデータ構造の方を工夫すると、ソートライブラリで活用して解くことができます。</p>
+<p>授業でアルゴリズムを学ぶと、アルゴリズムは自分で実装した方がいいと勘違いして、そのまま社会人になったりします。「車輪を再発明しない」は、「ライブラリを使いましょう」という格言です。ただし、学習者の間は、車輪を再発明してみないとわからないこともあります。</p>
+</div>
+<div class="section" id="準備:-スワップ操作">
+<h3><span class="section-number">10.1.2. </span>準備: スワップ操作<a class="headerlink" href="#準備:-スワップ操作" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ソートアルゴリズムでは、共通する操作として<strong>スワップ (swap)</strong> が登場します。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">スワップ</p>
+<p>2 つの変数の値を入れ替える操作</p>
+</div>
+<p>Python スワップは、次の2通りの方法で行えます。</p>
+<p><strong>一般的な方法</strong>: 一時変数(temp)を用います</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp</span> <span class="o">=</span> <span class="n">x</span>
+<span class="n">x</span><span class="o">=</span><span class="n">y</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">temp</span>
+</pre></div>
+</div>
+<p><strong>多重代入を用いる</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p>Python は、多重代入が使えるので、本講義では多重代入を用います。ただし、多重代入が使えないプログラミング言語もあるの で、一時変数を用いる方法も覚えておきましょう。</p>
+<div class="admonition tip"><p><strong>例題（リストを逆順にする）</strong></p>
+<p>スワップを用いて、リストを逆順に変換してみよう。</p>
+<p><strong>BEFORE</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>AFTER</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">i</span><span class="p">)],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="ソートアルゴリズム">
+<h2><span class="section-number">10.2. </span>ソートアルゴリズム<a class="headerlink" href="#ソートアルゴリズム" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="http://ja.wikipedia.org/wiki/ソート">ソート・アルゴリズム</a>は、ソートを実現するための手順です。ソートは、コンピュータ科学の題材として研究が行われ、様々な種類のアルゴリズムが考案されてきました。</p>
+<p><strong>本講義で扱うアルゴリム</strong></p>
+<ul class="simple">
+<li><p>選択ソート</p></li>
+<li><p>バブルソート</p></li>
+<li><p>クイックソート</p></li>
+<li><p>マージソート</p></li>
+</ul>
+<div class="section" id="選択ソート">
+<h3><span class="section-number">10.2.1. </span>選択ソート<a class="headerlink" href="#選択ソート" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><strong>選択ソート (selection sort)</strong> は、配列 <code class="docutils literal notranslate"><span class="pre">a</span></code> の中から一番小さな要素を探し、それを先頭の要素とスワッ プすることでソートします。もっとも<strong>人間の思考に近いソートアルゴリズム</strong>と言えます。</p>
+<img alt="selection-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/aab191ac-a2ee-704b-5b04-8811ce48e4c7.png" />
+<p>最も小さいソートを先頭にもってくることができたら、先頭をひとつ進め、同じ要領で繰 り返していきます。次は、まず start 以降のリスト a の要素から最小となる位置を探す関数 <code class="docutils literal notranslate"><span class="pre">find_min_index(a,</span> <span class="pre">start)</span></code> を定義しています。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">find_min_index</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+    <span class="n">mini</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">mini</span><span class="p">]:</span>
+            <span class="n">mini</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">mini</span>
+
+<span class="k">def</span> <span class="nf">select_sort</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">mini</span> <span class="o">=</span> <span class="n">find_min_index</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">mini</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">mini</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;@</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="c1">#デバッグ用の途中状態の表示</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">select_sort</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+@0 [0, 3, 1, 9, 8, 5, 4, 2, 7, 6]
+@1 [0, 1, 3, 9, 8, 5, 4, 2, 7, 6]
+@2 [0, 1, 2, 9, 8, 5, 4, 3, 7, 6]
+@3 [0, 1, 2, 3, 8, 5, 4, 9, 7, 6]
+@4 [0, 1, 2, 3, 4, 5, 8, 9, 7, 6]
+@5 [0, 1, 2, 3, 4, 5, 8, 9, 7, 6]
+@6 [0, 1, 2, 3, 4, 5, 6, 9, 7, 8]
+@7 [0, 1, 2, 3, 4, 5, 6, 7, 9, 8]
+@8 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="バブルソート">
+<h3><span class="section-number">10.2.2. </span>バブルソート<a class="headerlink" href="#バブルソート" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><strong>バブルソート (bubble sort)</strong> は、もっとも実装が簡単(と言われている)ソートアルゴリズムです。</p>
+<p><strong>アルゴリズム</strong> * 隣り合った 2 つの要素 <code class="docutils literal notranslate"><span class="pre">a[i]</span></code> と <code class="docutils literal notranslate"><span class="pre">a[i+1]</span></code> を比較して、<code class="docutils literal notranslate"><span class="pre">a[i]</span> <span class="pre">&gt;</span> <span class="pre">a[i+1]</span></code> なら両者をスワップする * 以上をスワップする必要がなくなるまで繰り返す</p>
+<img alt="bubble-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6b135fc1-9f17-6a6b-66a7-1d94cd317ca7.png" />
+<p>まず、一巡スワップさせてみましょう。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">bubble_sort</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;@</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+ <span class="n">bubble_sort</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+ <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+@0 [3, 5, 1, 9, 8, 0, 4, 2, 7, 6]
+@1 [3, 1, 5, 9, 8, 0, 4, 2, 7, 6]
+@3 [3, 1, 5, 8, 9, 0, 4, 2, 7, 6]
+@4 [3, 1, 5, 8, 0, 9, 4, 2, 7, 6]
+@5 [3, 1, 5, 8, 0, 4, 9, 2, 7, 6]
+@6 [3, 1, 5, 8, 0, 4, 2, 9, 7, 6]
+@7 [3, 1, 5, 8, 0, 4, 2, 7, 9, 6]
+@8 [3, 1, 5, 8, 0, 4, 2, 7, 6, 9]
+[3, 1, 5, 8, 0, 4, 2, 7, 6, 9]
+</pre></div></div>
+</div>
+<p>まだ、リストのソートは完了していません。ソートが完了するまで、bubble_sort(n) のループを 繰り返すことになります。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">考えてみよう</p>
+<p>何回、ループを繰り返せばよいでしょうか?</p>
+</div>
+<p>リスト a の中で一番大きな値 (上の例では 9) に注目してみてください。リスト a を先頭から最後 まで <code class="docutils literal notranslate"><span class="pre">a[i]</span> <span class="pre">&gt;</span> <span class="pre">a[i+1]</span></code> のとき、スワップ操作をすると、最終的に、必ず<strong>一番大きな値が最後尾</strong>にきます。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">バブルソートの由来</p>
+<p>大きな値が最後尾にくる様子が、バブル(泡)が浮き上がってくるのに似ているため</p>
+</div>
+<p>バブルソートの名前とともに、<strong>「先頭から最後尾まで1回隣り合う要素を比較してスワップすると、 最後尾は最大値になる」</strong>と覚えておきましょう。こう覚えておくと、ループはトータルで何回まわすべきかわかります。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">bubble_sort</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="n">j</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;@</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+ <span class="n">bubble_sort</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+ <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+@1 [3, 1, 5, 8, 0, 4, 2, 7, 6, 9]
+@2 [1, 3, 5, 0, 4, 2, 7, 6, 8, 9]
+@3 [1, 3, 0, 4, 2, 5, 6, 7, 8, 9]
+@4 [1, 0, 3, 2, 4, 5, 6, 7, 8, 9]
+@5 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+@6 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+@7 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+@8 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+@9 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="クイックソート">
+<h2><span class="section-number">10.3. </span>クイックソート<a class="headerlink" href="#クイックソート" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>クイックソート(quick sort)</strong>は、1960 年、Antony Hoare が考案した高速かつエレガントなアルゴリズムです。 ソートアルゴリズムの代名詞になっています。</p>
+<p><strong>手順</strong> * 適当な数 (ピボット (pivot) と呼ぶ) を選択する * ピボットより小さい要素の集合、大きい要素の集合に分割する * 2 分割された各々の配列を、それぞれ分割できなくなるまで繰り返す</p>
+<img alt="qsort-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d79f4894-af91-ce69-ccee-9929c642cb3e.png" />
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">アルゴリズムと言えば..</p>
+<p>クイックソートというくらい頻出。原理は絶対に理解して覚えておこう！！</p>
+</div>
+<div class="section" id="メモリ効率を気にしない実装法">
+<h3><span class="section-number">10.3.1. </span>メモリ効率を気にしない実装法<a class="headerlink" href="#メモリ効率を気にしない実装法" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クイックソートは、メモリ効率を気にしなければ、実装はそれほど難しくありません。 ピボットでリストをフィルタして、再帰的に分割してゆきます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">quick_sort</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># 先頭と最後尾の平均をpivot にする</span>
+        <span class="n">pivot</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="c1"># pivot より大小で二つにわける</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="p">]</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;=</span><span class="si">{</span><span class="n">pivot</span><span class="si">}</span><span class="s1">=&gt;&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>   <span class="c1"># 動 作 確 認 用</span>
+        <span class="c1"># 分割したリストをそれぞれ再帰的にソート</span>
+        <span class="k">return</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+ <span class="n">a</span> <span class="o">=</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+ <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[5, 3, 1, 9, 8, 0, 4, 2, 7, 6] =5.5=&gt; [5, 3, 1, 0, 4, 2] [9, 8, 7, 6]
+[5, 3, 1, 0, 4, 2] =3.5=&gt; [3, 1, 0, 2] [5, 4]
+[3, 1, 0, 2] =2.5=&gt; [1, 0, 2] [3]
+[1, 0, 2] =1.5=&gt; [1, 0] [2]
+[1, 0] =0.5=&gt; [0] [1]
+[5, 4] =4.5=&gt; [4] [5]
+[9, 8, 7, 6] =7.5=&gt; [7, 6] [9, 8]
+[7, 6] =6.5=&gt; [6] [7]
+[9, 8] =8.5=&gt; [8] [9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div></div>
+</div>
+<p>クイックソートが長らくソートアルゴリズムの代名詞とされてきたのは、単に高速なだけでなく、メモリ効率も優れていたからです。(昔のコンピュータはメモリが高価でした。)</p>
+<p>メモリ効率も気にして書いた例です。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">quick_sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">start</span> <span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">:</span>
+        <span class="n">left</span> <span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">start</span> <span class="p">,</span> <span class="n">end</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">pivot</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">right</span><span class="p">])</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># a[left] &gt;= pivot となる位置を検索</span>
+            <span class="k">while</span> <span class="n">a</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">:</span>
+                <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># a[right] &lt;= pivot となる位置を検索</span>
+            <span class="k">while</span> <span class="n">pivot</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
+                <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">right</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="c1"># 分割した左を再帰的にソート</span>
+        <span class="n">quick_sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">start</span> <span class="p">,</span> <span class="n">left</span><span class="p">)</span>
+        <span class="c1"># 分割した右を再帰的にソート</span>
+        <span class="n">quick_sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">quick_sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div></div>
+</div>
+<p>最初のクイックソートは、分割するときに、新しくリストを2つ作っています。少なくとも、この段階でメモリは2倍必要になります。一方、あとのクイックソートは、リスト上の先端 (start) と終端 (end) の位置をもって、分割したとき新しいリストを作りません。その代わり、リストの両端 (left, right) から比較して、( left &gt; right) になったとき分割しています。</p>
+<p>なお、クイックソートはかなり難しい実装に分類されます。すんなり書ける人はそんなにいません。 本講義のノートのソースコードも何度も直していますし、まだバグがあるかもしれません。</p>
+</div>
+</div>
+<div class="section" id="アルゴリズム選択">
+<h2><span class="section-number">10.4. </span>アルゴリズム選択<a class="headerlink" href="#アルゴリズム選択" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ソートアルゴリズムは、同じ問題に対して異なる手順の解法が複数あることを示しています。</p>
+<p>すると、「どのアルゴリズムを選んだいいのだろうか?」と考える必要が生じます。</p>
+<p>アルゴリズムの評価基準は、アルゴリズムを選択する上でヒントとなります。</p>
+<p><strong>アルゴリズムの評価基準</strong></p>
+<ul class="simple">
+<li><p>正当性: 正しさの証明があるか</p></li>
+<li><p>効率: ステップ数，計算量と複雑さ (complexity)，平均ケースと最悪ケース</p></li>
+<li><p>単純さ，わかりやすさ，プログラムの簡単さ</p></li>
+<li><p>健全性，完全性，誤差の少なさ</p></li>
+<li><p>安定性</p></li>
+</ul>
+<p>計算量と複雑さは、アルゴリズムの性能を評価する重要な指標となります。 しかし、性能だけが全てではありません。実装のしやすさも実は重要です。 シンプルなアルゴリズムがバグも少なく、実装しやすいので好まれます。</p>
+<p>また、時代とともにアルゴリズムのトレンドが変わることもあります。昔は、ソートアルゴリズムといえば、ほぼクイックソートでした。しかし、最近はメモリの価格が大幅に下がったため、マージソートの方が望ましいアルゴリズムとされることが増えています。</p>
+<div class="section" id="計算量の見積もり">
+<h3><span class="section-number">10.4.1. </span>計算量の見積もり<a class="headerlink" href="#計算量の見積もり" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>前回、学んだソートアルゴリズムを使って、時間計算量の見積もりをみていきましょう。</p>
+<div class="section" id="ループを見る">
+<h4>ループを見る<a class="headerlink" href="#ループを見る" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>時間計算量は、入力サイズ <span class="math notranslate nohighlight">\(N\)</span> に依存して繰り返しの回数が決まるループに着目します。</p>
+<p>バブルソートでは、長さ <span class="math notranslate nohighlight">\(N\)</span> のリストを <span class="math notranslate nohighlight">\(N\)</span> 回繰り返す2重ループを用いて比較しています。 ループ が 2 重なので、時間計算量は <span class="math notranslate nohighlight">\(O(N^2)\)</span> となります。(外側のループは <span class="math notranslate nohighlight">\(N − 1\)</span> 回などと細かいことを考える必要はありません。)</p>
+<img alt="nn-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/7b0aa1af-d760-0187-4150-d16478367c30.png" />
+</div>
+<div class="section" id="データ分割に着目">
+<h4>データ分割に着目<a class="headerlink" href="#データ分割に着目" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>入力データを分割する処理があるときは、後述する「分割統治法」の可能性があります。</p>
+<p>例えば、クリックソートでは、N 回繰り返すループをまわす度に、入力データを(平均して)<span class="math notranslate nohighlight">\(N/2\)</span> と半分に分割していきます。この場合は、分割する回数は <span class="math notranslate nohighlight">\(O(\log{N})\)</span> となります。最終的には、 <span class="math notranslate nohighlight">\(O(N \log{N})\)</span>となります。</p>
+<img alt="nlogn-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/c476455a-7362-1aaf-a5e9-524869a9e256.png" />
+</div>
+</div>
+</div>
+<div class="section" id="見本">
+<h2><span class="section-number">10.5. </span>見本<a class="headerlink" href="#見本" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">(1//2)</span></code> が、正しく <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> にならない理由を考えてみよう</p>
+</div>
+<p>まずは、リストを使わなくても解ける問題ですが、リストの練習を兼ねて解いてみましょう。</p>
+<div class="section" id="平均点">
+<h3><span class="section-number">10.5.1. </span>平均点<a class="headerlink" href="#平均点" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="admonition tip"><p><strong>例題（平均点）</strong></p>
+<p>スワップを用いて、リストを逆順に変換してみよう。</p>
+<p>入力例：</p>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a">AtCoder (JOI2014 予選)</a></p>
+</div><p><strong>(解法) リストを使う場合</strong></p>
+<ol class="arabic simple">
+<li><p>期末試験を記録する空の得点リスト <code class="docutils literal notranslate"><span class="pre">scores</span></code> を用意する</p></li>
+<li><p>5人分繰り返し、点数を読んで、<code class="docutils literal notranslate"><span class="pre">scores</span></code> に追加する</p></li>
+<li><p>平均点は <code class="docutils literal notranslate"><span class="pre">sum(scores)</span> <span class="pre">//</span> <span class="pre">5</span></code></p></li>
+</ol>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max(a)</span></code></p></td>
+<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の最大値</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min(a)</span></code></p></td>
+<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の最小値</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum(a)</span></code></p></td>
+<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の合計値</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="演習問題">
+<h2><span class="section-number">10.6. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc161/tasks/abc161_a">ABCスワップ</a>: ボーナス！</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc103/tasks/abc103_a">タスクスケジュール</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc102/tasks/abc102_b">最大距離</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc067/tasks/abc067_b">ヘビのおもちゃ</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/agc027/tasks/agc027_a">キャンディの配布</a>: ソートして配ります</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc128/tasks/abc128_b">ガイドブック</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="py11dict.html" class="btn btn-neutral float-right" title="11. 辞書を作ってみる" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="py10prime.html" class="btn btn-neutral float-left" title="9. 整数アルゴリズム" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

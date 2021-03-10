@@ -1,0 +1,2200 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>4. 表データを使いこなそう &mdash; Python &amp; Data Science 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="5. データの傾向をつかもう" href="ds05data.html" />
+    <link rel="prev" title="3. NumPyとグラフ" href="ds03numpy.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python & Data Science 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ds01intro.html">1. Python とデータサイエンス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds02sympy.html">2. 計算はPythonにさせてしまおう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds03numpy.html">3. NumPyとグラフ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 表データを使いこなそう</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Pandas-とは">4.1. Pandas とは</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#データの用意">4.1.1. データの用意</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#基本操作">4.2. 基本操作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#CSVファイルの読み込み">4.2.1. CSVファイルの読み込み</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#属性名からカラム(列)を取り出す">4.2.2. 属性名からカラム(列)を取り出す</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#属性(列データ）の追加">4.2.3. 属性(列データ）の追加</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#n行目のデータを取り出す">4.2.4. n行目のデータを取り出す</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#セルの値">4.2.5. セルの値</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#表データの出力">4.2.6. 表データの出力</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Pandas-とリレーショナル代数">4.3. Pandas とリレーショナル代数</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#選択(selection)">4.3.1. 選択(selection)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#射影(projection)">4.3.2. 射影(projection)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#表の連結">4.3.3. 表の連結</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#表データの結合(join)">4.3.4. 表データの結合(join)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#データ分析の準備">4.4. データ分析の準備</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#欠損値のチェック">4.4.1. 欠損値のチェック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#グループごとの集計">4.4.2. グループごとの集計</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">4.5. コースワーク</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ds05data.html">5. データの傾向をつかもう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python & Data Science 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">4. </span>表データを使いこなそう</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/ds04pandas.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="表データを使いこなそう">
+<h1><span class="section-number">4. </span>表データを使いこなそう<a class="headerlink" href="#表データを使いこなそう" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>今回は、データ分析と言えば、避けては通れないPandas の使い方を学び、 表データの操作を練習します。</p>
+<div class="section" id="Pandas-とは">
+<h2><span class="section-number">4.1. </span>Pandas とは<a class="headerlink" href="#Pandas-とは" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Pandas とは、表データを扱うPython モジュールで、表計算ソフト (Excel)やリレーショナルデータベースの操作を Python から手軽に行えるようにしてくれます。</p>
+<p>次のように<code class="docutils literal notranslate"><span class="pre">pandas</span></code>モジュールをインポートして使います。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>import pandas as pd
+</pre></div>
+</div>
+</div>
+<p>Pandas は、とても高機能です。</p>
+<p>本講義では、Pandas でデータ分析をする必須の機能だけ紹介し、ハンズオン演習で体験します。</p>
+<ul class="simple">
+<li><p>暗記するものではありません。</p></li>
+<li><p>どういうデータ処理や操作ができるか、覚えましょう。</p></li>
+<li><p>使うときは、Google 等で調べながら使ってください。</p></li>
+</ul>
+<div class="section" id="データの用意">
+<h3><span class="section-number">4.1.1. </span>データの用意<a class="headerlink" href="#データの用意" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Pandas の使い方に慣れるために、小さな練習用のデータを作成して、 そちらを使って演習していきます。</p>
+<p>Colabのファイル書き込み機能(<code class="docutils literal notranslate"><span class="pre">%%file</span></code>)を使って、 演習用のCSVファイル <code class="docutils literal notranslate"><span class="pre">arashi.csv</span></code>を作ります。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>%%file arashi.csv
+名前,出身,生年,身長,血液型
+相葉雅紀,千葉,1982,175,AB
+松本潤,東京都,1983,172,A
+二宮和也,東京都,1983,168,A
+大野智,東京都,1980,166,A
+櫻井翔,東京都,1983,171,A
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Overwriting arashi.csv
+</pre></div></div>
+</div>
+<p>あとから表データの結合で用いますので、もうひとつ <code class="docutils literal notranslate"><span class="pre">junk.csv</span></code> も作っておきましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>%%file junk.csv
+name,height,weight
+大野智,166,52.0
+相葉雅紀,176,58.0
+二宮和也,168,52.0
+松本潤,173,62.0
+カビゴン,210,460.0
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Overwriting junk.csv
+</pre></div></div>
+</div>
+<p>CSV ファイルは、表計算ソフト(Excel)のファイルをデータ処理しやすく、カンマ区切り形式のテキストで出力したものです。</p>
+<p>当然、Excel 等の表計算ソフトで開いてみることができます。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p>ちゃんと<code class="docutils literal notranslate"><span class="pre">arashi.csv</span></code>が作成されているか、<code class="docutils literal notranslate"><span class="pre">head</span></code>コマンドで確認してみよう。</p>
+</div>
+</div>
+</div>
+<div class="section" id="基本操作">
+<h2><span class="section-number">4.2. </span>基本操作<a class="headerlink" href="#基本操作" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Pandas は、表データを効率よく操作できます。</p>
+<p>Pandas 用語では、表データのことをデータフレーム(DataFrame)と呼びますが、本資料では表データと呼びます。</p>
+<p><strong>用語の説明</strong></p>
+<ul class="simple">
+<li><p>カラム: 行方向のデータ</p></li>
+<li><p>インデックス: 列方向のデータ</p></li>
+</ul>
+<div class="section" id="CSVファイルの読み込み">
+<h3><span class="section-number">4.2.1. </span>CSVファイルの読み込み<a class="headerlink" href="#CSVファイルの読み込み" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Pandas では、<code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>を用いると、CSVファイルから表データを読み込めます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data = pd.read_csv(&#39;arashi.csv&#39;)
+data.head()  # 最初の5行のみ表示
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982</td>
+      <td>175</td>
+      <td>AB</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>172</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>168</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980</td>
+      <td>166</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>171</td>
+      <td>A</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>読み込んで表データは、<code class="docutils literal notranslate"><span class="pre">data</span></code>という名前にしてあります。 表データへの操作は、<code class="docutils literal notranslate"><span class="pre">data.head()</span></code>のようにメソッドで行ます。</p>
+</div>
+<div class="section" id="属性名からカラム(列)を取り出す">
+<h3><span class="section-number">4.2.2. </span>属性名からカラム(列)を取り出す<a class="headerlink" href="#属性名からカラム(列)を取り出す" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Pandas では、属性ごとのデータ処理が多くなります。 まず、属性名<code class="docutils literal notranslate"><span class="pre">'名前'</span></code>のデータを取り出してみましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data[&#39;名前&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0    相葉雅紀
+1     松本潤
+2    二宮和也
+3     大野智
+4     櫻井翔
+Name: 名前, dtype: object
+</pre></div></div>
+</div>
+<p>取り出した属性データは、Pythonの列(シーケンス）として、<code class="docutils literal notranslate"><span class="pre">for</span></code>文などで処理できます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>for name in data[&#39;名前&#39;]:
+  print(name)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+相葉雅紀
+松本潤
+二宮和也
+大野智
+櫻井翔
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="属性(列データ）の追加">
+<h3><span class="section-number">4.2.3. </span>属性(列データ）の追加<a class="headerlink" href="#属性(列データ）の追加" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>新しい属性、つまり列データを追加してみましょう。</p>
+<p>表データ中には、５人分のデータがあるため、リストとして５人分のデータを代入すると、 新しい属性を追加することができます。</p>
+<p><strong>例. 性別を追加する</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data[&#39;性別&#39;] = [&#39;男性&#39;, &#39;男性&#39;, &#39;男性&#39;, &#39;男性&#39;, &#39;男性&#39;]  # [&#39;男性&#39;] * 5
+
+data #表示
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982</td>
+      <td>175</td>
+      <td>AB</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>172</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>168</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980</td>
+      <td>166</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>171</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">上級者向け: 列に数式を適用する</p>
+<p><code class="docutils literal notranslate"><span class="pre">apply</span></code>を使えば、各列データに関数やラムダ式を適用した列がえられます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;年齢&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;生年&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2021</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="n行目のデータを取り出す">
+<h3><span class="section-number">4.2.4. </span>n行目のデータを取り出す<a class="headerlink" href="#n行目のデータを取り出す" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>表データの列ごとへのアクセスは、<code class="docutils literal notranslate"><span class="pre">.iloc</span></code>プロパティを通して行ます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data.iloc[0]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+名前     相葉雅紀
+出身       千葉
+生年     1982
+身長      175
+血液型      AB
+性別       男性
+Name: 0, dtype: object
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>for values in data.iloc[0]:
+  print(values)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+相葉雅紀
+千葉
+1982
+175
+AB
+男性
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="セルの値">
+<h3><span class="section-number">4.2.5. </span>セルの値<a class="headerlink" href="#セルの値" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>インデックスと属性の組み合わせで、表データをセルの値を指定して取り出すことができます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data.iloc[0][&#39;出身&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;千葉&#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="表データの出力">
+<h3><span class="section-number">4.2.6. </span>表データの出力<a class="headerlink" href="#表データの出力" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Pandas で操作した表データは、<code class="docutils literal notranslate"><span class="pre">.to_csv()</span></code>でCSVファイルに保存できます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data.to_csv(&#39;arashi2.csv&#39;, index=False)  #インデックスなしで出力
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>!cat data.csv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+名前,出身,生年,身長,血液型,性別
+相葉雅紀,千葉,1982,175,AB,男性
+松本潤,東京都,1983,172,A,男性
+二宮和也,東京都,1983,168,A,男性
+大野智,東京都,1980,166,A,男性
+櫻井翔,東京都,1983,171,A,男性
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Pandas-とリレーショナル代数">
+<h2><span class="section-number">4.3. </span>Pandas とリレーショナル代数<a class="headerlink" href="#Pandas-とリレーショナル代数" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Pandas のリレーショナル代数の操作をみていきましょう。</p>
+<p>データベース実習を履修している人は、SQLを思い出しながら試していきましょう。</p>
+<div class="section" id="選択(selection)">
+<h3><span class="section-number">4.3.1. </span>選択(selection)<a class="headerlink" href="#選択(selection)" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>選択は、指定した条件に合う行を取り出します。データを抽出するフィルターの役割になります。</p>
+<p><strong>例</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="k">data</span> <span class="k">WHERE</span> <span class="s1">&#39;身長 &gt;= 170&#39;</span>
+</pre></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data[data[&#39;身長&#39;] &gt;= 170]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982</td>
+      <td>175</td>
+      <td>AB</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>172</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>171</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>複雑な条件は、<code class="docutils literal notranslate"><span class="pre">.query()</span></code>メソッドを用いて与えることもできます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data.query(&#39;身長 &gt;= 170 and 血液型 == &quot;A&quot;&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>172</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>171</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="射影(projection)">
+<h3><span class="section-number">4.3.2. </span>射影(projection)<a class="headerlink" href="#射影(projection)" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>射影（projection）は、表データから属性を限定した表データを返します。 Pandasでは、抽出したい属性名をリストにして渡します。</p>
+<p><strong>SQL例</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span>SELECT 名前,生年,血液型 FROM data
+</pre></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data[[&#39;名前&#39;, &#39;生年&#39;, &#39;血液型&#39;]]
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>生年</th>
+      <th>血液型</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>1982</td>
+      <td>AB</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>1983</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>1983</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>1980</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>1983</td>
+      <td>A</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="表の連結">
+<h3><span class="section-number">4.3.3. </span>表の連結<a class="headerlink" href="#表の連結" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>複数のファイルに入っている表データをまとめてひとつにしたいことがあります。</p>
+<p>単純に縦方向に連結したいときは、<code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>を使って連結します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data2 = pd.read_csv(&#39;arashi.csv&#39;) #もう一度読む
+pd.concat([data, data2])
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982</td>
+      <td>175</td>
+      <td>AB</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>172</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>168</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980</td>
+      <td>166</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>171</td>
+      <td>A</td>
+      <td>男性</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982</td>
+      <td>175</td>
+      <td>AB</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>172</td>
+      <td>A</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>168</td>
+      <td>A</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980</td>
+      <td>166</td>
+      <td>A</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>171</td>
+      <td>A</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>今度は、最初に作ったもう一つのCSVファイル junk.csvを読み込んで、連結してみます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data2 = pd.read_csv(&#39;junk.csv&#39;)
+data2
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>大野智</td>
+      <td>166</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>相葉雅紀</td>
+      <td>176</td>
+      <td>58.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>168</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>松本潤</td>
+      <td>173</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>カビゴン</td>
+      <td>210</td>
+      <td>460.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>pd.concat([data, data2])  #縦方向に連結
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+      <th>name</th>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982.0</td>
+      <td>175.0</td>
+      <td>AB</td>
+      <td>男性</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>172.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>168.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980.0</td>
+      <td>166.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>171.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>大野智</td>
+      <td>166.0</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>相葉雅紀</td>
+      <td>176.0</td>
+      <td>58.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>二宮和也</td>
+      <td>168.0</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>松本潤</td>
+      <td>173.0</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>カビゴン</td>
+      <td>210.0</td>
+      <td>460.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>pd.concat([data, data2], axis=1)  #横方向に連結
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+      <th>name</th>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982</td>
+      <td>175</td>
+      <td>AB</td>
+      <td>男性</td>
+      <td>大野智</td>
+      <td>166</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>172</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>相葉雅紀</td>
+      <td>176</td>
+      <td>58.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>168</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>二宮和也</td>
+      <td>168</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980</td>
+      <td>166</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>松本潤</td>
+      <td>173</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>171</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>カビゴン</td>
+      <td>210</td>
+      <td>460.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="表データの結合(join)">
+<h3><span class="section-number">4.3.4. </span>表データの結合(join)<a class="headerlink" href="#表データの結合(join)" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>表データの結合は、ふたつの表データのある属性をキーにして、キーが同じ値であれば一つの行にまとめる操作です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code>で次のように結合します。</p>
+<p><strong>``名前``と``name``をキーにする</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>pd.merge(data, data2, left_on=&#39;名前&#39;, right_on=&#39;name&#39;)
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+      <th>name</th>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982</td>
+      <td>175</td>
+      <td>AB</td>
+      <td>男性</td>
+      <td>相葉雅紀</td>
+      <td>176</td>
+      <td>58.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>172</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>松本潤</td>
+      <td>173</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983</td>
+      <td>168</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>二宮和也</td>
+      <td>168</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980</td>
+      <td>166</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>大野智</td>
+      <td>166</td>
+      <td>52.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>ふたつの表データは結合されましたが、データが一部消えてしまいました。 これは、Pandas では何も指定しなければ、一番条件の厳しい内部結合が用いられるためです。</p>
+<p><strong>結合の方法</strong> * 内部結合 <code class="docutils literal notranslate"><span class="pre">inner</span></code>: 両方にキーが存在するとき結合 * 外部結合 <code class="docutils literal notranslate"><span class="pre">outer</span></code>: どちらか一方にキーが存在するとき結合 * 左外部結合 <code class="docutils literal notranslate"><span class="pre">left</span></code>: 左側にキーが存在するとき * 右外部結合 <code class="docutils literal notranslate"><span class="pre">right</span></code>: 右側にキーが存在するとき</p>
+<p><code class="docutils literal notranslate"><span class="pre">left</span></code>が良さそうですが、<code class="docutils literal notranslate"><span class="pre">outer</span></code>で結合してみます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>pd.merge(data, data2, left_on=&#39;名前&#39;, right_on=&#39;name&#39;, how=&#39;outer&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+      <th>name</th>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982.0</td>
+      <td>175.0</td>
+      <td>AB</td>
+      <td>男性</td>
+      <td>相葉雅紀</td>
+      <td>176.0</td>
+      <td>58.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>172.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>松本潤</td>
+      <td>173.0</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>168.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>二宮和也</td>
+      <td>168.0</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980.0</td>
+      <td>166.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>大野智</td>
+      <td>166.0</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>171.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>カビゴン</td>
+      <td>210.0</td>
+      <td>460.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>また、属性名が英語だったり、日本だったり不統一です。 少し整頓しておきましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># data, data2を外部結合した表データを新しく ARASHI とする
+ARASHI = pd.merge(data, data2, left_on=&#39;名前&#39;, right_on=&#39;name&#39;, how=&#39;outer&#39;)
+ARASHI.drop(&#39;name&#39;, axis=1, inplace=True)
+ARASHI.drop(&#39;height&#39;, axis=1, inplace=True)
+ARASHI.drop(5, axis=0, inplace=True)  #index=5を消す
+ARASHI.rename(columns={&#39;weight&#39;: &#39;体重&#39;}, inplace=True)
+ARASHI
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+      <th>体重</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982.0</td>
+      <td>175.0</td>
+      <td>AB</td>
+      <td>男性</td>
+      <td>58.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>172.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>168.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980.0</td>
+      <td>166.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>171.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section" id="データ分析の準備">
+<h2><span class="section-number">4.4. </span>データ分析の準備<a class="headerlink" href="#データ分析の準備" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>次回からPandas を用いて、より本格的なデータ分析を始めます。</p>
+<div class="section" id="欠損値のチェック">
+<h3><span class="section-number">4.4.1. </span>欠損値のチェック<a class="headerlink" href="#欠損値のチェック" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>世の中のデータは、データ値が欠けていることがあります。 今回の練習データでは、<code class="docutils literal notranslate"><span class="pre">NaN</span></code>と表示されている値が、欠損値になります。 データ件数が少ない場合は、目視でみつかる場合がありますが、 データ件数が多くなると、手作業で探すのは無理です。</p>
+<p>欠損値をチェックすることが必要になります。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>ARASHI.isnull().sum()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+名前     0
+出身     0
+生年     0
+身長     0
+血液型    0
+性別     0
+体重     1
+dtype: int64
+</pre></div></div>
+</div>
+<p>欠損値が見つかったときは、 欠損値を処理するアプローチとしては：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dropna()</span></code>：データが欠損している行や列を削除する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fillna()</span></code>：データが欠損している要素を別の値で穴埋めする</p></li>
+</ul>
+<p>どのように処理するかは、データ分析の目的によって異なります。 今回は、メンバーを消してしまったら、大変なことになりますので、 __欠損値の値を平均値で補完する__ことで対応してみます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>ARASHI.fillna(ARASHI.mean(), inplace=True)
+ARASHI
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>出身</th>
+      <th>生年</th>
+      <th>身長</th>
+      <th>血液型</th>
+      <th>性別</th>
+      <th>体重</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>相葉雅紀</td>
+      <td>千葉</td>
+      <td>1982.0</td>
+      <td>175.0</td>
+      <td>AB</td>
+      <td>男性</td>
+      <td>58.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>松本潤</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>172.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>二宮和也</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>168.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大野智</td>
+      <td>東京都</td>
+      <td>1980.0</td>
+      <td>166.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>櫻井翔</td>
+      <td>東京都</td>
+      <td>1983.0</td>
+      <td>171.0</td>
+      <td>A</td>
+      <td>男性</td>
+      <td>56.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>メモ</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>                   <span class="c1"># 列Ageの欠損値を20で穴埋め</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>   <span class="c1"># 列Ageの欠損値をAgeの平均値で穴埋め</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span> <span class="c1"># 列Ageの欠損値をAgeの中央値で穴埋め</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">())</span>   <span class="c1"># 列Ageの欠損値をAgeの最頻値で穴埋め</span>
+</pre></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="グループごとの集計">
+<h3><span class="section-number">4.4.2. </span>グループごとの集計<a class="headerlink" href="#グループごとの集計" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>groupby は、同じ値を持つデータをまとめて、それぞれの塊に対して共通の操作を行いたい時に使う。例えば一番簡単な使い方として、city ごとの price の平均を求めるには次のようにする。groupby で出来た GroupBy オブジェクトに対して、平均をとる mean メソッドを呼ぶと良い。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>ARASHI.groupby(&#39;血液型&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="コースワーク">
+<h2><span class="section-number">4.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コースワークは、次回までの演習課題です。 次回の授業でたぶん解説をします。</p>
+<div class="admonition tip"><p><strong>演習（BMI.CSV）</strong></p>
+<p>指定された３つのCSVファイルをまとめてひとつのCSVファイルする。</p>
+<ol class="arabic simple">
+<li><p>完成したファイルは <code class="docutils literal notranslate"><span class="pre">bmi.csv</span></code> として保存する</p></li>
+<li><p>体重を横軸にして、ヒストグラムを書いてみる</p></li>
+<li><p>身長と体重の分布図を描画する</p></li>
+</ol>
+</div><p><strong>課題の進め方</strong></p>
+<p><a class="reference external" href="https://colab.research.google.com/github/kkuramitsu/class2021/blob/master/notebooks/course04-pandas.ipynb">ワークシート</a>をColab上で開いて、自分のDriveにコピーする</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="ds05data.html" class="btn btn-neutral float-right" title="5. データの傾向をつかもう" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ds03numpy.html" class="btn btn-neutral float-left" title="3. NumPyとグラフ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

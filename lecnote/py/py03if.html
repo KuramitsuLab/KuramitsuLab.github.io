@@ -1,0 +1,918 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. 条件によって動作を変える &mdash; Python Programming 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="4. リストと繰り返し" href="py04forlist.html" />
+    <link rel="prev" title="2. 変数を評価する" href="py02eval.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python Programming 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 条件によって動作を変える</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#命題と論理式">3.1. 命題と論理式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#条件分岐">3.2. 条件分岐</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#基本形">3.2.1. 基本形</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#条件分岐して何も処理しない場合">3.2.2. 条件分岐して何も処理しない場合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#分岐したら複数行のコードを実行する場合">3.2.3. 分岐したら複数行のコードを実行する場合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#複数の条件があるとき">3.2.4. 複数の条件があるとき</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#条件式（三項演算子）">3.3. 条件式（三項演算子）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#繰り返し(while文とfor文)">3.4. 繰り返し(while文とfor文)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#for文:-無限ループの回避">3.4.1. for文: 無限ループの回避</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">3.5. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python Programming 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>条件によって動作を変える</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/py03if.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="条件によって動作を変える">
+<h1><span class="section-number">3. </span>条件によって動作を変える<a class="headerlink" href="#条件によって動作を変える" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>今回は、条件によってプログラムの動作を変える方法を学んでいきます。</p>
+<div class="section" id="命題と論理式">
+<h2><span class="section-number">3.1. </span>命題と論理式<a class="headerlink" href="#命題と論理式" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まずは、高校数学の復習です。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">命題</p>
+<p>正しいか正しくないかを判定できる文や式</p>
+</div>
+<p>例</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(3\)</span>は<span class="math notranslate nohighlight">\(2\)</span>より大きい</p></li>
+<li><p><span class="math notranslate nohighlight">\(3\)</span>は偶数である</p></li>
+</ul>
+<p>命題が正しいときを<strong>真(true)</strong>、間違っているときは<strong>偽(false)</strong>といいます。</p>
+<p>だから、「<span class="math notranslate nohighlight">\(3\)</span>は<span class="math notranslate nohighlight">\(2\)</span>より大きい」は真ですが、「<span class="math notranslate nohighlight">\(3\)</span>は偶数である」は偽となります。</p>
+<p>Python では、論理式として命題を表現することができます。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">論理式：Python における命題</p>
+<p>評価すると論理値（<code class="docutils literal notranslate"><span class="pre">True</span></code> もしくは <code class="docutils literal notranslate"><span class="pre">False</span></code>）になる式</p>
+</div>
+<p>このような論理式を表現するため、次のような演算子を提供しています。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 23%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>数式</p></th>
+<th class="head"><p>Python</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x &lt; y~~~~~\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y より小さいかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \le y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y 以下かどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x &gt; y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y より大きいかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \ge y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y 以上かどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x = y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y と等しいかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \ne y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">!=</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y と等しくないかどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x \in y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y に含まれるかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \not\in y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">not</span> <span class="pre">in</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y に含まれないかどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x \land y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">and</span> <span class="pre">y</span></code></p></td>
+<td><p>x かつ y</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \lor y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">or</span> <span class="pre">y</span></code></p></td>
+<td><p>x または y</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\lnot x\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">x</span></code></p></td>
+<td><p>x の否定</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip"><p><strong>例題（論理式）</strong></p>
+<p>次の命題を論理式として評価してみよう。</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(3\)</span>は<span class="math notranslate nohighlight">\(2\)</span>より大きい</p></li>
+<li><p><span class="math notranslate nohighlight">\(3\)</span>は偶数である</p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi\)</span>は3より大きく、<span class="math notranslate nohighlight">\(3.18\)</span>より小さい</p></li>
+<li><p><span class="math notranslate nohighlight">\(121\)</span>は<span class="math notranslate nohighlight">\(11\)</span>の倍数でない</p></li>
+<li><p>文字<code class="docutils literal notranslate"><span class="pre">&quot;e&quot;</span></code> は文字列<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code>に含まれる</p></li>
+</ol>
+</div></div>
+<div class="section" id="条件分岐">
+<h2><span class="section-number">3.2. </span>条件分岐<a class="headerlink" href="#条件分岐" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>プログラムは、原則、上から順番に[A]→[B]のように評価してゆきます。</p>
+<img alt="code_seq-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/7b643ba4-a47c-8d36-6639-d85e1e1d5a78.png" />
+<p>しかし、<strong>条件によっては、評価するプログラムを[X]か[Y]のように切り替えたい</strong>ことがあります。 そのようなときは、<strong>if文と呼ばれる制御構造</strong>を用います。</p>
+<img alt="code_if-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/555f7c9d-15b4-1d0b-e593-aa581b4ae16a.png" />
+<p><strong>if文</strong>や条件分岐の考え方は難しいものではありません。 しかし、Python には、インデントによってコードブロックを示すなど、 独特なクセがあります。 いくつか書き方のパターンを見て、書き方をマスターしましょう。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">重要: <strong>インデント（字下げ）</strong></p>
+<p>コードの前の空白をインデントといいます\ Python はインデントの深さでコードブロックの始まりと終わりを表す</p>
+</div>
+<div class="section" id="基本形">
+<h3><span class="section-number">3.2.1. </span>基本形<a class="headerlink" href="#基本形" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まず簡単な例題をみながら、しくみと書き方を理解しましょう。</p>
+<div class="admonition tip"><p><strong>例題(偶数と奇数)</strong></p>
+<p>整数値を入力から読み、 偶数の場合は<code class="docutils literal notranslate"><span class="pre">even</span></code>, 奇数の場合は<code class="docutils literal notranslate"><span class="pre">odd</span></code>と表示しよう。</p>
+<p>入力</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>
+</pre></div>
+</div>
+<p>出力</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">even</span>
+</pre></div>
+</div>
+</div><p>実際に、入力する値を変えて、結果の変化を試してみましょう。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;even&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;odd&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="条件分岐して何も処理しない場合">
+<h3><span class="section-number">3.2.2. </span>条件分岐して何も処理しない場合<a class="headerlink" href="#条件分岐して何も処理しない場合" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>if文のよくある書き方として、 条件分岐したとき<strong>何も処理しない場合</strong>があります。</p>
+<p>Python では、「何も実行しない」というプログラムを意味する特殊な文として、<code class="docutils literal notranslate"><span class="pre">pass</span></code>文があります。 トランプゲームの「パス」という同じです。 だから、<code class="docutils literal notranslate"><span class="pre">print(&quot;odd&quot;)</span></code>の代わりに<code class="docutils literal notranslate"><span class="pre">pass</span></code>にすると、何も実行されません。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;even&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>もうひとつ、<code class="docutils literal notranslate"><span class="pre">else:</span></code>自体は、何も実行しないときは省略できます。 だから、省略しても構いません。（こちらの書き方が好まれます。）</p>
+<p><strong>``else:``を省略</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;even&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="分岐したら複数行のコードを実行する場合">
+<h3><span class="section-number">3.2.3. </span>分岐したら複数行のコードを実行する場合<a class="headerlink" href="#分岐したら複数行のコードを実行する場合" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>if文による分岐先に複数行の文を実行したいことがあります。 同じ深さのインデントが続くときは、コードブロック（つまり複文）として順次、評価されます。</p>
+<p><strong>正解</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ここはインデントによるコードブロックの書き方をしっかり理解しましょう。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">コードブロックとインデントの深さ</p>
+<p>Pythonは、同じインデントの深さのコードをひとまとまりの処理（コードブロック）とします。 次のように入れ子として書くことができます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="複数の条件があるとき">
+<h3><span class="section-number">3.2.4. </span>複数の条件があるとき<a class="headerlink" href="#複数の条件があるとき" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>if文のブロックには、if文を書くことができます。 これにより、より複雑なプログラムが書けるようになります。</p>
+<div class="admonition tip"><p><strong>例題(複数の条件))</strong></p>
+<p>入力1行から空白で区切られた整数値a,bを読みます。 aがbより大きければ<code class="docutils literal notranslate"><span class="pre">big</span></code>、 等しければ<code class="docutils literal notranslate"><span class="pre">same</span></code>、 そうでなければ <code class="docutils literal notranslate"><span class="pre">small</span></code>と表示しよう。</p>
+<p>入力</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>出力</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">big</span>
+</pre></div>
+</div>
+</div><p>if文の中にif文を書くときは、インデントを更に深くします。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">else:</span></code>のあとに、すぐに if文が続くときは、 <code class="docutils literal notranslate"><span class="pre">elif</span></code>で書き直すことができます。</p>
+<p><strong>別解</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">else</span> <span class="pre">if</span></code> を1行で書けるになるので、 インデントが不要に深くなるのを防げます。 深くなりません。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">if文の効率</p>
+<p>ロジックは同じですが、if文が3回判定されるので、効率はよくありません。</p>
+<p><strong>別解</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="条件式（三項演算子）">
+<h2><span class="section-number">3.3. </span>条件式（三項演算子）<a class="headerlink" href="#条件式（三項演算子）" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Pythonでも、if文を条件式として1行に書くことができます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>＜真のときの式＞ if ＜論理式＞ else ＜偽のときの式＞
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">三項演算子</p>
+<p>if式は、C/C++やJavaの<strong>三項演算子</strong>に相当します。</p>
+<p><strong>三項演算子の場合</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>＜論理式＞ ? ＜真のときの式＞ : ＜偽のときの式＞
+</pre></div>
+</div>
+</div>
+<div class="admonition tip"><p><strong>例題(条件式)</strong></p>
+<p>入力1行から空白で区切られた整数値a,bを読みます。 aとbを比較して大きい値を表示しよう。</p>
+<p>入力</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>出力</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>
+</pre></div>
+</div>
+</div><p><strong>if式で書いた例</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>if文で書いた例</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>もちろん``max(a,b)``でも..</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>if式（三項演算子）は、 ソースコードが冗長になるのを防いでコンパクトに書くことができます。 ぜひ、積極的に利用してみましょう。</p>
+</div>
+<div class="section" id="繰り返し(while文とfor文)">
+<h2><span class="section-number">3.4. </span>繰り返し(while文とfor文)<a class="headerlink" href="#繰り返し(while文とfor文)" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>while文は、特殊な条件分岐の構文になります。 if文の代わりに、while文を用いると、 <strong>条件PがTrueの間は``[X]``を繰り返し</strong>ます。</p>
+<img alt="code_while-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/975ed466-4bfa-9560-230a-faa0a09f97e1.png" />
+<p><strong>if文</strong>: 条件を満たせば、高々１回実行される</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span>
+
+</pre></div>
+</div>
+</div>
+<p><strong>while文</strong>: 条件を満たす限り、繰り返す</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">while</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">無限ループ</p>
+<p>while文の条件がいつまでも真で繰り返しが止まらなくなること</p>
+</div>
+<p>先程の例では、<code class="docutils literal notranslate"><span class="pre">while</span></code>文の中で<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">-</span> <span class="pre">1</span></code>が処理されないと、いつまでも<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>になるため、無限ループになります。</p>
+<p><strong>無限ループの例</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">while</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>無限ループは、頻繁に発生し、主要なバグの原因になります。ソフトウェア光学の調査によると、アプリケーションが反応しなくなる不具合の原因は、無限ループに陥っていると言われています。<code class="docutils literal notranslate"><span class="pre">while</span></code>文を書くときは注意が必要です。</p>
+<div class="section" id="for文:-無限ループの回避">
+<h3><span class="section-number">3.4.1. </span>for文: 無限ループの回避<a class="headerlink" href="#for文:-無限ループの回避" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>無限ループは、初学者から上級者まで発生させやすいバグの原因になります。 解説を読んでいるときは、「そんなマヌケなコードは書きませんよ（絶対）」と笑っていても、 結構、頻繁に引き起こします。</p>
+<p>無限ループを避ける確実な手段は、<code class="docutils literal notranslate"><span class="pre">while</span></code>文を使わないことです。 <code class="docutils literal notranslate"><span class="pre">for/in</span></code>文は、繰り返す回数を指定できる確実な方法です。</p>
+<p><strong>N回繰り返したいとき</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="c1"># 繰り返す処理</span>
+</pre></div>
+</div>
+<p>特別な事情がない場合は、<code class="docutils literal notranslate"><span class="pre">for</span></code>文を用いて繰り返しを書くようにしましょう。 特に、<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(N):</span></code>は、<span class="math notranslate nohighlight">\(N\)</span>回繰り返すときの定番の書き方です。 繰り返す回数が決まっているときは、<code class="docutils literal notranslate"><span class="pre">for</span></code>文を使いましょう。</p>
+<img alt="code_for-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d30f935a-899a-e069-0132-5cc08e800487.png" />
+<div class="admonition tip"><p><strong>例題(お米)</strong></p>
+<p>お米は、一粒から1本の苗になります。 苗は、10本の穂を実らせ、各稲穂には60粒のお米が実ります。 つまり、1粒は1年後に600粒になります。</p>
+<p>1粒の稲を1億粒以上に増やすには、何年かかるか求めてみよう。</p>
+</div><p>等比数列から計算してもよいですが、コンピュータの場合は繰り返しでシミュレーションした方が早いです。</p>
+<p><strong>while文で書いたとき</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">START</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">GOAL</span> <span class="o">=</span> <span class="mi">1_0000_0000</span>   <span class="c1"># _位取り</span>
+
+<span class="n">year</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">START</span>
+
+<span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">GOAL</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">600</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="n">year</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3
+</pre></div></div>
+</div>
+<p>for文で書くときは、少し大きめの繰り返し回数を指定し、 条件を満たしたら、ループを抜ける<code class="docutils literal notranslate"><span class="pre">break</span></code>文を使います。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">START</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">GOAL</span> <span class="o">=</span> <span class="mi">1_0000_0000</span>   <span class="c1"># _位取り</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">start</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">600</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">goal</span><span class="p">:</span>
+        <span class="k">break</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3
+</pre></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle"><code class="docutils literal notranslate"><span class="pre">break</span></code>文</p>
+<p>while文やfor文の繰り返しを強制的に抜け出す</p>
+</div>
+</div>
+</div>
+<div class="section" id="演習問題">
+<h2><span class="section-number">3.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>繰り返しは、次回以降、本格的に練習していきます。今回は、条件分岐に慣れましょう。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc061/tasks/abc061_a">二つの数の間</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc147/tasks/abc147_a">ブラックジャック</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc114/tasks/abc114_a">七五三</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc155/tasks/abc155_a">かわいそう</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc094/tasks/abc094_a">猫と犬</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc139/tasks/abc139_b">電源プラグ</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc165/tasks/abc165_b">預金</a>: シミュレーションしてみましょう</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc162/tasks/abc162_c">gcd(a,b,c)の和</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc158/tasks/abc158_c">消費税</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc160/tasks/abc160_b">金色の効果</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2020yo1a/tasks/joi2020_yo1a_a">３つの整数</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2020yo1b/tasks/joi2020_yo1b_a">成績</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2020yo1c/tasks/joi2020_yo1c_a">Xに最も近い値</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2018yo/tasks/joi2018_yo_a">鉛筆</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2019yo/tasks/joi2019_yo_a">ソーシャルゲーム</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="py04forlist.html" class="btn btn-neutral float-right" title="4. リストと繰り返し" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="py02eval.html" class="btn btn-neutral float-left" title="2. 変数を評価する" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

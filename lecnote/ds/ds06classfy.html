@@ -1,0 +1,1279 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6. クラスタリングしてみよう &mdash; Python &amp; Data Science 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="7. 線形回帰" href="ds07reg.html" />
+    <link rel="prev" title="5. データの傾向をつかもう" href="ds05data.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python & Data Science 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ds01intro.html">1. Python とデータサイエンス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds02sympy.html">2. 計算はPythonにさせてしまおう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds03numpy.html">3. NumPyとグラフ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データを使いこなそう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds05data.html">5. データの傾向をつかもう</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. クラスタリングしてみよう</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#クラスタリング">6.1. クラスタリング</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#クラスタリングの種類">6.1.1. クラスタリングの種類</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#K-means法の実践">6.2. K-means法の実践</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#散布図でデータを確認">6.2.1. 散布図でデータを確認</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#３クラスターに分類">6.2.2. ３クラスターに分類</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#エルボー法:-適切なクラスター数を調べる">6.2.3. エルボー法: 適切なクラスター数を調べる</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">6.3. コースワーク</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#平均点">6.3.1. 平均点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python & Data Science 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">6. </span>クラスタリングしてみよう</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/ds06classfy.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="クラスタリングしてみよう">
+<h1><span class="section-number">6. </span>クラスタリングしてみよう<a class="headerlink" href="#クラスタリングしてみよう" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>クラスタリング（clustering）とは、機械学習における教師なし学習の1種で、データ間の類似度にもとづいて、データをグループ分けする手法です。</p>
+<p>今回は、KMean法を通してクラスタリングを学んでいきましょう。</p>
+<p><strong>モジュールの準備</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">japanize_matplotlib</span> <span class="c1">#日本語化 matplotlib</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;IPAexGothic&quot;</span><span class="p">)</span> <span class="c1">#日本語フォント設定</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="クラスタリング">
+<h2><span class="section-number">6.1. </span>クラスタリング<a class="headerlink" href="#クラスタリング" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>クラスタリングとは、データ間の類似度にもとづいて、データをグループ分けする手法です。クラスタリングによってできた、似たもの同士が集まったグループのことをクラスタと呼びます。</p>
+<img alt="k-means" src="https://en.wikipedia.org/wiki/File:K-means_convergence.gif" />
+<p><strong>活用例</strong></p>
+<ul class="simple">
+<li><p>学生をグループ分け</p></li>
+</ul>
+<p>「データ間の類似度にもとづいてデータをグループ分けする」という特徴の活かし方次第で、さまざまな問題に応用できます。</p>
+<div class="section" id="クラスタリングの種類">
+<h3><span class="section-number">6.1.1. </span>クラスタリングの種類<a class="headerlink" href="#クラスタリングの種類" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>数式で表現すると、下記、最適化問題を解くアルゴリズム[4]。本アルゴリズムでは最小値ではなく初期値依存の極小値に収束する。</p>
+<div class="math notranslate nohighlight">
+\[\operatorname {arg\,min} _{V_{1},\dotsc ,V_{k}}\sum _{i=1}^{n}\min _{j}\left\|x_{i}-V_{j}\right\|^{2}\]</div>
+</div>
+</div>
+<div class="section" id="K-means法の実践">
+<h2><span class="section-number">6.2. </span>K-means法の実践<a class="headerlink" href="#K-means法の実践" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;bmi.csv&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>身長</th>
+      <th>体重</th>
+      <th>職業</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>福井　優也</td>
+      <td>178.0</td>
+      <td>85.0</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>九里　亜蓮</td>
+      <td>187.0</td>
+      <td>92.0</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>加藤　拓也</td>
+      <td>176.0</td>
+      <td>88.0</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大瀬良　大地</td>
+      <td>187.0</td>
+      <td>93.0</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>今村　猛</td>
+      <td>183.0</td>
+      <td>98.0</td>
+      <td>B</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 基礎統計量を確認</span>
+<span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;職業&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">身長</th>
+      <th colspan="8" halign="left">体重</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>職業</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>B</th>
+      <td>822.0</td>
+      <td>180.705596</td>
+      <td>5.496844</td>
+      <td>163.0</td>
+      <td>177.0</td>
+      <td>180.0</td>
+      <td>184.0</td>
+      <td>203.0</td>
+      <td>822.0</td>
+      <td>83.956204</td>
+      <td>9.561929</td>
+      <td>60.0</td>
+      <td>78.00</td>
+      <td>83.0</td>
+      <td>88.0</td>
+      <td>135.0</td>
+    </tr>
+    <tr>
+      <th>F</th>
+      <td>643.0</td>
+      <td>178.311042</td>
+      <td>6.641673</td>
+      <td>155.0</td>
+      <td>173.0</td>
+      <td>178.0</td>
+      <td>183.0</td>
+      <td>197.0</td>
+      <td>643.0</td>
+      <td>72.094868</td>
+      <td>7.045603</td>
+      <td>48.0</td>
+      <td>67.00</td>
+      <td>72.0</td>
+      <td>77.0</td>
+      <td>93.0</td>
+    </tr>
+    <tr>
+      <th>R</th>
+      <td>70.0</td>
+      <td>183.571429</td>
+      <td>5.706776</td>
+      <td>168.0</td>
+      <td>180.0</td>
+      <td>184.5</td>
+      <td>187.0</td>
+      <td>195.0</td>
+      <td>70.0</td>
+      <td>160.842857</td>
+      <td>19.791402</td>
+      <td>115.0</td>
+      <td>146.25</td>
+      <td>160.0</td>
+      <td>175.5</td>
+      <td>206.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="section" id="散布図でデータを確認">
+<h3><span class="section-number">6.2.1. </span>散布図でデータを確認<a class="headerlink" href="#散布図でデータを確認" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;体重&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;AxesSubplot:xlabel=&#39;身長&#39;, ylabel=&#39;体重&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds06classfy_8_1.svg" src="_images/ds06classfy_8_1.svg" /></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;職業&#39;</span><span class="p">)):</span>
+  <span class="n">ax</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;体重&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds06classfy_9_0.svg" src="_images/ds06classfy_9_0.svg" /></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;職業&#39;</span><span class="p">)):</span>
+  <span class="n">group</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;身長&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;身長&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds06classfy_10_0.svg" src="_images/ds06classfy_10_0.svg" /></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;職業&#39;</span><span class="p">)):</span>
+  <span class="n">group</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;体重&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;体重&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds06classfy_11_0.svg" src="_images/ds06classfy_11_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="３クラスターに分類">
+<h3><span class="section-number">6.2.2. </span>３クラスターに分類<a class="headerlink" href="#３クラスターに分類" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="s1">&#39;体重&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+KMeans(init=&#39;random&#39;, n_clusters=3)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([(</span><span class="mi">170</span><span class="p">,</span> <span class="mi">80</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([1], dtype=int32)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;クラスター&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="s1">&#39;体重&#39;</span><span class="p">]])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>身長</th>
+      <th>体重</th>
+      <th>職業</th>
+      <th>クラスター</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>福井　優也</td>
+      <td>178.0</td>
+      <td>85.0</td>
+      <td>B</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>九里　亜蓮</td>
+      <td>187.0</td>
+      <td>92.0</td>
+      <td>B</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>加藤　拓也</td>
+      <td>176.0</td>
+      <td>88.0</td>
+      <td>B</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>大瀬良　大地</td>
+      <td>187.0</td>
+      <td>93.0</td>
+      <td>B</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>今村　猛</td>
+      <td>183.0</td>
+      <td>98.0</td>
+      <td>B</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;クラスター&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">身長</th>
+      <th colspan="8" halign="left">体重</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>クラスター</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>641.0</td>
+      <td>183.686427</td>
+      <td>4.997808</td>
+      <td>168.0</td>
+      <td>180.0</td>
+      <td>183.0</td>
+      <td>187.0</td>
+      <td>203.0</td>
+      <td>641.0</td>
+      <td>87.564743</td>
+      <td>7.786363</td>
+      <td>77.0</td>
+      <td>82.0</td>
+      <td>85.0</td>
+      <td>90.0</td>
+      <td>122.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>823.0</td>
+      <td>176.425273</td>
+      <td>4.850459</td>
+      <td>155.0</td>
+      <td>173.0</td>
+      <td>177.0</td>
+      <td>180.0</td>
+      <td>189.0</td>
+      <td>823.0</td>
+      <td>71.798299</td>
+      <td>5.502324</td>
+      <td>48.0</td>
+      <td>68.0</td>
+      <td>73.0</td>
+      <td>76.0</td>
+      <td>83.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>71.0</td>
+      <td>184.549296</td>
+      <td>5.961277</td>
+      <td>171.0</td>
+      <td>181.0</td>
+      <td>185.0</td>
+      <td>188.0</td>
+      <td>201.0</td>
+      <td>71.0</td>
+      <td>160.690141</td>
+      <td>19.454409</td>
+      <td>125.0</td>
+      <td>145.5</td>
+      <td>160.0</td>
+      <td>175.0</td>
+      <td>206.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>クラスターごとに色分けして散布図</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gd</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;クラスター&#39;</span><span class="p">)):</span>
+  <span class="n">ax</span> <span class="o">=</span> <span class="n">gd</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;体重&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Figure size 360x360 with 0 Axes&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds06classfy_18_1.svg" src="_images/ds06classfy_18_1.svg" /></div>
+</div>
+</div>
+<div class="section" id="エルボー法:-適切なクラスター数を調べる">
+<h3><span class="section-number">6.2.3. </span>エルボー法: 適切なクラスター数を調べる<a class="headerlink" href="#エルボー法:-適切なクラスター数を調べる" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>距離の総和</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+127993.96759674074
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+  <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+  <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="s1">&#39;体重&#39;</span><span class="p">]])</span>
+  <span class="n">dist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dist</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;クラスタ数&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;距離の総和&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0, 0.5, &#39;距離の総和&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds06classfy_21_1.svg" src="_images/ds06classfy_21_1.svg" /></div>
+</div>
+<p>クラスター数２の散布図を調べてみよう</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="s1">&#39;体重&#39;</span><span class="p">]])</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;クラスター&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="s1">&#39;体重&#39;</span><span class="p">]])</span>
+<span class="n">ax</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gd</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;クラスター&#39;</span><span class="p">)):</span>
+  <span class="n">ax</span> <span class="o">=</span> <span class="n">gd</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;体重&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Figure size 360x360 with 0 Axes&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds06classfy_23_1.svg" src="_images/ds06classfy_23_1.svg" /></div>
+</div>
+</div>
+</div>
+<div class="section" id="コースワーク">
+<h2><span class="section-number">6.3. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">佐藤</span>  <span class="mi">84</span>  <span class="mi">45</span>  <span class="mi">77</span>  <span class="mi">69</span>  <span class="mi">48</span>
+<span class="n">鈴木</span>  <span class="mi">75</span>  <span class="mi">69</span>  <span class="mi">65</span>  <span class="mi">77</span>  <span class="mi">69</span>
+<span class="n">高橋</span>  <span class="mi">69</span>  <span class="mi">81</span>  <span class="mi">45</span>  <span class="mi">82</span>  <span class="mi">79</span>
+<span class="n">田中</span>  <span class="mi">92</span>  <span class="mi">75</span>  <span class="mi">83</span>  <span class="mi">79</span>  <span class="mi">62</span>
+<span class="n">伊藤</span>  <span class="mi">62</span>  <span class="mi">91</span>  <span class="mi">68</span>  <span class="mi">61</span>  <span class="mi">93</span>
+<span class="n">渡辺</span>  <span class="mi">54</span>  <span class="mi">63</span>  <span class="mi">48</span>  <span class="mi">52</span>  <span class="mi">50</span>
+<span class="n">山本</span>  <span class="mi">48</span>  <span class="mi">53</span>  <span class="mi">71</span>  <span class="mi">83</span>  <span class="mi">45</span>
+<span class="n">中村</span>  <span class="mi">77</span>  <span class="mi">85</span>  <span class="mi">62</span>  <span class="mi">55</span>  <span class="mi">82</span>
+<span class="n">小林</span>  <span class="mi">82</span>  <span class="mi">88</span>  <span class="mi">89</span>  <span class="mi">79</span>  <span class="mi">85</span>
+<span class="n">加藤</span>  <span class="mi">47</span>  <span class="mi">48</span>  <span class="mi">57</span>  <span class="mi">53</span>  <span class="mi">63</span>
+<span class="n">吉田</span>  <span class="mi">75</span>  <span class="mi">36</span>  <span class="mi">85</span>  <span class="mi">73</span>  <span class="mi">51</span>
+<span class="n">山田</span>  <span class="mi">66</span>  <span class="mi">73</span>  <span class="mi">79</span>  <span class="mi">65</span>  <span class="mi">66</span>
+<span class="n">佐々木</span> <span class="mi">64</span>  <span class="mi">95</span>  <span class="mi">48</span>  <span class="mi">59</span>  <span class="mi">91</span>
+<span class="n">山口</span>  <span class="mi">73</span>  <span class="mi">86</span>  <span class="mi">52</span>  <span class="mi">70</span>  <span class="mi">77</span>
+<span class="n">松本</span>  <span class="mi">55</span>  <span class="mi">75</span>  <span class="mi">63</span>  <span class="mi">67</span>  <span class="mi">80</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">(1//2)</span></code> が、正しく <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> にならない理由を考えてみよう</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">(プログラミングの)<span class="math notranslate nohighlight">\(N\)</span>個数える</p>
+<p>プログラミングでは、原則、「<strong>0から</strong><span class="math notranslate nohighlight">\(N-1\)</span>まで」のように数えます。</p>
+</div>
+<div class="section" id="平均点">
+<h3><span class="section-number">6.3.1. </span>平均点<a class="headerlink" href="#平均点" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="admonition tip"><p><strong>例題（平均点）</strong></p>
+<p>期末試験は5人受験した。 点数が40点未満の生徒は全員，補習を受け，成績が40点になった。 5人の平均点を求めよ。</p>
+<p>入力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>
+<span class="mi">65</span>
+<span class="mi">100</span>
+<span class="mi">30</span>
+<span class="mi">95</span>
+</pre></div>
+</div>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a">AtCoder (JOI2014 予選)</a></p>
+</div><p><strong>(解法) リストを使う場合</strong></p>
+<ol class="arabic simple">
+<li><p>期末試験を記録する空の得点リスト <code class="docutils literal notranslate"><span class="pre">scores</span></code> を用意する</p></li>
+<li><p>5人分繰り返し、点数を読んで、<code class="docutils literal notranslate"><span class="pre">scores</span></code> に追加する</p></li>
+<li><p>平均点は <code class="docutils literal notranslate"><span class="pre">sum(scores)</span> <span class="pre">//</span> <span class="pre">5</span></code></p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="ds07reg.html" class="btn btn-neutral float-right" title="7. 線形回帰" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ds05data.html" class="btn btn-neutral float-left" title="5. データの傾向をつかもう" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

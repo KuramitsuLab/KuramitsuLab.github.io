@@ -1,0 +1,574 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>7. プログラミング上達のコツ &mdash; Python Programming 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="8. アルゴリズムを学ぶ" href="py08algo.html" />
+    <link rel="prev" title="6. 関数、再帰関数、そして高階関数" href="py07func.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python Programming 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. プログラミング上達のコツ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#良いコードとは">7.1. 良いコードとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#アプローチ">7.2. アプローチ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#アプローチの違い">7.2.1. アプローチの違い</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#アプローチ１：コーディング力で解く">7.2.2. アプローチ１：コーディング力で解く</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#アプローチ２：アルゴリズム力で解く">7.2.3. アプローチ２：アルゴリズム力で解く</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#アプローチ３：数学的考察を活かして解く">7.2.4. アプローチ３：数学的考察を活かして解く</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#アプローチ４：ライブラリ力で解く">7.2.5. アプローチ４：ライブラリ力で解く</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#複雑な問題へのアプローチ">7.3. 複雑な問題へのアプローチ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#少し複雑なプログラム">7.3.1. 少し複雑なプログラム</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#見通しよくするコツ">7.3.2. 見通しよくするコツ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#市松模様の生成">7.3.3. 市松模様の生成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#方法序説">7.3.4. 方法序説</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">7.4. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python Programming 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">7. </span>プログラミング上達のコツ</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/py06tips.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="プログラミング上達のコツ">
+<h1><span class="section-number">7. </span>プログラミング上達のコツ<a class="headerlink" href="#プログラミング上達のコツ" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>プログラミング上達のコツを紹介します。</p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/helloworld.png">http://s3.amazonaws.com/lyah/helloworld.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/listmonster.png">http://s3.amazonaws.com/lyah/listmonster.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/pythag.png">http://s3.amazonaws.com/lyah/pythag.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/classes.png">http://s3.amazonaws.com/lyah/classes.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/recursion.png">http://s3.amazonaws.com/lyah/recursion.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/painter.png">http://s3.amazonaws.com/lyah/painter.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/curry.png">http://s3.amazonaws.com/lyah/curry.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/binarytree.png">http://s3.amazonaws.com/lyah/binarytree.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/rpn.png">http://s3.amazonaws.com/lyah/rpn.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/roads.png">http://s3.amazonaws.com/lyah/roads.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/shamrock.png">http://s3.amazonaws.com/lyah/shamrock.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/pirateship.png">http://s3.amazonaws.com/lyah/pirateship.png</a></p>
+<p><a class="reference external" href="http://s3.amazonaws.com/lyah/chess.png">http://s3.amazonaws.com/lyah/chess.png</a></p>
+<p>rightTriangles</p>
+<p>ここでは、授業で話した（もしくは話そうと考えている） プログラミング上達のコツを書いておきます。</p>
+<div class="section" id="良いコードとは">
+<h2><span class="section-number">7.1. </span>良いコードとは<a class="headerlink" href="#良いコードとは" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まず、プログラミングを上達させる鍵は、 常にもう少し<strong>良いコードは書けないか</strong>としばし考えてみることです。</p>
+<p>良いコードとは、もう少し具体的にいうと：</p>
+<ul class="simple">
+<li><p>読みやすい</p></li>
+<li><p>バグになりにくい</p></li>
+<li><p>実行効率がよい</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">上達のコツ</p>
+<p>まず、良いコードを書こうと工夫することです</p>
+</div>
+</div>
+<div class="section" id="アプローチ">
+<h2><span class="section-number">7.2. </span>アプローチ<a class="headerlink" href="#アプローチ" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まず、プログラミングは色々な書き方があります。</p>
+<div class="admonition tip"><p><strong>例題（三数の整列）</strong></p>
+<p>３つの整数を読み込み、それらを値が小さい順に並べて出力するプログラムを作成して下さい。</p>
+<p>入力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">8</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">3</span> <span class="mi">8</span>
+</pre></div>
+</div>
+</div><p>まず、次を考えずに書いてみてください。</p>
+<div class="section" id="アプローチの違い">
+<h3><span class="section-number">7.2.1. </span>アプローチの違い<a class="headerlink" href="#アプローチの違い" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>簡単な問題ですが、 プログラミングコンテストに有用な４つのアプローチがあります。</p>
+<ul class="simple">
+<li><p>コーディング力で解く</p></li>
+<li><p>アルゴリズム力を活かして解く</p></li>
+<li><p>数学的に考えて解く</p></li>
+<li><p>ライブラリ力を活かして解く</p></li>
+</ul>
+</div>
+<div class="section" id="アプローチ１：コーディング力で解く">
+<h3><span class="section-number">7.2.2. </span>アプローチ１：コーディング力で解く<a class="headerlink" href="#アプローチ１：コーディング力で解く" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>一番ストレートなアプローチは、 次のように3変数の大小関係のケースを全て列挙し、順番に出力することです。 実際、プログラミング初学者の多くはこの方法で解こうとします。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+<span class="k">if</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">c</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>問題を解くことき、難しいことを考えず、 コーディング力で突破することも必要になります。</p>
+<p>コーディングで勝負するとき大切なのは、<strong>バグ少なくコードを書く力</strong>です。 より一般的には防衛的プログラミング(defensive programming)と呼ばれる能力です。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">バグの少ないコードを書くには</p>
+<ol class="arabic simple">
+<li><p>バグなりやすそう箇所を予測する</p></li>
+<li><p>回避する</p></li>
+</ol>
+</div>
+<p>今回の問題は、バグになりやすいのは<span class="math notranslate nohighlight">\(a,b,c\)</span>の大小比較においる<strong>条件の抜け漏れ</strong>です。 それを回避するためには、<strong>ゴール指向</strong>、 つまり、先に全部のprint出力(ゴール)を列挙し、条件を後から書きます。</p>
+<p><strong>先にゴールを書く</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>そして、条件をゴールに合わせて書きます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">c</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">a</span> <span class="o">&lt;=</span><span class="n">b</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">b</span> <span class="o">&lt;=</span><span class="n">a</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">c</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">b</span> <span class="o">&lt;=</span><span class="n">c</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">c</span> <span class="o">&lt;=</span><span class="n">a</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">c</span> <span class="o">&lt;=</span><span class="n">b</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>コーディング力は、プログラミング力の基礎です。 しかし、バグになりやすい箇所を予測する力は、 何度もバグを踏んで<strong>苦労した経験</strong>からしか身につきません。 コーディング経験豊富な人の書いている様子をみせてもらうと、 バグを回避する書き方を学ぶことができます。</p>
+</div>
+<div class="section" id="アプローチ２：アルゴリズム力で解く">
+<h3><span class="section-number">7.2.3. </span>アプローチ２：アルゴリズム力で解く<a class="headerlink" href="#アプローチ２：アルゴリズム力で解く" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>問題の指示通り、変数を並べ換えてから、表示するアプローチを考えます。</p>
+<p>しかし、どの変数をどういう順番で入れ替えるのか、結構難しいです。 左側はよくある間違いです。右側は正しい解答例になります。</p>
+<p><strong>よくある間違い</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+<span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span>
+<span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="p">,</span> <span class="n">a</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>正しい並び替え</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+<span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span>
+<span class="k">if</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>  <span class="c1"># もう１回</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>どうして正しい例が正しいか確信もてますか？</p>
+<p>理由は簡単です。 最後の比較の前で変数<span class="math notranslate nohighlight">\(c\)</span>が最大値になることは保証されています。 なぜなら、プログラムは<em>「バブルソート」アルゴリズム</em>で書かれており、 バブルソートの名前の由来の通り、一番大きな値が最後尾にくるようになっています。</p>
+<p>このように、アルゴリズムの知識は、複雑なプログラムを構築するときの助けとなります。 「アルゴリズムとデータ構造」をしっかり学んでおきましょう。</p>
+</div>
+<div class="section" id="アプローチ３：数学的考察を活かして解く">
+<h3><span class="section-number">7.2.4. </span>アプローチ３：数学的考察を活かして解く<a class="headerlink" href="#アプローチ３：数学的考察を活かして解く" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>並び替えるという言葉を忘れて、もう少し数学的な意味を考えることにします。</p>
+<ul class="simple">
+<li><p>左側に出力される値は、<span class="math notranslate nohighlight">\(a,b,c\)</span>の最小値</p></li>
+<li><p>右側に出力される値は、<span class="math notranslate nohighlight">\(a,b,c\)</span>の最大値</p></li>
+<li><p>真ん中に出力される値は..</p></li>
+</ul>
+<p>数学では、等しい式を置き換えて考えてゆきます。 プログラミングで同じように、等しいプログラムに置き換えることで、 コードの意味がはっきりして読みやすくなります。 このようなテクニックを<strong>等式推論</strong>と呼びます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+<span class="n">_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="n">_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">_min</span> <span class="o">+</span> <span class="n">_max</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">_min</span><span class="p">,</span>　<span class="n">mid</span><span class="p">,</span>　<span class="n">_max</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数学的考察に基づいて、コードが書けると気持ちがよいものです。 あと、等式推論のおかげでコードの正しさに自信が持てます。 常に、「これとこれは結局同じ意味だから..」と考えながら、 数理的な考察を加えるといいでしょう。</p>
+</div>
+<div class="section" id="アプローチ４：ライブラリ力で解く">
+<h3><span class="section-number">7.2.5. </span>アプローチ４：ライブラリ力で解く<a class="headerlink" href="#アプローチ４：ライブラリ力で解く" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>最後は、Python に慣れた人が使うアプローチです。 ３数をリストに読み込んで、ライブラリでソートして、 そのまま出力する方法です。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">[</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())]</span>
+<span class="n">ns</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">ns</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ライブラリは、プログラミング技法やアルゴリズム知識の資産です。 経験の多いプログラマは、ライブラリを使いこなし、活用できます。 ライブラリは、多くの利用者にテストされており、信頼性も高いです。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">車輪を再発明しない</p>
+<p>ライブラリがあるのならライブラリを使う</p>
+</div>
+</div>
+</div>
+<div class="section" id="複雑な問題へのアプローチ">
+<h2><span class="section-number">7.3. </span>複雑な問題へのアプローチ<a class="headerlink" href="#複雑な問題へのアプローチ" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>プログラミングは、最終的に、ソフトウェアを開発するときに用いられます。ソフトウェア開発は、ソースコードの行数も１０００行から１０００<strong>万</strong>行まで、桁違いに大きくなります。そのような複雑なプログラムを書くにはどうしたら良いのでしょうか？</p>
+<div class="section" id="少し複雑なプログラム">
+<h3><span class="section-number">7.3.1. </span>少し複雑なプログラム<a class="headerlink" href="#少し複雑なプログラム" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>少し複雑なプログラムを考えてみましょう。</p>
+<p><strong>例題（市松模様）</strong></p>
+<p>たて<span class="math notranslate nohighlight">\(H\)</span> よこ <span class="math notranslate nohighlight">\(W\)</span> の市松模様の長方形を描くプログラムを作成して下さい。</p>
+<p>入力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<p>出力例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#.#.</span>
+<span class="o">.</span><span class="c1">#.#</span>
+<span class="c1">#.#.</span>
+</pre></div>
+</div>
+</div><p>まず、「先生動きません！助けて！！」と来た学生の書いたコード（抜粋）を見てください。</p>
+<p><strong>残念なコードの例</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">kigusu</span><span class="o">=</span><span class="n">b</span><span class="o">%</span><span class="mi">2</span><span class="p">;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;#.&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">kigusu</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;.#&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">kigusu</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">a</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;#.&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kigusu</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>いろいろ、残念なところがあります。</p>
+<ol class="arabic simple">
+<li><p>変数名が読みにくい。(<code class="docutils literal notranslate"><span class="pre">a,</span> <span class="pre">b</span></code>が何をさすのかわかりにくい）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span></code>文が多すぎて、状態が複雑すぎる</p></li>
+<li><p>見通しが悪すぎて、書いた本人も何をしているのか覚えていない</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">見通しの悪い読みにくいコード</p>
+<p>諦めて捨てて、見通しよく書き直しましょう</p>
+</div>
+</div>
+<div class="section" id="見通しよくするコツ">
+<h3><span class="section-number">7.3.2. </span>見通しよくするコツ<a class="headerlink" href="#見通しよくするコツ" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まず大原則は、問題を小問題、つまりプログラム機能を小機能に分割することです。 プログラミングは、どんな複雑な問題であっても、 簡単な小問題に分割することでかけるようになります。 （もちろん、あとから述べる通り、プログラミングできない問題もあります。）</p>
+<p>小問題（機能）に分割するのは、経験者にとっても難しい作業です。 そこで、書いたことのあるプログラムやシンプルなケースを考えてみます。 市松模様を気にせず、長方形を描画するだけなら簡単です。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">H</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">W</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>このとき、<code class="docutils literal notranslate"><span class="pre">#</span></code>の代わりに、 市松模様を生成してくれる関数があったら.. となりますよね。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">H</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">W</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">市松模様</span><span class="p">(),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>便利な関数があると信じて、 <strong>既に書いたことがあって書けそうなところから書いてゆく</strong>のは悪くありません。 すると、次に解決すべき課題が見えてきます。</p>
+</div>
+<div class="section" id="市松模様の生成">
+<h3><span class="section-number">7.3.3. </span>市松模様の生成<a class="headerlink" href="#市松模様の生成" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>さて、市松模様を生成する関数はあるのでしょうか？</p>
+<p>たぶん、Python にはこのような関数は都合よくありません。 <strong>なければ、自分で作ってしまえばよい</strong>のです。</p>
+<p>ここは、市松模様とパラメータの関係性を考えます。 すると、横(w) と縦(h)の位置によって決まると気づけばおしまいです。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">市松模様</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+    <span class="k">if</span> <span class="k">if</span> <span class="n">w</span><span class="o">+</span><span class="n">h</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;#&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;.&#39;</span>
+
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">H</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">W</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">市松模様</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>注意</strong>：読みやすさのため<code class="docutils literal notranslate"><span class="pre">市松模様</span></code>をそのまま関数名にしてあります。 Pythonは、日本語の関数名も使えます。</p>
+<p>最初のごちゃごちゃしたコードの例に比べるとだいぶ見通しがよくなっていることに気づくと思います。 複雑なプログラムは、小機能に分割してプログラミングしてゆきます。</p>
+</div>
+<div class="section" id="方法序説">
+<h3><span class="section-number">7.3.4. </span>方法序説<a class="headerlink" href="#方法序説" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>「大きくて複雑すぎる問題は、解ける小問題に分割して解く」というのは、 ルネ・デカルトが1637年に公刊された「<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%96%B9%E6%B3%95%E5%BA%8F%E8%AA%AC">方法序説</a>」で述べられている手法です。 今日、<strong>科学的手法</strong>とも呼ばれ、現代科学の最も基礎的な考え方になっています。</p>
+<p><img alt="4b9da63fc33e4e678a17aec5e6c89b9c" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a52ee450-074a-03f8-ab24-4c3fe787d661.jpeg" /></p>
+<p>プログラミングは、新しい言語や文法を学び、言語的なセンスも必要となります。 しかし、根っこの部分は、数学や理科で学んだ科学的手法、 つまり、難しい問題をどのように解くかという考え方が身についているかが、 大切になります。</p>
+</div>
+</div>
+<div class="section" id="演習問題">
+<h2><span class="section-number">7.4. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>繰り返しやリスト、ライブラリなどを総合的に使う問題に取り組んでみましょう。 できるだけ簡単に書いて見ましょう。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc148/tasks/abc148_a">超能力</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc190/tasks/abc190_a">とっても簡単なゲーム</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc194/tasks/abc194_b">仕事の割り当て</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc164/tasks/abc164_c">ガチャ</a>: ヒント <code class="docutils literal notranslate"><span class="pre">set()</span></code></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc176/tasks/abc176_b">９の倍数</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc186/tasks/abc186_b">グリッドのブロック</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc167/tasks/abc167_b">線形プログラミング</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc159/tasks/abc159_c">体積の最大値</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc143/tasks/abc143_a">カーテン</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc129/tasks/abc129_a">飛行機</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc066/tasks/abc066_a">リンリンリン</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc093/tasks/abc093_a">abc</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc141/tasks/abc141_a">天気予報</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc141/tasks/abc141_a">休みが待てない</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc132/tasks/abc132_a">フィフティフィフティ</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc117/tasks/abc117_b">多角形</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc171/tasks/abc171_b">ミックスジュース</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc070/tasks/abc070_b">二つのスイッチ</a>：区間の重なりを求める</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc098/tasks/arc098_a">リーダーの選び方</a>: 累積和の問題</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc079/tasks/abc079_c">列車のチケット</a>: bit探索</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="py08algo.html" class="btn btn-neutral float-right" title="8. アルゴリズムを学ぶ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="py07func.html" class="btn btn-neutral float-left" title="6. 関数、再帰関数、そして高階関数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

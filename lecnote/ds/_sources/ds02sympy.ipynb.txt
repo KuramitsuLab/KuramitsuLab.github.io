@@ -1,0 +1,573 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.1-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python3",
+   "display_name": "Python 3.9.1 64-bit",
+   "metadata": {
+    "interpreter": {
+     "hash": "ac2eaa0ea0ebeafcc7822e65e46aa9d4f966f30b695406963e145ea4a91cd4fc"
+    }
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "source": [
+    "# 計算はPythonにさせてしまおう\n",
+    "\n",
+    "Pythonを用いて計算問題をときながら、「Python 勘」を取り戻していきましょう。\n",
+    "\n",
+    "今回は、「Pythonは便利だな」と思わず感じでしまう SymPy と代数計算を紹介します。\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## SymPyとは\n",
+    "\n",
+    "[SymPy](https://www.sympy.org/en/index.html) は、Mathematica や Maple の代替を目指して開発が進められている Python の代数計算ライブラリです。\n",
+    "\n",
+    "初歩的な数学の問題を解くときに重宝します。\n",
+    "\n",
+    "### 準備\n",
+    "\n",
+    "最初に、SymPy のモジュールをインポートします。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sympy import *"
+   ]
+  },
+  {
+   "source": [
+    "Colab上では、数式をmathjax で表示できるように設定しておくとよいでしょう。\n",
+    "```python\n",
+    "def custom_latex_printer(exp,**options):\n",
+    "    from google.colab.output._publish import javascript\n",
+    "    url = \"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js\"\n",
+    "    javascript(url=url)\n",
+    "    return printing.latex(exp,**options)\n",
+    "init_printing(use_latex=\"mathjax\",latex_printer=custom_latex_printer)\n",
+    "```"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 代数計算とは\n",
+    "\n",
+    "代数操作とは、数式を数値として計算することなく、シンボル(代数)の操作として計算することです。\n",
+    "\n",
+    "__数値計算(従来)__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = 1\n",
+    "y = 2\n",
+    "x + y + y + x + x"
+   ]
+  },
+  {
+   "source": [
+    "代数計算では、変数はシンボルであると宣言します。\n",
+    "すると、変数に数値を代入することなく、シンボルのまま計算されます。\n",
+    "\n",
+    "__代数計算(SymPy)__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = Symbol('x')\n",
+    "y = Symbol('y')\n",
+    "\n",
+    "x + y + y + x + x"
+   ]
+  },
+  {
+   "source": [
+    "`x`も`y`も代数式なので、代入された`z`も代数式となります。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "z = x + y + y + x + x\n",
+    "z"
+   ]
+  },
+  {
+   "source": [
+    "また、代数式に対するPythonの演算は、**代数操作**となります。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "z ** 2"
+   ]
+  },
+  {
+   "source": [
+    "### 関数や定数\n",
+    "\n",
+    "三角関数、 𝜋  などは、SymPyからインポートされたものを用います。\n",
+    "\n",
+    "\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sin(pi/3)"
+   ]
+  },
+  {
+   "source": [
+    "### 数値解の求め方\n",
+    "\n",
+    "数値解を求めたいときは、`float()`を用います。\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "float(sin(pi/3))"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（代数式）**\n",
+    "\n",
+    "次の式を書いてみよう\n",
+    "\n",
+    "1.   $\\sin{x}+\\cos{y}$\n",
+    "2.   $e^{x}$\n",
+    "3.   $\\frac{x+xy}{x}$\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sin(x)+cos(y)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "E**x"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "(x+x*y)/x"
+   ]
+  },
+  {
+   "source": [
+    "## 基本的な代数操作\n",
+    "\n",
+    "数学でおなじみの台数操作を使えるようにしましょう。\n",
+    "\n",
+    "1.   展開 (expand)\n",
+    "2.   因数分解(factor)\n",
+    "3.   簡易化 (symplify)\n",
+    "4.   代入 (substitution)\n",
+    "\n",
+    "x, y, z をシンボルとします。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = Symbol('x')\n",
+    "y = Symbol('y')\n",
+    "z = Symbol('z')"
+   ]
+  },
+  {
+   "source": [
+    "### 式の展開\n",
+    "\n",
+    "式を展開するときは、`expand()`を用います。\n",
+    "\n",
+    "例. $(x+y)^3$の展開\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "(x+y)**3"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "expand((x+y)**3)"
+   ]
+  },
+  {
+   "source": [
+    "例. $cos(x+y)$"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "expand(cos(x + y), trig=True)  #三角関数はtrig=Trueをつける"
+   ]
+  },
+  {
+   "source": [
+    "部分分数への展開は`apart()`を用います。\n",
+    "\n",
+    "例. $\\frac{1}{x(x+1)}$"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "1/(x*(x+1))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "apart(1/(x*(x+1)))"
+   ]
+  },
+  {
+   "source": [
+    "### 因数分解\n",
+    "\n",
+    "式を因数分解するときは、`factor()`を用います。\n",
+    "\n",
+    "__例. (受験でお馴染みの)$x^3+y^3+z^3 - 3xyz$の因数分解__\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x**3 + y**3 + z**3 - 3*x*y*z"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "factor(x**3+y**3+z**3-3*x*y*z)"
+   ]
+  },
+  {
+   "source": [
+    "### 式の簡略化\n",
+    "\n",
+    "式を簡易化するときは`simplify()`を用います。\n",
+    "\n",
+    "__例. $\\frac{x+xy}{x}$ の簡略化__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "三角関数を含む式を簡略化したいときは、`trigsimp()` を用います。\n",
+    "\n",
+    "例. $\\cos^2{x}-\\sin^2{x}$"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 式の代入\n",
+    "\n",
+    "式への代入は、subs()メソッドを用います。\n",
+    "\n",
+    "例. $x^3+y^3+z^3-3xyz$ の $z=1$のとき"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## 方程式の解法\n",
+    "\n",
+    "`solve()`を用いると、方程式の解を求めることができる。\n",
+    "\n",
+    "__例.__ $x^4=1$のxの解"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "solve(x**4-1, x)"
+   ]
+  },
+  {
+   "source": [
+    "連立方程式は、リストで与えます。\n",
+    "\n",
+    "__例.__ 連立方程式  𝑥+5𝑦=2,−3𝑥+6𝑦=15 の解"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "solve([x+5*y-2, -3*x+6*y-15], [x,y])"
+   ]
+  },
+  {
+   "source": [
+    "## 初等解析\n",
+    "\n",
+    "### 極限\n",
+    "\n",
+    "極限は、`limit()`を用いて求めることができます。\n",
+    "\n",
+    "__例.__ $\\lim_{x \\to 0} x^x$\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "limit(x**x, x, 0)"
+   ]
+  },
+  {
+   "source": [
+    "無限大は、`oo`と書きます。\n",
+    "\n",
+    "__例.__ $\\lim_{x \\to \\infty} x^x$"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "limit(1/x, x, oo)"
+   ]
+  },
+  {
+   "source": [
+    "### 微分\n",
+    "\n",
+    "微分は、`diff()`を用います。\n",
+    "\n",
+    "__例. $\\frac{x}{dx}\\sin{x}$__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "diff(sin(x), x)"
+   ]
+  },
+  {
+   "source": [
+    "###積分\n",
+    "\n",
+    "積分は、`integrate(関数, 変数)`によって、初等関数, 特殊関数の積分が可能です。\n",
+    " \n",
+    "__例__ $\\int \\log x ~dx$"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "integrate(log(x), x)"
+   ]
+  },
+  {
+   "source": [
+    "__例__ $\\int_{-\\infty}^\\infty  e^{-x^2} dx$"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "integrate(exp(-x**2), (x, -oo, oo))"
+   ]
+  },
+  {
+   "source": [
+    "## コースワーク\n",
+    "\n",
+    "Pythonの習得で重要なのは、習ったことを覚えてプログラミングすることではありません。\n",
+    "「こういうことはできるかな？」と調べて、ソースコードを参考にプログラミングすることです。\n",
+    "ぜひ、解いてみましょう。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**演習（数式）**\n",
+    "\n",
+    "1.   $\\int_{-\\infty}^\\infty \\sin{x^2} dx$ を求めよ\n",
+    "2.   $\\int_{0}^\\infty  (\\sqrt{x^2+1}-1)^2 dx$ を求めよ\n",
+    "3.   $f(x)=\\frac{4x^2+2x+1}{x^2+1}$の極値を求めよ\n",
+    "4.   大学入試の過去問からSymPyで解ける問題を探して解いてみよう\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "__ヒント__\n",
+    "\n",
+    "色々な解き方があります。\n",
+    "\n",
+    "1. SymPyを使っても解いてみましょう。\n",
+    "2. どうしても解けなければ、手で解いても構いません\n",
+    "\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  }
+ ]
+}

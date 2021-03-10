@@ -1,0 +1,893 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. プログラミングの練習を始めよう &mdash; Python Programming 2021  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="2. 変数を評価する" href="py02eval.html" />
+    <link rel="prev" title="Pythonプログラミングとアルゴリズムの基礎" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Python Programming 2021
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. プログラミングの練習を始めよう</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Colabとプログラミング">1.1. Colabとプログラミング</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Colabとは">1.1.1. Colabとは</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#最初のプログラム:-Hello-world">1.1.2. 最初のプログラム: Hello world</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#プログラムの構造と入出力">1.2. プログラムの構造と入出力</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Python-の入出力">1.2.1. Python の入出力</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#入出力データ">1.2.2. 入出力データ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#データ値の変換">1.2.3. データ値の変換</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#オンラインジャッジに挑戦">1.3. オンラインジャッジに挑戦</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#最初の一題">1.3.1. 最初の一題</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#頻出の入出力例">1.4. 頻出の入出力例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#整数値の入力">1.4.1. 整数値の入力</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1行に複数の整数値がある場合">1.4.2. 1行に複数の整数値がある場合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#1行にN個の数値がある場合(予習)">1.4.3. 1行にN個の数値がある場合(予習)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#文字列をそのまま1行に出力する">1.4.4. 文字列をそのまま1行に出力する</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">1.5. 演習問題</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python Programming 2021</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>プログラミングの練習を始めよう</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/py01oj.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="プログラミングの練習を始めよう">
+<h1><span class="section-number">1. </span>プログラミングの練習を始めよう<a class="headerlink" href="#プログラミングの練習を始めよう" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>まずは、プログラミングの練習を進めるための準備を説明します。</p>
+<p>本講義は、 <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>を使って、ハンズオン演習形式でプログラミングの基礎を学びます。 そのあと、オンラインジャッジ(<a class="reference external" href="https://atcoder.jp/">AtCoder</a>)を使って、練習を深めるようになっています。</p>
+<p>Pythonプログラミングが自由自在にできるようになるためには、練習量が重要になります。 個人差はありますが、オンラインジャッジで100題くらい解くと、 プログラミングしたいことがスムーズに書けるようになります。 ぜひ、章末の演習問題もチャレンジしてみてください。</p>
+<div class="section" id="Colabとプログラミング">
+<h2><span class="section-number">1.1. </span>Colabとプログラミング<a class="headerlink" href="#Colabとプログラミング" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本講義ノートは、Colabを使って、ハンズオン演習形式でプログラミングを学ぶようになっています。 Colabの使い方は、講義のガイダンスで説明します。</p>
+<div class="section" id="Colabとは">
+<h3><span class="section-number">1.1.1. </span>Colabとは<a class="headerlink" href="#Colabとは" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Colabとは、Google 社が提供するクラウド版の<a class="reference external" href="https://jupyter.org">Jupyter Notebook</a> です。 環境設定することなしに、Python と豊富なライブラリ、さらに高性能なGPUが利用可能です。 データサイエンスや機械学習の入門には大変によい環境が提供になっています。</p>
+<p><a class="reference external" href="https://colab.research.google.com/">https://colab.research.google.com/</a></p>
+<p>はじめて Colab を使うときは、Google アカウント( Gmail アカウント ) が必要になります。 Googleアカウントは複数作成できるので、授業用のアカウントを作っておくと便利です。</p>
+<!--
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/dd518dc4-71b7-298d-cb03-dc525cf0205d.png" width="90%" /> --></div>
+<div class="section" id="最初のプログラム:-Hello-world">
+<h3><span class="section-number">1.1.2. </span>最初のプログラム: Hello world<a class="headerlink" href="#最初のプログラム:-Hello-world" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><strong>Hello World</strong>は、 「プログラミング言語C」の教科書に登場して以来、 プログラミングを学ぶ人がみんな書いてきた伝統のプログラムです。 まず、通過儀礼として、Hello Worldを書いてみて、実行してみましょう。</p>
+<p>プログラム（ソースコード）を入力して、実行ボタンを押すことで、実行結果を表示します。</p>
+<p><img alt="2e601a13837544b88c8c700b532d5961" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2453d50e-b99d-be10-bbce-24e46e59b3ce.png" style="width: 60%;" /></p>
+<p>本資料では、実行セルに入力すべきコードと実行結果は、次のように記載します。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>二十引用符 <code class="docutils literal notranslate"><span class="pre">&quot;</span>&#160;&#160; <span class="pre">&quot;</span></code>で囲んだ文字列と呼ばれる値です。</p>
+<p>ただ、実行ボタンを押すだけでは寂しいので、表示する内容を変えて実行してみましょう。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p><code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">World</span></code>の代わりに自分の名前を表示してみよう。</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">全角文字と半角文字</p>
+<p><a class="reference external" href="https://ja.wikipedia.org/wiki/全角と半角">全角文字</a>と半角文字の区別がつかない場合は、Python ソースコードで日本語の入力をやめておきましょう。</p>
+</div>
+</div>
+</div>
+<div class="section" id="プログラムの構造と入出力">
+<h2><span class="section-number">1.2. </span>プログラムの構造と入出力<a class="headerlink" href="#プログラムの構造と入出力" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>プログラムは、データの<strong>入力(input)</strong>を受け、 データの処理を行い、その結果を<strong>出力(output)</strong>します。</p>
+<p><img alt="bddbcdb7338b4060b8767868ed222221" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/32ee9178-99e1-a20a-3ac9-df973f7a857a.png" style="width: 90%;" /></p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">標準入出力</p>
+<p>入出力デバイスはキーボードやモニターなどいろいろあります。</p>
+</div>
+<div class="section" id="Python-の入出力">
+<h3><span class="section-number">1.2.1. </span>Python の入出力<a class="headerlink" href="#Python-の入出力" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>入力から読んだデータ(一行）を<code class="docutils literal notranslate"><span class="pre">x</span></code>とする</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>xの値を出力する</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>まずは、最も簡単な入出力プログラムを書いてみましょう。 入力されたデータをそのまま出力します。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition tip"><p><strong>例題（入力されたxとyの和）</strong></p>
+<p>1行目に<code class="docutils literal notranslate"><span class="pre">x</span></code>の値、2行目に<code class="docutils literal notranslate"><span class="pre">y</span></code>の値が与えられる。 このとき、<code class="docutils literal notranslate"><span class="pre">x</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>の和を出力せよ。</p>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">2</span>
+</pre></div>
+</div>
+<p>出力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>
+</pre></div>
+</div>
+</div><p><strong>ヒント</strong>：2行に渡って入力されるので..、2回<code class="docutils literal notranslate"><span class="pre">input()</span></code>します。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>さて、正しく和が計算できるでしょうか？(うまく計算できないときは、次の解説に進んでください。)</p>
+</div>
+<div class="section" id="入出力データ">
+<h3><span class="section-number">1.2.2. </span>入出力データ<a class="headerlink" href="#入出力データ" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>入出力を正しく理解する鍵は、 そこで扱われるデータがどのように情報表現されているか理解することです。 先に結論から言ってしまえば、入出力は文字列で表現されています。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">入出力で扱われるデータ</p>
+<p>文字列、つまり<strong>文字が並んだデータ</strong></p>
+</div>
+<p>コンピュータ上では、 文字は<strong>文字コード</strong>と呼ばれる番号で表現されています。 そして、文字コードは、Pythonに限定されず、 コンピュータや情報機器前半で共通に使えるようになっています。 だから、<code class="docutils literal notranslate"><span class="pre">input()</span></code>に対して、数字を<code class="docutils literal notranslate"><span class="pre">1</span></code>と入力しても、それは数値ではありません。 <strong>数字の文字</strong>として入力されます。 このようになっていることで、数字以外の文字も入力として扱うことができます。</p>
+<p>先ほどの<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code>が変な結果になってしまったのも、 文字列同士の加算として評価されたわけです。</p>
+<p><strong>文字列の加算</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
+<span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</pre></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">文字列の加算</p>
+<p>文字列の連結となる</p>
+</div>
+</div>
+<div class="section" id="データ値の変換">
+<h3><span class="section-number">1.2.3. </span>データ値の変換<a class="headerlink" href="#データ値の変換" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>入出力データを文字列ではなく、 整数値で処理するためには、 データ値の種類を変換する関数を用います。</p>
+<p><img alt="507aba451e5b432f91b252acbf060b56" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/26a8ff18-f1e4-1d08-2930-1bdd5af56fd6.png" style="width: 90%;" /></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int(x)</span></code></p></td>
+<td><p>xの値を整数値にする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float(x)</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(~~~~~\)</span> xの値を浮動小数点値にする</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">str(x)</span></code></p></td>
+<td><p>xの値を文字列にする</p></td>
+</tr>
+</tbody>
+</table>
+<p>これらの変換関数を使うと、正しく整数値として計算できるように直せます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>ちなみに、出力データも文字列です。 しかし、文字列と決まっているので、<code class="docutils literal notranslate"><span class="pre">print()</span></code>関数は、 勝手に文字列に変換してくれます。 だから、<code class="docutils literal notranslate"><span class="pre">str()</span></code>は省略することができます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition tip"><p><strong>例題（BMI）</strong></p>
+<p>BMI(ボディマス指数)は、次の式で求められる肥満度を表す体格指数です。</p>
+<img alt="bmi-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/e85c454c-ca9b-00bb-e362-40234c9072df.png" />
+<p>体重と身長の入力から、BMI を計算して表示するプログラムを書いてみよう。</p>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.75</span>
+<span class="mf">68.5</span>
+</pre></div>
+</div>
+<p>出力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">22.367346938775512</span>
+</pre></div>
+</div>
+</div><p><strong>よくある間違い</strong>: 演算子の優先度</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">height</span> <span class="o">=</span> <span class="mf">1.75</span>
+<span class="n">weight</span> <span class="o">=</span> <span class="mf">68.5</span>
+<span class="n">BMI</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">/</span> <span class="n">height</span> <span class="o">*</span> <span class="n">height</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">BMI</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">変数名</p>
+<p>プログラミングと数学の大きな違いは、変数名の命名法にあります。プログラミングの変数名は、値の名前なので変数の意味がわかりやすい名前を付けます。慣習的に、英単語に由来する名前か、その頭文字をつけましょう。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">英単語</p>
+<p>プログラミング用語は、ほとんど英語なのでちゃんと英単語を意味を調べよう。</p>
+</div>
+</div>
+</div>
+<div class="section" id="オンラインジャッジに挑戦">
+<h2><span class="section-number">1.3. </span>オンラインジャッジに挑戦<a class="headerlink" href="#オンラインジャッジに挑戦" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>いよいよオンラインジャッジシステム挑戦してみましょう。</p>
+<p>注意: <a class="reference external" href="https://atcoder.jp/register">AtCoderのユーザ登録</a>を先に済ませて、 サインインしておいてください。</p>
+<div class="section" id="最初の一題">
+<h3><span class="section-number">1.3.1. </span>最初の一題<a class="headerlink" href="#最初の一題" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まずは簡単な問題を解いてみましょう。</p>
+<div class="admonition tip"><p><strong>問題:</strong><a class="reference external" href="https://atcoder.jp/contests/abc007/tasks/abc007_1">植木算</a></p>
+<p><img alt="27da498e9ae34874bfd3081ef4eb7f70" class="no-scaled-link" src="http://abc007.contest.atcoder.jp/img/abc/007/1-1.png" style="width: 50%;" /></p>
+<p>木が<span class="math notranslate nohighlight">\(n\)</span>本、一直線に並んでいるとき、隣り合う木の“間”は何箇所存在するか。</p>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4</span>
+</pre></div>
+</div>
+<p>出力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>
+</pre></div>
+</div>
+</div><p><strong>手順</strong></p>
+<ol class="arabic simple">
+<li><p>(上記のリンクから)オンラインジャッジの<a class="reference external" href="https://atcoder.jp/contests/abc007/tasks/abc007_1">ページ</a>を開く</p></li>
+<li><p>問題文をしっかり読んでみる</p></li>
+<li><p>Colab上で入出力プログラムを書いてみる</p></li>
+<li><p>サンプルの入力例と出力例で動作を試してみる</p></li>
+<li><p>オンラインジャッジに提出する</p></li>
+</ol>
+<p><img alt="bdc81c15f55c4e3da0590286d7cef490" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 20%;" /></p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">まずオンラインジャッジに慣れよう</p>
+<p>まずは、4まで自力で進めてみてください。 最後のオンラインジャッジへの提出は実演で示します。</p>
+</div>
+</div>
+</div>
+<div class="section" id="頻出の入出力例">
+<h2><span class="section-number">1.4. </span>頻出の入出力例<a class="headerlink" href="#頻出の入出力例" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>オンラインジャッジでは、入出力を正しくプログラミングする必要があります。 入出力は、初学者には難しい箇所です。</p>
+<p><strong>最初は、パターンとして覚えてしまった方が良いでしょう。</strong></p>
+<div class="section" id="整数値の入力">
+<h3><span class="section-number">1.4.1. </span>整数値の入力<a class="headerlink" href="#整数値の入力" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><strong>1行に数値が１つある場合</strong></p>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">2</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">入力(input)は行単位</p>
+<p><span class="math notranslate nohighlight">\(N\)</span>行の入力データを読むには、<span class="math notranslate nohighlight">\(N\)</span>回 <code class="docutils literal notranslate"><span class="pre">input()</span></code>します</p>
+</div>
+</div>
+<div class="section" id="1行に複数の整数値がある場合">
+<h3><span class="section-number">1.4.2. </span>1行に複数の整数値がある場合<a class="headerlink" href="#1行に複数の整数値がある場合" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>1行に複数の整数値がある場合、 <strong>入力された文字列を字句解析して整数値に変換する</strong>必要があります。 この処理は、初心者には複雑すぎるため、ここは<strong>決まり文句</strong>として覚えてください。</p>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>変数<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>に読む</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>変数<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>に読む</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<p>変数<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code>に読む</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="1行にN個の数値がある場合(予習)">
+<h3><span class="section-number">1.4.3. </span>1行にN個の数値がある場合(予習)<a class="headerlink" href="#1行にN個の数値がある場合(予習)" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>今回は、1行のN個の数値がある場合は、次回で学ぶ<strong>リスト</strong>を用いて、 数列として読むこともできます。</p>
+<p>入力例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>変数<code class="docutils literal notranslate"><span class="pre">a</span></code> にリストとして読む</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p>詳しくは、リストのところで解説をします。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">リスト内包記法のところを高階関数<code class="docutils literal notranslate"><span class="pre">map</span></code>で書き換えても構いません。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="c1">#mapを使った書き換え</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="文字列をそのまま1行に出力する">
+<h3><span class="section-number">1.4.4. </span>文字列をそのまま1行に出力する<a class="headerlink" href="#文字列をそのまま1行に出力する" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>空白も含めて表示することができます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>出力結果</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Hello</span> <span class="n">World</span>
+</pre></div>
+</div>
+<p><strong>整数値を1行に出力する場合</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>出力結果</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">2</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">出力(print)も行単位</p>
+<p><span class="math notranslate nohighlight">\(N\)</span>行の出力をするときは、<span class="math notranslate nohighlight">\(N\)</span>回 <code class="docutils literal notranslate"><span class="pre">print()</span></code>します</p>
+</div>
+<p><strong>２つの整数値を1行に出力する場合</strong>_</p>
+<p>書式文字列<code class="docutils literal notranslate"><span class="pre">f&quot;</span> <span class="pre">...</span> <span class="pre">&quot;</span></code>を用いて、書式文字列に変数の値を埋め込みます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># 空白区切り</span>
+</pre></div>
+</div>
+<p>出力結果</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># /区切り</span>
+</pre></div>
+</div>
+<p>出力結果</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">書式文字列 <code class="docutils literal notranslate"><span class="pre">f&quot;</span> <span class="pre">{</span> <span class="pre">}</span> <span class="pre">&quot;</span></code></p>
+<p>書式文字列 <code class="docutils literal notranslate"><span class="pre">f&quot;</span>&#160;&#160; <span class="pre">&quot;</span></code>は、文字列の中に<code class="docutils literal notranslate"><span class="pre">{</span>&#160;&#160; <span class="pre">}</span></code>で囲んで式を埋め込みます。 すると、式が評価されて、その値（文字列表現）が埋め込まれた文字列になります。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sa">f</span><span class="s2">&quot;x=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, x+y=</span><span class="si">{</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>文字列を出力するときに便利なのでマスターしておきましょう。</p>
+</div>
+</div>
+<div class="section" id="演習問題">
+<h2><span class="section-number">1.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>プログラミングを上達するコツは、頭で理解するだけでなく自分で書いてみることです。</p>
+<p>１年生のPython入門をどの程度覚えているか、少し腕試ししてみましょう。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc145/tasks/abc145_a">円/Circle</a>:</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc029/tasks/abc029_a">複数形</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc041/tasks/abc041_b">直方体</a>:</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc075/tasks/abc075_a">３つのうち一つ</a>: if文を覚えていますか？</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc136/tasks/abc136_a">水の移動</a>: 落ち着いて考えてみよう</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc192/tasks/abc192_a">星集め</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc162/tasks/abc162_a">ラッキー7</a>: 文字列処理かな</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc070/tasks/abc070_a">三桁の回文数</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc186/tasks/abc186_d">差分の和</a>: これが解ければ、この講義は簡単です。</p></li>
+</ul>
+<p>次回からは、Python入門のおさらいをしながら、 プログラミングとアルゴリズムの演習をしてゆきます。</p>
+<!--
+* [Apple Pie](https://atcoder.jp/contests/abc128/tasks/abc128_a)
+* [合計時間](https://atcoder.jp/contests/joi2011yo/tasks/joi2011yo_a): 情報オリンピックの過去問
+* [Product](https://atcoder.jp/contests/abc086/tasks/abc086_a): if文覚えていますか？
+* [Placing Marbles](https://atcoder.jp/contests/abc081/tasks/abc081_a)
+* [ビリヤード/Billiards](https://atcoder.jp/contests/abc183/tasks/abc183_b)
+* [Product Max](https://atcoder.jp/contests/abc178/tasks/abc178_b)
+--></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="py02eval.html" class="btn btn-neutral float-right" title="2. 変数を評価する" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Pythonプログラミングとアルゴリズムの基礎" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
