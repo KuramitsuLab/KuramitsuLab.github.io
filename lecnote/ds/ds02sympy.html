@@ -112,6 +112,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#初等解析">2.5. 初等解析</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#極限">2.5.1. 極限</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#微分">2.5.2. 微分</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#積分">2.5.3. 積分</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#コースワーク">2.6. コースワーク</a></li>
@@ -467,7 +468,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="計算はPythonにさせてしまおう">
 <h1><span class="section-number">2. </span>計算はPythonにさせてしまおう<a class="headerlink" href="#計算はPythonにさせてしまおう" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>Pythonを用いて計算問題をときながら、「Python 勘」を取り戻していきましょう。</p>
-<p>今回は、「Pythonは便利だな」と思わず感じでしまう SymPy と代数計算を紹介します。</p>
+<p>今回は、数学や物理を学ぶときにも「Pythonは便利だな」と思わず感じてしまう SymPy と代数計算を紹介します。</p>
 <div class="section" id="SymPyとは">
 <h2><span class="section-number">2.1. </span>SymPyとは<a class="headerlink" href="#SymPyとは" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><a class="reference external" href="https://www.sympy.org/en/index.html">SymPy</a> は、Mathematica や Maple の代替を目指して開発が進められている Python の代数計算ライブラリです。</p>
@@ -476,7 +477,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">2.1.1. </span>準備<a class="headerlink" href="#準備" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>最初に、SymPy のモジュールをインポートします。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -499,8 +500,8 @@ div.rendered_html tbody tr:hover {
 <h2><span class="section-number">2.2. </span>代数計算とは<a class="headerlink" href="#代数計算とは" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>代数操作とは、数式を数値として計算することなく、シンボル(代数)の操作として計算することです。</p>
 <p><strong>数値計算(従来)</strong></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -510,10 +511,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+7
+</pre></div></div>
+</div>
 <p>代数計算では、変数はシンボルであると宣言します。 すると、変数に数値を代入することなく、シンボルのまま計算されます。</p>
 <p><strong>代数計算(SymPy)</strong></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -524,9 +534,17 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle 3 x + 2 y$</div></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">x</span></code>も<code class="docutils literal notranslate"><span class="pre">y</span></code>も代数式なので、代入された<code class="docutils literal notranslate"><span class="pre">z</span></code>も代数式となります。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -535,9 +553,17 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle 3 x + 2 y$</div></div>
+</div>
 <p>また、代数式に対するPythonの演算は、<strong>代数操作</strong>となります。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -545,11 +571,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \left(3 x + 2 y\right)^{2}$</div></div>
+</div>
 <div class="section" id="関数や定数">
 <h3><span class="section-number">2.2.1. </span>関数や定数<a class="headerlink" href="#関数や定数" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>三角関数、 𝜋 などは、SymPyからインポートされたものを用います。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -557,18 +591,35 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \frac{\sqrt{3}}{2}$</div></div>
+</div>
 </div>
 <div class="section" id="数値解の求め方">
 <h3><span class="section-number">2.2.2. </span>数値解の求め方<a class="headerlink" href="#数値解の求め方" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>数値解を求めたいときは、<code class="docutils literal notranslate"><span class="pre">float()</span></code>を用います。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="nb">float</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.8660254037844386
+</pre></div></div>
 </div>
 <div class="admonition tip"><p><strong>例題（代数式）</strong></p>
 <p>次の式を書いてみよう</p>
@@ -577,8 +628,8 @@ div.rendered_html tbody tr:hover {
 <li><p><span class="math notranslate nohighlight">\(e^{x}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\frac{x+xy}{x}\)</span></p></li>
 </ol>
-</div><div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -586,8 +637,16 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \sin{\left(x \right)} + \cos{\left(y \right)}$</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -595,14 +654,30 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle e^{x}$</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">x</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \frac{x y + x}{x}$</div></div>
 </div>
 </div>
 </div>
@@ -617,7 +692,7 @@ div.rendered_html tbody tr:hover {
 </ol>
 <p>x, y, z をシンボルとします。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -631,8 +706,8 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">2.3.1. </span>式の展開<a class="headerlink" href="#式の展開" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>式を展開するときは、<code class="docutils literal notranslate"><span class="pre">expand()</span></code>を用います。</p>
 <p>例. <span class="math notranslate nohighlight">\((x+y)^3\)</span>の展開</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -640,8 +715,16 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \left(x + y\right)^{3}$</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -649,9 +732,17 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle x^{3} + 3 x^{2} y + 3 x y^{2} + y^{3}$</div></div>
+</div>
 <p>例. <span class="math notranslate nohighlight">\(cos(x+y)\)</span></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -659,10 +750,18 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle - \sin{\left(x \right)} \sin{\left(y \right)} + \cos{\left(x \right)} \cos{\left(y \right)}$</div></div>
+</div>
 <p>部分分数への展開は<code class="docutils literal notranslate"><span class="pre">apart()</span></code>を用います。</p>
 <p>例. <span class="math notranslate nohighlight">\(\frac{1}{x(x+1)}\)</span></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -670,8 +769,16 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \frac{1}{x \left(x + 1\right)}$</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -679,13 +786,21 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle - \frac{1}{x + 1} + \frac{1}{x}$</div></div>
+</div>
 </div>
 <div class="section" id="因数分解">
 <h3><span class="section-number">2.3.2. </span>因数分解<a class="headerlink" href="#因数分解" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>式を因数分解するときは、<code class="docutils literal notranslate"><span class="pre">factor()</span></code>を用います。</p>
 <p><strong>例. (受験でお馴染みの):math:`x^3+y^3+z^3 - 3xyz`の因数分解</strong></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -693,8 +808,16 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle x^{3} - 3 x y z + y^{3} + z^{3}$</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -702,26 +825,85 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \left(x + y + z\right) \left(x^{2} - x y - x z + y^{2} - y z + z^{2}\right)$</div></div>
+</div>
 </div>
 <div class="section" id="式の簡略化">
 <h3><span class="section-number">2.3.3. </span>式の簡略化<a class="headerlink" href="#式の簡略化" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>式を簡易化するときは<code class="docutils literal notranslate"><span class="pre">simplify()</span></code>を用います。</p>
 <p><strong>例. :math:`frac{x+xy}{x}` の簡略化</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">simplify</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle y + 1$</div></div>
+</div>
 <p>三角関数を含む式を簡略化したいときは、<code class="docutils literal notranslate"><span class="pre">trigsimp()</span></code> を用います。</p>
 <p>例. <span class="math notranslate nohighlight">\(\cos^2{x}-\sin^2{x}\)</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trigsimp</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \cos{\left(2 x \right)}$</div></div>
+</div>
 </div>
 <div class="section" id="式の代入">
 <h3><span class="section-number">2.3.4. </span>式の代入<a class="headerlink" href="#式の代入" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>式への代入は、subs()メソッドを用います。</p>
 <p>例. <span class="math notranslate nohighlight">\(x^3+y^3+z^3-3xyz\)</span> の <span class="math notranslate nohighlight">\(z=1\)</span>のとき</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="n">z</span><span class="o">**</span><span class="mi">3</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle x^{3} - 3 x y + y^{3} + 1$</div></div>
+</div>
 </div>
 </div>
 <div class="section" id="方程式の解法">
 <h2><span class="section-number">2.4. </span>方程式の解法<a class="headerlink" href="#方程式の解法" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">solve()</span></code>を用いると、方程式の解を求めることができる。</p>
 <p><strong>例.</strong> <span class="math notranslate nohighlight">\(x^4=1\)</span>のxの解</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -729,16 +911,34 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[-1, 1, -I, I]
+</pre></div></div>
+</div>
 <p>連立方程式は、リストで与えます。</p>
 <p><strong>例.</strong> 連立方程式 𝑥+5𝑦=2,−3𝑥+6𝑦=15 の解</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">solve</span><span class="p">([</span><span class="n">x</span><span class="o">+</span><span class="mi">5</span><span class="o">*</span><span class="n">y</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">6</span><span class="o">*</span><span class="n">y</span><span class="o">-</span><span class="mi">15</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{x: -3, y: 1}
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="初等解析">
@@ -747,8 +947,8 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">2.5.1. </span>極限<a class="headerlink" href="#極限" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>極限は、<code class="docutils literal notranslate"><span class="pre">limit()</span></code>を用いて求めることができます。</p>
 <p><strong>例.</strong> <span class="math notranslate nohighlight">\(\lim_{x \to 0} x^x\)</span></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -756,10 +956,18 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle 1$</div></div>
+</div>
 <p>無限大は、<code class="docutils literal notranslate"><span class="pre">oo</span></code>と書きます。</p>
 <p><strong>例.</strong> <span class="math notranslate nohighlight">\(\lim_{x \to \infty} x^x\)</span></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -767,13 +975,21 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle 0$</div></div>
+</div>
 </div>
 <div class="section" id="微分">
 <h3><span class="section-number">2.5.2. </span>微分<a class="headerlink" href="#微分" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>微分は、<code class="docutils literal notranslate"><span class="pre">diff()</span></code>を用います。</p>
 <p><strong>例. :math:`frac{x}{dx}sin{x}`</strong></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -781,11 +997,21 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>###積分</p>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \cos{\left(x \right)}$</div></div>
+</div>
+</div>
+<div class="section" id="積分">
+<h3><span class="section-number">2.5.3. </span>積分<a class="headerlink" href="#積分" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>積分は、<code class="docutils literal notranslate"><span class="pre">integrate(関数,</span> <span class="pre">変数)</span></code>によって、初等関数, 特殊関数の積分が可能です。</p>
 <p><strong>例</strong> <span class="math notranslate nohighlight">\(\int \log x ~dx\)</span></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -793,15 +1019,31 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle x \log{\left(x \right)} - x$</div></div>
+</div>
 <p><strong>例</strong> <span class="math notranslate nohighlight">\(\int_{-\infty}^\infty e^{-x^2} dx\)</span></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">integrate</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">oo</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+$\displaystyle \sqrt{\pi}$</div></div>
 </div>
 </div>
 </div>

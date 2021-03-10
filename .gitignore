@@ -1,2 +1,6 @@
 *.doctree
+*.inv
+*.ipynb
+*.ipnnb.txt
 .DS_Store
+_sources/
