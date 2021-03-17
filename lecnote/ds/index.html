@@ -90,14 +90,14 @@
 <li class="toctree-l1"><a class="reference internal" href="ds01intro.html">1. Python とデータサイエンス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds02sympy.html">2. 計算はPythonにさせてしまおう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds03numpy.html">3. NumPyとグラフ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データを使いこなそう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データとPandasを使いこなそう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds05data.html">5. データの傾向をつかもう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 回帰：線形近似から予測する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データ・サイエンティストへの道</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習と画像認識</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
 </ul>
 
@@ -203,9 +203,10 @@
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ds01intro.html">1. Python とデータサイエンス</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ds01intro.html#Colab-とは">1.1. Colab とは</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds01intro.html#データサイエンスに必要なPython">1.2. データサイエンスに必要なPython</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds01intro.html#コースワーク">1.3. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds01intro.html#データサイエンスとは">1.1. データサイエンスとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds01intro.html#データサイエンスを学ぶ環境">1.2. データサイエンスを学ぶ環境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds01intro.html#データサイエンスとPython">1.3. データサイエンスとPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds01intro.html#コースワーク">1.4. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds02sympy.html">2. 計算はPythonにさせてしまおう</a><ul>
@@ -222,13 +223,13 @@
 <li class="toctree-l2"><a class="reference internal" href="ds03numpy.html#NumPy配列操作">3.2. NumPy配列操作</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds03numpy.html#グラフの描画">3.3. グラフの描画</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds03numpy.html#色々なグラフ">3.4. 色々なグラフ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds03numpy.html#演習問題">3.5. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds03numpy.html#コースワーク">3.5. コースワーク</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データを使いこなそう</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データとPandasを使いこなそう</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ds04pandas.html#Pandas-とは">4.1. Pandas とは</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds04pandas.html#基本操作">4.2. 基本操作</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds04pandas.html#Pandas-とリレーショナル代数">4.3. Pandas とリレーショナル代数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds04pandas.html#リレーショナル代数">4.3. リレーショナル代数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds04pandas.html#データ分析の準備">4.4. データ分析の準備</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds04pandas.html#コースワーク">4.5. コースワーク</a></li>
 </ul>
@@ -237,48 +238,57 @@
 <li class="toctree-l2"><a class="reference internal" href="ds05data.html#データ入手">5.1. データ入手</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds05data.html#可視化">5.2. 可視化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds05data.html#可視化（プロの技）">5.3. 可視化（プロの技）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds05data.html#コースワーク">5.4. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds05data.html#時系列データの扱い">5.4. 時系列データの扱い</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds05data.html#コースワーク">5.5. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ds06classfy.html#クラスタリング">6.1. クラスタリング</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds06classfy.html#K-means法の実践">6.2. K-means法の実践</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds06classfy.html#コースワーク">6.3. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds06classfy.html#身長と体重からクラスタリング">6.2. 身長と体重からクラスタリング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds06classfy.html#エルボー法:-適切なクラスター数を調べる">6.3. エルボー法: 適切なクラスター数を調べる</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds06classfy.html#乳がんデータと主成分分析">6.4. 乳がんデータと主成分分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds06classfy.html#コースワーク">6.5. コースワーク</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ds07reg.html#機械学習">7.1. 機械学習</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds07reg.html#ボストンハウジング価格">7.2. ボストンハウジング価格</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds07reg.html#ランダムフォレスト">7.3. ランダムフォレスト</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds07reg.html#XgBoost">7.4. XgBoost</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 回帰：線形近似から予測する</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ds07reg.html#線形回帰">7.1. 線形回帰</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds07reg.html#ボストン住宅価格">7.2. ボストン住宅価格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds07reg.html#回帰モデルの評価">7.3. 回帰モデルの評価</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds07reg.html#仮説検証">7.4. 仮説検証</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds07reg.html#コースワーク">7.5. コースワーク</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#機械学習">8.1. 機械学習</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#BMI">8.2. BMI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#MNIST">8.3. MNIST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#演習問題">8.4. 演習問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#学習と機械学習">8.1. 学習と機械学習</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#２クラス分類">8.2. ２クラス分類</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#多クラスロジスティック回帰">8.3. 多クラスロジスティック回帰</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#クラス分類アルゴリズム">8.4. クラス分類アルゴリズム</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds08ml.html#コースワーク">8.5. コースワーク</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ds09ds.html#今回のお題">9.1. 今回のお題</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds09ds.html#演習問題">9.2. 演習問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データ・サイエンティストへの道</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ds09ds.html#Kaggle">9.1. Kaggle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds09ds.html#タイタニック号の生存者予測">9.2. タイタニック号の生存者予測</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds09ds.html#欠損値を調べる">9.3. 欠損値を調べる</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds09ds.html#過学習を防ぐには">9.4. 過学習を防ぐには</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds09ds.html#コースワーク">9.5. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ds10nw.html#ニューロン">10.1. ニューロン</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds10nw.html#演習問題">10.2. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds10nw.html#ニューラル・ネットワークの原理">10.1. ニューラル・ネットワークの原理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds10nw.html#単純パーセプトロンの実装">10.2. 単純パーセプトロンの実装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds10nw.html#多層パーセプトロン">10.3. 多層パーセプトロン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds10nw.html#コースワーク">10.4. コースワーク</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習と画像認識</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ds11deep.html#今回のお題">11.1. 今回のお題</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds11deep.html#演習問題">11.2. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds11deep.html#コースワーク（見本）">11.2. コースワーク（見本）</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ds12nlp.html#形態素解析">12.1. 形態素解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ds12nlp.html#演習問題">12.2. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds12nlp.html#コースワーク">12.2. コースワーク</a></li>
 </ul>
 </li>
 </ul>

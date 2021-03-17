@@ -43,7 +43,7 @@
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="6. クラスタリングしてみよう" href="ds06classfy.html" />
-    <link rel="prev" title="4. 表データを使いこなそう" href="ds04pandas.html" /> 
+    <link rel="prev" title="4. 表データとPandasを使いこなそう" href="ds04pandas.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,7 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ds01intro.html">1. Python とデータサイエンス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds02sympy.html">2. 計算はPythonにさせてしまおう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds03numpy.html">3. NumPyとグラフ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データを使いこなそう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データとPandasを使いこなそう</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">5. データの傾向をつかもう</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#データ入手">5.1. データ入手</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#データの属性を確認する">5.1.1. データの属性を確認する</a></li>
@@ -118,15 +118,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#カーネル密度推定法によるグラフ">5.3.4. カーネル密度推定法によるグラフ</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#コースワーク">5.4. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#時系列データの扱い">5.4. 時系列データの扱い</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">5.5. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 回帰：線形近似から予測する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データ・サイエンティストへの道</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習と画像認識</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
 </ul>
 
@@ -468,7 +469,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="データの傾向をつかもう">
 <h1><span class="section-number">5. </span>データの傾向をつかもう<a class="headerlink" href="#データの傾向をつかもう" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>いよいよ、データを使って統計分析する手法を学んでいきます。</p>
-<p>今回は、pandas と グラフ描画を組み合わせて、データ分析を行ます。</p>
+<p>今回は、Pandas と グラフ描画を組み合わせて、データの可視化による分析を学びます。</p>
 <p><strong>モジュールの準備</strong></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -485,8 +486,11 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="データ入手">
 <h2><span class="section-number">5.1. </span>データ入手<a class="headerlink" href="#データ入手" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>今回は、ポルトガルの高校生の数学の成績データを使って、データ解析をします。</p>
-<img alt="高校" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/315e0d53-5fed-3f10-db50-eda9ece4f5f9.jpeg" />
+<p>今回は、<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/student+performance">ポルトガルの高校生の数学の成績データ</a>を使って、データ解析をします。</p>
+<p><img alt="3f129b28575a4646be973e7f6d141d24" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/315e0d53-5fed-3f10-db50-eda9ece4f5f9.jpeg" style="width: 60%;" /></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!wget https://kuramitsulab.github.io/data/student-mat.csv
+</pre></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">student-mat.csv</span></code>をデータフレームとして読み込みます。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -969,7 +973,7 @@ div.rendered_html tbody tr:hover {
 <p>ポルトガルの高校なので、日本人の感覚からすると？？？なところもありますが、 上記の情報が含まれています。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">ここからのミッション</p>
-<p>高校生の各属性が数学の成績(G1, G2, G3)、特に最終成績に与える影響を調べていきましょう。</p>
+<p>高校生の各属性が数学の成績(G1, G2, G3)、特に最終成績(G3)に与える影響を調べていきましょう。</p>
 </div>
 </div>
 <div class="section" id="データの形式を確認する">
@@ -2188,19 +2192,69 @@ a= [0.58065293] , b= 4.861250211993213
 </div>
 </div>
 </div>
-<div class="section" id="コースワーク">
-<h2><span class="section-number">5.4. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>コースワークは、次回までの演習課題です。 次回の授業でたぶん解説をします。</p>
-<div class="admonition tip"><p><strong>演習（ランチボックス）</strong></p>
-<p>指定された３つのCSVファイルのデータの特徴をつかんでみよう。</p>
-<ol class="arabic simple">
-<li><p>完成したファイルは <code class="docutils literal notranslate"><span class="pre">bmi.csv</span></code> として保存する</p></li>
-<li><p>体重を横軸にして、ヒストグラムを書いてみる</p></li>
-<li><p>身長と体重の分布図を描画する</p></li>
-</ol>
-</div><p><strong>課題の進め方</strong></p>
-<p><a class="reference external" href="https://colab.research.google.com/github/kkuramitsu/class2021/blob/master/notebooks/course04-pandas.ipynb">ワークシート</a>をColab上で開いて、自分のDriveにコピーする</p>
+<div class="section" id="時系列データの扱い">
+<h2><span class="section-number">5.4. </span>時系列データの扱い<a class="headerlink" href="#時系列データの扱い" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>余力があったら時系列データの特徴を掴む方法を紹介します。</p>
 </div>
+<div class="section" id="コースワーク">
+<h2><span class="section-number">5.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition tip"><p><strong>演習（ランチボックス）</strong></p>
+<p>カフェフロアで販売されているお弁当の販売数のデータを可視化して、 特徴をつかんでみよう。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ヘッダ名称</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>datetid</p></td>
+<td><p>インデックスとして使用する日付</p></td>
+</tr>
+<tr class="row-odd"><td><p>y</p></td>
+<td><p>販売数</p></td>
+</tr>
+<tr class="row-even"><td><p>week</p></td>
+<td><p>曜日（月～金）</p></td>
+</tr>
+<tr class="row-odd"><td><p>soldout</p></td>
+<td><p>完売フラグ（0:完売せず、1:完売）</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>メインメニュー</p></td>
+</tr>
+<tr class="row-odd"><td><p>kcal</p></td>
+<td><p>おかずのカロリー（kcal）</p></td>
+</tr>
+<tr class="row-even"><td><p>remarks</p></td>
+<td><p>特記事項</p></td>
+</tr>
+<tr class="row-odd"><td><p>event</p></td>
+<td><p>社内イベント</p></td>
+</tr>
+<tr class="row-even"><td><p>payday</p></td>
+<td><p>給料日フラグ（1:給料日）</p></td>
+</tr>
+<tr class="row-odd"><td><p>weather</p></td>
+<td><p>天気</p></td>
+</tr>
+<tr class="row-even"><td><p>precipitation</p></td>
+<td><p>降水量</p></td>
+</tr>
+<tr class="row-odd"><td><p>temperature</p></td>
+<td><p>気温</p></td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>データの入手方法</strong></p>
+<p><a class="reference external" href="https://signate.jp/competitions/24">SIGNATE社のコンテスト用データ</a>を 利用させていただきます。データの入手法の詳細は授業中に紹介します。</p>
+<!--
+! wget http://kuramitsulab.github.io/data/bento_train.csv
+! wget http://kuramitsulab.github.io/data/bento_test.csv
+--></div>
 </div>
 
 
@@ -2210,7 +2264,7 @@ a= [0.58065293] , b= 4.861250211993213
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="ds06classfy.html" class="btn btn-neutral float-right" title="6. クラスタリングしてみよう" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="ds04pandas.html" class="btn btn-neutral float-left" title="4. 表データを使いこなそう" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ds04pandas.html" class="btn btn-neutral float-left" title="4. 表データとPandasを使いこなそう" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

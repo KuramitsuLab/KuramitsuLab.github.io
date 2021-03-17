@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>11. 深層学習 &mdash; Python &amp; Data Science 2021  ドキュメント</title>
+  <title>11. 深層学習と画像認識 &mdash; Python &amp; Data Science 2021  ドキュメント</title>
   
 
   
@@ -93,19 +93,16 @@
 <li class="toctree-l1"><a class="reference internal" href="ds01intro.html">1. Python とデータサイエンス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds02sympy.html">2. 計算はPythonにさせてしまおう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds03numpy.html">3. NumPyとグラフ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データを使いこなそう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データとPandasを使いこなそう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds05data.html">5. データの傾向をつかもう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 回帰：線形近似から予測する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データ・サイエンティストへの道</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">11. 深層学習</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">11. 深層学習と画像認識</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#今回のお題">11.1. 今回のお題</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">11.2. 演習問題</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#平均点">11.2.1. 平均点</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク（見本）">11.2. コースワーク（見本）</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
@@ -157,7 +154,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">11. </span>深層学習</li>
+      <li><span class="section-number">11. </span>深層学習と画像認識</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -178,6 +175,252 @@
             
   
 <style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
@@ -200,9 +443,35 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="深層学習">
-<h1><span class="section-number">11. </span>深層学習<a class="headerlink" href="#深層学習" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>教師あり機械学習の基礎となる回帰について学びます。 ボストンハウジングという有名問題</p>
+<div class="section" id="深層学習と画像認識">
+<h1><span class="section-number">11. </span>深層学習と画像認識<a class="headerlink" href="#深層学習と画像認識" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">鋭意執筆中</p>
+<p>多分、MNISTを用いて画像認識の基礎を.. 深層学習（といってもMLPか..)</p>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>## MNIST
+
+MNIST は、「0」~「9」の手書き数字の画像データセットです。Yann LeCun らによって、手書き 文字データセットの NIST データベースから抽出&amp;加工して、機械学習のチュートリアル用に作成 されて公開されています。
+
+ここは、画像データ(手書きの文字)を説明変数 (X)、ラベルを目的変数 (y) として学習モデルを作成してみます。
+
+画像データ (x_train, x_test) は、サイズ 28x28, 0~255 グレースケールの形式になっています。
+
+# MNISTデータセット
+from sklearn.datasets import fetch_openml
+
+mnist = fetch_openml(&#39;mnist_784&#39;)
+mnist
+#(X_train, y_train), (X_test, y_test) = mnist.load_data()
+
+</pre></div>
+</div>
+</div>
 <div class="section" id="今回のお題">
 <h2><span class="section-number">11.1. </span>今回のお題<a class="headerlink" href="#今回のお題" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>プログラミングでは、複数の値をひとまとめのデータとして扱いたいケースが多くあります。</p>
@@ -214,41 +483,15 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="演習問題">
-<h2><span class="section-number">11.2. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="コースワーク（見本）">
+<h2><span class="section-number">11.2. </span>コースワーク（見本）<a class="headerlink" href="#コースワーク（見本）" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">(1//2)</span></code> が、正しく <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> にならない理由を考えてみよう</p>
 </div>
-<div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">(プログラミングの)<span class="math notranslate nohighlight">\(N\)</span>個数える</p>
-<p>プログラミングでは、原則、「<strong>0から</strong><span class="math notranslate nohighlight">\(N-1\)</span>まで」のように数えます。</p>
-</div>
-<div class="section" id="平均点">
-<h3><span class="section-number">11.2.1. </span>平均点<a class="headerlink" href="#平均点" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<div class="admonition tip"><p><strong>例題（平均点）</strong></p>
-<p>期末試験は5人受験した。 点数が40点未満の生徒は全員，補習を受け，成績が40点になった。 5人の平均点を求めよ。</p>
-<p>入力例：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>
-<span class="mi">65</span>
-<span class="mi">100</span>
-<span class="mi">30</span>
-<span class="mi">95</span>
-</pre></div>
-</div>
-<p>出力例：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
-</pre></div>
-</div>
-<p><a class="reference external" href="https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a">AtCoder (JOI2014 予選)</a></p>
-</div><p><strong>(解法) リストを使う場合</strong></p>
-<ol class="arabic simple">
-<li><p>期末試験を記録する空の得点リスト <code class="docutils literal notranslate"><span class="pre">scores</span></code> を用意する</p></li>
-<li><p>5人分繰り返し、点数を読んで、<code class="docutils literal notranslate"><span class="pre">scores</span></code> に追加する</p></li>
-<li><p>平均点は <code class="docutils literal notranslate"><span class="pre">sum(scores)</span> <span class="pre">//</span> <span class="pre">5</span></code></p></li>
-</ol>
-</div>
-</div>
+<div class="admonition tip"><p><strong>演習（画像処理）</strong></p>
+<p>…</p>
+</div></div>
 </div>
 
 

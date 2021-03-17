@@ -91,33 +91,37 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. Python とデータサイエンス</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Colab-とは">1.1. Colab とは</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#コードセルとテキストセル">1.1.1. コードセルとテキストセル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#データサイエンスとは">1.1. データサイエンスとは</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#データサイエンスの目的">1.1.1. データサイエンスの目的</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#アプローチ">1.1.2. アプローチ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#データサイエンスを学ぶ環境">1.2. データサイエンスを学ぶ環境</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#テキストセル">1.2.1. テキストセル</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#コードセル">コードセル</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#コードセル-(UNIXコマンド編)">1.1.2. コードセル (UNIXコマンド編)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#テキストセル">1.1.3. テキストセル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#コードセル-(UNIXコマンド編)">1.2.2. コードセル (UNIXコマンド編)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#データサイエンスに必要なPython">1.2. データサイエンスに必要なPython</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Python-理解チェック">1.2.1. Python 理解チェック</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ワンランク上のPythonスキル">1.2.2. ワンランク上のPythonスキル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#データサイエンスとPython">1.3. データサイエンスとPython</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Python-理解チェック">1.3.1. Python 理解チェック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ワンランク上のPythonスキル">1.3.2. ワンランク上のPythonスキル</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#コースワーク">1.3. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">1.4. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds02sympy.html">2. 計算はPythonにさせてしまおう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds03numpy.html">3. NumPyとグラフ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データを使いこなそう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データとPandasを使いこなそう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds05data.html">5. データの傾向をつかもう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 回帰：線形近似から予測する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データ・サイエンティストへの道</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習と画像認識</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
 </ul>
 
@@ -460,18 +464,67 @@ div.rendered_html tbody tr:hover {
 <h1><span class="section-number">1. </span>Python とデータサイエンス<a class="headerlink" href="#Python-とデータサイエンス" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>本講義では、Colab のハンズオン演習を行いながら、データサイエンスと機械学習の基礎を学びます。</p>
 <p>まずは、Colabに慣れながら、Pythonのおさらいから始めましょう。</p>
-<div class="section" id="Colab-とは">
-<h2><span class="section-number">1.1. </span>Colab とは<a class="headerlink" href="#Colab-とは" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="データサイエンスとは">
+<h2><span class="section-number">1.1. </span>データサイエンスとは<a class="headerlink" href="#データサイエンスとは" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>データ・サイエンスは、数学やコンピュータ科学を駆使し、データから価値を創出し、社会課題に答えを出す技法です。近年、ICT技術の急激な進歩にともない、大量のデータの収集が容易になり、あらゆる分野で活用が期待されている学問領域です。</p>
+<p><strong>求められるスキルセット</strong></p>
+<ul class="simple">
+<li><p>数学、統計学、計算機科学</p></li>
+<li><p>コンピュータエンジニアリング（Pythonなど）</p></li>
+<li><p>分析力</p></li>
+</ul>
+<div class="section" id="データサイエンスの目的">
+<h3><span class="section-number">1.1.1. </span>データサイエンスの目的<a class="headerlink" href="#データサイエンスの目的" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>データサイエンスのアウトプットは２つに大別されます。</p>
+<ul class="simple">
+<li><p><strong>レポーティング</strong>: 人間に対し、意思決定が的確に行えるようにエビデンスを提供すること</p></li>
+<li><p><strong>人工知能(AI)</strong>: コンピュータに対し、未来が予測できるようにモデルを構築すること</p></li>
+</ul>
+<p>なぜ、近年データサイエンスが注目されているか？</p>
+<ul class="simple">
+<li><p>リアルタイム性: 従来はデータ分析に大きな時間がかかっていましたが、ビックデータ収集からデータ分析までリアルタイムは処理が行えるようになります。</p></li>
+<li><p>共有性： データ共有が進み、多くの人が等しくデータの民主化が促進されます。</p></li>
+<li><p>標準化： データを扱うことが統一され、バラバラでなく、統一した基準で議論が可能になります。</p></li>
+</ul>
+</div>
+<div class="section" id="アプローチ">
+<h3><span class="section-number">1.1.2. </span>アプローチ<a class="headerlink" href="#アプローチ" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>データサイエンスは、科学的アプローチが求められます。</p>
+<ul class="simple">
+<li><p>仮説検証型:</p></li>
+<li><p>仮説探索型:</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="データサイエンスを学ぶ環境">
+<h2><span class="section-number">1.2. </span>データサイエンスを学ぶ環境<a class="headerlink" href="#データサイエンスを学ぶ環境" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Colabとは、Google 社が提供するクラウド版の<a class="reference external" href="https://jupyter.org">Jupyter Notebook</a> です。 環境設定することなしに、Python と豊富なライブラリ、さらに高性能なGPUが利用可能です。 データサイエンスや機械学習の入門には大変によい環境が提供になっています。</p>
 <p><a class="reference external" href="https://colab.research.google.com/">https://colab.research.google.com/</a></p>
 <p>はじめて Colab を使うときは、Google アカウント( Gmail アカウント ) が必要になります。 Googleアカウントは複数作成できるので、授業用のアカウントを作っておくと便利です。</p>
-<div class="section" id="コードセルとテキストセル">
-<h3><span class="section-number">1.1.1. </span>コードセルとテキストセル<a class="headerlink" href="#コードセルとテキストセル" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>Colab は、コードセルとテキストセルがあります。</p>
+<div class="section" id="テキストセル">
+<h3><span class="section-number">1.2.1. </span>テキストセル<a class="headerlink" href="#テキストセル" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Colab は、コードセルとテキストセルがあります。 テキストセルには、<a class="reference external" href="https://qiita.com/Blueman81/items/72ca43681d16d44e21ad">マークダウン記法</a>によって、コードの説明やメモを記録します。</p>
+<p><strong>よく使うマークダウン記法</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 見出し１</span>
+<span class="c1">## 見出し２</span>
+<span class="c1">### 見出し３</span>
+
+<span class="o">*</span> <span class="n">項目1</span>
+<span class="o">*</span> <span class="n">項目2</span>
+
+<span class="mf">1.</span> <span class="n">項目</span>
+<span class="mf">2.</span> <span class="n">項目</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">マークダウン記法と数式</p>
+<p>簡易文書作成記法です。ソフトウェアエンジニアや科学者の間では、標準的な記法になっています。 また、Colabでは Mathjaxも対応しているため、<code class="docutils literal notranslate"><span class="pre">$\sqrt{2}$</span></code>のように<code class="docutils literal notranslate"><span class="pre">$</span></code>で囲むと、 <span class="math notranslate nohighlight">\(\sqrt{2}\)</span>のように数式も記述できます。</p>
+<img alt="colab_math.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/76e6eecd-c5ed-b4fe-7577-f5db26897034.png" />
+</div>
 <div class="section" id="コードセル">
 <h4>コードセル<a class="headerlink" href="#コードセル" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>プログラム（ソースコード）を入力して、実行ボタンを押すことで、実行結果を表示します。</p>
-<p><img alt="916f19c5d47245cdb67fd0979e739d13" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2453d50e-b99d-be10-bbce-24e46e59b3ce.png" style="width: 60%;" /></p>
+<p><img alt="44b34ad857b94f89830fe35f582c3e97" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2453d50e-b99d-be10-bbce-24e46e59b3ce.png" style="width: 60%;" /></p>
 <p>本資料では、実行セルに入力すべきコードと実行結果は、次のように記載します。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -510,7 +563,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="コードセル-(UNIXコマンド編)">
-<h3><span class="section-number">1.1.2. </span>コードセル (UNIXコマンド編)<a class="headerlink" href="#コードセル-(UNIXコマンド編)" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">1.2.2. </span>コードセル (UNIXコマンド編)<a class="headerlink" href="#コードセル-(UNIXコマンド編)" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Colabは、Google社のデータセンターの Linux 上で実行されています。</p>
 <p><code class="docutils literal notranslate"><span class="pre">!ls</span></code>のように<code class="docutils literal notranslate"><span class="pre">!</span></code>をつけると、コードセル内で<strong>UNIXコマンド</strong>を実行することができます。</p>
 <p><strong>例</strong></p>
@@ -531,34 +584,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>Colab は、便利なユーザインターフェースを備えていますが、ユーザインターフェースからは全ての操作はできません。 そのようなとき、UNIXコマンドを使いこなすと、細かい操作ができるようになります。 UNIXコマンドは、<strong>クラウドなどのコンピューティング・サービスを使いこなす必須スキル</strong>といえます。 本講義を通して、少しずつ覚えていきましょう。</p>
-</div>
-<div class="section" id="テキストセル">
-<h3><span class="section-number">1.1.3. </span>テキストセル<a class="headerlink" href="#テキストセル" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p><a class="reference external" href="https://qiita.com/Blueman81/items/72ca43681d16d44e21ad">マークダウン記法</a>でソースコードの説明やメモを記録します。</p>
-<p><strong>よく使うマークダウン記法</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 見出し１</span>
-<span class="c1">## 見出し２</span>
-<span class="c1">### 見出し３</span>
-
-<span class="o">*</span> <span class="n">項目1</span>
-<span class="o">*</span> <span class="n">項目2</span>
-
-<span class="mf">1.</span> <span class="n">項目</span>
-<span class="mf">2.</span> <span class="n">項目</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">マークダウン記法と数式</p>
-<p>簡易文書作成記法です。ソフトウェアエンジニアや科学者の間では、標準的な記法になっています。 また、Colabでは Mathjaxも対応しているため、<code class="docutils literal notranslate"><span class="pre">$\sqrt{2}$</span></code>のように<code class="docutils literal notranslate"><span class="pre">$</span></code>で囲むと、 <span class="math notranslate nohighlight">\(\sqrt{2}\)</span>のように数式も記述できます。</p>
-<img alt="colab_math.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/76e6eecd-c5ed-b4fe-7577-f5db26897034.png" />
+<p>Colab は、使いやすいユーザインターフェースを備えていますが、ユーザインターフェースからは全ての操作はできません。UNIXコマンドを使いこなすと、細かい操作ができるようになります。 UNIXコマンドは、<strong>クラウドなどのコンピューティング・サービスを使いこなす必須スキル</strong>といえます。 本講義を通して、少しずつ覚えていきましょう。</p>
 </div>
 </div>
-</div>
-<div class="section" id="データサイエンスに必要なPython">
-<h2><span class="section-number">1.2. </span>データサイエンスに必要なPython<a class="headerlink" href="#データサイエンスに必要なPython" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>本講義では、Pythonを用いてプログラミングをしながら、データサイエンスと機械学習の基礎を学びます。</p>
-<p>高度なプログラミング技法は必要はありませんが、最低限の言語理解がないと、ソースコードが読めなくて、 どんどんわからなくなります。</p>
+<div class="section" id="データサイエンスとPython">
+<h2><span class="section-number">1.3. </span>データサイエンスとPython<a class="headerlink" href="#データサイエンスとPython" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本講義では、Pythonを用いて<strong>手を動かしながら</strong>、データサイエンスと機械学習の基礎を学びます。</p>
+<p>高度なプログラミング能力は必要はありませんが、最低限のPython言語の理解がないと、 ソースコードが読めなくてわからなくなります。</p>
 <p><strong>必須</strong></p>
 <ol class="arabic simple">
 <li><p>演算子、変数と関数</p></li>
@@ -570,13 +602,13 @@ div.rendered_html tbody tr:hover {
 <li><p>ラムダ式や高階関数 (２年前期)</p></li>
 <li><p>オブジェクト指向と演算子オーバーロード (２年後期)</p></li>
 </ol>
-<p>理解が怪しいときは、Python 教科書やWeb上の記事を参考にして、復習しておきましょう。</p>
+<p>Pythonの理解が怪しいときは、<a class="reference external" href="https://docs.python.org/ja/3/tutorial/">Pythonチュートリアル(Web版)</a>を頼りにして、復習しておきましょう。</p>
 <div class="admonition warning">
 <p class="admonition-title fa fa-exclamation-circle">もしPythonに自信がなければ</p>
-<p>２年生むけの<a class="reference external" href="https://KuramitsuLab.github.io/lecnote/py/">Web講義ノート</a>も公開しています。 こちらもぜひ参考にしていただければと思います。</p>
+<p>２年生向けの<a class="reference external" href="https://KuramitsuLab.github.io/lecnote/py/">Pythonプログラミング講義ノート</a>も公開しています。ぜひこちらも役立ててください。</p>
 </div>
 <div class="section" id="Python-理解チェック">
-<h3><span class="section-number">1.2.1. </span>Python 理解チェック<a class="headerlink" href="#Python-理解チェック" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">1.3.1. </span>Python 理解チェック<a class="headerlink" href="#Python-理解チェック" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>次のPythonコードを（コードセルを実行しなくても）実行結果が予想できるか試してみましょう。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -673,7 +705,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="ワンランク上のPythonスキル">
-<h3><span class="section-number">1.2.2. </span>ワンランク上のPythonスキル<a class="headerlink" href="#ワンランク上のPythonスキル" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">1.3.2. </span>ワンランク上のPythonスキル<a class="headerlink" href="#ワンランク上のPythonスキル" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ここから先は、ちょっと難しいかもしれません。</p>
 <p>「はじめてみる」ということはないと思いますが、こういう書き方があると覚えましょう。</p>
 <div class="nbinput nblast docutils container">
@@ -741,14 +773,14 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="section" id="コースワーク">
-<h2><span class="section-number">1.3. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>コースワークは、次回までの演習問題です。 次回の授業でたぶん解説をします。</p>
+<h2><span class="section-number">1.4. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コースワークは、次回の講義までの演習課題です。 次回の講義までに取り組んでください。 次回の授業で解説を行いますので、全てできなくてもても構いませんが、 必ず取り組んでください。</p>
 <div class="admonition tip"><p><strong>演習（素数）</strong></p>
-<p>1000以下の素数をもとめるプログラムを書いて表示しよう</p>
+<p>Colabを用いて、1000以下の素数リストを作るPythonプログラムを書いてみよう。</p>
 </div><p><strong>ヒント</strong></p>
 <p>色々な解き方があります。</p>
 <ol class="arabic simple">
-<li><p>エラトステネスの篩（アルゴリズム）を用いる</p></li>
+<li><p><a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%A9%E3%83%88%E3%82%B9%E3%83%86%E3%83%8D%E3%82%B9%E3%81%AE%E7%AF%A9">エラトステネスの篩</a>（アルゴリズム）を用いる</p></li>
 <li><p>素数かどうか判定する関数を作ってフィルタする</p></li>
 </ol>
 <p>簡単な方でどうぞ</p>

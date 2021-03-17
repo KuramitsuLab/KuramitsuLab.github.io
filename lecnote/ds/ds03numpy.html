@@ -42,7 +42,7 @@
     
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="4. 表データを使いこなそう" href="ds04pandas.html" />
+    <link rel="next" title="4. 表データとPandasを使いこなそう" href="ds04pandas.html" />
     <link rel="prev" title="2. 計算はPythonにさせてしまおう" href="ds02sympy.html" /> 
 </head>
 
@@ -116,21 +116,22 @@
 <li class="toctree-l3"><a class="reference internal" href="#散布図-(plt.scatter(x,y))">3.4.1. 散布図 (<code class="docutils literal notranslate"><span class="pre">plt.scatter(x,y)</span></code>)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#棒グラフ-plt.bar()">3.4.2. 棒グラフ <code class="docutils literal notranslate"><span class="pre">plt.bar()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ヒストグラム">3.4.3. ヒストグラム</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Subplot-複数の図を表示する">3.4.4. Subplot 複数の図を表示する</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#もっと-Matplotlibを使いこなすには？">3.4.5. もっと Matplotlibを使いこなすには？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#円グラフ">3.4.4. 円グラフ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Subplot-複数の図を表示する">3.4.5. Subplot 複数の図を表示する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#もっと-Matplotlibを使いこなすには？">3.4.6. もっと Matplotlibを使いこなすには？</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">3.5. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">3.5. コースワーク</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データを使いこなそう</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds04pandas.html">4. 表データとPandasを使いこなそう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds05data.html">5. データの傾向をつかもう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 回帰：線形近似から予測する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データ・サイエンティストへの道</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習と画像認識</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
 </ul>
 
@@ -1407,8 +1408,24 @@ array([4, 2, 2, 4, 1, 2, 3, 1, 2, 2, 1, 5, 1, 5, 4, 2, 2, 2, 4, 3, 5, 4,
 <p>サイコロをふる回数を増やしてみて、偏りが平坦になることを確認してみよう</p>
 </div>
 </div>
+<div class="section" id="円グラフ">
+<h3><span class="section-number">3.4.4. </span>円グラフ<a class="headerlink" href="#円グラフ" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>円グラフは、<code class="docutils literal notranslate"><span class="pre">pie()</span></code>関数で描画できます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">counterclock</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="Subplot-複数の図を表示する">
-<h3><span class="section-number">3.4.4. </span>Subplot 複数の図を表示する<a class="headerlink" href="#Subplot-複数の図を表示する" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">3.4.5. </span>Subplot 複数の図を表示する<a class="headerlink" href="#Subplot-複数の図を表示する" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Subplotの機能を使えば、 複数の図をみやすいように一枚にまとめて描画することができます。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
@@ -1436,22 +1453,23 @@ array([4, 2, 2, 4, 1, 2, 3, 1, 2, 2, 1, 5, 1, 5, 4, 2, 2, 2, 4, 3, 5, 4,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds03numpy_69_0.svg" src="_images/ds03numpy_69_0.svg" /></div>
+<img alt="_images/ds03numpy_71_0.svg" src="_images/ds03numpy_71_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="もっと-Matplotlibを使いこなすには？">
-<h3><span class="section-number">3.4.5. </span>もっと Matplotlibを使いこなすには？<a class="headerlink" href="#もっと-Matplotlibを使いこなすには？" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">3.4.6. </span>もっと Matplotlibを使いこなすには？<a class="headerlink" href="#もっと-Matplotlibを使いこなすには？" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Matplotlibは、科学論文誌において定番的に用いられるグラフ作成術です。 機能は豊富で短期間にマスターし尽くせるものでもありません。</p>
 <p>今後、Matplotlib を使ってグラフを描画するサンプルをみることが増えますが、 気になるところがあったら、Webで調べながら技を増やしていきましょう。</p>
 <p>ぜひ、Webの情報を活用して使いこなしていきましょう。</p>
 <p><a class="reference external" href="https://qiita.com/skotaro/items/08dc0b8c5704c94eafb9">https://qiita.com/skotaro/items/08dc0b8c5704c94eafb9</a></p>
 </div>
 </div>
-<div class="section" id="演習問題">
-<h2><span class="section-number">3.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="admonition tip"><p><strong>演習問題（３個のサイコロ）</strong></p>
-<p>3個のサイコロを1000回ふることを考える。 このとき、<span class="math notranslate nohighlight">\(3\)</span>個のサイコロの目の和の頻度分布をヒストグラムとして描画せよ。 また、サイコロの数を増やしていくと、どのような分布に近づくか考察せよ。</p>
-</div></div>
+<div class="section" id="コースワーク">
+<h2><span class="section-number">3.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition tip"><p><strong>演習問題（:math:`n`個のサイコロ）</strong></p>
+<p><span class="math notranslate nohighlight">\(n\)</span>個のサイコロを1000回ふることを考える。 サイコロの数を<span class="math notranslate nohighlight">\(1\)</span>から<span class="math notranslate nohighlight">\(8\)</span>に増やしていくと、 サイコロの目の和の頻度分布をヒストグラムとして描画せよ。 また、サイコロの数が増えたとき、最終的にどのような分布に近づくか考察せよ。</p>
+</div><p><strong>例</strong>：１枚にまとめてみましょう。 <img alt="c3_example.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5347cd65-5a95-6e49-de47-d444af60b7fa.png" /></p>
+</div>
 </div>
 
 
@@ -1460,7 +1478,7 @@ array([4, 2, 2, 4, 1, 2, 3, 1, 2, 2, 1, 5, 1, 5, 4, 2, 2, 2, 4, 3, 5, 4,
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="ds04pandas.html" class="btn btn-neutral float-right" title="4. 表データを使いこなそう" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ds04pandas.html" class="btn btn-neutral float-right" title="4. 表データとPandasを使いこなそう" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="ds02sympy.html" class="btn btn-neutral float-left" title="2. 計算はPythonにさせてしまおう" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

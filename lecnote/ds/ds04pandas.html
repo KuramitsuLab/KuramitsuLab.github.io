@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>4. 表データを使いこなそう &mdash; Python &amp; Data Science 2021  ドキュメント</title>
+  <title>4. 表データとPandasを使いこなそう &mdash; Python &amp; Data Science 2021  ドキュメント</title>
   
 
   
@@ -91,7 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ds01intro.html">1. Python とデータサイエンス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds02sympy.html">2. 計算はPythonにさせてしまおう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds03numpy.html">3. NumPyとグラフ</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 表データを使いこなそう</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 表データとPandasを使いこなそう</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Pandas-とは">4.1. Pandas とは</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#データの用意">4.1.1. データの用意</a></li>
 </ul>
@@ -105,7 +105,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#表データの出力">4.2.6. 表データの出力</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#Pandas-とリレーショナル代数">4.3. Pandas とリレーショナル代数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#リレーショナル代数">4.3. リレーショナル代数</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#選択(selection)">4.3.1. 選択(selection)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#射影(projection)">4.3.2. 射影(projection)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#表の連結">4.3.3. 表の連結</a></li>
@@ -115,6 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#データ分析の準備">4.4. データ分析の準備</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#欠損値のチェック">4.4.1. 欠損値のチェック</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#グループごとの集計">4.4.2. グループごとの集計</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pandas-とグラフ描画">4.4.3. pandas とグラフ描画</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#コースワーク">4.5. コースワーク</a></li>
@@ -122,11 +123,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds05data.html">5. データの傾向をつかもう</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 線形回帰</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習と分類問題</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データサイエンスへの道</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds07reg.html">7. 回帰：線形近似から予測する</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データ・サイエンティストへの道</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds10nw.html">10. ニューラル・ネットワーク</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習と画像認識</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
 </ul>
 
@@ -176,7 +177,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">4. </span>表データを使いこなそう</li>
+      <li><span class="section-number">4. </span>表データとPandasを使いこなそう</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -465,8 +466,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="表データを使いこなそう">
-<h1><span class="section-number">4. </span>表データを使いこなそう<a class="headerlink" href="#表データを使いこなそう" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="表データとPandasを使いこなそう">
+<h1><span class="section-number">4. </span>表データとPandasを使いこなそう<a class="headerlink" href="#表データとPandasを使いこなそう" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>今回は、データ分析と言えば、避けては通れないPandas の使い方を学び、 表データの操作を練習します。</p>
 <div class="section" id="Pandas-とは">
 <h2><span class="section-number">4.1. </span>Pandas とは<a class="headerlink" href="#Pandas-とは" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -491,7 +492,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="データの用意">
 <h3><span class="section-number">4.1.1. </span>データの用意<a class="headerlink" href="#データの用意" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Pandas の使い方に慣れるために、小さな練習用のデータを作成して、 そちらを使って演習していきます。</p>
-<p>Colabのファイル書き込み機能(<code class="docutils literal notranslate"><span class="pre">%%file</span></code>)を使って、 演習用のCSVファイル <code class="docutils literal notranslate"><span class="pre">arashi.csv</span></code>を作ります。</p>
+<p>ファイル書き込み機能(<code class="docutils literal notranslate"><span class="pre">%%file</span></code>)を使って、Colab上でCSVファイル <code class="docutils literal notranslate"><span class="pre">arashi.csv</span></code>を作ります。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -515,7 +516,9 @@ div.rendered_html tbody tr:hover {
 Overwriting arashi.csv
 </pre></div></div>
 </div>
-<p>あとから表データの結合で用いますので、もうひとつ <code class="docutils literal notranslate"><span class="pre">junk.csv</span></code> も作っておきましょう。</p>
+<p>CSV ファイルは、表計算ソフト(Excel)のファイルをデータ処理しやすく、カンマ区切り形式のテキストで出力したものです。当然、Excel 等の表計算ソフトで開いてみることができます。</p>
+<p><img alt="de0a4845e976481c8c9ab2d14598ad42" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0dd26ba4-bbfb-a468-6547-56968d575ce0.png" style="width: 80%;" /></p>
+<p>もうひとつ、あとから表データの結合をする練習で用いる <code class="docutils literal notranslate"><span class="pre">junk.csv</span></code> (わざと少し壊れたファイル）も作っておきましょう。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -539,11 +542,9 @@ name,height,weight
 Overwriting junk.csv
 </pre></div></div>
 </div>
-<p>CSV ファイルは、表計算ソフト(Excel)のファイルをデータ処理しやすく、カンマ区切り形式のテキストで出力したものです。</p>
-<p>当然、Excel 等の表計算ソフトで開いてみることができます。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p>ちゃんと<code class="docutils literal notranslate"><span class="pre">arashi.csv</span></code>が作成されているか、<code class="docutils literal notranslate"><span class="pre">head</span></code>コマンドで確認してみよう。</p>
+<p>ちゃんと<code class="docutils literal notranslate"><span class="pre">arashi.csv</span></code>が作成されているか、表計算ソフトで確認してみよう。</p>
 </div>
 </div>
 </div>
@@ -551,6 +552,7 @@ Overwriting junk.csv
 <h2><span class="section-number">4.2. </span>基本操作<a class="headerlink" href="#基本操作" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Pandas は、表データを効率よく操作できます。</p>
 <p>Pandas 用語では、表データのことをデータフレーム(DataFrame)と呼びますが、本資料では表データと呼びます。</p>
+<img alt="dataframe-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/b9d6f05e-df40-4680-a8ad-a1b3f9ee3665.png" />
 <p><strong>用語の説明</strong></p>
 <ul class="simple">
 <li><p>カラム: 行方向のデータ</p></li>
@@ -910,8 +912,8 @@ AB
 </div>
 </div>
 </div>
-<div class="section" id="Pandas-とリレーショナル代数">
-<h2><span class="section-number">4.3. </span>Pandas とリレーショナル代数<a class="headerlink" href="#Pandas-とリレーショナル代数" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="リレーショナル代数">
+<h2><span class="section-number">4.3. </span>リレーショナル代数<a class="headerlink" href="#リレーショナル代数" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Pandas のリレーショナル代数の操作をみていきましょう。</p>
 <p>データベース実習を履修している人は、SQLを思い出しながら試していきましょう。</p>
 <div class="section" id="選択(selection)">
@@ -1860,13 +1862,13 @@ data2
 </pre></div>
 </div>
 <div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span># data, data2を外部結合した表データを新しく ARASHI とする
-ARASHI = pd.merge(data, data2, left_on=&#39;名前&#39;, right_on=&#39;name&#39;, how=&#39;outer&#39;)
-ARASHI.drop(&#39;name&#39;, axis=1, inplace=True)
-ARASHI.drop(&#39;height&#39;, axis=1, inplace=True)
-ARASHI.drop(5, axis=0, inplace=True)  #index=5を消す
-ARASHI.rename(columns={&#39;weight&#39;: &#39;体重&#39;}, inplace=True)
-ARASHI
+<span></span># data, data2を外部結合した表データを新しく data とする
+data = pd.merge(data, data2, left_on=&#39;名前&#39;, right_on=&#39;name&#39;, how=&#39;outer&#39;)
+data.drop(&#39;name&#39;, axis=1, inplace=True)
+data.drop(&#39;height&#39;, axis=1, inplace=True)
+data.drop(5, axis=0, inplace=True)  #index=5を消す
+data.rename(columns={&#39;weight&#39;: &#39;体重&#39;}, inplace=True)
+data
 </pre></div>
 </div>
 </div>
@@ -1971,7 +1973,7 @@ ARASHI
 </pre></div>
 </div>
 <div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>ARASHI.isnull().sum()
+<span></span>data.isnull().sum()
 </pre></div>
 </div>
 </div>
@@ -2002,8 +2004,8 @@ dtype: int64
 </pre></div>
 </div>
 <div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>ARASHI.fillna(ARASHI.mean(), inplace=True)
-ARASHI
+<span></span>data.fillna(ARASHI.mean(), inplace=True)
+data
 </pre></div>
 </div>
 </div>
@@ -2094,21 +2096,12 @@ ARASHI
 </table>
 </div></div>
 </div>
-<p>メモ</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>                   <span class="c1"># 列Ageの欠損値を20で穴埋め</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>   <span class="c1"># 列Ageの欠損値をAgeの平均値で穴埋め</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span> <span class="c1"># 列Ageの欠損値をAgeの中央値で穴埋め</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">())</span>   <span class="c1"># 列Ageの欠損値をAgeの最頻値で穴埋め</span>
+<p>欠損値の補完</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;体重&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">50.0</span><span class="p">)</span>                 <span class="c1"># 体重の欠損値を50.0で穴埋め</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;体重&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;体重&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>   <span class="c1"># 体重の欠損値を体重の平均値で穴埋め</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;体重&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;体重&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span> <span class="c1"># 体重の欠損値を体重の中央値で穴埋め</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;体重&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;体重&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">())</span>   <span class="c1"># 体重の欠損値を体重の最頻値で穴埋め</span>
 </pre></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="section" id="グループごとの集計">
@@ -2119,10 +2112,14 @@ ARASHI
 </pre></div>
 </div>
 <div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>ARASHI.groupby(&#39;血液型&#39;)
+<span></span>data.groupby(&#39;血液型&#39;)
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="pandas-とグラフ描画">
+<h3><span class="section-number">4.4.3. </span>pandas とグラフ描画<a class="headerlink" href="#pandas-とグラフ描画" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Pandas は、Matplotlib を用いてグラフを描画するメソッドを提供しています。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -2138,14 +2135,47 @@ ARASHI
 <h2><span class="section-number">4.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>コースワークは、次回までの演習課題です。 次回の授業でたぶん解説をします。</p>
 <div class="admonition tip"><p><strong>演習（BMI.CSV）</strong></p>
-<p>指定された３つのCSVファイルをまとめてひとつのCSVファイルする。</p>
+<p>野球選手(B)、サッカー選手(F)、相撲(W)に関するCSVファイルをまとめ、 次の属性からなるCSVファイルにしよう。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名前</p></th>
+<th class="head"><p>身長</p></th>
+<th class="head"><p>体重</p></th>
+<th class="head"><p>職業</p></th>
+<th class="head"><p>BMI</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <ol class="arabic simple">
-<li><p>完成したファイルは <code class="docutils literal notranslate"><span class="pre">bmi.csv</span></code> として保存する</p></li>
-<li><p>体重を横軸にして、ヒストグラムを書いてみる</p></li>
-<li><p>身長と体重の分布図を描画する</p></li>
+<li><p>職業は、野球選手<code class="docutils literal notranslate"><span class="pre">B</span></code>、サッカー<code class="docutils literal notranslate"><span class="pre">F</span></code>、相撲<code class="docutils literal notranslate"><span class="pre">W</span></code>とする</p></li>
+<li><p>BMI は身長と体重から計算する</p></li>
+<li><p>身長の高い順にソートして、<code class="docutils literal notranslate"><span class="pre">bmi.csv</span></code>として保存する</p></li>
+<li><p>各職業ごとに、身長と体重の分布図を描画する</p></li>
+<li><p>各職業ごとにグループ集計し、身長と体重の統計量を求める</p></li>
 </ol>
-</div><p><strong>課題の進め方</strong></p>
-<p><a class="reference external" href="https://colab.research.google.com/github/kkuramitsu/class2021/blob/master/notebooks/course04-pandas.ipynb">ワークシート</a>をColab上で開いて、自分のDriveにコピーする</p>
+</div><p><strong>データの入手先</strong></p>
+<p>鈴木 雅也、渡辺 将人、井上 史斗. 「<a class="reference external" href="https://github.com/massongit/math-program-book">数式をプログラムするってつまりこういうこと</a>」より、公開データを使わせてもらいます。</p>
+<p>データをダウンロードするコマンド</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!wget https://raw.githubusercontent.com/massongit/math-program-book/master/9_data/サッカー/Jリーグ選手身長体重.csv
+!wget https://raw.githubusercontent.com/massongit/math-program-book/master/9_data/プロ野球/プロ野球選手身長体重.csv
+!wget https://raw.githubusercontent.com/massongit/math-program-book/master/9_data/相撲/力士身長体重.csv
+</pre></div>
+</div>
 </div>
 </div>
 
