@@ -34,6 +34,8 @@
         <script src="_static/doctools.js"></script>
         <script src="_static/translations.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -104,7 +106,23 @@
 <li class="toctree-l3"><a class="reference internal" href="#spaCy/GINZA">12.1.2. spaCy/GINZA</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#コースワーク">12.2. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#アンケート分析">12.2. アンケート分析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#コメントを眺める">12.2.1. コメントを眺める</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#単語レベルの解析">12.2.2. 単語レベルの解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#満足度の高いキーワード">12.2.3. 満足度の高いキーワード</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#文章のベクトル化">12.3. 文章のベクトル化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#BOW">12.3.1. BOW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#TF/IDF">12.3.2. TF/IDF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#コサイン類似度">12.3.3. コサイン類似度</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#単語分散表現">12.4. 単語分散表現</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#単語ベクトル">12.4.1. 単語ベクトル</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">12.5. コースワーク</a></li>
 </ul>
 </li>
 </ul>
@@ -446,17 +464,25 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="自然言語処理にむけて">
 <h1><span class="section-number">12. </span>自然言語処理にむけて<a class="headerlink" href="#自然言語処理にむけて" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>最後の仕上げとして、自然言語処理を機械学習で扱う方法を学びます。</p>
-<div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">鋭意執筆中</p>
-<p>Livedoorニュースコーパス文書分類を用いて.. かな</p>
-</div>
+<p>画像認識は、もともと画像データが多次元ベクトルで表現されており、 よく似た画像が近いベクトルで表現されるなど、機械学習で処理しやすい前提が整っていました。 一方、自然言語などのテキストは、文字コードが近くても意味が近いわけではありません。 自然言語を機械学習で処理するためには、 テキストの特徴量を多次元ベクトルでうまく表現することが鍵になります。</p>
+<p>最後のまとめとして、 自然言語処理を機械学習で扱う方法を考えていきましょう。</p>
+<p><strong>モジュールの準備</strong></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">japanize_matplotlib</span> <span class="c1">#matplotlibの日本語化</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="o">!</span>pip install japanize_matplotlib
+    <span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;IPAexGothic&quot;</span><span class="p">)</span> <span class="c1">#日本語フォント設定</span>
+
 </pre></div>
 </div>
 </div>
@@ -473,7 +499,7 @@ div.rendered_html tbody tr:hover {
 <p>英語は、空白で区切られたものを語と考えることができます。 したがって、Python の標準文字列ライブラリだけで、簡単に語を取り出すことができます。</p>
 <p><strong>英語の字句解析</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -483,7 +509,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -491,15 +517,19 @@ div.rendered_html tbody tr:hover {
 [&#39;I&#39;, &#39;bought&#39;, &#39;a&#39;, &#39;book&#39;]
 </pre></div></div>
 </div>
-<p>日本語では、まず語の区切りを判定する必要があります。 しかし、この語の区切りを判定するのが かなりの難処理です。</p>
-<p>この難処理を行ってくれるのが形態素解析ライブラリです。</p>
+<p>日本語では、まず語の区切りを判定する必要があります。 しかし、この語の区切りを判定するのが かなりの難処理です。 この難処理を行ってくれるのが<strong>形態素解析ライブラリ</strong>です。</p>
 </div>
 <div class="section" id="spaCy/GINZA">
 <h3><span class="section-number">12.1.2. </span>spaCy/GINZA<a class="headerlink" href="#spaCy/GINZA" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>spaCy は、Explosion AI 社の開発するオープンソースの自然言語処理ライブラリです。2019 年に、 リクルート AI 研究所と国立言語研究所の研究成果である GiNZA が登場し、実用的な日本語処理が 手軽に利用できるようになりました。</p>
 <p>まずは、GiNZA の導入から始めましょう。<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ginza</span></code> を入力するだけで、 spaCy を含めて、自然言語処理に必要なライブラリがまとめてインストールされます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install ginza
+import pkg_resources, imp
+imp.reload(pkg_resources)
+</pre></div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -525,28 +555,1400 @@ div.rendered_html tbody tr:hover {
 5 た た AUX 助動詞
 </pre></div></div>
 </div>
+<p>日本語文を単語単位に分割する関数を定義しておきましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">wakachi</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">lemma_</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">]</span>  <span class="c1"># word.lemma_ は標準形</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">wakachi</span><span class="p">(</span><span class="s1">&#39;私は本を買った&#39;</span><span class="p">))</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;私&#39;, &#39;は&#39;, &#39;本&#39;, &#39;を&#39;, &#39;買う&#39;, &#39;た&#39;]
+</pre></div></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>自然言語処理と形態素解析の良い練習問題は、「自然言語処理１００本ノック」にあります。</p>
 <p><a class="reference external" href="http://www.cl.ecei.tohoku.ac.jp/nlp100/">http://www.cl.ecei.tohoku.ac.jp/nlp100/</a></p>
 <p>Web上には、解説記事がたくさん掲載されていますので、参考にしながら解いてみると実力がつきます。</p>
 </div>
+</div>
+</div>
+<div class="section" id="アンケート分析">
+<h2><span class="section-number">12.2. </span>アンケート分析<a class="headerlink" href="#アンケート分析" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>不動産屋による「まちづくりに関するアンケート」に基づいて、アンケート解析を試していきましょう。 アンケードには、アンケートの回答日、コメント自由記述形式、満足度(5段階評価: 1 不満 - 5 満足)が記載されています。</p>
+<p><strong>データの取り寄せ</strong></p>
+<p>本データは、下山らによる「Python 実践データ分析 100 本ノック」から講義用に編集したも のを使っています。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!wget https://KuramitsuLab.github.io/data/survey.csv
+</pre></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;survey.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1">#最初の5行を表示</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>日付</th>
+      <th>コメント</th>
+      <th>満足度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019/3/11</td>
+      <td>駅前に若者が集まっている</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019/2/25</td>
+      <td>スポーツできる場所があるのが良い</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019/2/18</td>
+      <td>子育て支援が嬉しい</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019/4/9</td>
+      <td>保育園に入れる（待機児童なし）</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019/1/6</td>
+      <td>駅前商店街が寂しい</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="section" id="コメントを眺める">
+<h3><span class="section-number">12.2.1. </span>コメントを眺める<a class="headerlink" href="#コメントを眺める" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>今まで、様々なデータを扱ってきましたが、 今回のデータは、自由記述形式のテキストが入っているのが特徴です。</p>
+<p>まず、アンケート中のコメントの分量を把握してみましょう。 文字数を数えて、新しいカラム(<code class="docutils literal notranslate"><span class="pre">文字数</span></code>)を作って格納します。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;文字数&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;コメント&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;文字数&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(array([12., 24., 22., 10.,  6.,  6.,  5.,  0.,  0.,  1.]),
+ array([ 4. ,  8.6, 13.2, 17.8, 22.4, 27. , 31.6, 36.2, 40.8, 45.4, 50. ]),
+ &lt;BarContainer object of 10 artists&gt;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds12nlp_14_1.svg" src="_images/ds12nlp_14_1.svg" /></div>
+</div>
+<p>以上に長いコメントがありますね。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;文字数&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>日付</th>
+      <th>コメント</th>
+      <th>満足度</th>
+      <th>文字数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>41</th>
+      <td>2019/2/25</td>
+      <td>特になし</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>2019/1/4</td>
+      <td>特になし</td>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>2019/1/21</td>
+      <td>道が綺麗</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2019/3/15</td>
+      <td>夜道が暗い</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2019/2/20</td>
+      <td>ゴミ処理が楽</td>
+      <td>4</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>2019/3/19</td>
+      <td>アンケートをちゃんと確認して街づくりに反映してくれている姿勢が良い</td>
+      <td>5</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>2019/4/13</td>
+      <td>歩行者用信号が変わるのが早い。老人や子供の事を考えて設定してほしい</td>
+      <td>2</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>2019/2/28</td>
+      <td>信号のない交差点が近くにあり事故が起きそうで怖い、信号を付けて欲しい。</td>
+      <td>1</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>2019/3/11</td>
+      <td>変なおじさんに声を掛けられた事がある。警察の巡回をもっと強化してほしい</td>
+      <td>1</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>2019/3/11</td>
+      <td>最近川の氾濫被害が大きく取り扱われているが、この町ではどのような氾濫防止を取っているか説明し...</td>
+      <td>3</td>
+      <td>50</td>
+    </tr>
+  </tbody>
+</table>
+<p>86 rows × 4 columns</p>
+</div></div>
+</div>
+</div>
+<div class="section" id="単語レベルの解析">
+<h3><span class="section-number">12.2.2. </span>単語レベルの解析<a class="headerlink" href="#単語レベルの解析" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>コメントから単語を抽出して、どのような単語が使われているか調べてみましょう。</p>
+<ul class="simple">
+<li><p>標準形変換: 活用のある単語（例. 「買った」）は、買うのように標準形に変換する</p></li>
+<li><p><a class="reference external" href="https://mieruca-ai.com/ai/nlp-stopwords/#toc_2-1">ストップワード除外</a>: 解析の精度を上げるために不要な記号や単語を取り除く</p></li>
+</ul>
+<p>ここでは、動詞、形容詞、名詞だけに着目してみます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;コメント&quot;</span><span class="p">]:</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+        <span class="c1"># 動詞(VERB), 名詞(NOUN), 形容詞(ADJ)のみ抽出</span>
+        <span class="k">if</span> <span class="n">word</span><span class="o">.</span><span class="n">pos_</span> <span class="o">==</span> <span class="s1">&#39;VERB&#39;</span> <span class="ow">or</span> <span class="n">word</span><span class="o">.</span><span class="n">pos_</span> <span class="o">==</span> <span class="s1">&#39;NOUN&#39;</span> <span class="ow">or</span> <span class="n">word</span><span class="o">.</span><span class="n">pos_</span> <span class="o">==</span> <span class="s1">&#39;ADJ&#39;</span><span class="p">:</span>
+            <span class="n">words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">lemma_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">words</span><span class="p">[:</span><span class="mi">30</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+375
+[&#39;駅前&#39;, &#39;若者&#39;, &#39;集まる&#39;, &#39;スポーツ&#39;, &#39;場所&#39;, &#39;ある&#39;, &#39;良い&#39;, &#39;子育て&#39;, &#39;支援&#39;, &#39;嬉しい&#39;, &#39;保育園&#39;, &#39;入れる&#39;, &#39;待機児童&#39;, &#39;なし&#39;, &#39;駅前&#39;, &#39;商店街&#39;, &#39;寂しい&#39;, &#39;生活&#39;, &#39;便利&#39;, &#39;遊ぶ&#39;, &#39;場所&#39;, &#39;ない&#39;, &#39;遊ぶ&#39;, &#39;場所&#39;, &#39;ない&#39;, &#39;商業&#39;, &#39;施設&#39;, &#39;出来る&#39;, &#39;欲しい&#39;, &#39;病院&#39;]
+</pre></div></div>
+</div>
+<p>これで、コメント文の中で用いられている名詞と動詞をすべて取り出すことができました。しかし、 まだどれの単語が重要なのかわかりません。各単語の出現頻度を調べてみましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;words&quot;</span><span class="p">:</span><span class="n">words</span><span class="p">})</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+words
+欲しい      15
+ほしい      14
+少ない       7
+駅前        7
+良い        6
+         ..
+大丈夫       1
+奇麗        1
+姿勢        1
+子ども       1
+高齢者       1
+Length: 228, dtype: int64
+</pre></div></div>
+</div>
+<p>これで不動産の満足度に影響を与えているキーワードが見えてきました。しかし、まだどのキーワードがプラスの評価なのか、マイナスの評価なのかわかりません。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p>満足度の高いキーワードを抽出してみよう</p>
+</div>
+</div>
+<div class="section" id="満足度の高いキーワード">
+<h3><span class="section-number">12.2.3. </span>満足度の高いキーワード<a class="headerlink" href="#満足度の高いキーワード" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>今回のアッケート調査の素晴らしいことは、不動産の満足度が 5 段階評価で回答されています。 各キーワードとこの5段階評価を紐付けてみると、キーワードの満足度が見えて来るかもしれません。 (見えてくるかもというだけで、保証はありません。)</p>
+<p>まず、名詞と動詞を抽出したとき、アンケート結果の満足度も対応付けるように取り出します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;コメント&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;満足度&quot;</span><span class="p">]):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">word</span><span class="o">.</span><span class="n">pos_</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;VERB&#39;</span><span class="p">,</span> <span class="s1">&#39;NOUN&#39;</span><span class="p">,</span> <span class="s1">&#39;ADJ&#39;</span><span class="p">]:</span>
+            <span class="n">words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">lemma_</span><span class="p">)</span>
+            <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;駅前&#39;, &#39;若者&#39;, &#39;集まる&#39;, &#39;スポーツ&#39;, &#39;場所&#39;, &#39;ある&#39;, &#39;良い&#39;, &#39;子育て&#39;, &#39;支援&#39;, &#39;嬉しい&#39;, &#39;保育園&#39;, &#39;入れる&#39;, &#39;待機児童&#39;, &#39;なし&#39;, &#39;駅前&#39;, &#39;商店街&#39;, &#39;寂しい&#39;, &#39;生活&#39;, &#39;便利&#39;, &#39;遊ぶ&#39;, &#39;場所&#39;, &#39;ない&#39;, &#39;遊ぶ&#39;, &#39;場所&#39;, &#39;ない&#39;, &#39;商業&#39;, &#39;施設&#39;, &#39;出来る&#39;, &#39;欲しい&#39;, &#39;病院&#39;, &#39;充実&#39;, &#39;サイクリングコース&#39;, &#39;良い&#39;, &#39;お祭り&#39;, &#39;盛り上げる&#39;, &#39;欲しい&#39;, &#39;小学校&#39;, &#39;綺麗&#39;, &#39;嬉しい&#39;, &#39;公園&#39;, &#39;欲しい&#39;, &#39;近く&#39;, &#39;公園&#39;, &#39;ある&#39;, &#39;住む&#39;, &#39;スーパー&#39;, &#39;行く&#39;, &#39;大変&#39;, &#39;子育て&#39;, &#39;デート&#39;, &#39;スポット&#39;, &#39;欲しい&#39;, &#39;商店街&#39;, &#39;盛り上げる&#39;, &#39;ほしい&#39;, &#39;夜道&#39;, &#39;暗い&#39;, &#39;ゴミ&#39;, &#39;処理&#39;, &#39;楽&#39;, &#39;映画館&#39;, &#39;欲しい&#39;, &#39;街路樹&#39;, &#39;欲しい&#39;, &#39;公園&#39;, &#39;追加&#39;, &#39;欲しい&#39;, &#39;観光&#39;, &#39;スポット&#39;, &#39;ない&#39;, &#39;子育て&#39;, &#39;する&#39;, &#39;道&#39;, &#39;綺麗&#39;, &#39;都内&#39;, &#39;アクセス&#39;, &#39;良い&#39;, &#39;家賃&#39;, &#39;リーズナブル&#39;, &#39;bbb&#39;, &#39;渋滞&#39;, &#39;する&#39;, &#39;欲しい&#39;, &#39;商店街&#39;, &#39;屋根&#39;, &#39;ない&#39;, &#39;雨&#39;, &#39;降る&#39;, &#39;大変&#39;, &#39;商店街&#39;, &#39;喫茶店&#39;, &#39;欲しい&#39;, &#39;スポーツジム&#39;, &#39;ある&#39;, &#39;利用&#39;, &#39;スポーツジム&#39;, &#39;利用料金&#39;, &#39;高い&#39;, &#39;働く&#39;, &#39;ママ&#39;, &#39;支援&#39;, &#39;増やす&#39;, &#39;欲しい&#39;, &#39;バス&#39;, &#39;くる&#39;, &#39;自転車&#39;, &#39;走る&#39;, &#39;ランニング&#39;, &#39;運動&#39;, &#39;場所&#39;, &#39;多い&#39;, &#39;有名&#39;, &#39;企業&#39;, &#39;多い&#39;, &#39;駅前&#39;, &#39;駐車場&#39;, &#39;足りる&#39;, &#39;変&#39;, &#39;おじ&#39;, &#39;さん&#39;, &#39;声&#39;, &#39;掛ける&#39;, &#39;事&#39;, &#39;ある&#39;, &#39;警察&#39;, &#39;巡回&#39;, &#39;強化&#39;, &#39;ほしい&#39;, &#39;消防団&#39;, &#39;活発&#39;, &#39;安心&#39;, &#39;なし&#39;, &#39;災害&#39;, &#39;時&#39;, &#39;避難&#39;, &#39;場所&#39;, &#39;少ない&#39;, &#39;気&#39;, &#39;する&#39;, &#39;最近&#39;, &#39;川&#39;, &#39;氾濫&#39;, &#39;被害&#39;, &#39;大きい&#39;, &#39;取り扱う&#39;, &#39;町&#39;, &#39;氾濫&#39;, &#39;防止&#39;, &#39;取る&#39;, &#39;説明&#39;, &#39;ほしい&#39;, &#39;信号&#39;, &#39;ない&#39;, &#39;交差点&#39;, &#39;近く&#39;, &#39;ある&#39;, &#39;事故&#39;, &#39;起きる&#39;, &#39;怖い&#39;, &#39;信号&#39;, &#39;付ける&#39;, &#39;欲しい&#39;, &#39;商店街&#39;, &#39;活性化&#39;, &#39;活動&#39;, &#39;行政&#39;, &#39;後押し&#39;, &#39;ほしい&#39;, &#39;子ども&#39;, &#39;安全&#39;, &#39;遊ぶ&#39;, &#39;場所&#39;, &#39;ない&#39;, &#39;駅前&#39;, &#39;駐輪場&#39;, &#39;無い&#39;, &#39;不便&#39;, &#39;街路樹&#39;, &#39;落ち葉&#39;, &#39;掃除&#39;, &#39;街路樹&#39;, &#39;やめる&#39;, &#39;ほしい&#39;, &#39;災害&#39;, &#39;時&#39;, &#39;備蓄&#39;, &#39;状況&#39;, &#39;なる&#39;, &#39;歩道&#39;, &#39;広い&#39;, &#39;道&#39;, &#39;多い&#39;, &#39;安心&#39;, &#39;地域&#39;, &#39;自治体&#39;, &#39;支援&#39;, &#39;ほしい&#39;, &#39;自治体&#39;, &#39;活動&#39;, &#39;頻繁&#39;, &#39;安心&#39;, &#39;暮らせる&#39;, &#39;観光地&#39;, &#39;少ない&#39;, &#39;最近&#39;, &#39;他県&#39;, &#39;ナンバー&#39;, &#39;車&#39;, &#39;多い&#39;, &#39;防犯&#39;, &#39;出来る&#39;, &#39;駐車場&#39;, &#39;数&#39;, &#39;少ない&#39;, &#39;料金&#39;, &#39;高い&#39;, &#39;駅前&#39;, &#39;公共&#39;, &#39;駐車場&#39;, &#39;作る&#39;, &#39;欲しい&#39;, &#39;歩行者&#39;, &#39;用&#39;, &#39;信号&#39;, &#39;変わる&#39;, &#39;早い&#39;, &#39;老人&#39;, &#39;子供&#39;, &#39;事&#39;, &#39;考える&#39;, &#39;設定&#39;, &#39;ほしい&#39;, &#39;急行&#39;, &#39;止まる&#39;, &#39;都内&#39;, &#39;出る&#39;, &#39;良い&#39;, &#39;バス&#39;, &#39;路線&#39;, &#39;増やす&#39;, &#39;ほしい&#39;, &#39;春&#39;, &#39;桜&#39;, &#39;並木&#39;, &#39;最高&#39;, &#39;綺麗&#39;, &#39;増やす&#39;, &#39;ほしい&#39;, &#39;隣町&#39;, &#39;できる&#39;, &#39;ごみ&#39;, &#39;処理&#39;, &#39;施設&#39;, &#39;心配&#39;, &#39;公害&#39;, &#39;大丈夫&#39;, &#39;市長&#39;, &#39;若い&#39;, &#39;活気&#39;, &#39;ある&#39;, &#39;アンケート&#39;, &#39;確認&#39;, &#39;街づくり&#39;, &#39;反映&#39;, &#39;姿勢&#39;, &#39;良い&#39;, &#39;先月&#39;, &#39;職員&#39;, &#39;不正&#39;, &#39;事件&#39;, &#39;つく&#39;, &#39;詳細&#39;, &#39;説明&#39;, &#39;ほしい&#39;, &#39;役所&#39;, &#39;担当者&#39;, &#39;無愛想&#39;, &#39;気&#39;, &#39;入る&#39;, &#39;役所&#39;, &#39;出張所&#39;, &#39;駅前&#39;, &#39;作る&#39;, &#39;欲しい&#39;, &#39;役所&#39;, &#39;土日&#39;, &#39;開く&#39;, &#39;助かる&#39;, &#39;災害&#39;, &#39;時&#39;, &#39;避難&#39;, &#39;経路&#39;, &#39;分かる&#39;, &#39;表示&#39;, &#39;ほしい&#39;, &#39;市&#39;, &#39;ホームページ&#39;, &#39;奇麗&#39;, &#39;分かる&#39;, &#39;なし&#39;, &#39;役所&#39;, &#39;電話&#39;, &#39;繋がる&#39;, &#39;対応&#39;, &#39;者&#39;, &#39;増やす&#39;, &#39;細い&#39;, &#39;路地&#39;, &#39;街頭&#39;, &#39;少ない&#39;, &#39;怖い&#39;, &#39;動物園&#39;, &#39;欲しい&#39;, &#39;冬場&#39;, &#39;路面&#39;, &#39;凍結&#39;, &#39;事故&#39;, &#39;多い&#39;, &#39;対応&#39;, &#39;自然&#39;, &#39;豊か&#39;, &#39;過ごす&#39;, &#39;野良猫&#39;, &#39;よる&#39;, &#39;糞害&#39;, &#39;ひどい&#39;, &#39;行政&#39;, &#39;野良猫&#39;, &#39;対策&#39;, &#39;する&#39;, &#39;役所&#39;, &#39;相談&#39;, &#39;行く&#39;, &#39;とき&#39;, &#39;親身&#39;, &#39;対応&#39;, &#39;高速道路&#39;, &#39;出る&#39;, &#39;道&#39;, &#39;狭い&#39;, &#39;渋滞&#39;, &#39;ひどい&#39;, &#39;拡幅&#39;, &#39;ほしい&#39;, &#39;まち&#39;, &#39;マスコット&#39;, &#39;作る&#39;, &#39;夜間&#39;, &#39;対応&#39;, &#39;病院&#39;, &#39;少ない&#39;, &#39;不安&#39;, &#39;高齢者&#39;, &#39;サポート&#39;, &#39;施設&#39;, &#39;欲しい&#39;, &#39;小学校&#39;, &#39;校庭&#39;, &#39;芝生&#39;, &#39;良い&#39;, &#39;ホームページ&#39;, &#39;アンケート&#39;, &#39;投稿&#39;, &#39;ほしい&#39;, &#39;公園&#39;, &#39;遊び道具&#39;, &#39;少ない&#39;, &#39;すぎる&#39;, &#39;公園&#39;, &#39;増やす&#39;, &#39;ほしい&#39;, &#39;駅前&#39;, &#39;駐車場&#39;, &#39;少ない&#39;, &#39;不便&#39;]
+[1, 1, 1, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 2, 2, 2, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5, 2, 2, 2, 4, 4, 4, 2, 2, 4, 4, 4, 4, 1, 1, 1, 4, 3, 3, 3, 4, 4, 4, 1, 1, 4, 4, 4, 2, 2, 3, 3, 2, 2, 2, 1, 1, 1, 4, 4, 4, 4, 5, 5, 5, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 4, 4, 5, 5, 5, 5, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 3, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 2, 2, 2, 2, 5, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 1, 1, 1, 1, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 5, 5, 5, 5, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">keyword</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;キーワード&quot;</span><span class="p">:</span> <span class="n">words</span><span class="p">,</span> <span class="s2">&quot;満足度&quot;</span><span class="p">:</span> <span class="n">scores</span><span class="p">,</span> <span class="s2">&quot;出現数&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)})</span>
+<span class="n">keyword</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;キーワード&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;満足度&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;出現数&#39;</span><span class="p">:</span> <span class="nb">sum</span><span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;出現数&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>満足度</th>
+      <th>出現数</th>
+    </tr>
+    <tr>
+      <th>キーワード</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>bbb</th>
+      <td>2.000000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>暗い</th>
+      <td>1.000000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>暮らせる</th>
+      <td>5.000000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>最高</th>
+      <td>5.000000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>有名</th>
+      <td>3.000000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>良い</th>
+      <td>4.833333</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>少ない</th>
+      <td>1.142857</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>駅前</th>
+      <td>1.428571</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>ほしい</th>
+      <td>2.000000</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>欲しい</th>
+      <td>2.200000</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+<p>228 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p>満足度の高いキーワードと満足度の低いキーワードのトップ 5 を出してみよう</p>
+</div>
+<p>今回の分析は、出現頻度のあまりに低い単語を除外した方が良いです。このように、データサイエ ンティスト(分析者)のセンスで、結果は少し変わります。</p>
+</div>
+</div>
+<div class="section" id="文章のベクトル化">
+<h2><span class="section-number">12.3. </span>文章のベクトル化<a class="headerlink" href="#文章のベクトル化" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>次は、いよいよ文章のベクトル化を考えていきます。 ポイントは、意味や内容が近い文章は近くなるようにベクトル化することです。 類似文章検索として研究されてきました。</p>
+<div class="section" id="BOW">
+<h3><span class="section-number">12.3.1. </span>BOW<a class="headerlink" href="#BOW" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><strong>BOW(Bag of Words)</strong> は最も古典的な文書の特徴量を捉えてベクトル化する手法です。 出現する単語の個数を <span class="math notranslate nohighlight">\(N\)</span> とすると、各コメント文は出現した単語には 1 を入れた <span class="math notranslate nohighlight">\(N\)</span> 次元のベクトルで表現します。</p>
+<p>単語の並びを無視しているので Bag of Words（以後、BOW）と呼ばれます。語順を無視すると重要な情報が飛んでしまいそうな気がしますが、類似文書検索タスクでは、十分精度がでます。</p>
+<p>BOW のポイントは、文章の構造は全て無視し、「どの単語が含まれているか」だけに注目している点です。そして、一旦、コメント文をベクトルで表現できれば、<strong>コサイン類似度 (cosine similarity)</strong>を用いて、類似度を求めることができます。</p>
+<p>BOW の原理は、難しくありません。sklearnモジュールの<code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code>を使って、楽に BOW を求めることができます。ただし、sklearn は、英語圏で開発されたライブラリなので、入力文は英単語のように空白で区 切られているという前提になっています。日本語は、形態素解析を使って前処理して、テキストを空白区切りの形式に変換しておく必要があります。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;わかち書き&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;コメント&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wakachi</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>日付</th>
+      <th>コメント</th>
+      <th>満足度</th>
+      <th>文字数</th>
+      <th>わかち書き</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019/3/11</td>
+      <td>駅前に若者が集まっている</td>
+      <td>1</td>
+      <td>12</td>
+      <td>駅前 に 若者 が 集まる て いる</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019/2/25</td>
+      <td>スポーツできる場所があるのが良い</td>
+      <td>5</td>
+      <td>16</td>
+      <td>スポーツ できる 場所 が ある の が 良い</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019/2/18</td>
+      <td>子育て支援が嬉しい</td>
+      <td>5</td>
+      <td>9</td>
+      <td>子育て 支援 が 嬉しい</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019/4/9</td>
+      <td>保育園に入れる（待機児童なし）</td>
+      <td>4</td>
+      <td>15</td>
+      <td>保育園 に 入れる （ 待機児童 なし )</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019/1/6</td>
+      <td>駅前商店街が寂しい</td>
+      <td>2</td>
+      <td>9</td>
+      <td>駅前 商店街 が 寂しい</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;わかち書き&#39;</span><span class="p">])</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="n">bags</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">bags</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0 0 0 ... 0 0 0]
+ [0 0 1 ... 0 0 0]
+ [0 0 0 ... 0 0 0]
+ ...
+ [0 0 0 ... 0 0 0]
+ [0 0 0 ... 0 0 0]
+ [0 0 0 ... 0 0 0]]
+</pre></div></div>
+</div>
+<p>Pandasで表デートしてみてみましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">bags</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span><span class="n">columns</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">(),</span><span class="n">index</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;コメント&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bbb</th>
+      <th>あまり</th>
+      <th>ある</th>
+      <th>いる</th>
+      <th>おじ</th>
+      <th>お祭り</th>
+      <th>から</th>
+      <th>くる</th>
+      <th>くれる</th>
+      <th>けど</th>
+      <th>...</th>
+      <th>隣町</th>
+      <th>集まる</th>
+      <th>電話</th>
+      <th>頻繁</th>
+      <th>駅前</th>
+      <th>駐車場</th>
+      <th>駐輪場</th>
+      <th>高い</th>
+      <th>高速道路</th>
+      <th>高齢者</th>
+    </tr>
+    <tr>
+      <th>コメント</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>駅前に若者が集まっている</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>スポーツできる場所があるのが良い</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>子育て支援が嬉しい</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>保育園に入れる（待機児童なし）</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>駅前商店街が寂しい</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 237 columns</p>
+</div></div>
+</div>
+<div class="line-block">
+<div class="line">文章をベクトル化できれば、あとは類似度を計算するだけです。計算の仕方もいろいろですが、コサイン類似度を用いることが多いです 。ベクトルの向きがどの程度同じ方向を向いているか？という指標で、－１～１の範囲をとります。コサイン類似度を数式で記述すると以下のようになります。 $$ cos(θ)= ∥ x ∥∥ y ​</div>
+<div class="line">∥ x ⋅ y ​</div>
+</div>
+<div class="line-block">
+<div class="line">​</div>
+<div class="line">= ∑ i ​</div>
+<div class="line">x i 2 ​</div>
+</div>
+<div class="line-block">
+<div class="line">​</div>
+<div class="line">× ∑ i ​</div>
+<div class="line">y i 2 ​</div>
+</div>
+<p>​</p>
+<div class="line-block">
+<div class="line">∑ i ​</div>
+<div class="line">x i ​</div>
+<div class="line">y i ​</div>
+</div>
+<p>​</p>
+<p>$$</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="k">def</span> <span class="nf">cosin_similarity</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="TF/IDF">
+<h3><span class="section-number">12.3.2. </span>TF/IDF<a class="headerlink" href="#TF/IDF" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>BOW は、単語の出現を見るだけで、重要度はわかりません。前回、勉強した TF/IDF を組み合わ せることで、出現に重み付けすることができます。こちらも、scikit-learn のライブラリを用いることができます。</p>
+<p>TF-IDF は Term Frequency – Inverse Document Frequency の略で、文書中の単語の重要度を評価する手法の一つです。Solr や Elastic Search で有名な Lucene でも少し前までデフォルトのアルゴリズムだったのでご存じの方も多いかと思います。TF, IDF はそれぞれ以下のような意味合いで、TF と IDF の積が TF-IDF です*1。</p>
+<p>TF(t,d) … ある単語(t)がある文書(d)中で何回出現したか IDF(t) … ある単語(t)が全文書集合(D)中のどれだけの文書で出現したかの逆数 早い話が「ある文書の中で何度も出現する単語は重要度が高いが、多くの文書に共通して出現する単語はそうでもない」と理解してもらえれば良いです。文書 d 中の単語 t の TF-IDF(t, d) は以下のようになります。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="c1"># tf-idf</span>
+
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">max_df</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span> <span class="c1">#文書全体の90%以上で出現する単語は無視する</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;わかち書き&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;feature_names:&#39;</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;X:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+feature_names: [&#39;bbb&#39;, &#39;あまり&#39;, &#39;ある&#39;, &#39;いる&#39;, &#39;おじ&#39;, &#39;お祭り&#39;, &#39;から&#39;, &#39;くる&#39;, &#39;くれる&#39;, &#39;けど&#39;, &#39;この&#39;, &#39;ごみ&#39;, &#39;さん&#39;, &#39;すぎる&#39;, &#39;する&#39;, &#39;そう&#39;, &#39;たくさん&#39;, &#39;ちゃんと&#39;, &#39;つく&#39;, &#39;できる&#39;, &#39;とき&#39;, &#39;とても&#39;, &#39;どう&#39;, &#39;どのような&#39;, &#39;ない&#39;, &#39;なし&#39;, &#39;なる&#39;, &#39;なん&#39;, &#39;ひどい&#39;, &#39;ほしい&#39;, &#39;ます&#39;, &#39;まち&#39;, &#39;まで&#39;, &#39;もう&#39;, &#39;もっと&#39;, &#39;やすい&#39;, &#39;やめる&#39;, &#39;よう&#39;, &#39;よく&#39;, &#39;よる&#39;, &#39;られる&#39;, &#39;れる&#39;, &#39;アクセス&#39;, &#39;アンケート&#39;, &#39;ゴミ&#39;, &#39;サイクリングコース&#39;, &#39;サポート&#39;, &#39;スポット&#39;, &#39;スポーツ&#39;, &#39;スポーツジム&#39;, &#39;スーパー&#39;, &#39;デート&#39;, &#39;ナンバー&#39;, &#39;バス&#39;, &#39;ホームページ&#39;, &#39;マスコット&#39;, &#39;ママ&#39;, &#39;ランニング&#39;, &#39;リーズナブル&#39;, &#39;下さる&#39;, &#39;不便&#39;, &#39;不安&#39;, &#39;不正&#39;, &#39;並木&#39;, &#39;事件&#39;, &#39;事故&#39;, &#39;交差点&#39;, &#39;他県&#39;, &#39;付ける&#39;, &#39;企業&#39;, &#39;住む&#39;, &#39;作る&#39;, &#39;便利&#39;, &#39;保育園&#39;, &#39;信号&#39;, &#39;備蓄&#39;, &#39;働く&#39;, &#39;充実&#39;, &#39;先月&#39;, &#39;入る&#39;, &#39;入れる&#39;, &#39;公共&#39;, &#39;公園&#39;, &#39;公害&#39;, &#39;冬場&#39;, &#39;凍結&#39;, &#39;処理&#39;, &#39;出る&#39;, &#39;出張所&#39;, &#39;出来る&#39;, &#39;分かる&#39;, &#39;利用&#39;, &#39;利用料金&#39;, &#39;助かる&#39;, &#39;動物園&#39;, &#39;反映&#39;, &#39;取り扱う&#39;, &#39;取る&#39;, &#39;商店街&#39;, &#39;商業&#39;, &#39;喫茶店&#39;, &#39;土日&#39;, &#39;地域&#39;, &#39;場所&#39;, &#39;増やす&#39;, &#39;変わる&#39;, &#39;多い&#39;, &#39;夜道&#39;, &#39;夜間&#39;, &#39;大きい&#39;, &#39;大丈夫&#39;, &#39;大変&#39;, &#39;奇麗&#39;, &#39;姿勢&#39;, &#39;嬉しい&#39;, &#39;子ども&#39;, &#39;子供&#39;, &#39;子育て&#39;, &#39;安全&#39;, &#39;安心&#39;, &#39;家賃&#39;, &#39;寂しい&#39;, &#39;対応&#39;, &#39;対策&#39;, &#39;小学校&#39;, &#39;少し&#39;, &#39;少ない&#39;, &#39;屋根&#39;, &#39;巡回&#39;, &#39;市長&#39;, &#39;広い&#39;, &#39;強化&#39;, &#39;役所&#39;, &#39;待機児童&#39;, &#39;後押し&#39;, &#39;心配&#39;, &#39;怖い&#39;, &#39;急行&#39;, &#39;投稿&#39;, &#39;担当者&#39;, &#39;拡幅&#39;, &#39;掃除&#39;, &#39;掛ける&#39;, &#39;支援&#39;, &#39;料金&#39;, &#39;施設&#39;, &#39;早い&#39;, &#39;映画館&#39;, &#39;暗い&#39;, &#39;暮らせる&#39;, &#39;最近&#39;, &#39;最高&#39;, &#39;有名&#39;, &#39;校庭&#39;, &#39;桜並木&#39;, &#39;欲しい&#39;, &#39;止まる&#39;, &#39;歩行者&#39;, &#39;歩道&#39;, &#39;氾濫&#39;, &#39;活動&#39;, &#39;活性化&#39;, &#39;活気&#39;, &#39;活発&#39;, &#39;消防団&#39;, &#39;渋滞&#39;, &#39;災害&#39;, &#39;無い&#39;, &#39;無愛想&#39;, &#39;特に&#39;, &#39;状況&#39;, &#39;狭い&#39;, &#39;生活&#39;, &#39;病院&#39;, &#39;盛り上げる&#39;, &#39;相談&#39;, &#39;確認&#39;, &#39;糞害&#39;, &#39;細い&#39;, &#39;経路&#39;, &#39;綺麗&#39;, &#39;繋がる&#39;, &#39;老人&#39;, &#39;考える&#39;, &#39;職員&#39;, &#39;自治体&#39;, &#39;自然&#39;, &#39;自転車&#39;, &#39;良い&#39;, &#39;芝生&#39;, &#39;若い&#39;, &#39;若者&#39;, &#39;落ち葉&#39;, &#39;行く&#39;, &#39;行政&#39;, &#39;街づくり&#39;, &#39;街路樹&#39;, &#39;街頭&#39;, &#39;表示&#39;, &#39;被害&#39;, &#39;親身&#39;, &#39;観光&#39;, &#39;観光地&#39;, &#39;設定&#39;, &#39;詳細&#39;, &#39;説明&#39;, &#39;警察&#39;, &#39;豊か&#39;, &#39;走る&#39;, &#39;起きる&#39;, &#39;足りる&#39;, &#39;路地&#39;, &#39;路線&#39;, &#39;路面&#39;, &#39;近く&#39;, &#39;追加&#39;, &#39;遊び道具&#39;, &#39;遊ぶ&#39;, &#39;運動&#39;, &#39;過ごす&#39;, &#39;避難&#39;, &#39;都内&#39;, &#39;野良猫&#39;, &#39;開く&#39;, &#39;防止&#39;, &#39;防犯&#39;, &#39;降る&#39;, &#39;隣町&#39;, &#39;集まる&#39;, &#39;電話&#39;, &#39;頻繁&#39;, &#39;駅前&#39;, &#39;駐車場&#39;, &#39;駐輪場&#39;, &#39;高い&#39;, &#39;高速道路&#39;, &#39;高齢者&#39;]
+X:
+[[0.   0.   0.   ... 0.   0.   0.  ]
+ [0.   0.   0.42 ... 0.   0.   0.  ]
+ [0.   0.   0.   ... 0.   0.   0.  ]
+ ...
+ [0.   0.   0.   ... 0.   0.   0.  ]
+ [0.   0.   0.   ... 0.   0.   0.  ]
+ [0.   0.   0.   ... 0.   0.   0.  ]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">vocabulary_</span><span class="p">[</span><span class="s1">&#39;隣町&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span><span class="n">columns</span><span class="o">=</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">(),</span><span class="n">index</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;コメント&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bbb</th>
+      <th>あまり</th>
+      <th>ある</th>
+      <th>いる</th>
+      <th>おじ</th>
+      <th>お祭り</th>
+      <th>から</th>
+      <th>くる</th>
+      <th>くれる</th>
+      <th>けど</th>
+      <th>...</th>
+      <th>隣町</th>
+      <th>集まる</th>
+      <th>電話</th>
+      <th>頻繁</th>
+      <th>駅前</th>
+      <th>駐車場</th>
+      <th>駐輪場</th>
+      <th>高い</th>
+      <th>高速道路</th>
+      <th>高齢者</th>
+    </tr>
+    <tr>
+      <th>コメント</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>駅前に若者が集まっている</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.397231</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.580016</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.411545</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>スポーツできる場所があるのが良い</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.416521</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>子育て支援が嬉しい</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>保育園に入れる（待機児童なし）</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>駅前商店街が寂しい</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.490089</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 237 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model_tfidf</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">n_components_</span><span class="p">)</span>
+<span class="n">pc8</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">model_tfidf</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+8
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># SVD</span>
+<span class="n">svd</span> <span class="o">=</span> <span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">svd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">svd</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;コメント&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+    </tr>
+    <tr>
+      <th>コメント</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>駅前に若者が集まっている</th>
+      <td>7.731770e-02</td>
+      <td>0.055635</td>
+      <td>0.221337</td>
+      <td>0.258149</td>
+      <td>-0.183296</td>
+      <td>-0.000305</td>
+      <td>0.136036</td>
+      <td>-0.064076</td>
+    </tr>
+    <tr>
+      <th>スポーツできる場所があるのが良い</th>
+      <td>9.653416e-02</td>
+      <td>0.232015</td>
+      <td>0.242801</td>
+      <td>-0.275236</td>
+      <td>0.224877</td>
+      <td>-0.002571</td>
+      <td>0.282702</td>
+      <td>0.372138</td>
+    </tr>
+    <tr>
+      <th>子育て支援が嬉しい</th>
+      <td>1.530323e-01</td>
+      <td>0.241557</td>
+      <td>-0.164930</td>
+      <td>0.098121</td>
+      <td>0.093775</td>
+      <td>-0.002967</td>
+      <td>-0.276363</td>
+      <td>0.062022</td>
+    </tr>
+    <tr>
+      <th>保育園に入れる（待機児童なし）</th>
+      <td>1.993400e-07</td>
+      <td>-0.000112</td>
+      <td>0.000043</td>
+      <td>0.000067</td>
+      <td>-0.000063</td>
+      <td>0.508183</td>
+      <td>-0.004800</td>
+      <td>0.000048</td>
+    </tr>
+    <tr>
+      <th>駅前商店街が寂しい</th>
+      <td>1.475882e-01</td>
+      <td>-0.066456</td>
+      <td>0.235868</td>
+      <td>0.196006</td>
+      <td>-0.265106</td>
+      <td>0.001276</td>
+      <td>-0.074943</td>
+      <td>0.076161</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>小学校の校庭が芝生なのでとても良い</th>
+      <td>3.357989e-02</td>
+      <td>0.109346</td>
+      <td>0.002445</td>
+      <td>-0.019058</td>
+      <td>0.079640</td>
+      <td>0.002153</td>
+      <td>0.071718</td>
+      <td>0.297933</td>
+    </tr>
+    <tr>
+      <th>ホームページからアンケートを投稿できるようにしてほしい</th>
+      <td>2.061109e-01</td>
+      <td>0.200964</td>
+      <td>-0.030146</td>
+      <td>-0.113776</td>
+      <td>-0.090526</td>
+      <td>-0.001596</td>
+      <td>0.202042</td>
+      <td>0.033840</td>
+    </tr>
+    <tr>
+      <th>公園に遊び道具が少なすぎる</th>
+      <td>1.735468e-01</td>
+      <td>-0.023439</td>
+      <td>0.093533</td>
+      <td>0.130378</td>
+      <td>-0.037278</td>
+      <td>0.001100</td>
+      <td>0.007060</td>
+      <td>0.216022</td>
+    </tr>
+    <tr>
+      <th>もっと公園を増やしてほしい</th>
+      <td>5.883562e-01</td>
+      <td>-0.202565</td>
+      <td>-0.184834</td>
+      <td>-0.231458</td>
+      <td>-0.253843</td>
+      <td>-0.003732</td>
+      <td>-0.064550</td>
+      <td>0.201424</td>
+    </tr>
+    <tr>
+      <th>駅前に駐車場が少ない、不便</th>
+      <td>1.226444e-01</td>
+      <td>0.017410</td>
+      <td>0.509561</td>
+      <td>0.516643</td>
+      <td>-0.314527</td>
+      <td>-0.003270</td>
+      <td>-0.066299</td>
+      <td>0.261483</td>
+    </tr>
+  </tbody>
+</table>
+<p>86 rows × 8 columns</p>
+</div></div>
+</div>
+<p>LSI（潜在的意味索引）では、トピックという文書と単語の間に存在する抽象的な概念を導入します。 各文書の BOW あるいは TF-IDF ベクトルを行とする文書数×単語数の行列を特異値分解し、文書数×トピック数に次元削減します。 以下は文章 a ～ d の4つの TF-IDF ベクトルに LSI を適用した場合の図です。</p>
+<p><a class="reference external" href="https://www.ogis-ri.co.jp/otc/hiroba/technical/similar-document-search/part1.html">https://www.ogis-ri.co.jp/otc/hiroba/technical/similar-document-search/part1.html</a></p>
+</div>
+<div class="section" id="コサイン類似度">
+<h3><span class="section-number">12.3.3. </span>コサイン類似度<a class="headerlink" href="#コサイン類似度" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span> <span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">model_tfidf</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span><span class="n">model_tfidf</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[1.   0.   0.   0.   0.2  0.   0.   0.   0.17 0.   0.   0.   0.   0.
+  0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
+  0.   0.   0.   0.13 0.   0.   0.   0.   0.   0.   0.18 0.   0.   0.
+  0.   0.14 0.   0.   0.   0.16 0.   0.12 0.   0.   0.   0.   0.11 0.1
+  0.   0.   0.   0.   0.   0.   0.09 0.   0.   0.16 0.13 0.   0.   0.
+  0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
+  0.   0.18]]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="単語分散表現">
+<h2><span class="section-number">12.4. </span>単語分散表現<a class="headerlink" href="#単語分散表現" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>文書中の単語出現数を元に文書ベクトルを導出していましたが、ここからは単語の持つ意味的な情報を用いる手法として、単語の分散表現について説明します。 単語の分散表現では単語を多次元空間上の座標にマッピングすることで、単語同士の類似度を比較したり、加減算したりすることができるようになります。「王」－「男」＋「女」≒「女王」という例が有名です。</p>
+<p>単語の分散表現の獲得方法は様々な手法が紹介されています。手法の皮切りとして2013年に登場した Word2Vec*2 は 同じ文脈で登場する単語は似た意味を持つという分布仮説をベースとしています。 以下は Word2Vec で実装された CBoW(Continuous Bag of words) の動作イメージです。”Yes We Can” という文章があったとして、周辺単語（”Yes”, “Can”）から注目する単語（”We”）を予測するモデルになります。</p>
+<div class="section" id="単語ベクトル">
+<h3><span class="section-number">12.4.1. </span>単語ベクトル<a class="headerlink" href="#単語ベクトル" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Doc と Span も同様に vector 属性があり、保持する Token の単語ベクトルの平均を返す実装となっています。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;スポーツ&#39;</span><span class="p">)</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(300,)
+</pre></div></div>
+</div>
+</div>
 </div>
 <div class="section" id="コースワーク">
-<h2><span class="section-number">12.2. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">12.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>今回のアンケートでは、自由形式のコメントと満足度を同時に回答するようになっていたため、満 足度の高いキーワードを抽出できました。また、コメント文をベクトル化することで、コメント間 の類似度が求められることも見えてきました。</p>
 <div class="admonition tip"><p><strong>演習（文書分類）</strong></p>
-<p>なんか思いつくのでしょうか？</p>
-</div><div class="nbinput nblast docutils container">
+<p>満足度は予測できるのでしょうか?</p>
+</div><p>これは、エントリーシートから(採用後の)満足度は予想できるのでしょうか?と同じ質問になります。 皆さんは AI がエントリーシートを判定しているという噂を聞いたことがありますね。</p>
+<div class="admonition tip"><p><strong>演習（エントリシート）</strong></p>
+<p>企業がどのように AI を活用して、エントリーシートを分析しているか 考察してみよう。</p>
+</div><p>今まで学んできた知識を総動員して、もし足りなかったら追加で調査して考えてみましょう。</p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>

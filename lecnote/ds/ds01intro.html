@@ -93,7 +93,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. Python とデータサイエンス</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#データサイエンスとは">1.1. データサイエンスとは</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#データサイエンスの目的">1.1.1. データサイエンスの目的</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#アプローチ">1.1.2. アプローチ</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#データサイエンスを学ぶ環境">1.2. データサイエンスを学ぶ環境</a><ul>
@@ -462,17 +461,22 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Python-とデータサイエンス">
 <h1><span class="section-number">1. </span>Python とデータサイエンス<a class="headerlink" href="#Python-とデータサイエンス" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>本講義では、Colab のハンズオン演習を行いながら、データサイエンスと機械学習の基礎を学びます。</p>
-<p>まずは、Colabに慣れながら、Pythonのおさらいから始めましょう。</p>
+<p>本講義では、Pythonによるハンズオン演習を含めながら、 データサイエンスと機械学習の基礎を学びます。 まずは、Google Colabに慣れながら、Pythonのおさらいから始めましょう。</p>
 <div class="section" id="データサイエンスとは">
 <h2><span class="section-number">1.1. </span>データサイエンスとは<a class="headerlink" href="#データサイエンスとは" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>データ・サイエンスは、数学やコンピュータ科学を駆使し、データから価値を創出し、社会課題に答えを出す技法です。近年、ICT技術の急激な進歩にともない、大量のデータの収集が容易になり、あらゆる分野で活用が期待されている学問領域です。</p>
 <p><strong>求められるスキルセット</strong></p>
 <ul class="simple">
-<li><p>数学、統計学、計算機科学</p></li>
-<li><p>コンピュータエンジニアリング（Pythonなど）</p></li>
-<li><p>分析力</p></li>
+<li><p>数学、統計学、コンピュータ科学</p></li>
+<li><p>コンピュータ力（UNIX、Python, pandas, matplotlib）</p></li>
+<li><p>ビジネス分析力(仮説探索、仮説検証)</p></li>
+<li><p>プレゼンテーション</p></li>
 </ul>
+<p>参考資料: <a class="reference external" href="http://www.datascientist.or.jp/symp/2019/pdf/1115-1155_skill.pdf">http://www.datascientist.or.jp/symp/2019/pdf/1115-1155_skill.pdf</a></p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">本講義</p>
+<p>本講義は、数学やコンピュータ科学を学んできたという前提の上で、 データ分析に必須となるコンピュータ力を高めていきます。 特に、Python でデータ分析ができるかどうかは、 pandas と matplotlib を使いこなせるかどうかにかかっています。 かなり練習しないと使えませんので、ぜひしっかり練習してください。</p>
+</div>
 <div class="section" id="データサイエンスの目的">
 <h3><span class="section-number">1.1.1. </span>データサイエンスの目的<a class="headerlink" href="#データサイエンスの目的" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>データサイエンスのアウトプットは２つに大別されます。</p>
@@ -482,18 +486,14 @@ div.rendered_html tbody tr:hover {
 </ul>
 <p>なぜ、近年データサイエンスが注目されているか？</p>
 <ul class="simple">
-<li><p>リアルタイム性: 従来はデータ分析に大きな時間がかかっていましたが、ビックデータ収集からデータ分析までリアルタイムは処理が行えるようになります。</p></li>
-<li><p>共有性： データ共有が進み、多くの人が等しくデータの民主化が促進されます。</p></li>
-<li><p>標準化： データを扱うことが統一され、バラバラでなく、統一した基準で議論が可能になります。</p></li>
+<li><p>リアルタイム性: 従来はデータ分析に大きな時間がかかっていたが、現在はビックデータ収集からデータ分析までリアルタイムで処理が行える</p></li>
+<li><p>標準化： データを扱うことが統一され、バラバラでなく、統一した基準で議論が可能になる</p></li>
+<li><p>共有性： データ共有が進み、多くの人が等しくデータの民主化が促進される</p></li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">データサイエンスと人工知能(AI)</p>
+<p>データサイエンスは、広い領域にまたがっています。 統計学を専門にする教員とコンピュータ科学を専門にする教員では、 重要視する内容が少しずつ異なります。 この講義は、PyTorch等を駆使して人工知能(AI)を開発してきた経験から、 「人工知能(AI)の基礎を学ぶ」ことに力点をおいています。</p>
 </div>
-<div class="section" id="アプローチ">
-<h3><span class="section-number">1.1.2. </span>アプローチ<a class="headerlink" href="#アプローチ" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>データサイエンスは、科学的アプローチが求められます。</p>
-<ul class="simple">
-<li><p>仮説検証型:</p></li>
-<li><p>仮説探索型:</p></li>
-</ul>
 </div>
 </div>
 <div class="section" id="データサイエンスを学ぶ環境">
@@ -518,13 +518,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">マークダウン記法と数式</p>
-<p>簡易文書作成記法です。ソフトウェアエンジニアや科学者の間では、標準的な記法になっています。 また、Colabでは Mathjaxも対応しているため、<code class="docutils literal notranslate"><span class="pre">$\sqrt{2}$</span></code>のように<code class="docutils literal notranslate"><span class="pre">$</span></code>で囲むと、 <span class="math notranslate nohighlight">\(\sqrt{2}\)</span>のように数式も記述できます。</p>
+<p>簡易文書作成記法です。ソフトウェアエンジニアや科学者の間では、標準的な記法になっています。 また、Colabでは Mathjax(<a class="reference external" href="http://www.latex-cmd.com/index.html#equation">Latexによる数式埋め込み</a>)も対応しているため、<code class="docutils literal notranslate"><span class="pre">$\sqrt{2}$</span></code>のように<code class="docutils literal notranslate"><span class="pre">$</span></code>で囲むと、 <span class="math notranslate nohighlight">\(\sqrt{2}\)</span>のように数式も記述できます。</p>
 <img alt="colab_math.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/76e6eecd-c5ed-b4fe-7577-f5db26897034.png" />
+<p>データサイエンティストとしては、Latex記法で数式がかけるのも常識です。</p>
 </div>
 <div class="section" id="コードセル">
 <h4>コードセル<a class="headerlink" href="#コードセル" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>プログラム（ソースコード）を入力して、実行ボタンを押すことで、実行結果を表示します。</p>
-<p><img alt="44b34ad857b94f89830fe35f582c3e97" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2453d50e-b99d-be10-bbce-24e46e59b3ce.png" style="width: 60%;" /></p>
+<p><img alt="4f7d473e8c0d4ed0984520cfe0c895e4" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2453d50e-b99d-be10-bbce-24e46e59b3ce.png" style="width: 60%;" /></p>
 <p>本資料では、実行セルに入力すべきコードと実行結果は、次のように記載します。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -584,7 +585,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>Colab は、使いやすいユーザインターフェースを備えていますが、ユーザインターフェースからは全ての操作はできません。UNIXコマンドを使いこなすと、細かい操作ができるようになります。 UNIXコマンドは、<strong>クラウドなどのコンピューティング・サービスを使いこなす必須スキル</strong>といえます。 本講義を通して、少しずつ覚えていきましょう。</p>
+<p>Colab は、使いやすいユーザインターフェースを備えていますが、ユーザインターフェースからは全ての操作はできません。UNIXコマンドを使いこなすと、細かい操作ができるようになります。 UNIXコマンドは、Colabに限らず、 <strong>クラウドなどのコンピューティング基盤を使いこなす必須スキル</strong>といえます。 本講義を通して、少しずつ覚えていきましょう。</p>
 </div>
 </div>
 <div class="section" id="データサイエンスとPython">

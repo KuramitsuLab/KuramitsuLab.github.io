@@ -118,8 +118,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#カーネル密度推定法によるグラフ">5.3.4. カーネル密度推定法によるグラフ</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#時系列データの扱い">5.4. 時系列データの扱い</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#コースワーク">5.5. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">5.4. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds06classfy.html">6. クラスタリングしてみよう</a></li>
@@ -487,7 +486,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="データ入手">
 <h2><span class="section-number">5.1. </span>データ入手<a class="headerlink" href="#データ入手" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>今回は、<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/student+performance">ポルトガルの高校生の数学の成績データ</a>を使って、データ解析をします。</p>
-<p><img alt="3f129b28575a4646be973e7f6d141d24" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/315e0d53-5fed-3f10-db50-eda9ece4f5f9.jpeg" style="width: 60%;" /></p>
+<p><img alt="ee8b073b61fa46949a059eaf06de5bc1" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/315e0d53-5fed-3f10-db50-eda9ece4f5f9.jpeg" style="width: 60%;" /></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!wget https://kuramitsulab.github.io/data/student-mat.csv
 </pre></div>
 </div>
@@ -2192,13 +2191,60 @@ a= [0.58065293] , b= 4.861250211993213
 </div>
 </div>
 </div>
-<div class="section" id="時系列データの扱い">
-<h2><span class="section-number">5.4. </span>時系列データの扱い<a class="headerlink" href="#時系列データの扱い" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>余力があったら時系列データの特徴を掴む方法を紹介します。</p>
-</div>
 <div class="section" id="コースワーク">
-<h2><span class="section-number">5.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="admonition tip"><p><strong>演習（ランチボックス）</strong></p>
+<h2><span class="section-number">5.4. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition tip"><p><strong>演習（セールス）</strong></p>
+<p>カフェフロアで販売されているお弁当の販売数のデータを可視化して、 特徴をつかんでみよう。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ヘッダ名称</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>datetid</p></td>
+<td><p>インデックスとして使用する日付</p></td>
+</tr>
+<tr class="row-odd"><td><p>y</p></td>
+<td><p>販売数</p></td>
+</tr>
+<tr class="row-even"><td><p>week</p></td>
+<td><p>曜日（月～金）</p></td>
+</tr>
+<tr class="row-odd"><td><p>soldout</p></td>
+<td><p>完売フラグ（0:完売せず、1:完売）</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>メインメニュー</p></td>
+</tr>
+<tr class="row-odd"><td><p>kcal</p></td>
+<td><p>おかずのカロリー（kcal）</p></td>
+</tr>
+<tr class="row-even"><td><p>remarks</p></td>
+<td><p>特記事項</p></td>
+</tr>
+<tr class="row-odd"><td><p>event</p></td>
+<td><p>社内イベント</p></td>
+</tr>
+<tr class="row-even"><td><p>payday</p></td>
+<td><p>給料日フラグ（1:給料日）</p></td>
+</tr>
+<tr class="row-odd"><td><p>weather</p></td>
+<td><p>天気</p></td>
+</tr>
+<tr class="row-even"><td><p>precipitation</p></td>
+<td><p>降水量</p></td>
+</tr>
+<tr class="row-odd"><td><p>temperature</p></td>
+<td><p>気温</p></td>
+</tr>
+</tbody>
+</table>
+</div><div class="admonition tip"><p><strong>演習（ランチボックス）</strong></p>
 <p>カフェフロアで販売されているお弁当の販売数のデータを可視化して、 特徴をつかんでみよう。</p>
 <table class="docutils align-default">
 <colgroup>
