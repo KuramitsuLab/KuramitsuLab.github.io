@@ -98,8 +98,19 @@
 <li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">9. データ・サイエンティストへの道</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Kaggle">9.1. Kaggle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#タイタニック号の生存者予測">9.2. タイタニック号の生存者予測</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#欠損値を調べる">9.3. 欠損値を調べる</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#タイタニック号の生存者予測">9.2. タイタニック号の生存者予測</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#データの把握">9.2.1. データの把握</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#予測モデルの作成">9.2.2. 予測モデルの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#提出方法">9.2.3. 提出方法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#初心者向けのヒント">9.3. 初心者向けのヒント</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#欠損値を処理する">9.3.1. 欠損値を処理する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#説明変数">9.3.2. 説明変数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#アルゴリズムを選ぶ">9.3.3. アルゴリズムを選ぶ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#提出データの作成">9.3.4. 提出データの作成</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#過学習を防ぐには">9.4. 過学習を防ぐには</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#コースワーク">9.5. コースワーク</a></li>
 </ul>
@@ -446,35 +457,57 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="データ・サイエンティストへの道">
 <h1><span class="section-number">9. </span>データ・サイエンティストへの道<a class="headerlink" href="#データ・サイエンティストへの道" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>KaggleやSIGNATEを用いた、より実践的にデータサイエンスの練習法を紹介します。</p>
-<div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">鋭意執筆中</p>
-<p>Kaggle を用いたコンペへの参加</p>
-</div>
+<p><a class="reference external" href="https://kaggle.com/">Kaggle</a>を用いた、より実践的にデータサイエンスを学び、練習する方法を紹介します。</p>
+<img alt="kaggle0-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/8ca39c89-4e94-a291-2927-7f9dec70fce3.png" />
+<p>Kaggle と入門者向けコースウェア</p>
 <!--
 https://www.codexa.net/kaggle-titanic-beginner/
---><div class="section" id="Kaggle">
+--><p><strong>いつももモジュールを準備</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">japanize_matplotlib</span> <span class="c1">#matplotlibの日本語化</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="o">!</span>pip install japanize_matplotlib
+    <span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;IPAexGothic&quot;</span><span class="p">)</span> <span class="c1">#日本語フォント設定</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Kaggle">
 <h2><span class="section-number">9.1. </span>Kaggle<a class="headerlink" href="#Kaggle" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Kaggleは、世界中の機械学習・データサイエンスに携わっている約40万人以上集まるコミニティーです。</p>
-<p>Kaggleでは、企業や政府などの組織とデータ分析のプロであるデータサイエンティスト/機械学習エンジニアを繋げるプラットフォームとなっています。単純なマッチングではなく、Kaggleの最大の目玉とも言える「Competetion（コンペ）」がKaggleの特徴の一つです。</p>
-<p>Competition（コンペ）は、企業や政府がコンペ形式（競争形式）で課題を提示し、賞金と引き換えに最も制度の高い分析モデルを買い取るという、最近でいう一種のクラウドファンディングに近いような仕組みとなります。</p>
-<p>各コンペの利用規約へ同意をすると、データセットのダウロードが可能となります。データセットを落として、自分で処理を行い、最適な予測モデルを作って見ましょう！</p>
-<p>予測モデルですが、各コンペの「 Evaluation 」のページにて「 Submission File 」（投稿ファイル）とう項目に形式や詳細がまとめられています。下記の例は現在進行中の「Mercari Price Suggestion Challenge」の評価詳細ページです。「 Submission File 」の項目に、「test_idとpriceの2列のヘッダーを含むCSV形式」で提出してくださいと指定があります。</p>
-<p><a class="reference external" href="https://www.codexa.net/what-is-kaggle/">https://www.codexa.net/what-is-kaggle/</a></p>
+<p>Kaggleは、世界中のデータサイエンス・機械学習を学んでいる人、仕事で活用している人が、40万人以上集まるコミニティです。Kaggleでは、企業や政府などの組織とデータサイエンティストを繋げるコンペ形式のプラットフォームとなっています。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Competition（コンペ）</p>
+<p>企業や政府がコンペ形式（競争形式）で課題を提示し、賞金と引き換えに最も制度の高い分析モデルを買い取る。 クラウドファンディングに近い仕組みになっています。</p>
+</div>
+<p>各コンペの利用規約へ同意をすると、データセットのダウロードが可能となります。 データセットを落として、自分でデータ分析を行い、最適な予測モデルを作ることができます。</p>
+<p>また、過去のコンペのデータを利用して、練習することも可能になっています。</p>
 </div>
 <div class="section" id="タイタニック号の生存者予測">
 <h2><span class="section-number">9.2. </span>タイタニック号の生存者予測<a class="headerlink" href="#タイタニック号の生存者予測" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>有名なタイタニック号の問題に挑戦してみましょう。</p>
-<p><a class="reference external" href="https://www.kaggle.com/c/titanic/data">タイタニック号</a> Kaggle</p>
+<p>有名なタイタニック号の生存者予測の問題に挑戦してみましょう。</p>
+<p><a class="reference external" href="https://www.kaggle.com/c/titanic/data">タイタニック号の生存者予測(Kaggle)</a></p>
 <p>Kaggleの利用にはアカウント登録(無料)が必要となります。 データサイエンスをさらに深めて勉強するためには、会員登録しておきましょう。</p>
-<p>ふたつのファイルを入手します。</p>
+<p>次のふたつのファイルを入手します。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">train.csv</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">test.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train.csv</span></code>: 訓練データ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test.csv</span></code>: テストデータ</p></li>
 </ul>
-<p>pandas を用いて、データの確認をしましょう。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">英語</p>
+<p>コンピュータ系の最新技術や話題は全て海外からきます。 英語が苦手であってもなくても、 ここから先は英語で書かれた情報を読み取るしかありません。</p>
+</div>
+<p>Pandas を用いて、データの確認をしましょう。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -496,9 +529,27 @@ https://www.codexa.net/kaggle-titanic-beginner/
 テストデータの大きさ (418, 11)
 </pre></div></div>
 </div>
-<p>訓練データとテストデータを比較してみると、 test は418名の乗客情報で、 train は891名の乗客情報ですね。 カラム数が異なるのは、前述しましたが train には「Survived」のカラムがあるからです。</p>
+<p>訓練データとテストデータが最初から別々になって提供されます。 コンペ形式なので、テストデータの正解はわかりません。</p>
+<p>訓練データとテストデータを比較してみると、 <code class="docutils literal notranslate"><span class="pre">train.csv</span></code> は891件のデータ、<code class="docutils literal notranslate"><span class="pre">test.csv</span></code>は418名の乗客情報になります。 カラム数が異なるのは、訓練データには<code class="docutils literal notranslate"><span class="pre">Survived</span></code>のカラムがあります。 逆に、テストデータにはないので、この<code class="docutils literal notranslate"><span class="pre">Survived</span></code>を目的変数として予測するモデルを作ります。</p>
+<div class="section" id="データの把握">
+<h3><span class="section-number">9.2.1. </span>データの把握<a class="headerlink" href="#データの把握" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まず、タイタニック号の乗客者名簿の属性をチェックしておきましょう。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PassengerId</span></code>: 乗客識別ユニークID</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Survived</span></code>: 生存フラグ（0=死亡、1=生存）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pclass</span></code>: チケットクラス 1 上層クラス（お金持ち） 2 中級クラス（一般階級） 3 下層クラス（労働階級）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Name</span></code>: 乗客の名前</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Sex</span></code>: 性別（male=男性、female＝女性）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Age</span></code>: 年齢</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SibSp</span></code>: タイタニックに同乗している兄弟/配偶者の数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parch</span></code>: タイタニックに同乗している親/子供の数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ticket</span></code>: チケット番号</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fare</span></code>: 料金</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cabin</span></code>: 客室番号</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Embarked</span></code>: 出港地 C = Cherbourg Q = Queenstown S = Southampton</p></li>
+</ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -507,7 +558,7 @@ https://www.codexa.net/kaggle-titanic-beginner/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -624,7 +675,7 @@ https://www.codexa.net/kaggle-titanic-beginner/
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -633,7 +684,7 @@ https://www.codexa.net/kaggle-titanic-beginner/
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -744,99 +795,145 @@ https://www.codexa.net/kaggle-titanic-beginner/
 </div></div>
 </div>
 </div>
-<div class="section" id="欠損値を調べる">
-<h2><span class="section-number">9.3. </span>欠損値を調べる<a class="headerlink" href="#欠損値を調べる" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>実際のデータ分析では、100%データセットが揃っていることはほとんどありません。 どこかの属性が一部欠けていたり、信用性が低くて使えないことがあります。</p>
+<div class="section" id="予測モデルの作成">
+<h3><span class="section-number">9.2.2. </span>予測モデルの作成<a class="headerlink" href="#予測モデルの作成" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>予測モデルの作成は、今まで習ってきた通りです。</p>
+<ul class="simple">
+<li><p>データの可視化＆前処理</p></li>
+<li><p>説明変数を選ぶ</p></li>
+<li><p>機械学習アルゴリズムを選ぶ</p></li>
+<li><p>評価する</p></li>
+</ul>
+<p>これ以外には色々な工夫があります。 コンペなので、自分で考えながら予測モデルを構築していきます。</p>
+</div>
+<div class="section" id="提出方法">
+<h3><span class="section-number">9.2.3. </span>提出方法<a class="headerlink" href="#提出方法" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>さて、無事に予測モデルが開発できたとしましょう。</p>
+<p>コンペのページの「 Submit Predictions 」を開いて、そこの指示にしたがって提出します。</p>
+<img alt="kaggle2-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/4e95542a-2f60-2847-eae5-ec70dacddc8f.png" />
+<p>提出方法は、コンペごとに少しづづ異なりますので、詳細は説明を読んでください。 ここは、<a class="reference external" href="https://www.kaggle.com/c/titanic">タイタニック号の生存者予測(Kaggle)</a> の場合を説明します。</p>
+<p><strong>まず、テストデータの予測値が得られたとします</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>提出は、テストデータの予測値を指定されたCSVファイルとして出力します。 ここは、<code class="docutils literal notranslate"><span class="pre">PassengerId</span></code>と<code class="docutils literal notranslate"><span class="pre">Survived</span></code>のふたつのカラムからなる表データです。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">PassengerId</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">&quot;PassengerId&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">my_solution</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">PassengerId</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">])</span>
+<span class="n">my_solution</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;result.csv&quot;</span><span class="p">,</span> <span class="n">index_label</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PassengerId&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>これで、<code class="docutils literal notranslate"><span class="pre">result.csv</span></code>ができました。 一応、ファイルも確認しておきましょう。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!head result.csv #最初の10行を表示してみる
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">予測値なので..</p>
+<p>Survived のカラムの値は、作成した予測モデルに依存します。 一致する必要はありません。</p>
+</div>
+<p>指定されたCSVファイルができたら、ファイルを提出します。 しばし待つと、スコア（正解率）が表示されます。</p>
+<img alt="kaggle1-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6ff723a8-7cd0-5a18-3961-4fe5b5bd6ce1.png" />
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p>自分の予測モデルを作って、僕（倉光）のスコア（正解率）<code class="docutils literal notranslate"><span class="pre">0.77990</span></code>を超えてみよう。</p>
+</div>
+</div>
+</div>
+<div class="section" id="初心者向けのヒント">
+<h2><span class="section-number">9.3. </span>初心者向けのヒント<a class="headerlink" href="#初心者向けのヒント" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ちょっと少しモデル作りに関するヒントを紹介しておきます。</p>
+<div class="section" id="欠損値を処理する">
+<h3><span class="section-number">9.3.1. </span>欠損値を処理する<a class="headerlink" href="#欠損値を処理する" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>実際のデータ分析では、100%データセットが揃っていることはほとんどありません。 どこかの属性が一部欠けていたり、信用性が低くて使えないことがあります。 タイタニック号の乗客名簿は、何か嫌がらせかと思うほど、データが欠損しています。</p>
+<p><strong>訓練データの欠損値</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">train</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span></span><span class="n">train</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 891 entries, 0 to 890
-Data columns (total 12 columns):
- #   Column       Non-Null Count  Dtype
----  ------       --------------  -----
- 0   PassengerId  891 non-null    int64
- 1   Survived     891 non-null    int64
- 2   Pclass       891 non-null    int64
- 3   Name         891 non-null    object
- 4   Sex          891 non-null    object
- 5   Age          714 non-null    float64
- 6   SibSp        891 non-null    int64
- 7   Parch        891 non-null    int64
- 8   Ticket       891 non-null    object
- 9   Fare         891 non-null    float64
- 10  Cabin        204 non-null    object
- 11  Embarked     889 non-null    object
-dtypes: float64(2), int64(5), object(5)
-memory usage: 83.7+ KB
+PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64
 </pre></div></div>
 </div>
-<p>PassengerId – 乗客識別ユニークID Survived – 生存フラグ（0=死亡、1=生存） Pclass – チケットクラス Name – 乗客の名前 Sex – 性別（male=男性、female＝女性） Age – 年齢 SibSp – タイタニックに同乗している兄弟/配偶者の数 parch – タイタニックに同乗している親/子供の数 ticket – チケット番号 fare – 料金 cabin – 客室番号 Embarked – 出港地（タイタニックへ乗った港）</p>
-<p>pclass = チケットクラス</p>
-<p>1 = 上層クラス（お金持ち） 2 = 中級クラス（一般階級） 3 = 下層クラス（労働階級）</p>
-<p>Embarked = 各変数の定義は下記の通り C = Cherbourg Q = Queenstown S = Southampton</p>
-<p>訓練データを確認すると、<code class="docutils literal notranslate"><span class="pre">Age</span></code>と<code class="docutils literal notranslate"><span class="pre">Cabin</span></code>の属性が欠損しています。test の欠損データを表しています。思ったよりもしっかりとしたデータではありますが、特に「Age」と「Cabin」の2つの項目で欠損が多いですね。</p>
-<p>欠損値をどのように処理するかということは大きな課題です。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">test</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+PassengerId      0
+Pclass           0
+Name             0
+Sex              0
+Age             86
+SibSp            0
+Parch            0
+Ticket           0
+Fare             1
+Cabin          327
+Embarked         0
+dtype: int64
+</pre></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">ポイント：</p>
+<p>この欠損した値をどう解釈し、予測モデルの構築に生かしていくのか？</p>
+</div>
+<p>実は、数多くあるKaggleのコンペの中から「タイタニック号の生存者予測」を選んだのは、 色々な人が解説をかいていて参考にする情報がWebに多く存在するからです。 それらを参考にしながら、よい方法（仮説）を考えてみてください。</p>
+<!--
+
+train["Sex"] = train["Sex"].map({"male": 0, "female": 1})
+test["Sex"] = test["Sex"].map({"male": 0, "female": 1})
+y_test["Fare"] = y_test["Fare"].fillna(Xy_train["Fare"].mean())
+
+--></div>
+<div class="section" id="説明変数">
+<h3><span class="section-number">9.3.2. </span>説明変数<a class="headerlink" href="#説明変数" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>カテゴリデータは、数値データに変換することで、説明変数として利用できるようになります。 例えば、性別は次のように0, 1に変換してみます。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">train</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">&quot;male&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">&quot;male&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 
-<span class="n">test</span><span class="p">[</span><span class="s2">&quot;Fare&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;Fare&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s2">&quot;Fare&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">test</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 418 entries, 0 to 417
-Data columns (total 11 columns):
- #   Column       Non-Null Count  Dtype
----  ------       --------------  -----
- 0   PassengerId  418 non-null    int64
- 1   Pclass       418 non-null    int64
- 2   Name         418 non-null    object
- 3   Sex          418 non-null    int64
- 4   Age          332 non-null    float64
- 5   SibSp        418 non-null    int64
- 6   Parch        418 non-null    int64
- 7   Ticket       418 non-null    object
- 8   Fare         418 non-null    float64
- 9   Cabin        91 non-null     object
- 10  Embarked     418 non-null    object
-dtypes: float64(2), int64(5), object(4)
-memory usage: 36.0+ KB
-</pre></div></div>
-</div>
+<p>説明変数、目的変数を選びます。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -848,8 +945,14 @@ memory usage: 36.0+ KB
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="アルゴリズムを選ぶ">
+<h3><span class="section-number">9.3.3. </span>アルゴリズムを選ぶ<a class="headerlink" href="#アルゴリズムを選ぶ" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>機械学習アルゴリズムを選びます。 今回は、２クラス分類問題なので、<strong>分類器(Classifier)</strong>の中から選びます。</p>
+<p>機械学習アルゴリズムは、データの正室に対して、得意/不得意があります。 しかし、最初のうちは全くわからないので、色々試してみた方がよいでしょう。</p>
+<p>ここでは、決定木を表示したかったので、<code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code>を使ってみました。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -860,7 +963,7 @@ memory usage: 36.0+ KB
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -868,15 +971,19 @@ memory usage: 36.0+ KB
 DecisionTreeClassifier(max_depth=3)
 </pre></div></div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">訓練データに欠損値があると：</p>
+<p><code class="docutils literal notranslate"><span class="pre">ValueError:</span> <span class="pre">Input</span> <span class="pre">contains</span> <span class="pre">NaN,</span> <span class="pre">infinity</span> <span class="pre">or</span> <span class="pre">a</span> <span class="pre">value</span> <span class="pre">too</span> <span class="pre">large</span></code>のようなエラーが発生します。 データの前処理でしっかりと、取り除きましょう。</p>
+</div>
+<p>さて、決定木のいいところは、どういう過程で分類されているか、見える化しやすいところです。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
- <span class="n">plot_tree</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
- <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">feature_names</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span><span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -884,19 +991,11 @@ DecisionTreeClassifier(max_depth=3)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds09ds_16_0.svg" src="_images/ds09ds_16_0.svg" /></div>
+<img alt="_images/ds09ds_22_0.svg" src="_images/ds09ds_22_0.svg" /></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<p>訓練データに対する、正解率を計算しておきましょう。（テストデータは正解がないので計算できません。）</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -905,7 +1004,7 @@ DecisionTreeClassifier(max_depth=3)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -913,20 +1012,129 @@ DecisionTreeClassifier(max_depth=3)
 0.8148148148148148
 </pre></div></div>
 </div>
+<p>良い気がします。（maxdepthを深くすると、もっと精度は高くなります。）</p>
+</div>
+<div class="section" id="提出データの作成">
+<h3><span class="section-number">9.3.4. </span>提出データの作成<a class="headerlink" href="#提出データの作成" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>テストデータから予測値を求めて、提出データファイルを作成しましょう。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">PassengerId</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">&quot;PassengerId&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">my_solution</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">PassengerId</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">])</span>
-<span class="n">my_solution</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;result.csv&quot;</span><span class="p">,</span> <span class="n">index_label</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PassengerId&quot;</span><span class="p">])</span>
+<span></span><span class="c1"># Fare の前処理を忘れないで</span>
+<span class="c1"># X_test[&quot;Fare&quot;].fillna(X_test[&quot;Fare&quot;].mean(), inplace=True)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">テストデータに欠損値があると：</p>
+<p><code class="docutils literal notranslate"><span class="pre">ValueError:</span> <span class="pre">Input</span> <span class="pre">contains</span> <span class="pre">NaN,</span> <span class="pre">infinity</span> <span class="pre">or</span> <span class="pre">a</span> <span class="pre">value</span> <span class="pre">too</span> <span class="pre">large</span></code>のようなエラーが発生します。 データの前処理でしっかりと、取り除きましょう。</p>
+</div>
+<p>Pandasを使って表データに変換し、CSVファイルを出力します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">:</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">],</span> <span class="s1">&#39;Survived&#39;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">})</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 
 </pre></div>
 </div>
 </div>
-<p><img alt="3c013a88e77c4438bf8d895073a17546" src="https://www.codexa.net/wp-content/uploads/2017/11/submit-kaggle.png" /></p>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>892</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>893</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>894</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>895</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>896</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;result.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="o">!</span>head result.csv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+PassengerId,Survived
+892,0
+893,1
+894,0
+895,0
+896,1
+897,0
+898,1
+899,0
+900,1
+</pre></div></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">予測結果なので..</p>
+<p><code class="docutils literal notranslate"><span class="pre">Survived</span></code> のカラムの値は、作成した予測モデルに依存します。 一致する必要はありません。</p>
+</div>
+<p>指定されたCSVファイルができたら、ファイルを提出します。 しばし待つと、スコア（正解率）が表示されます。</p>
+<img alt="kaggle1-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6ff723a8-7cd0-5a18-3961-4fe5b5bd6ce1.png" />
+</div>
 </div>
 <div class="section" id="過学習を防ぐには">
 <h2><span class="section-number">9.4. </span>過学習を防ぐには<a class="headerlink" href="#過学習を防ぐには" title="このヘッドラインへのパーマリンク">¶</a></h2>

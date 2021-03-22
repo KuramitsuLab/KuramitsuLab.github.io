@@ -34,8 +34,6 @@
         <script src="_static/doctools.js"></script>
         <script src="_static/translations.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -109,8 +107,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#正解率">11.2.1. 正解率</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#自分の手書き文字を認識する">11.3. 自分の手書き文字を認識する</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#コースワーク（見本）">11.4. コースワーク（見本）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#自分の手書き文字を認識する">11.3. 自分の手書き文字を認識する</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Pillow/PIL-ライブラリ">11.3.1. Pillow/PIL ライブラリ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#アプリケーションへの組み込み">11.3.2. アプリケーションへの組み込み</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">11.4. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds12nlp.html">12. 自然言語処理にむけて</a></li>
@@ -453,7 +455,10 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="深層学習と画像認識">
 <h1><span class="section-number">11. </span>深層学習と画像認識<a class="headerlink" href="#深層学習と画像認識" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>画像データ（手書きの文字）を用いて、画像認識に挑戦してみます。 原理がわかれば、より複雑な画像認識にも挑戦していけます。</p>
+<p>画像データ（手書きの文字）を用いて、画像認識に挑戦してみます。 原理を理解すれば、より複雑な画像認識にも応用することができるようになります。</p>
+<img alt="imagenet-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1296178f-4bfd-e03b-2120-4b5278bf5df1.png" />
+<p><a class="reference external" href="https://devopedia.org/imagenet">ImageNet</a>より引用</p>
+<p><strong>おなじみのモジュールの準備</strong></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -469,6 +474,7 @@ div.rendered_html tbody tr:hover {
     <span class="o">!</span>pip install japanize_matplotlib
     <span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;IPAexGothic&quot;</span><span class="p">)</span> <span class="c1">#日本語フォント設定</span>
+
 </pre></div>
 </div>
 </div>
@@ -476,7 +482,7 @@ div.rendered_html tbody tr:hover {
 <h2><span class="section-number">11.1. </span>MNIST<a class="headerlink" href="#MNIST" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>MNIST は、「0」~「9」の手書き数字の画像データセットです。Yann LeCun らによって、手書き 文字データセットの NIST データベースから抽出&amp;加工して、機械学習のチュートリアル用に作成されて公開されています。</p>
 <p>ここは、画像データ(手書きの文字)を説明変数 (X)、ラベルを目的変数 (y) として学習モデルを作成してみます。</p>
-<p>画像データ (x_train, x_test) は、サイズ 28x28, 0~255 グレースケールの形式になっています。</p>
+<img alt="mnist-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d7283850-3cdd-3701-4f56-f7b4ae8090e3.png" />
 <p><strong>MNISTデータのロード</strong></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -489,9 +495,10 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>画像データは、<code class="docutils literal notranslate"><span class="pre">mnist.data</span></code>に70000万件、768(28x28)のNumPy配列で登録されています。画像データのラベルは、<code class="docutils literal notranslate"><span class="pre">mnist.target</span></code>に70000件登録されています。</p>
+<p>画像データは、<code class="docutils literal notranslate"><span class="pre">mnist.data</span></code>に70000万件、要素数768(28x28)のNumPy配列で登録されています。画像データのラベルは、<code class="docutils literal notranslate"><span class="pre">mnist.target</span></code>に70000件登録されています。</p>
+<p><strong>画像データとラベルデータの大きさ</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -511,7 +518,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>最初の画像データをみてみましょう。 784要素の配列はみにくいので、28x28で表示してみます。 0~255 階調のグレースケールになっています。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -582,115 +589,52 @@ div.rendered_html tbody tr:hover {
    0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.]
 </pre></div></div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">データ形式</p>
+<p>sklearnのバージョンによっては、mnist.dataの形式が異なるようです。 アクティブに開発が進んでいるライブラリには、こういうことはよくあります。</p>
+<p><strong>落ち着いてデータの形式を調べて対処してください</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>エラーが発生した場合は、<code class="docutils literal notranslate"><span class="pre">data.values[0]</span></code>の代わりに、 次のように<code class="docutils literal notranslate"><span class="pre">data[0]</span></code>のように<code class="docutils literal notranslate"><span class="pre">.values</span></code>を取り除いてください。</p>
+</div>
+<p>Matplotlibで表示することもできます。0が黒で白が255なので、文字が白くなります。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[  0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   3.  18.
-  18.  18. 126. 136. 175.  26. 166. 255. 247. 127.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.  30.  36.  94. 154. 170. 253.
- 253. 253. 253. 253. 225. 172. 253. 242. 195.  64.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.  49. 238. 253. 253. 253. 253. 253.
- 253. 253. 253. 251.  93.  82.  82.  56.  39.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.  18. 219. 253. 253. 253. 253. 253.
- 198. 182. 247. 241.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.  80. 156. 107. 253. 253. 205.
-  11.   0.  43. 154.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.  14.   1. 154. 253.  90.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0. 139. 253. 190.
-   2.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.  11. 190. 253.
-  70.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.  35. 241.
- 225. 160. 108.   1.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.  81.
- 240. 253. 253. 119.  25.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-  45. 186. 253. 253. 150.  27.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.  16.  93. 252. 253. 187.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0. 249. 253. 249.  64.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-  46. 130. 183. 253. 253. 207.   2.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.  39. 148.
- 229. 253. 253. 253. 250. 182.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.  24. 114. 221. 253.
- 253. 253. 253. 201.  78.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.  23.  66. 213. 253. 253. 253.
- 253. 198.  81.   2.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.  18. 171. 219. 253. 253. 253. 253. 195.
-  80.   9.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.  55. 172. 226. 253. 253. 253. 253. 244. 133.  11.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0. 136. 253. 253. 253. 212. 135. 132.  16.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.
-   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.]
-</pre></div></div>
-</div>
-<p>Matplotlibで表示することもできます。</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray_r</span><span class="p">)</span>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x1348999a0&gt;
+&lt;matplotlib.image.AxesImage at 0x130787550&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds11deep_11_1.svg" src="_images/ds11deep_11_1.svg" /></div>
+<img alt="_images/ds11deep_10_1.svg" src="_images/ds11deep_10_1.svg" /></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">W</span> <span class="o">=</span> <span class="mi">16</span> <span class="c1"># 横に並べる個数</span>
 <span class="n">H</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># 縦に並べる個数</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">))</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">W</span><span class="o">*</span><span class="n">H</span><span class="p">):</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray_r</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mnist</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -699,11 +643,11 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds11deep_12_0.svg" src="_images/ds11deep_12_0.svg" /></div>
+<img alt="_images/ds11deep_11_0.svg" src="_images/ds11deep_11_0.svg" /></div>
 </div>
-<p>機械学習では、28x28 Grayscale の画像データを784次元のデータとして扱います。</p>
+<p>機械学習では、28x28 Grayscale の画像データを784次元のデータとして扱います。 まず、0〜255のグレースケールの値を0.0〜1.0の範囲に正規化しておきます。 ホールドアウト法を用いて、訓練データとテストデータに分割しておきます。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -734,7 +678,7 @@ div.rendered_html tbody tr:hover {
 <p>（少しお遊びで）２次元に次元圧縮して、手書き文字がどのように分布しているかみてみましょう。</p>
 <p><strong>1000枚だけ選んでPCAで次元圧縮</strong></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -747,7 +691,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p><strong>表データに変換</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -758,7 +702,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -788,32 +732,32 @@ div.rendered_html tbody tr:hover {
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.796536</td>
-      <td>1.323753</td>
+      <td>0.796539</td>
+      <td>1.323788</td>
       <td>5</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>4.334013</td>
-      <td>1.669400</td>
+      <td>4.334015</td>
+      <td>1.669418</td>
       <td>0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.040725</td>
-      <td>-1.636898</td>
+      <td>0.040727</td>
+      <td>-1.636907</td>
       <td>4</td>
     </tr>
     <tr>
       <th>3</th>
       <td>-3.972168</td>
-      <td>2.561406</td>
+      <td>2.561420</td>
       <td>1</td>
     </tr>
     <tr>
       <th>4</th>
       <td>-1.316914</td>
-      <td>-2.598636</td>
+      <td>-2.598637</td>
       <td>9</td>
     </tr>
   </tbody>
@@ -821,12 +765,12 @@ div.rendered_html tbody tr:hover {
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">colors</span> <span class="o">=</span>  <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;pink&quot;</span><span class="p">,</span> <span class="s1">&#39;violet&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">)):</span>
   <span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;pc1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pc2&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)],</span> <span class="n">label</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
@@ -840,14 +784,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Figure size 720x720 with 0 Axes&gt;
+&lt;Figure size 1080x1080 with 0 Axes&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds11deep_19_1.svg" src="_images/ds11deep_19_1.svg" /></div>
+<img alt="_images/ds11deep_18_1.svg" src="_images/ds11deep_18_1.svg" /></div>
 </div>
 <p>結構、ごちゃごちゃに重なっているところがあります。綺麗に分類できるのでしょうか？</p>
 </div>
@@ -877,7 +821,7 @@ div.rendered_html tbody tr:hover {
 <p><strong>max_iter</strong>: エポック数</p>
 <p>今回は、３層パーセプトロンで、前回ならったとおり、活性化関数はシグモイド関数、最適化は確率的勾配降下法を用いてみます。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -889,7 +833,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>訓練データを学習させます。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -926,9 +870,13 @@ Iteration 20, loss = 0.50675142
   warnings.warn(
 </pre></div></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">ConvergenceWarning：収束が不十分</p>
+<p>epoch数が足りないので、収束が不十分だと言われます。</p>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">history</span></code>は学習の様子を記録したログデータです。 損失 (loss) が減少しているときは、順調に学習が進んでいます。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -943,10 +891,10 @@ Iteration 20, loss = 0.50675142
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds11deep_26_0.svg" src="_images/ds11deep_26_0.svg" /></div>
+<img alt="_images/ds11deep_25_0.svg" src="_images/ds11deep_25_0.svg" /></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -955,7 +903,7 @@ Iteration 20, loss = 0.50675142
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -965,7 +913,7 @@ Iteration 20, loss = 0.50675142
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray_r</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray_r</span><span class="p">)</span> <span class="c1">#白黒反転</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -985,12 +933,12 @@ Iteration 20, loss = 0.50675142
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds11deep_28_1.svg" src="_images/ds11deep_28_1.svg" /></div>
+<img alt="_images/ds11deep_27_1.svg" src="_images/ds11deep_27_1.svg" /></div>
 </div>
 <div class="section" id="正解率">
 <h3><span class="section-number">11.2.1. </span>正解率<a class="headerlink" href="#正解率" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1009,19 +957,21 @@ Iteration 20, loss = 0.50675142
 正解率(test) 0.8715
 </pre></div></div>
 </div>
-<p>正直にいって、素晴らしい正解率です。しかし、パラメータを変更すると、もっと精度があがります。</p>
+<p>ひと昔前は、ハガキの郵便番号を読み取って、自動的に仕分けする装置であっても、 70%の正確さも出ませんでした。それに比べると、素晴らしい正解率です。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>MLPClassfierのパラメータを変更して、正解率がどう変わるか調べてみよう。</p>
 <p><strong>最近のニューラルネットワークの定番パラメータ</strong></p>
 <ul class="simple">
+<li><p>隠れ層を増やす</p></li>
 <li><p>活性化関数: <code class="docutils literal notranslate"><span class="pre">relu</span></code></p></li>
 <li><p>最適化: <code class="docutils literal notranslate"><span class="pre">adam</span></code></p></li>
 </ul>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">深層学習技術は、近年、高度化してきています。 より細かくネットワークの構成やパラメータを設定できる Tensorflow, Kelas, Pytorch などのライブラリが登場しています。 研究レベルの予測モデルを使うときは、このようなニューラルネットワークフレームワークを活用することになります。</p>
-<p><strong>Pytorchによるモデル構築の例</strong></p>
+<p class="admonition-title fa fa-exclamation-circle">PyTorch, TensorFlow, Kelas</p>
+<p>深層学習技術は、近年、高度化してきています。 より細かくネットワークの構成やパラメータを設定できる PyTorch, Tensorflow, Kelas, などのニューラルネットワーク・ライブラリが登場しています。</p>
+<p><strong>PyTorchによるモデル構築の例</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -1041,22 +991,196 @@ Iteration 20, loss = 0.50675142
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>興味のある人は、 PytorchやTensorflowなどニューラルネットワークを構築してみてください。 より高い正解度のモデルを構築することができます。</p>
+<p>興味のある人は、 PytorchやTensorflowなどニューラルネットワークを構築してみてください。 より高い正解度のモデルを構築することができます。 （なお、研究レベルの予測モデルを使るときは、 このようなニューラルネットワークフレームワークを活用することになります。）</p>
 </div>
 </div>
 </div>
 <div class="section" id="自分の手書き文字を認識する">
 <h2><span class="section-number">11.3. </span>自分の手書き文字を認識する<a class="headerlink" href="#自分の手書き文字を認識する" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>最後に、自分自身で書いた手書き文字を認識してみましょう。</p>
+<p>紙を用意して数字を書いて、スマホで撮影します。 １文字だけ適当に切り出して、ファイルに保存してみてください。</p>
+<div class="section" id="Pillow/PIL-ライブラリ">
+<h3><span class="section-number">11.3.1. </span>Pillow/PIL ライブラリ<a class="headerlink" href="#Pillow/PIL-ライブラリ" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>画像は、(２年生後期の授業で使った）Pillow/PIL ライブラリを用いて操作します。 まずColab上で自分のファイル（例.<code class="docutils literal notranslate"><span class="pre">2.png</span></code>）を読み込めるか、表示して確認しておきます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
 </div>
-<div class="section" id="コースワーク（見本）">
-<h2><span class="section-number">11.4. </span>コースワーク（見本）<a class="headerlink" href="#コースワーク（見本）" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;2.png&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;サイズ&#39;</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">im</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+サイズ (324, 318)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds11deep_33_1.png" src="_images/ds11deep_33_1.png" />
+</div>
+</div>
+<p>MNIST用のモデルの画像ファイルは、 グレースケールの28x28なので、Pillow/PIL ライブラリを用いて変換します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;2.png&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;サイズ&#39;</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">im</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+サイズ (28, 28)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="_images/ds11deep_35_1.png" src="_images/ds11deep_35_1.png" />
+</div>
+</div>
+<p>このPillow画像データをNumPy配列に変換し、784次元のデータにします。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myimage</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">myimage</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(1, 784)
+</pre></div></div>
+</div>
+<p>MNISTのモデルは、白黒が反転している画像で学習しているため、白黒を反転させて、0.0〜1.0に正規化します。これで入力データはできました。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myimage</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span> <span class="o">-</span> <span class="n">myimage</span><span class="p">)</span><span class="o">/</span><span class="mi">255</span>
+</pre></div>
+</div>
+</div>
+<p>それでは、学習済みのモデルを使って予測してみましょう。正しく予想できるかな？</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">myimage</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([2])
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="アプリケーションへの組み込み">
+<h3><span class="section-number">11.3.2. </span>アプリケーションへの組み込み<a class="headerlink" href="#アプリケーションへの組み込み" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>人工知能アプリケーションに学習済みモデルを組み込むときは、毎回学習しなくて済むように学習済みモデルだけ、pickle形式のファイルに保存しておきます。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">(1//2)</span></code> が、正しく <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> にならない理由を考えてみよう</p>
+<p class="admonition-title fa fa-exclamation-circle">pickle</p>
+<p>Pythonでのオブジェクトをシリアライズする一般的な方法です。<strong>シリアライズ（直列化）</strong>とは、プログラミング言語においてオブジェクトをバイト列のデータに表現に変換することです。逆に、<strong>デシリアライズ（非直列化）</strong>とは、シリアライズしたバイト列から元のオブジェクトに復元することです。</p>
 </div>
+<p><strong>モデルの保存</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mnist-model.pickle&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>保存されたファイルの大きさは1.6Mバイト程度になります。 （もちろん、学習したデータやパラメータにもよります。）</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>ls -l mnist-model.pickle
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-rw-r--r--  1 kimio  staff  1633114 Mar 22 00:57 mnist-model.pickle
+</pre></div></div>
+</div>
+<p><strong>モデルのロード</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mnist-model.pickle&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">myimage</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([2])
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="コースワーク">
+<h2><span class="section-number">11.4. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="admonition tip"><p><strong>演習（画像処理）</strong></p>
-<p>…</p>
-</div></div>
+<p><a class="reference external" href="https://github.com/zalandoresearch/fashion-mnist">Fashin-MNIST</a>の画像データを使って、 ファッションアイテムの分類をしてみよう。</p>
+<img alt="fashionmnist-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6de529e7-2652-4429-8b34-a662b61236b8.png" />
+</div><p><strong>データの入手方法</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+<span class="n">fashion_mnist</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="s1">&#39;Fashion-MNIST&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

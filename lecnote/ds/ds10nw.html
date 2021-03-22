@@ -110,14 +110,14 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#単純パーセプトロンの実装">10.2. 単純パーセプトロンの実装</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#活性化関数">10.2.1. 活性化関数</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">10.2.2. 勾配降下法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">10.2.2. 勾配降下法</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#パーセプトロンの原理">10.2.3. パーセプトロンの原理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#エポック(epoch)">10.2.4. エポック(epoch)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#多層パーセプトロン">10.3. 多層パーセプトロン</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#線形分離不可能な問題">10.3.1. 線形分離不可能な問題</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">10.3.2. 多層パーセプトロン</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">10.3.2. 多層パーセプトロン</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#深層学習へ">10.3.3. 深層学習へ</a></li>
 </ul>
 </li>
@@ -490,7 +490,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="単純パーセプトロン">
 <h3><span class="section-number">10.1.2. </span>単純パーセプトロン<a class="headerlink" href="#単純パーセプトロン" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>単純パーセプトロンは、ニューラルネットワークの単純な数理モデルです。</p>
-<p>$ y = f(<span class="math">\mathbf{w}</span><span class="math">\cdot</span>:nbsphinx-math:<a href="#id5"><span class="problematic" id="id6">`</span></a>mathbf{x}`+b) $</p>
+<p><span class="math notranslate nohighlight">\(y = f(\mathbf{w}\cdot\mathbf{x}+b)\)</span></p>
 <ul class="simple">
 <li><p>入力: <span class="math notranslate nohighlight">\(\mathbf{x} = (x_1, x_2, ..., x_n)\)</span></p></li>
 <li><p>重み: <span class="math notranslate nohighlight">\(\mathbf{w} = (w_1, w_2, ..., w_n)\)</span></p></li>
@@ -649,8 +649,8 @@ div.rendered_html tbody tr:hover {
 <img alt="_images/ds10nw_9_1.svg" src="_images/ds10nw_9_1.svg" /></div>
 </div>
 </div>
-<div class="section" id="id12">
-<h3><span class="section-number">10.2.2. </span>勾配降下法<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id10">
+<h3><span class="section-number">10.2.2. </span>勾配降下法<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><strong>勾配降下法(GD)</strong>は、関数<span class="math notranslate nohighlight">\(f(x)\)</span>があったとき、<span class="math notranslate nohighlight">\(f(x)\)</span>を最小にするような<span class="math notranslate nohighlight">\(x\)</span>(<span class="math notranslate nohighlight">\({\mathop{\rm arg~max}\limits}_{x}　f(x)\)</span>とも書く)を求める手法です。 最急降下法（Gradient descent, steepest descent）と呼ばれることもあります。</p>
 <p><strong>原理</strong></p>
 <div class="math notranslate nohighlight">
@@ -811,7 +811,7 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 <li><p>Momentum: <span class="math notranslate nohighlight">\(\mathbf{x}_{i+1} = \mathbf{x}_i - \eta \nabla f+ \alpha \Delta \mathbf{w}\)</span></p></li>
 <li><p>AdaGrad: <span class="math notranslate nohighlight">\(\mathbf{x}_{i+1} = \mathbf{x}_i - \eta \frac{1}{\sqrt{h_i}}\nabla f\)</span>, <span class="math notranslate nohighlight">\(h_{i+1} = h_i + (\nabla f)^2\)</span></p></li>
 </ul>
-<p><img alt="8eb7eaed05024abd94a15b3623f0d098" class="no-scaled-link" src="https://watlab-blog.com/wp-content/uploads/2020/03/gd-momentum-adagrad.gif" style="width: 50%;" /></p>
+<p><img alt="2f801c0bfda341d2874a91ce3acbf012" class="no-scaled-link" src="https://watlab-blog.com/wp-content/uploads/2020/03/gd-momentum-adagrad.gif" style="width: 50%;" /></p>
 <p><a class="reference external" href="https://watlab-blog.com/2020/03/08/adagrad/">wat氏のわかりやすい解説</a>より引用</p>
 </div>
 <div class="section" id="パーセプトロンの原理">
@@ -1121,7 +1121,7 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 <p class="admonition-title fa fa-exclamation-circle"><strong>線形分離可能な問題</strong></p>
 <p>幾何学においてふたつの集合が二次元平面上にあるとき、それらの集合を一本の直線で分離できることです。</p>
 <p><strong>線形分離可能な例</strong></p>
-<p><img alt="c2ee10eafbf74e6a8156a52faeb45ed5" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1dd6e067-1875-27a8-fbf4-e81158f54719.png" style="width: 40%;" /></p>
+<p><img alt="86fab8a840994b22a6a434a5f529445c" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1dd6e067-1875-27a8-fbf4-e81158f54719.png" style="width: 40%;" /></p>
 <p>一般化して、<span class="math notranslate nohighlight">\(n\)</span> 次元空間上のふたつの集合を <span class="math notranslate nohighlight">\(n − 1\)</span> 次元の超平面で 分離できることも線形分離可能と呼びます。 逆に、線形分離不可能な問題を線形分離不可能問題と呼びます。</p>
 </div>
 <div class="section" id="線形分離不可能な問題">
@@ -1160,24 +1160,24 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 </table>
 <p><strong>線形分離不可能な例</strong></p>
 <p>赤い部分が分離できていない。</p>
-<p><img alt="ff19af70179740178a369ad01d7da398" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/db9d8fa2-05e1-6dd5-e3ef-09582a1b0b1b.png" style="width: 40%;" /></p>
+<p><img alt="4381f9690a2e4bec840be71b7060d5eb" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/db9d8fa2-05e1-6dd5-e3ef-09582a1b0b1b.png" style="width: 40%;" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>単純パーセプトロンの実装コードを使って、線形不分離問題を解こうとするとどうなるか調べてみよう。</p>
 </div>
 </div>
-<div class="section" id="id16">
-<h3><span class="section-number">10.3.2. </span>多層パーセプトロン<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id14">
+<h3><span class="section-number">10.3.2. </span>多層パーセプトロン<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>線形分離不可能な問題を解くためのアイディアは、パーセプトロンを組み合わせて多層化することです。</p>
 <p><strong>３層パーセプトロンの例</strong></p>
-<p><img alt="34bc28fef184421ba35e4b9ea735fc82" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1c2f261f-701d-e020-2f49-c3df596b8363.png" style="width: 60%;" /></p>
+<p><img alt="158ccb25b7704f3b91f405939e0dbc91" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1c2f261f-701d-e020-2f49-c3df596b8363.png" style="width: 60%;" /></p>
 <p>このように多層化することで、各ニューロンの学習結果が組み合わさって、 線形分離不可能な問題でも複数の分離線の組み合わせで分離可能になります。</p>
-<p><img alt="515ce0b54d0a4e6386197d4f30b1545a" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5ce7c474-466c-7889-f3d4-19277c815289.png" style="width: 40%;" /></p>
+<p><img alt="d5f1a9d3ba6b4d8189c875de953c928f" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5ce7c474-466c-7889-f3d4-19277c815289.png" style="width: 40%;" /></p>
 <p>さて、「多層パーセプトロンも実装してみましょう！」としたいところですが、 ちょっと１回の講義では多すぎる気がしますので重要な概念だけ紹介しておきます。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">逆誤差伝搬法</p>
 <p>ニューロンは、順方向に発火させていきますが、学習を効率よく行うため、誤差を逆に伝搬させます。</p>
-<p><img alt="72afc371f68d4aa098417279ce8ec55f" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/49a140bb-5aa0-45a7-a365-7c3aa5c914b6.png" style="width: 60%;" /></p>
+<p><img alt="d7eef2b52459464fa73fee7b5bd12786" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/49a140bb-5aa0-45a7-a365-7c3aa5c914b6.png" style="width: 60%;" /></p>
 </div>
 </div>
 <div class="section" id="深層学習へ">
@@ -1211,7 +1211,12 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-</div></div>
+</div><div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">数学・物理コース向け</p>
+<p>ニューラル・ネットワークの数理を探求したいときは</p>
+<p><a class="reference external" href="https://www.slideshare.net/trinmu/ss-226711018">https://www.slideshare.net/trinmu/ss-226711018</a></p>
+</div>
+</div>
 </div>
 
 
