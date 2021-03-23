@@ -486,7 +486,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="クラスタリング">
 <h2><span class="section-number">6.1. </span>クラスタリング<a class="headerlink" href="#クラスタリング" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>クラスタリングとは、データ間の類似度にもとづいて、データをグループ分けする手法です。クラスタリングによってできた、似たもの同士が集まったグループのことをクラスタと呼びます。</p>
-<p><img alt="03a0191cd4c64d2db2f8a5298555f759" class="no-scaled-link" src="https://scikit-learn.org/stable/_images/sphx_glr_plot_cluster_comparison_001.png" style="width: 80%;" /></p>
+<p><img alt="a96014764bff4f25b1266d06a2f11c95" class="no-scaled-link" src="https://scikit-learn.org/stable/_images/sphx_glr_plot_cluster_comparison_001.png" style="width: 80%;" /></p>
 <p><strong>活用例</strong></p>
 <ul class="simple">
 <li><p>顧客のセグメンテーション</p></li>
@@ -503,7 +503,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="K-means法-(K-平均法)">
 <h3><span class="section-number">6.1.2. </span>K-means法 (K-平均法)<a class="headerlink" href="#K-means法-(K-平均法)" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><strong>K-means法</strong>は、クラスタリングで最も広く使われている手法です。 非階層型クラスタリングのアルゴリズであり、クラスタの平均を用い、与えられたクラスタ数<span class="math notranslate nohighlight">\(k\)</span>個に分類します。</p>
-<p><img alt="071b1afb281145a68ac5c405e5e59630" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/e/ea/K-means_convergence.gif" style="width: 50%;" /></p>
+<p><img alt="8cb3af78908241c2bbaf29f40bc2e96b" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/e/ea/K-means_convergence.gif" style="width: 50%;" /></p>
 <p>原理：k-means法は、<span class="math notranslate nohighlight">\(n\)</span>次元のデータを<span class="math notranslate nohighlight">\(k\)</span>個のクラスタに分割する。</p>
 <ol class="arabic simple">
 <li><p>ランダムに<span class="math notranslate nohighlight">\(k\)</span>個クラスタの重心点（<span class="math notranslate nohighlight">\(n\)</span>次元ベクトル）<span class="math notranslate nohighlight">\(V_{1},\dotsc ,V_{k}\)</span>をおく</p></li>
@@ -524,7 +524,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">6.1.3. </span>主成分分析(PCA)<a class="headerlink" href="#主成分分析(PCA)" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><strong>主成分分析（principal component analysis; PCA）</strong>は、相関のある多数の変数から相関のない少数で全体のばらつきを最もよく表す主成分と呼ばれる変数を合成する多変量解析の一手法です。</p>
 <p>原理：主成分を与える変換は、第一主成分の分散を最大化し、観測値の変化に対する説明能力を可能な限り主成分に持たせます。続く主成分はそれまでに決定した主成分と直交するという拘束条件の下で分散を最大化するようにして選びます。</p>
-<p><img alt="66d722a8aece47a09d8f4d32ba3d4515" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/GaussianScatterPCA.svg" width="50%" /></p>
+<p><img alt="42a824d09101474a8a6aadefd1a66adc" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/GaussianScatterPCA.svg" width="50%" /></p>
 <p>用途：主成分分析は、<strong>データの次元を削減する</strong>ときの定番的手法です。特に、次元数の多いデータを可視化するとき、主成分分析によってより２次元や３次元に集約することで可視化が容易になります。</p>
 <p>sklearn では、PCAクラスをインポートして利用できます。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
@@ -536,7 +536,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="身長と体重からクラスタリング">
 <h2><span class="section-number">6.2. </span>身長と体重からクラスタリング<a class="headerlink" href="#身長と体重からクラスタリング" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ここからは、sklearn モジュールの K-means法アルゴリズムを使いながら、 実際にクラスタリングを行っていきます。</p>
-<p><img alt="b89a3e9fa1f44d46b42a331ae6fadc7f" class="no-scaled-link" src="https://miro.medium.com/max/12094/1*IXGsBrC9FnSHGJVw9lDhQA.png" style="width: 40%;" /></p>
+<p><img alt="fff87110166246f487e789c946ccb8f3" class="no-scaled-link" src="https://miro.medium.com/max/12094/1*IXGsBrC9FnSHGJVw9lDhQA.png" style="width: 40%;" /></p>
 <div class="section" id="データ用意と確認">
 <h3><span class="section-number">6.2.1. </span>データ用意と確認<a class="headerlink" href="#データ用意と確認" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>データは、第４回目のコースワークで作成したスポーツ選手の身長と体重を集計した表データを用いてみます。 自分で集計したデータをそのまま利用しても構いませんが、 一応、以下の通り、ダウンロードもできます。</p>
@@ -963,7 +963,7 @@ Text(0, 0.5, &#39;距離の総和&#39;)
 <div class="section" id="乳がんデータと主成分分析">
 <h2><span class="section-number">6.4. </span>乳がんデータと主成分分析<a class="headerlink" href="#乳がんデータと主成分分析" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>乳がんデータセットは、Breast Cancer Wisconsin (Diagnostic) Data Setに由来し、乳腺腫瘤の穿刺吸引細胞診のデジタル画像から計算されたデータです。</p>
-<p><img alt="92e9553a278e408a8b6e61ef5132105e" class="no-scaled-link" src="https://cdn-ak.f.st-hatena.com/images/fotolife/e/ensekitt/20181102/20181102002649.jpg" style="width: 40%;" /></p>
+<p><img alt="f39dbf48343d4019851c9bfee8a00bb3" class="no-scaled-link" src="https://cdn-ak.f.st-hatena.com/images/fotolife/e/ensekitt/20181102/20181102002649.jpg" style="width: 40%;" /></p>
 <p>1993 W.N. Street, W.H. Wolberg and O.L. Mangasarian Nuclear feature extraction for breast tumor diagnosis IS&amp;T/SPIE 1993 International Symposium on Electronic Imaging: Science and Technology, volume 1905, pages 861-870, San Jose, CA, 1993. (abstract) Figure2 図中一部を引用</p>
 <p>乳がんのデータを使って主成分分析も試していきます。</p>
 <p><strong>データの用意</strong></p>
