@@ -107,7 +107,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#閑話休題：入社面談より">6.2.3. 閑話休題：入社面談より</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#ラムダ式と高階関数">6.3. ラムダ式と高階関数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ラムダ式と高階関数★">6.3. ラムダ式と高階関数★</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#関数も値">6.3.1. 関数も値</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ラムダ式">6.3.2. ラムダ式</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#高階関数">6.3.3. 高階関数</a></li>
@@ -123,7 +123,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -465,7 +465,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="関数、再帰関数、そして高階関数">
 <h1><span class="section-number">6. </span>関数、再帰関数、そして高階関数<a class="headerlink" href="#関数、再帰関数、そして高階関数" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>より抽象度の高いプログラミングを目指して、関数、ラムダ式、高階関数の考え方を習得します。</p>
-<p><img alt="3f0f97efc8d54b88829fe601290c3370" src="http://s3.amazonaws.com/lyah/fx.png" /></p>
+<p><img alt="7e4af97012ad4c8e8e3dfd0746ba7270" src="http://s3.amazonaws.com/lyah/fx.png" /></p>
 <div class="section" id="関数を定義する">
 <h2><span class="section-number">6.1. </span>関数を定義する<a class="headerlink" href="#関数を定義する" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>今まで、<code class="docutils literal notranslate"><span class="pre">print(x)</span></code>関数や<code class="docutils literal notranslate"><span class="pre">max(x,y)</span></code>を使ってプログラミングをしてきました。 今回は、まず関数を定義する方法を覚えましょう。</p>
@@ -914,14 +914,18 @@ f(9) = 10
 </div><p>次回、回答例を示しますので、腕試しで <code class="docutils literal notranslate"><span class="pre">g(x)</span></code> を定義してみよう。 もちろん、エレガントかどうかは置いておいて、コーディングセンスも問われます。</p>
 </div>
 </div>
-<div class="section" id="ラムダ式と高階関数">
-<h2><span class="section-number">6.3. </span>ラムダ式と高階関数<a class="headerlink" href="#ラムダ式と高階関数" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>ラムダ式や高階関数は、もともと関数型プログラミング言語に由来し、Python では上級？技法（少なくとも初心者むけの技法ではない）に位置するものです。</p>
+<div class="section" id="ラムダ式と高階関数★">
+<h2><span class="section-number">6.3. </span>ラムダ式と高階関数★<a class="headerlink" href="#ラムダ式と高階関数★" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ラムダ式や高階関数は、もともと<a class="reference external" href="https://ja.wikipedia.org/wiki/関数型プログラミング">関数型プログラミング言語</a>に由来し、Python では上級？技法（少なくとも初心者むけの技法ではない）に位置するものです。</p>
 <p>だから、飛ばしてもらっても構いませんと言いたいところですが、３年生むけのデータサイエンスや機械学習では、容赦なく使われるのでやはりここでしっかり抑えておいて欲しいです。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">この章</p>
+<p>知っておいて欲しいけど</p>
+</div>
 <div class="section" id="関数も値">
 <h3><span class="section-number">6.3.1. </span>関数も値<a class="headerlink" href="#関数も値" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Python3 は、関数自体も整数や文字列などと同じく、値として扱えるようになっていま す。このような関数のことを、<strong>第一級オブジェクト (first-class object)</strong> とも呼びます。</p>
-<p>まず、関数が値であるとはどういうことなのか確認しておきましょう。数値をひとつ増 やす succ(n) 関数を定義してみた例をみてください。</p>
+<p>まず、関数が値であるとはどういうことなのか確認しておきましょう。数値をひとつ増やす succ(n) 関数を定義してみた例をみてください。</p>
 <p><strong>関数 succ(n) の定義</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
@@ -1132,15 +1136,15 @@ function
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc185/tasks/abc185_b">スマホ中毒</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc182/tasks/abc182_b">ほぼGCD</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc162/tasks/abc162_b">FizzBuzzの和</a>: 有名なFizzBuzz問題のバリエーション</p></li>
-<li><p>[入国審査]](<a class="reference external" href="https://atcoder.jp/contests/abc155/tasks/abc155_b">https://atcoder.jp/contests/abc155/tasks/abc155_b</a>)</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc155/tasks/abc155_b">入国審査</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc157/tasks/abc157_b">ビンゴ</a>: ビンゴを判定する関数定義しましょう</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc079/tasks/abc079_c">列車のチケット</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc156/tasks/abc156_c">ラリー</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc107/tasks/abc107_b">グリッド圧縮</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc114/tasks/abc114_c">７５５</a> 再帰関数を使います</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc019/tasks/abc019_2">文字列圧縮</a>: ランレングス圧縮を関数化します。</p></li>
 </ul>
 <!--
-
 * [異世界数式](https://atcoder.jp/contests/colopl2018-final-open/tasks/colopl2018_final_b): いわゆる構文解析の問題です。
 
 * [多項式の零点の個](https://atcoder.jp/contests/ttpc2019/tasks/ttpc2019_l): 構文解析

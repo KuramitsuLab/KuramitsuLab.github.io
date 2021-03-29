@@ -26,6 +26,7 @@
    "source": [
     "# プログラミング上達のコツ\n",
     "\n",
+    "<!--\n",
     "プログラミング上達のコツを紹介します。\n",
     "\n",
     "http://s3.amazonaws.com/lyah/helloworld.png\n",
@@ -57,6 +58,7 @@
     "\n",
     "\n",
     "rightTriangles\n",
+    "-->\n",
     "\n",
     "ここでは、授業で話した（もしくは話そうと考えている）\n",
     "プログラミング上達のコツを書いておきます。\n",
@@ -85,7 +87,12 @@
     "\n",
     "まず、良いコードを書こうと工夫することです\n",
     "\n",
-    "</div>\n"
+    "</div>\n",
+    "\n",
+    "<img src=\"https://www.oreilly.co.jp/books/images/picture_large978-4-87311-565-8.jpeg\" align=\"right\" width=\"30%\"/>\n",
+    "\n",
+    "ちなみに、「読みやすい」コードを追求するだけで、[本１冊](https://www.oreilly.co.jp/books/9784873115658/)に相当する内容なっています。（リーダブルコードは、新人エンジニアがみんな読む名著です。）\n",
+    "\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -113,9 +120,7 @@
     "```\n",
     "</div>\n",
     "\n",
-    "まず、次を考えずに書いてみてください。\n",
-    "\n",
-    "\n"
+    "まず、次を見ずに自分ならどう解くか考えてみてください。\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -493,7 +498,7 @@
     "ルネ・デカルトが1637年に公刊された「[方法序説](https://ja.wikipedia.org/wiki/%E6%96%B9%E6%B3%95%E5%BA%8F%E8%AA%AC)」で述べられている手法です。\n",
     "今日、**科学的手法**とも呼ばれ、現代科学の最も基礎的な考え方になっています。\n",
     "\n",
-    "<img src=\"https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a52ee450-074a-03f8-ab24-4c3fe787d661.jpeg\" widht=\"30%\" align=\"center\" />\n",
+    "<img src=\"https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a52ee450-074a-03f8-ab24-4c3fe787d661.jpeg\" widht=\"15%\" align=\"right\" />\n",
     "\n",
     "プログラミングは、新しい言語や文法を学び、言語的なセンスも必要となります。\n",
     "しかし、根っこの部分は、数学や理科で学んだ科学的手法、\n",
@@ -534,7 +539,6 @@
     "* [フィフティフィフティ](https://atcoder.jp/contests/abc132/tasks/abc132_a)\n",
     "* [多角形](https://atcoder.jp/contests/abc117/tasks/abc117_b)\n",
     "* [ミックスジュース](https://atcoder.jp/contests/abc171/tasks/abc171_b)\n",
-    "\n",
     "\n",
     "* [二つのスイッチ](https://atcoder.jp/contests/abc070/tasks/abc070_b)：区間の重なりを求める\n",
     "* [リーダーの選び方](https://atcoder.jp/contests/abc098/tasks/arc098_a): 累積和の問題\n",

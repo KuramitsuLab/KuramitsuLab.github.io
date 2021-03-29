@@ -96,14 +96,16 @@
 <li class="toctree-l2"><a class="reference internal" href="#命題と論理式">3.1. 命題と論理式</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#条件分岐">3.2. 条件分岐</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#基本形">3.2.1. 基本形</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#条件分岐して何も処理しない場合">3.2.2. 条件分岐して何も処理しない場合</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#分岐したら複数行のコードを実行する場合">3.2.3. 分岐したら複数行のコードを実行する場合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#何も処理しない場合">3.2.2. 何も処理しない場合</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ブロック：複数行のコードを処理する">3.2.3. ブロック：複数行のコードを処理する</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#複数の条件があるとき">3.2.4. 複数の条件があるとき</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#条件式（三項演算子）">3.3. 条件式（三項演算子）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#繰り返し(while文とfor文)">3.4. 繰り返し(while文とfor文)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#for文:-無限ループの回避">3.4.1. for文: 無限ループの回避</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#繰り返し">3.4. 繰り返し</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#while文">3.4.1. while文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for文">3.4.2. for文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#シミュレーション">3.4.3. シミュレーション</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#演習問題">3.5. 演習問題</a></li>
@@ -118,7 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -544,11 +546,107 @@ div.rendered_html tbody tr:hover {
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(3\)</span>は<span class="math notranslate nohighlight">\(2\)</span>より大きい</p></li>
 <li><p><span class="math notranslate nohighlight">\(3\)</span>は偶数である</p></li>
-<li><p><span class="math notranslate nohighlight">\(\pi\)</span>は3より大きく、<span class="math notranslate nohighlight">\(3.18\)</span>より小さい</p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi\)</span>は3より大きく、<span class="math notranslate nohighlight">\(3.18\)</span>より小さい (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">math</span> <span class="pre">import</span> <span class="pre">pi</span></code>)</p></li>
 <li><p><span class="math notranslate nohighlight">\(121\)</span>は<span class="math notranslate nohighlight">\(11\)</span>の倍数でない</p></li>
 <li><p>文字<code class="docutils literal notranslate"><span class="pre">&quot;e&quot;</span></code> は文字列<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code>に含まれる</p></li>
 </ol>
-</div></div>
+</div><p><img alt="c741260fcbdd43079300c917d4667858" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="mi">3</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="mf">3.0</span> <span class="o">&lt;</span> <span class="n">pi</span> <span class="o">&lt;</span> <span class="mf">3.18</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="mi">121</span> <span class="o">%</span> <span class="mi">11</span> <span class="o">!=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="s2">&quot;e&quot;</span> <span class="ow">in</span> <span class="s2">&quot;hello&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">形式論理学</p>
+<p>命題の概念は、<a class="reference external" href="https://ja.wikipedia.org/wiki/命題論理">命題論理</a>につながっていき、 コンピュータ上で論理や思考をプログラミングするとき重要になります。</p>
+</div>
+</div>
 <div class="section" id="条件分岐">
 <h2><span class="section-number">3.2. </span>条件分岐<a class="headerlink" href="#条件分岐" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>プログラムは、原則、上から順番に[A]→[B]のように評価してゆきます。</p>
@@ -558,7 +656,7 @@ div.rendered_html tbody tr:hover {
 <p><strong>if文</strong>や条件分岐の考え方は難しいものではありません。 しかし、Python には、インデントによってコードブロックを示すなど、 独特なクセがあります。 いくつか書き方のパターンを見て、書き方をマスターしましょう。</p>
 <div class="admonition warning">
 <p class="admonition-title fa fa-exclamation-circle">重要: <strong>インデント（字下げ）</strong></p>
-<p>コードの前の空白をインデントといいます\ Python はインデントの深さでコードブロックの始まりと終わりを表す</p>
+<p>コードの前の空白をインデントといいます。 （Python はインデントの深さでコードブロックの始まりと終わりを表ます。）</p>
 </div>
 <div class="section" id="基本形">
 <h3><span class="section-number">3.2.1. </span>基本形<a class="headerlink" href="#基本形" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -574,7 +672,17 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div><p>実際に、入力する値を変えて、結果の変化を試してみましょう。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># x = int(input())</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+
 <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;even&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -582,34 +690,95 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="条件分岐して何も処理しない場合">
-<h3><span class="section-number">3.2.2. </span>条件分岐して何も処理しない場合<a class="headerlink" href="#条件分岐して何も処理しない場合" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>if文のよくある書き方として、 条件分岐したとき<strong>何も処理しない場合</strong>があります。</p>
-<p>Python では、「何も実行しない」というプログラムを意味する特殊な文として、<code class="docutils literal notranslate"><span class="pre">pass</span></code>文があります。 トランプゲームの「パス」という同じです。 だから、<code class="docutils literal notranslate"><span class="pre">print(&quot;odd&quot;)</span></code>の代わりに<code class="docutils literal notranslate"><span class="pre">pass</span></code>にすると、何も実行されません。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
-<span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+even
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="何も処理しない場合">
+<h3><span class="section-number">3.2.2. </span>何も処理しない場合<a class="headerlink" href="#何も処理しない場合" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>条件分岐したとき、一方は<strong>何も処理しない場合</strong>があります。</p>
+<p>Python では、「何も実行しない」というプログラムを意味する特殊な文として、 <code class="docutils literal notranslate"><span class="pre">pass</span></code>文があります。トランプゲームの「パス」という同じです。 だから、<code class="docutils literal notranslate"><span class="pre">print(&quot;odd&quot;)</span></code>の代わりに<code class="docutils literal notranslate"><span class="pre">pass</span></code>にすると、何も実行されません。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># x = int(input())</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;even&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">pass</span>
+
 </pre></div>
 </div>
-<p>もうひとつ、<code class="docutils literal notranslate"><span class="pre">else:</span></code>自体は、何も実行しないときは省略できます。 だから、省略しても構いません。（こちらの書き方が好まれます。）</p>
-<p><strong>``else:``を省略</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
-<span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+even
+</pre></div></div>
+</div>
+<p>もうひとつ、<code class="docutils literal notranslate"><span class="pre">else:</span></code>自体は、何も実行しないときは省略できます。 だから、省略しても構いません。（<strong>こちらの書き方が好まれます。</strong>）</p>
+<p><strong>else:を省略</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># a = int(input())</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;even&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="分岐したら複数行のコードを実行する場合">
-<h3><span class="section-number">3.2.3. </span>分岐したら複数行のコードを実行する場合<a class="headerlink" href="#分岐したら複数行のコードを実行する場合" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>if文による分岐先に複数行の文を実行したいことがあります。 同じ深さのインデントが続くときは、コードブロック（つまり複文）として順次、評価されます。</p>
-<p><strong>正解</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+even
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="ブロック：複数行のコードを処理する">
+<h3><span class="section-number">3.2.3. </span>ブロック：複数行のコードを処理する<a class="headerlink" href="#ブロック：複数行のコードを処理する" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>分岐処理によっては、分岐先で複数行のプログラムを評価したいことがあります。 同じ深さのインデントが続くときは、コードブロック（つまり複文）として順次、評価されます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># a = int(input())</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+***
+***
+***
+</pre></div></div>
 </div>
 <p>ここはインデントによるコードブロックの書き方をしっかり理解しましょう。</p>
 <div class="admonition warning">
@@ -641,20 +810,42 @@ div.rendered_html tbody tr:hover {
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">big</span>
 </pre></div>
 </div>
-</div><p>if文の中にif文を書くときは、インデントを更に深くします。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#a, b = map(int, input().split())</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span>
+
 <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">else:</span></code>のあとに、すぐに if文が続くときは、 <code class="docutils literal notranslate"><span class="pre">elif</span></code>で書き直すことができます。</p>
-<p><strong>別解</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+big
+</pre></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">else:</span></code>のあとに、すぐに if文が続くときは、<code class="docutils literal notranslate"><span class="pre">elif</span></code>で書き直すことができます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#a, b = map(int, input().split())</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span>
+
 <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
 <span class="k">elif</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
@@ -663,17 +854,32 @@ div.rendered_html tbody tr:hover {
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">else</span> <span class="pre">if</span></code> を1行で書けるになるので、 インデントが不要に深くなるのを防げます。 深くなりません。</p>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+big
+</pre></div></div>
+</div>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">if文の効率</p>
-<p>ロジックは同じですが、if文が3回判定されるので、効率はよくありません。</p>
-<p><strong>別解</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+<p class="admonition-title fa fa-exclamation-circle">よくある望ましくない例（あまり効率のよくない書き方）</p>
+<p><strong>何度も条件分岐をする</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>最後がelifで終わっている</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;small&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -717,34 +923,17 @@ div.rendered_html tbody tr:hover {
     <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>もちろん``max(a,b)``でも..</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
-</pre></div>
-</div>
 <p>if式（三項演算子）は、 ソースコードが冗長になるのを防いでコンパクトに書くことができます。 ぜひ、積極的に利用してみましょう。</p>
 </div>
-<div class="section" id="繰り返し(while文とfor文)">
-<h2><span class="section-number">3.4. </span>繰り返し(while文とfor文)<a class="headerlink" href="#繰り返し(while文とfor文)" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="繰り返し">
+<h2><span class="section-number">3.4. </span>繰り返し<a class="headerlink" href="#繰り返し" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="while文">
+<h3><span class="section-number">3.4.1. </span>while文<a class="headerlink" href="#while文" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>while文は、特殊な条件分岐の構文になります。 if文の代わりに、while文を用いると、 <strong>条件PがTrueの間は``[X]``を繰り返し</strong>ます。</p>
 <img alt="code_while-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/975ed466-4bfa-9560-230a-faa0a09f97e1.png" />
-<p><strong>if文</strong>: 条件を満たせば、高々１回実行される</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span>
-
-</pre></div>
-</div>
-</div>
 <p><strong>while文</strong>: 条件を満たす限り、繰り返す</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -754,6 +943,40 @@ div.rendered_html tbody tr:hover {
     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+5
+4
+3
+2
+1
+</pre></div></div>
+</div>
+<p>ちなみに、「if文は条件を満たせば、高々１回実行される」構造でした。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+5
+</pre></div></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title fa fa-exclamation-circle">無限ループ</p>
@@ -767,25 +990,38 @@ div.rendered_html tbody tr:hover {
 <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>無限ループは、頻繁に発生し、主要なバグの原因になります。ソフトウェア光学の調査によると、アプリケーションが反応しなくなる不具合の原因は、無限ループに陥っていると言われています。<code class="docutils literal notranslate"><span class="pre">while</span></code>文を書くときは注意が必要です。</p>
-<div class="section" id="for文:-無限ループの回避">
-<h3><span class="section-number">3.4.1. </span>for文: 無限ループの回避<a class="headerlink" href="#for文:-無限ループの回避" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>無限ループは、初学者から上級者まで発生させやすいバグの原因になります。 解説を読んでいるときは、「そんなマヌケなコードは書きませんよ（絶対）」と笑っていても、 結構、頻繁に引き起こします。</p>
-<p>無限ループを避ける確実な手段は、<code class="docutils literal notranslate"><span class="pre">while</span></code>文を使わないことです。 <code class="docutils literal notranslate"><span class="pre">for/in</span></code>文は、繰り返す回数を指定できる確実な方法です。</p>
+<p>無限ループは、頻繁に発生し、主要なバグの原因になります。アプリケーションが反応しなくなる不具合の原因は、ほとんどが「<strong>予期しない無限ループに陥っている</strong>」と言われています。<code class="docutils literal notranslate"><span class="pre">while</span></code>文を書くときは、無限ループにならないように注意して書かなければなりません。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">防衛的プログラミング( Defensive Programming)</p>
+<p>ソフトウェア工学でより詳しく学びますが、 バグや不具合が発生しないようにコードの書き方を選びます。 （動けば良いというのは、20世紀のプログラミングです。）</p>
+</div>
+</div>
+<div class="section" id="for文">
+<h3><span class="section-number">3.4.2. </span>for文<a class="headerlink" href="#for文" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>無限ループは、初学者から上級者まで発生させやすいバグの原因になります。 解説を読んでいるときは、「そんなマヌケなコードは書きませんよ（絶対）」と笑っていても、 結構、頻繁に発生させて凹みます。</p>
+<p>無限ループを避ける確実な手段は、<code class="docutils literal notranslate"><span class="pre">while</span></code>文を使わないことです。 <code class="docutils literal notranslate"><span class="pre">for/in</span></code>文は、繰り返す回数を指定でき、無限ループを避ける確実な方法です。</p>
+<img alt="code_for-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d30f935a-899a-e069-0132-5cc08e800487.png" />
 <p><strong>N回繰り返したいとき</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="c1"># 繰り返す処理</span>
 </pre></div>
 </div>
-<p>特別な事情がない場合は、<code class="docutils literal notranslate"><span class="pre">for</span></code>文を用いて繰り返しを書くようにしましょう。 特に、<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(N):</span></code>は、<span class="math notranslate nohighlight">\(N\)</span>回繰り返すときの定番の書き方です。 繰り返す回数が決まっているときは、<code class="docutils literal notranslate"><span class="pre">for</span></code>文を使いましょう。</p>
-<img alt="code_for-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d30f935a-899a-e069-0132-5cc08e800487.png" />
+<p>特別な事情がない場合は、繰り返しは<code class="docutils literal notranslate"><span class="pre">for</span></code>文を用いるようにしましょう。 特に、<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(N):</span></code>は、<span class="math notranslate nohighlight">\(N\)</span>回繰り返すときの定番の書き方です。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">for 文の変数</p>
+<p>変数 <code class="docutils literal notranslate"><span class="pre">i</span></code>には0から始まる整数が繰り返しの回数分に割り当てられます。 （リストと同じく<strong>0 から始まります。</strong>）</p>
+</div>
+</div>
+<div class="section" id="シミュレーション">
+<h3><span class="section-number">3.4.3. </span>シミュレーション<a class="headerlink" href="#シミュレーション" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>シミュレーションは、1ステップずつ値を更新させながら、未来を予測する計算手法です。 プログラミングの得意な分野のひとつとなっています。</p>
 <div class="admonition tip"><p><strong>例題(お米)</strong></p>
 <p>お米は、一粒から1本の苗になります。 苗は、10本の穂を実らせ、各稲穂には60粒のお米が実ります。 つまり、1粒は1年後に600粒になります。</p>
 <p>1粒の稲を1億粒以上に増やすには、何年かかるか求めてみよう。</p>
-</div><p>等比数列から計算してもよいですが、コンピュータの場合は繰り返しでシミュレーションした方が早いです。</p>
+</div><p>等比数列から計算してもよいですが、シミュレーション（繰り返し）で書いてみましょう。</p>
 <p><strong>while文で書いたとき</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -814,16 +1050,17 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>for文で書くときは、少し大きめの繰り返し回数を指定し、 条件を満たしたら、ループを抜ける<code class="docutils literal notranslate"><span class="pre">break</span></code>文を使います。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">START</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">GOAL</span> <span class="o">=</span> <span class="mi">1_0000_0000</span>   <span class="c1"># _位取り</span>
-<span class="n">n</span> <span class="o">=</span> <span class="n">start</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">START</span>
+
 <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">600</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">goal</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">GOAL</span><span class="p">:</span>
         <span class="k">break</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
 
@@ -846,7 +1083,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="演習問題">
 <h2><span class="section-number">3.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>繰り返しは、次回以降、本格的に練習していきます。今回は、条件分岐に慣れましょう。</p>
+<p>繰り返しは、次回以降、リストや文字列とあわせて練習していきます。 今回は、条件分岐に慣れましょう。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc061/tasks/abc061_a">二つの数の間</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc147/tasks/abc147_a">ブラックジャック</a></p></li>

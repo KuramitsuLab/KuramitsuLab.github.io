@@ -111,7 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#変数値の増減">2.3.6. 変数値の増減</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#変数とよくある間違い">2.4. 変数とよくある間違い</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#エラー対策に強くなろう">2.4. エラー対策に強くなろう</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#演習問題">2.5. 演習問題</a></li>
 </ul>
 </li>
@@ -125,7 +125,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -471,7 +471,7 @@ div.rendered_html tbody tr:hover {
 <p>コンピュータは、その名前が由来する通り、計算機です。 <strong>計算</strong>することは、プログラミングの基礎となります。</p>
 <p>まず、コンピュータに計算させることを学びます。</p>
 <p>今回もColabを使いながらハンズオン演習していきましょう。</p>
-<p><img alt="d958d97240e84941b085816c25380fe6" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/dd518dc4-71b7-298d-cb03-dc525cf0205d.png" style="width: 90%;" /></p>
+<p><img alt="a524a5bee4414a1dbcf1254c01cee565" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/dd518dc4-71b7-298d-cb03-dc525cf0205d.png" style="width: 90%;" /></p>
 <div class="section" id="数式とプログラミング">
 <h3><span class="section-number">2.1.1. </span>数式とプログラミング<a class="headerlink" href="#数式とプログラミング" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Pythonは、<strong>できる限り新しいことを覚えなく</strong>ても プログラムを書けるように工夫されて作られています。 だから、数式を計算するとき、中学校から習ってきた数式を<strong>ほぼ</strong>そのまま使えるようになっています。</p>
@@ -535,7 +535,7 @@ div.rendered_html tbody tr:hover {
 <li><p><span class="math notranslate nohighlight">\(2^3\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\sqrt{2}\)</span> (ヒント: <span class="math notranslate nohighlight">\(2^{\frac{1}{2}}\)</span>)</p></li>
 </ol>
-</div><p><img alt="a1e19439ffbc48038d5ead00b2d2291d" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+</div><p><img alt="fe931c2115084f338c194d8f6d3b0068" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
 <p>(正解)　<span class="math notranslate nohighlight">\(1\times2+3\)</span></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -765,7 +765,7 @@ div.rendered_html tbody tr:hover {
 <li><p>465と360の最大公約数</p></li>
 <li><p><span class="math notranslate nohighlight">\(7/2\)</span> の(小数点以下）切り上げ</p></li>
 </ol>
-</div><p><img alt="95eb37d1271a44dd8e58c5c9007ee595" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+</div><p><img alt="e14dc08f45724bccab4f1148e19b8703" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
 <p>(正解) −1と8の差の絶対値</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
@@ -862,15 +862,6 @@ div.rendered_html tbody tr:hover {
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p><a class="reference external" href="https://docs.python.org/ja/3/library/math.html">算術ライブラリ</a>には、さまざまな算術関数が用意されています。 どのような関数があるか調べてみよう。</p>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="式と評価">
@@ -894,7 +885,8 @@ div.rendered_html tbody tr:hover {
 <p class="admonition-title fa fa-exclamation-circle">意味がわかるとは</p>
 <p>（式から）評価される値が正しく予測できること</p>
 </div>
-<p>プログラミング言語は、人間とコンピュータの共通言語となります。 両者の解釈が一致するように、意味も理論的に研究されてきて、 ここで紹介したのは、<strong>操作的意味論(operational semantics)</strong>と呼ばれます。 （知識や意味、学習などを研究するのは、コンピュータ科学の重要なテーマです。）</p>
+<p>プログラミング言語は、人間とコンピュータの共通言語となります。 両者の解釈が一致するように、意味も理論的に研究されてきて、 知識や意味、学習などを研究するのは、コンピュータ科学の重要なテーマです。</p>
+<p>ちなみに、「評価される値が正しく予測できれば意味がわかっている」というのは、 <strong>操作的意味論(operational semantics)</strong>に基づく考え方です。</p>
 <p>Colabは、簡単に様々なプログラムを評価して、その結果を試せるようになっています。 理屈で考えてもわからない時は、手を動かしてみて、Colabで評価してみることをお勧めします。 何回か実行してみると、少しずつ意味がわかってくることも少なくありません。</p>
 </div>
 </div>
@@ -1033,18 +1025,50 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <p>数式 <span class="math notranslate nohighlight">\(x = x + 1\)</span>というのは、明らかに矛盾していますが、 Pythonとしては「<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">1</span></code>を評価した値に(もう一度)<code class="docutils literal notranslate"><span class="pre">x</span></code>という名前をつける」と解釈します。 見方を変えれば、再代入は<strong>変数の値を変更している</strong>ことになります。</p>
-<p>さて、変数の値を変更するにしても、なんか:nbsphinx-math:<a href="#id14"><span class="problematic" id="id15">`</span></a>Bou{紛らわしい}`ですよね。 再代入を多用すると、プログラムが理解しにくくなります。</p>
+<p>さて、名前を付け替えるにしても、変数の値を変更するにしても、なんか<strong>紛らわしい</strong>ですよね。 再代入を多用すると、プログラムが理解しにくくなります。</p>
 </div>
 <div class="section" id="変数値の増減">
 <h3><span class="section-number">2.3.6. </span>変数値の増減<a class="headerlink" href="#変数値の増減" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>Pythonでは、変数の値を増やしたり、減らしたり、変更することが多くあります。 そのような場合は、自己代入演算子を用いて書くこともできます。</p>
+<p>Pythonでは、変数の値を増やしたり、減らしたり、変更することが多くあります。 そのような場合は、<strong>自己代入演算子</strong>を用いて書くこともできます。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 28%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>別の書き方</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+=</span> <span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">+</span> <span class="pre">1</span></code></p></td>
+<td><p>変数<code class="docutils literal notranslate"><span class="pre">x</span></code>を1つ増やす</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">-=</span> <span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">-</span> <span class="pre">1</span></code></p></td>
+<td><p>変数<code class="docutils literal notranslate"><span class="pre">x</span></code>を1つ減らす</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*=</span> <span class="pre">2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">*</span> <span class="pre">2</span></code></p></td>
+<td><p>変数<code class="docutils literal notranslate"><span class="pre">x</span></code>を2倍にする</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">//=</span> <span class="pre">2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">//</span> <span class="pre">2</span></code></p></td>
+<td><p>変数<code class="docutils literal notranslate"><span class="pre">x</span></code>を半分にする</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div class="section" id="変数とよくある間違い">
-<h2><span class="section-number">2.4. </span>変数とよくある間違い<a class="headerlink" href="#変数とよくある間違い" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="エラー対策に強くなろう">
+<h2><span class="section-number">2.4. </span>エラー対策に強くなろう<a class="headerlink" href="#エラー対策に強くなろう" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>プログラミングは、いつも正しく動作することが続きません。</p>
-<p>むしろ、ほとんどの場合は正しく動かないので、 エラーメッセージ等を見ながら、正しく動作するようにしなければなりません。</p>
-<p>今回の内容で、初学者にありがちなよく間違えるエラーを集めてみました。</p>
+<p><img alt="4ef0a9126fce4845a80246836333a3e1" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/154fadd2-3e70-3477-55e7-92befcfa8dda.png" style="width: 60%;" /></p>
+<p>むしろ、ほとんどの場合は正しく動きません。 <strong>エラーメッセージ</strong>等を見ながら、正しく動作するようにするのがプログラミングです。</p>
+<p>初学者にありがちなよく間違えるエラーを集めてみました。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>是非、エラーを取り除いて正しく動作するようにしてみましょう。</p>
@@ -1128,7 +1152,7 @@ div.rendered_html tbody tr:hover {
 <span class="ansi-red-fg">NameError</span>: name &#39;xy&#39; is not defined
 </pre></div></div>
 </div>
-<p>__ BMI が正しく計算されない…__</p>
+<p><strong>BMI が正しく計算されない…</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -1157,10 +1181,13 @@ div.rendered_html tbody tr:hover {
 <span class="ansi-red-fg">NameError</span>: name &#39;wieght&#39; is not defined
 </pre></div></div>
 </div>
-</div>
+<p>エラーメッセージは英語</p>
+<p>英語を読めば解決の手がかりは得られます。 英語が苦手な場合は、機械翻訳を使ってもいいからちゃんと読みましょう。</p>
+<img alt="google_translation.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/155669d7-ece9-78d0-cd97-73491c464406.png" />
+</div></div>
 <div class="section" id="演習問題">
 <h2><span class="section-number">2.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>プログラミングを上達するコツは、頭で理解するだけでなく自分で書いてみることです。</p>
+<p>プログラミングは、練習した時間、解いた問題数だけ上達します。がんばりましょう！！</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc145/tasks/abc145_a">円/Circle</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc128/tasks/abc128_a">Apple Pie</a></p></li>
@@ -1173,8 +1200,12 @@ div.rendered_html tbody tr:hover {
 <li><p><a class="reference external" href="https://atcoder.jp/contests/joi2011yo/tasks/joi2011yo_a">合計時間</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc178/tasks/abc178_b">Product Max</a>:</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc168/tasks/abc168_c">秒針</a></p></li>
-<li><p><a class="reference external" href="https://atcoder.jp/contests/abc183/tasks/abc183_b">ビリヤード/Billiards</a>: 難しい</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc183/tasks/abc183_b">ビリヤード/Billiards</a></p></li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">問題の難易度について</p>
+<p>本日の内容で解けそうな問題を選んでいますが、 時々、<strong>地雷のように難しい問題</strong>が混ざってしまいます。 難しい問題を見つけたら授業感想等で報告してください。</p>
+</div>
 </div>
 </div>
 

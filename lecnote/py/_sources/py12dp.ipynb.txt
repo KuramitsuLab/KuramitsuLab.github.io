@@ -10,12 +10,12 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.9.1-final"
+   "version": "3.9.2-final"
   },
   "orig_nbformat": 2,
   "kernelspec": {
    "name": "python3",
-   "display_name": "Python 3.9.1 64-bit",
+   "display_name": "Python 3.9.2 64-bit",
    "metadata": {
     "interpreter": {
      "hash": "ac2eaa0ea0ebeafcc7822e65e46aa9d4f966f30b695406963e145ea4a91cd4fc"
@@ -30,7 +30,7 @@
    "source": [
     "# 動的計画法\n",
     "\n",
-    "プログラミングの鍵となるリストと繰り返しについて説明します。\n",
+    "動的計画法 (dynamic programming) は，部分問題に分割し，その部分解を記録しながら、効率よく全体解を求める手法です。全探索では計算量が大きくなり過ぎるとき、威力を発揮します。競技プログラミングでは、動的計画法ができるかどうかで成績が大きく変わります。\n",
     "\n"
    ],
    "cell_type": "markdown",
@@ -38,66 +38,631 @@
   },
   {
    "source": [
-    "## TODO"
+    "## フィボナッチ数\n",
+    "\n",
+    "まず、簡単な例から動的計画法を理解しましょう。\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（フィボナッチ数）**\n",
+    "\n",
+    "フィボナッチ数列の第100項(n=100)を求めてみよう\n",
+    "\n",
+    "$$\n",
+    "F_{n} = \\begin{cases}\n",
+    "    1 & (n=1) \\\\\n",
+    "    1 & (n=2) \\\\\n",
+    "    F_{n-1} + F_{n-2}  & (n\\le2)\n",
+    "  \\end{cases}\n",
+    "$$\n",
+    "</div>\n",
+    "\n",
+    "### 再帰関数と限界\n",
+    "\n",
+    "フィボナッチ数 $F_n$の漸化式をそのまま再帰関数で定義してみると、\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "55"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 1
+    }
+   ],
+   "source": [
+    "def fibo(n):\n",
+    "    if n == 1 or n == 2:\n",
+    "        return 1\n",
+    "    return fibo(n-1) + fibo(n-2)\n",
+    "fibo(10) #100にすると大変"
+   ]
+  },
+  {
+   "source": [
+    "このフィボナッチ関数は、n が大きくなると、実行時間が極端にかかるようになります。\n",
+    "計算量は、$O((\\frac{1+\\sqrt{5}}{2})^n)$で指数時間です。\n",
+    "実際に、n を増やしていったときの実行時間を次のように増大していきます。\n",
+    "(Python では、n = 35辺りが限界です。）\n",
+    "\n",
+    "<img src=\"https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png\" width=\"50%\" align=\"center\"/>\n",
+    "\n",
+    "\n",
+    "しかし、プログラミング技法で、指数計算時間の限界を解決することができます。\n",
+    "\n",
+    "### メモ化再帰\n",
+    "\n",
+    "メモ化再帰は、再計算を防ぐため、一度計算した結果は、メモとして記録する手法です。\n",
+    "再計算の代わりにメモを使うことで効率よく計算します。\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "354224848179261915075"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 3
+    }
+   ],
+   "source": [
+    "# 計算結果を入れるメモ(大きめの配列) \n",
+    "memo = [0] * 1000\n",
+    "memo[1] = 1 # 先に n=1, n=2 の計算結果を入れておく \n",
+    "memo[2] = 1\n",
+    "\n",
+    "def fibo(n):\n",
+    "    if memo[n] != 0: # メモに記録されていたら計算しない \n",
+    "        return memo[n]\n",
+    "    # メモに結果を記録する\n",
+    "    memo[n] = fibo(n-1) + fibo(n-2) \n",
+    "    return memo[n]\n",
+    "\n",
+    "fibo(100) # 今度は、100も計算できます。"
+   ]
+  },
+  {
+   "source": [
+    "## ループに変換する\n",
+    "\n",
+    "フィボナッチ数の再帰関数をループ構造に変換してみます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "354224848179261915075"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 5
+    }
+   ],
+   "source": [
+    "memo = [0] * 1000\n",
+    "memo[1] = 1 # 先に n=1, n=2 の計算結果を入れておく \n",
+    "memo[2] = 1\n",
+    "\n",
+    "def fibo(n):\n",
+    "    for i in range(3, n+1):\n",
+    "        memo[i] = memo[i-1] + memo[i-2] \n",
+    "    return memo[n]\n",
+    "\n",
+    "fibo(100)"
+   ]
+  },
+  {
+   "source": [
+    "ポイントは、メモ化再帰のときと同じく、途中の計算結果を配列 (memo) に記録しています。\n",
+    "このように途中結果を「部分問題の解」として記録し、より大きな問題の解に活用する方法を**動的計画法**といいます。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "**DP 表**\n",
+    "\n",
+    "途中の計算結果を記録した表(配列)のこと\n",
+    "\n",
+    "</div>\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
    "source": [
-    "## 見本\n",
+    "### 例題で練習！\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## コインの問題\n",
     "\n",
+    "フィボナッチ数列は最初から漸化式が与えられていました。しかし、実際の問題では漸化式が最初から与えられることはありません。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "動的計画法のポイント\n",
+    "\n",
+    "漸化式を発見すること\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "漸化式を発見する方法をみていきましょう。\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（コインの問題）**\n",
+    "\n",
+    "ある国の硬貨は，4 種類あり，50円, 40円, 7円, 1円 の価値を持つ。\n",
+    "これらの硬貨を用いて，$x$円払うとき、硬貨の最小枚数を求めよ。\n",
+    "\n",
+    "</div>\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 貪欲法\n",
+    "\n",
+    "日常生活では、大きい硬貨から順番に使っていくことで、硬貨の最小枚数を考えます。\n",
+    "例えば、日本国内の硬貨(50,10,5,1)なら\n",
+    "\n",
+    "$$\n",
+    "127 = 50 \\times 2 + 10 \\times 2 + 5\\times 1 + 1 \\times 2\n",
+    "$$\n",
+    "より、127円は、合計 2+2+1+2 = 7枚。\n",
+    "\n",
+    "このような方法は、アルゴリズムでは**貪欲法 (greedy)** と呼ばれます。\n",
+    "貪欲法で硬貨の枚数を求めると：\n",
+    "\n",
+    "__コイン(50,10,5,1)の場合__\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "7"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 6
+    }
+   ],
+   "source": [
+    "COINS = [50, 10, 5, 1] # 硬貨の種類をセット\n",
+    "\n",
+    "def greedy_coin(x): \n",
+    "    counts = [0, 0, 0, 0] \n",
+    "    reminder = x\n",
+    "    for i, coin in enumerate(COINS): \n",
+    "        counts[i] = reminder // coin\n",
+    "        reminder %= coin \n",
+    "    return sum(counts)\n",
+    "\n",
+    "greedy_coin(127)\n"
+   ]
+  },
+  {
+   "source": [
+    "さて、日本の硬貨のように，小さい硬貨が大きな硬貨の約数になっているのなら、貪欲法で解くことができます。ところが、今回のコインの問題のように 40 円硬貨や 7 円硬貨が登場すると、貪欲法では必ずしも最小枚数に辿り着けません。\n",
+    "\n",
+    "__コインの問題(50,40,7,1)__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "11"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 7
+    }
+   ],
+   "source": [
+    "COINS = [50, 40, 7, 1] # 硬貨の種類をセット\n",
+    "\n",
+    "def greedy_coin(x): \n",
+    "    counts = [0, 0, 0, 0] \n",
+    "    reminder = x\n",
+    "    for i, coin in enumerate(COINS): \n",
+    "        counts[i] = reminder // coin\n",
+    "        reminder %= coin \n",
+    "    return sum(counts)\n",
+    "\n",
+    "greedy_coin(127)\n"
+   ]
+  },
+  {
+   "source": [
     "<div class=\"alert alert-info\">\n",
     "\n",
     "Let's try\n",
     "\n",
-    "`2 ** (1//2)` が、正しく $\\sqrt{2}$ にならない理由を考えてみよう\n",
+    "コインの問題において、127円の最小枚数を探してみよう\n",
     "\n",
     "</div>\n",
     "\n",
-    "まずは、リストを使わなくても解ける問題ですが、リストの練習を兼ねて解いてみましょう。\n",
+    "<img src=\"https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png\" width=\"20%\" align=\"right\" />\n",
     "\n",
-    "### 平均点\n",
+    "__正解（たぶん）__\n",
+    "\n",
+    "$$\n",
+    "127 = 50 \\times 0 + 40 \\times 3 + 7\\times 1 + 1 \\times 0\n",
+    "$$\n",
+    "より、127円は、合計 0+3+1+0 = 4枚が存在する。\n",
+    "\n",
+    "どうしたら，確実に最小枚数を見つけることができるのでしょうか?\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 部分解を考える\n",
+    "\n",
+    "動的計画法は、部分問題に分割し，「部分問題の解」から「全体問題の解」を得ることを考えます。\n",
+    "分割統治法に似ていますが、「部分問題の解」に計算する順序関係がある点が異なります。再帰構造 の問題と同じく、初期解から考えてみましょう。\n",
+    "\n",
+    "$dp(x)$ を $x$ 円のときの最小枚数 (解) を表すものとします。 \n",
+    "\n",
+    "__初期解(x = 0)__: 自明です。\n",
+    "\n",
+    "$$\n",
+    "dp(0) = 0\n",
+    "$$\n",
+    "\n",
+    "このとき、硬貨を一枚追加して購入できる金額を考えます。\n",
+    "すると、dp(50), dp(40), dp(7), dp(1) の解は、それぞれ dp(0) を用いて、次のように計算できます。\n",
+    "\n",
+    "$$\n",
+    "dp(50) = dp(0) + 1\\\\\n",
+    "dp(40) = dp(0) + 1\\\\\n",
+    "dp(7) = dp(0) + 1\\\\\n",
+    "dp(1) = dp(0) + 1\n",
+    "$$\n",
+    "\n",
+    "これをもしS(x)がわかっていたら、次のような関係が見えきませんか？\n",
+    "\n",
+    "$$\n",
+    "dp(50+x) = dp(x) + 1\\\\\n",
+    "dp(40+x) = dp(x) + 1\\\\\n",
+    "dp(7+x) = dp(x) + 1\\\\\n",
+    "dp(1+x) = dp(x) + 1\n",
+    "$$\n",
+    "\n",
+    "あとは、順番に気をつけて計算します。\n",
+    "特に、$dp(x)$ からみると、$dp(x − 50) + 1$, $dp(x − 40) + 1, ...$ のように重複して計算されます。そこで、途中の計算結果は，**DP表**に記録しながら、重複したときは**最小値 (min)** を記録するようにすれば良いでしょう。\n",
+    "\n",
+    "\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "4"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 9
+    }
+   ],
+   "source": [
+    "COINS = [50, 40, 7, 1] \n",
+    "\n",
+    "def dp_coin(x):\n",
+    "    dp = [x] * (x+51) # 最初に最大値を入れておく \n",
+    "    dp[0] = 0 # 初期解\n",
+    "    for p in range(0, x+1):\n",
+    "        for coin in COINS:\n",
+    "            dp[p+coin] = min(dp[p] + 1, dp[p+coin])\n",
+    "    return dp[x]\n",
+    "\n",
+    "dp_coin(127)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "これをより一般化すると、次のような関係が見えてくるはずです。\n"
+   ]
+  },
+  {
+   "source": [
+    "### 再帰で考える\n",
+    "\n",
+    "コインの最小枚数 $coin(x)$ は，次のように漸化式にまとめることもできます。\n",
+    "\n",
+    "$$\n",
+    "coin(x) = min(coin(x − 50), coin(x − 40), coin(x − 7), coin(x − 1)) + 1\n",
+    "$$\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "3"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 2
+    }
+   ],
+   "source": [
+    "from functools import lru_cache\n",
+    "\n",
+    "@lru_cache(300)\n",
+    "def coin(x):\n",
+    "    if x <= 0 : return 0\n",
+    "    return min(coin(x-50), coin(x-40), coin(x-7), coin(x-1)) + 1\n",
+    "\n",
+    "coin(127)"
+   ]
+  },
+  {
+   "source": [
+    "\n",
+    "実は、動的計画表とメモ化再帰は、計算順序がトップダウンかボトムアップかの違いがあるだけで、アルゴリズム的な原理は同じものです。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "初期解がわかっているときは\n",
+    "\n",
+    "初期解から次の解が見つけられないか考え、動的計画法/再帰構造がないか探す\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## ナップサック問題\n",
+    "\n",
+    "旅行カバンに何を詰めるかは、日常的に発生する問題です。そのような日常問題にモデルにした超古典的な問題「ナップサック問題」に取り組んでみましょう。\n",
     "\n",
     "<div class=\"admonition tip\">\n",
     "\n",
-    "**例題（平均点）**\n",
+    "**例題（ナップサック問題）**\n",
     "\n",
-    "期末試験は5人受験した。\n",
-    "点数が40点未満の生徒は全員，補習を受け，成績が40点になった。\n",
-    "5人の平均点を求めよ。\n",
+    "価値が $v_i$ 重さが $w_i$ であるような $N$ 個のアイテムと、最大積載容量が $W$ のナップザックがある。次の条件を満たすように、アイテムを選んでナップザックに入れる。\n",
     "\n",
-    "入力例：\n",
-    "```\n",
-    "10\n",
-    "65\n",
-    "100\n",
-    "30\n",
-    "95\n",
-    "```\n",
+    "* 選んだ品物の価値の合計をできるだけ高くする。 \n",
+    "* 選んだ品物の重さの総和は $W$ を超えない。\n",
     "\n",
-    "出力例：\n",
-    "```\n",
-    "68\n",
-    "```\n",
-    "\n",
-    "[AtCoder (JOI2014 予選)](https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a)\n",
+    "価値の合計の最大値を求めよ。\n",
     "\n",
     "</div>\n",
     "\n",
-    "__(解法) リストを使う場合__\n",
+    "__(具体例 1)__: ナップサックの容量を 40 のとき、次の品物のどれを選ぶべきか考えてみよう。\n",
     "\n",
-    "1. 期末試験を記録する空の得点リスト `scores` を用意する\n",
-    "2. 5人分繰り返し、点数を読んで、`scores` に追加する \n",
-    "3. 平均点は `sum(scores) // 5`\n",
+    "|品物|価格|サイズ|\n",
+    "|---|---|---|\n",
+    "|缶コーヒー|120|10| \n",
+    "|ペットボトル水|130|12| \n",
+    "|バナナ|80|7| \n",
+    "|りんご|100|9| \n",
+    "|おにぎり|250|21| \n",
+    "|パン|185|16|\n",
+    "\n",
+    "__(具体例 2)__: アルバイト可能な時間が 6 時間あるとすると、どのアルバイトを選べば最も稼げるだろうか？\n",
+    "\n",
+    "|アルバイト|時給|稼働時間|\n",
+    "|---|---|---|\n",
+    "|データ入力|1250|5|\n",
+    "|プログラミング塾|1600|2|\n",
+    "|画像編集|1050|3|\n",
+    "|TA|1300|2|\n",
+    "|Webサイト作成|1100|4|\n",
+    "\n",
+    "### アプローチ1: ヒューリスティクス\n",
+    "\n",
+    " 多くの人は、価値の高いものから順番に入れていこうとするはずです。この方針は、**ヒューリスティクス**と呼ばれます。十分満足できる結果が得られることが多い一方、必ずしも最適解が得られることが保証されません。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "おにぎりを選んだ\nパンを選んだ\n"
+     ]
+    },
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "(435, 37)"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 5
+    }
+   ],
+   "source": [
+    "ITEMS = [\n",
+    "    ('缶コーヒー', 120, 10),\n",
+    "    ('ペットボトル水', 130, 12),\n",
+    "    ('バナナ', 80, 7),\n",
+    "    ('りんご', 100, 9),\n",
+    "    ('おにぎり', 250, 21),\n",
+    "    ('パン', 185, 16),\n",
+    "]\n",
+    "\n",
+    "ITEMS.sort(key=lambda x: x[1], reverse=True)  # 価値の高い順にソート\n",
+    "\n",
+    "def max_value(W):\n",
+    "    v = 0\n",
+    "    w = 0\n",
+    "    for item in ITEMS:\n",
+    "        if w+item[2] <= W:\n",
+    "            v += item[1]\n",
+    "            w += item[2]\n",
+    "            print(f'{item[0]}を選んだ')\n",
+    "    return v, w\n",
+    "\n",
+    "max_value(40)\n"
+   ]
+  },
+  {
+   "source": [
+    "### アプローチ2: 全探索\n",
+    "\n",
+    "最適解を得るためには、アイテムひとつに対し、入れる/入れないの2通りの選択肢があります。\n",
+    "この組み合わせを全て調べて、最大値となる組み合わせを網羅的に選べばよいわけです。\n",
+    "\n",
+    "__深さ優先探索__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "(470, 40)"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 9
+    }
+   ],
+   "source": [
+    "weight=0\n",
+    "value=0\n",
+    "\n",
+    "def maxValue(W, i=0, w=0, v=0):\n",
+    "    global weight, value\n",
+    "    if i == len(ITEMS):\n",
+    "        if w <= W and v > value:\n",
+    "            value = v\n",
+    "            weight = w\n",
+    "        return v, w\n",
+    "    # i番目のアイテムを選択 \n",
+    "    maxValue(W, i+1, w+ITEMS[i][2], v+ITEMS[i][1])\n",
+    "    # i番目のアイテムを選択しない\n",
+    "    maxValue(W, i+1, w, v)\n",
+    "    return value, weight\n",
+    "\n",
+    "maxValue(40)"
+   ]
+  },
+  {
+   "source": [
+    "この方針は、アイテム数が $N$ のとき、$2^N$ 通りの組み合わせを調べなければなりません。したがっ\n",
+    "て、$N$ が大きくなったとき、解を求めるのは難しくなります。\n",
+    "\n",
+    "<div class=\"alert alert-warning\">\n",
+    "ナップサック問題 \u0016 \n",
+    "\n",
+    "ナップサック問題は、NP 困難\n",
+    "</div>\n",
     "\n",
     "\n",
+    "実用的な逃げ道として、分岐限定法と呼ばれる方法があります。これは、枝刈りによって暫定解からその後の選択に含まれない経路を省略する手法です。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 動的計画法\n",
     "\n",
-    "|Python|説明|\n",
-    "|--------|-------------|\n",
-    "|`max(a)`|数列`a`の最大値|\n",
-    "|`min(a)`|数列`a`の最小値|\n",
-    "|`sum(a)`|数列`a`の合計値| \n"
+    "ナップザック問題は、再帰構造が内在し、漸化式で書き直すことができます。これを活用して、最適解を求めることもできます。\n",
+    "\n",
+    "まず、再帰構造を考えるため、問題をパラメータ化します。ポイントは、アイテムの数を増やす、最大容量を増やす、というように2つのパラメータを導入する点です。\n",
+    "\n",
+    "ここでは、$n( \\le N )$ 個のアイテム、最大容量 $w(< W )$ のときの最大価値を $V (n, w)$ とします。すると、$V (n, w)$ は漸化式で次のように表せます。\n",
+    "\n",
+    "$$\n",
+    "V(n,w) = \\begin{cases}\n",
+    "    0 & (n=0) \\\\\n",
+    "    0 & (w=0) \\\\\n",
+    "    V(n-1, w-w_n) + v_n & (w\\le w_n) \\\\\n",
+    "    V(n-1, w)  & (\\mbox{上記意外})\n",
+    "  \\end{cases}\n",
+    "$$\n",
+    "\n",
+    "あとは、$V (N, W )$ を計算することになります。落ち着いて取り組めば、動的計画法でも、メモ化再帰でも解が得られるようになります。\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -108,7 +673,9 @@
     "\n",
     "* [リュカ数](https://atcoder.jp/contests/abc079/tasks/abc079_b) フィボナッチの変形か？\n",
     "* [再分配](https://atcoder.jp/contests/abc178/tasks/abc178_d): 簡単なDPと思われる\n",
-    "* [るんるん数](https://atcoder.jp/contests/abc161/tasks/abc161_d) 簡単なDPと思われるがいかが？"
+    "* [るんるん数](https://atcoder.jp/contests/abc161/tasks/abc161_d) 簡単なDPと思われるがいかが？\n",
+    "\n",
+    "* [ナップサック問題](https://atcoder.jp/contests/abc032/tasks/abc032_d)\n"
    ],
    "cell_type": "markdown",
    "metadata": {}

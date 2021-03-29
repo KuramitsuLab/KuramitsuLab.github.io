@@ -121,7 +121,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -216,22 +216,39 @@
 </style>
 <div class="section" id="プログラミング上達のコツ">
 <h1><span class="section-number">7. </span>プログラミング上達のコツ<a class="headerlink" href="#プログラミング上達のコツ" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>プログラミング上達のコツを紹介します。</p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/helloworld.png">http://s3.amazonaws.com/lyah/helloworld.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/listmonster.png">http://s3.amazonaws.com/lyah/listmonster.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/pythag.png">http://s3.amazonaws.com/lyah/pythag.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/classes.png">http://s3.amazonaws.com/lyah/classes.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/recursion.png">http://s3.amazonaws.com/lyah/recursion.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/painter.png">http://s3.amazonaws.com/lyah/painter.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/curry.png">http://s3.amazonaws.com/lyah/curry.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/binarytree.png">http://s3.amazonaws.com/lyah/binarytree.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/rpn.png">http://s3.amazonaws.com/lyah/rpn.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/roads.png">http://s3.amazonaws.com/lyah/roads.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/shamrock.png">http://s3.amazonaws.com/lyah/shamrock.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/pirateship.png">http://s3.amazonaws.com/lyah/pirateship.png</a></p>
-<p><a class="reference external" href="http://s3.amazonaws.com/lyah/chess.png">http://s3.amazonaws.com/lyah/chess.png</a></p>
-<p>rightTriangles</p>
-<p>ここでは、授業で話した（もしくは話そうと考えている） プログラミング上達のコツを書いておきます。</p>
+<!--
+プログラミング上達のコツを紹介します。
+
+http://s3.amazonaws.com/lyah/helloworld.png
+
+http://s3.amazonaws.com/lyah/listmonster.png
+
+http://s3.amazonaws.com/lyah/pythag.png
+
+http://s3.amazonaws.com/lyah/classes.png
+
+http://s3.amazonaws.com/lyah/recursion.png
+
+http://s3.amazonaws.com/lyah/painter.png
+
+http://s3.amazonaws.com/lyah/curry.png
+
+http://s3.amazonaws.com/lyah/binarytree.png
+
+http://s3.amazonaws.com/lyah/rpn.png
+
+http://s3.amazonaws.com/lyah/roads.png
+
+http://s3.amazonaws.com/lyah/shamrock.png
+
+http://s3.amazonaws.com/lyah/pirateship.png
+
+http://s3.amazonaws.com/lyah/chess.png
+
+
+
+rightTriangles
+--><p>ここでは、授業で話した（もしくは話そうと考えている） プログラミング上達のコツを書いておきます。</p>
 <div class="section" id="良いコードとは">
 <h2><span class="section-number">7.1. </span>良いコードとは<a class="headerlink" href="#良いコードとは" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>まず、プログラミングを上達させる鍵は、 常にもう少し<strong>良いコードは書けないか</strong>としばし考えてみることです。</p>
@@ -245,6 +262,8 @@
 <p class="admonition-title fa fa-exclamation-circle">上達のコツ</p>
 <p>まず、良いコードを書こうと工夫することです</p>
 </div>
+<p><img alt="cb8d1bb0316848548bb8a644f730473a" class="no-scaled-link" src="https://www.oreilly.co.jp/books/images/picture_large978-4-87311-565-8.jpeg" style="width: 30%;" /></p>
+<p>ちなみに、「読みやすい」コードを追求するだけで、<a class="reference external" href="https://www.oreilly.co.jp/books/9784873115658/">本１冊</a>に相当する内容なっています。（リーダブルコードは、新人エンジニアがみんな読む名著です。）</p>
 </div>
 <div class="section" id="アプローチ">
 <h2><span class="section-number">7.2. </span>アプローチ<a class="headerlink" href="#アプローチ" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -259,7 +278,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">3</span> <span class="mi">8</span>
 </pre></div>
 </div>
-</div><p>まず、次を考えずに書いてみてください。</p>
+</div><p>まず、次を見ずに自分ならどう解くか考えてみてください。</p>
 <div class="section" id="アプローチの違い">
 <h3><span class="section-number">7.2.1. </span>アプローチの違い<a class="headerlink" href="#アプローチの違い" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>簡単な問題ですが、 プログラミングコンテストに有用な４つのアプローチがあります。</p>
@@ -491,7 +510,7 @@
 <div class="section" id="方法序説">
 <h3><span class="section-number">7.3.4. </span>方法序説<a class="headerlink" href="#方法序説" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>「大きくて複雑すぎる問題は、解ける小問題に分割して解く」というのは、 ルネ・デカルトが1637年に公刊された「<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%96%B9%E6%B3%95%E5%BA%8F%E8%AA%AC">方法序説</a>」で述べられている手法です。 今日、<strong>科学的手法</strong>とも呼ばれ、現代科学の最も基礎的な考え方になっています。</p>
-<p><img alt="c0ec84e54e8443bcad2ac9890ea7abd3" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a52ee450-074a-03f8-ab24-4c3fe787d661.jpeg" /></p>
+<p><img alt="4cb602667d454900bd8ee88dbce96996" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a52ee450-074a-03f8-ab24-4c3fe787d661.jpeg" /></p>
 <p>プログラミングは、新しい言語や文法を学び、言語的なセンスも必要となります。 しかし、根っこの部分は、数学や理科で学んだ科学的手法、 つまり、難しい問題をどのように解くかという考え方が身についているかが、 大切になります。</p>
 </div>
 </div>

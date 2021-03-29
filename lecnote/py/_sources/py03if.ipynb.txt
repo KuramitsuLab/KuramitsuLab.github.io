@@ -102,12 +102,131 @@
     "\n",
     "1. $3$は$2$より大きい\n",
     "2. $3$は偶数である\n",
-    "3. $\\pi$は3より大きく、$3.18$より小さい\n",
+    "3. $\\pi$は3より大きく、$3.18$より小さい (`from math import pi`)\n",
     "4. $121$は$11$の倍数でない\n",
     "5. 文字`\"e\"` は文字列`\"Hello\"`に含まれる\n",
     "\n",
     "</div>\n",
+    "\n",
+    "\n",
+    "<img src=\"https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png\" align=\"right\"/>\n",
+    "\n",
     "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 1
+    }
+   ],
+   "source": [
+    "3 > 2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 2
+    }
+   ],
+   "source": [
+    "3 % 2 == 0"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 3
+    }
+   ],
+   "source": [
+    "from math import pi\n",
+    "3.0 < pi < 3.18"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 4
+    }
+   ],
+   "source": [
+    "121 % 11 != 0"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 5
+    }
+   ],
+   "source": [
+    "\"e\" in \"hello\""
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "形式論理学\n",
+    "\n",
+    "命題の概念は、[命題論理](https://ja.wikipedia.org/wiki/命題論理)につながっていき、\n",
+    "コンピュータ上で論理や思考をプログラミングするとき重要になります。\n",
+    "\n",
+    "</div>"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -134,8 +253,8 @@
     "\n",
     "重要: **インデント（字下げ）**\n",
     "\n",
-    "コードの前の空白をインデントといいます\\\\\n",
-    "Python はインデントの深さでコードブロックの始まりと終わりを表す\n",
+    "コードの前の空白をインデントといいます。\n",
+    "（Python はインデントの深さでコードブロックの始まりと終わりを表ます。）\n",
     "\n",
     "</div>\n"
    ],
@@ -169,11 +288,7 @@
     "実際に、入力する値を変えて、結果の変化を試してみましょう。\n",
     "\n",
     "```python\n",
-    "x = int(input()) \n",
-    "if x % 2 == 0:\n",
-    "\tprint(\"even\")\n",
-    "else:\n",
-    "\tprint(\"odd\")\n",
+    "\n",
     "```\n",
     "\n"
    ],
@@ -181,55 +296,131 @@
    "metadata": {}
   },
   {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "even\n"
+     ]
+    }
+   ],
    "source": [
-    "### 条件分岐して何も処理しない場合\n",
+    "# x = int(input()) \n",
+    "x = 10\n",
     "\n",
-    "if文のよくある書き方として、\n",
-    "条件分岐したとき**何も処理しない場合**があります。\n",
-    "\n",
-    "Python では、「何も実行しない」というプログラムを意味する特殊な文として、`pass`文があります。\n",
-    "トランプゲームの「パス」という同じです。\n",
-    "だから、`print(\"odd\")`の代わりに`pass`にすると、何も実行されません。\n",
-    "\n",
-    "```python\n",
-    "a = int(input()) \n",
-    "if a % 2 == 0:\n",
+    "if x % 2 == 0:\n",
     "\tprint(\"even\")\n",
     "else:\n",
-    "\tpass\n",
-    "```\n",
+    "\tprint(\"odd\")"
+   ]
+  },
+  {
+   "source": [
+    "### 何も処理しない場合\n",
     "\n",
-    "もうひとつ、`else:`自体は、何も実行しないときは省略できます。\n",
-    "だから、省略しても構いません。（こちらの書き方が好まれます。）\n",
+    "条件分岐したとき、一方は**何も処理しない場合**があります。\n",
     "\n",
-    "__`else:`を省略__\n",
-    "```python\n",
-    "a = int(input()) \n",
-    "if a % 2 == 0:\n",
-    "\tprint(\"even\")\n",
-    "```"
+    "Python では、「何も実行しない」というプログラムを意味する特殊な文として、\n",
+    "`pass`文があります。トランプゲームの「パス」という同じです。\n",
+    "だから、`print(\"odd\")`の代わりに`pass`にすると、何も実行されません。\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "even\n"
+     ]
+    }
+   ],
    "source": [
-    "### 分岐したら複数行のコードを実行する場合\n",
+    "# x = int(input())\n",
+    "x = 10\n",
     "\n",
-    "if文による分岐先に複数行の文を実行したいことがあります。\n",
-    "同じ深さのインデントが続くときは、コードブロック（つまり複文）として順次、評価されます。\n",
+    "if x % 2 == 0:\n",
+    "\tprint(\"even\")\n",
+    "else:\n",
+    "\tpass\n"
+   ]
+  },
+  {
+   "source": [
+    "もうひとつ、`else:`自体は、何も実行しないときは省略できます。\n",
+    "だから、省略しても構いません。（**こちらの書き方が好まれます。**）\n",
     "\n",
-    "__正解__\n",
-    "```python\n",
-    "if a % 2 != 0:\n",
+    "__else:を省略__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "even\n"
+     ]
+    }
+   ],
+   "source": [
+    "# a = int(input()) \n",
+    "x = 10\n",
+    "\n",
+    "if x % 2 == 0:\n",
+    "\tprint(\"even\")"
+   ]
+  },
+  {
+   "source": [
+    "### ブロック：複数行のコードを処理する\n",
+    "\n",
+    "分岐処理によっては、分岐先で複数行のプログラムを評価したいことがあります。\n",
+    "同じ深さのインデントが続くときは、コードブロック（つまり複文）として順次、評価されます。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "***\n***\n***\n"
+     ]
+    }
+   ],
+   "source": [
+    "# a = int(input()) \n",
+    "x = 3\n",
+    "\n",
+    "if x % 2 != 0:\n",
     "\tprint(\"***\")\n",
     "\tprint(\"***\")\n",
-    "\tprint(\"***\")\n",
-    "```\n",
-    "\n",
+    "\tprint(\"***\")\n"
+   ]
+  },
+  {
+   "source": [
     "ここはインデントによるコードブロックの書き方をしっかり理解しましょう。\n",
-    "\n",
-    "\n",
     "\n",
     "<div class=\"alert alert-warning\">\n",
     "\n",
@@ -277,48 +468,78 @@
     "```\n",
     "big\n",
     "```\n",
-    "\n",
     "</div>\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "big\n"
+     ]
+    }
+   ],
+   "source": [
+    "#a, b = map(int, input().split())\n",
+    "a, b = 3, 2\n",
     "\n",
-    "if文の中にif文を書くときは、インデントを更に深くします。\n",
-    "\n",
-    "```\n",
-    "a, b = map(int, input().split())\n",
     "if a > b:\n",
     "\tprint(\"big\")\n",
     "else:\n",
     "\tif a == b:\n",
     "\t\tprint(\"same\")\n",
     "\telse:\n",
-    "\t\tprint(\"small\")\n",
-    "```\n",
+    "\t\tprint(\"small\")\n"
+   ]
+  },
+  {
+   "source": [
+    "`else:`のあとに、すぐに if文が続くときは、`elif`で書き直すことができます。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "big\n"
+     ]
+    }
+   ],
+   "source": [
+    "#a, b = map(int, input().split())\n",
+    "a, b = 3, 2\n",
     "\n",
-    "`else:`のあとに、すぐに if文が続くときは、\n",
-    "`elif`で書き直すことができます。\n",
-    "\n",
-    "__別解__\n",
-    "```\n",
-    "a, b = map(int, input().split())\n",
     "if a > b:\n",
     "\tprint(\"big\")\n",
     "elif a == b:\n",
     "\tprint(\"same\")\n",
     "else:\n",
-    "\tprint(\"small\")\n",
-    "```\n",
-    "`else if` を1行で書けるになるので、\n",
-    "インデントが不要に深くなるのを防げます。\n",
-    "深くなりません。\n",
-    "\n",
+    "\tprint(\"small\")"
+   ]
+  },
+  {
+   "source": [
     "<div class=\"alert alert-warning\">\n",
     "\n",
-    "if文の効率\n",
+    "よくある望ましくない例（あまり効率のよくない書き方）\n",
     "\n",
-    "ロジックは同じですが、if文が3回判定されるので、効率はよくありません。\n",
-    "\n",
-    "__別解__\n",
+    "__何度も条件分岐をする__\n",
     "```\n",
-    "a, b = map(int, input().split())\n",
     "if a > b:\n",
     "\tprint(\"big\")\n",
     "if a == b:\n",
@@ -326,7 +547,18 @@
     "if a < b:\n",
     "\tprint(\"small\")\n",
     "```\n",
-    "</div>\n"
+    "\n",
+    "__最後がelifで終わっている__\n",
+    "\n",
+    "```\n",
+    "if a > b:\n",
+    "\tprint(\"big\")\n",
+    "elif a == b:\n",
+    "\tprint(\"same\")\n",
+    "elif a < b:\n",
+    "\tprint(\"small\")\n",
+    "```\n",
+    "</div>"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -389,12 +621,6 @@
     "\tprint(b)\n",
     "```\n",
     "\n",
-    "__もちろん`max(a,b)`でも..__\n",
-    "```\n",
-    "a, b = map(int, input().split())\n",
-    "print(max(a,b))\n",
-    "```\n",
-    "\n",
     "if式（三項演算子）は、\n",
     "ソースコードが冗長になるのを防いでコンパクトに書くことができます。\n",
     "ぜひ、積極的に利用してみましょう。"
@@ -404,7 +630,11 @@
   },
   {
    "source": [
-    "## 繰り返し(while文とfor文)\n",
+    "## 繰り返し\n",
+    "\n",
+    "\n",
+    "\n",
+    "### while文\n",
     "\n",
     "while文は、特殊な条件分岐の構文になります。\n",
     "if文の代わりに、while文を用いると、\n",
@@ -418,25 +648,6 @@
   },
   {
    "source": [
-    "__if文__: 条件を満たせば、高々１回実行される"
-   ],
-   "cell_type": "markdown",
-   "metadata": {}
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "a = 1\n",
-    "if a > 0:\n",
-    "    print(a)\n",
-    "    a = a - 1\n"
-   ]
-  },
-  {
-   "source": [
     "__while文__: 条件を満たす限り、繰り返す"
    ],
    "cell_type": "markdown",
@@ -444,14 +655,49 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 12,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "5\n4\n3\n2\n1\n"
+     ]
+    }
+   ],
    "source": [
     "a = 5\n",
     "while a > 0:\n",
     "    print(a)\n",
     "    a = a - 1"
+   ]
+  },
+  {
+   "source": [
+    "ちなみに、「if文は条件を満たせば、高々１回実行される」構造でした。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "5\n"
+     ]
+    }
+   ],
+   "source": [
+    "a = 5\n",
+    "if a > 0:\n",
+    "    print(a)\n",
+    "    a = a - 1\n"
    ]
   },
   {
@@ -474,23 +720,34 @@
     "a = a - 1\n",
     "```\n",
     "\n",
-    "無限ループは、頻繁に発生し、主要なバグの原因になります。ソフトウェア光学の調査によると、アプリケーションが反応しなくなる不具合の原因は、無限ループに陥っていると言われています。`while`文を書くときは注意が必要です。\n",
+    "無限ループは、頻繁に発生し、主要なバグの原因になります。アプリケーションが反応しなくなる不具合の原因は、ほとんどが「**予期しない無限ループに陥っている**」と言われています。`while`文を書くときは、無限ループにならないように注意して書かなければなりません。\n",
     "\n",
-    "\n"
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "防衛的プログラミング( Defensive Programming)\n",
+    "\n",
+    "ソフトウェア工学でより詳しく学びますが、\n",
+    "バグや不具合が発生しないようにコードの書き方を選びます。\n",
+    "（動けば良いというのは、20世紀のプログラミングです。）\n",
+    "\n",
+    "</div>\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
    "source": [
-    "### for文: 無限ループの回避\n",
+    "### for文\n",
     "\n",
     "無限ループは、初学者から上級者まで発生させやすいバグの原因になります。\n",
     "解説を読んでいるときは、「そんなマヌケなコードは書きませんよ（絶対）」と笑っていても、\n",
-    "結構、頻繁に引き起こします。\n",
+    "結構、頻繁に発生させて凹みます。\n",
     "\n",
     "無限ループを避ける確実な手段は、`while`文を使わないことです。\n",
-    "`for/in`文は、繰り返す回数を指定できる確実な方法です。\n",
+    "`for/in`文は、繰り返す回数を指定でき、無限ループを避ける確実な方法です。\n",
+    "\n",
+    "![code_for-fs8.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d30f935a-899a-e069-0132-5cc08e800487.png)\n",
     "\n",
     "__N回繰り返したいとき__\n",
     "```\n",
@@ -498,19 +755,29 @@
     "    print(i) # 繰り返す処理\n",
     "```\n",
     "\n",
-    "特別な事情がない場合は、`for`文を用いて繰り返しを書くようにしましょう。\n",
+    "特別な事情がない場合は、繰り返しは`for`文を用いるようにしましょう。\n",
     "特に、`for i in range(N):`は、$N$回繰り返すときの定番の書き方です。\n",
-    "繰り返す回数が決まっているときは、`for`文を使いましょう。\n",
     "\n",
-    "![code_for-fs8.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d30f935a-899a-e069-0132-5cc08e800487.png)\n",
-    "\n"
+    "<div class=\"alert alert-warning\">\n",
+    "\n",
+    "for 文の変数\n",
+    "\n",
+    "変数 `i`には0から始まる整数が繰り返しの回数分に割り当てられます。\n",
+    "（リストと同じく**0 から始まります。**）\n",
+    "</div>\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
    "source": [
+    "### シミュレーション\n",
+    "\n",
+    "シミュレーションは、1ステップずつ値を更新させながら、未来を予測する計算手法です。\n",
+    "プログラミングの得意な分野のひとつとなっています。\n",
+    "\n",
     "<div class=\"admonition tip\">\n",
+    "\n",
     "**例題(お米)**\n",
     "\n",
     "お米は、一粒から1本の苗になります。\n",
@@ -526,7 +793,7 @@
   },
   {
    "source": [
-    "等比数列から計算してもよいですが、コンピュータの場合は繰り返しでシミュレーションした方が早いです。\n",
+    "等比数列から計算してもよいですが、シミュレーション（繰り返し）で書いてみましょう。\n",
     "\n",
     "__while文で書いたとき__"
    ],
@@ -535,7 +802,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [
     {
@@ -571,7 +838,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [
     {
@@ -585,10 +852,11 @@
    "source": [
     "START = 1\n",
     "GOAL = 1_0000_0000   # _位取り\n",
-    "n = start\n",
+    "n = START\n",
+    "\n",
     "for year in range(1, 1000):\n",
     "    n = n * 600\n",
-    "    if n >= goal:\n",
+    "    if n >= GOAL:\n",
     "        break\n",
     "print(year)\n"
    ]
@@ -610,7 +878,8 @@
    "source": [
     "## 演習問題\n",
     "\n",
-    "繰り返しは、次回以降、本格的に練習していきます。今回は、条件分岐に慣れましょう。\n",
+    "繰り返しは、次回以降、リストや文字列とあわせて練習していきます。\n",
+    "今回は、条件分岐に慣れましょう。\n",
     "\n",
     "* [二つの数の間](https://atcoder.jp/contests/abc061/tasks/abc061_a)\n",
     "* [ブラックジャック](https://atcoder.jp/contests/abc147/tasks/abc147_a)\n",

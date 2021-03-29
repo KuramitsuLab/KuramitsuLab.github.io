@@ -110,17 +110,31 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#アルゴリズムの特徴">8.2. アルゴリズムの特徴</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#平均点">8.2.1. 平均点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#探索する（探す）">8.2.1. 探索する（探す）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#方程式の解法">8.2.2. 方程式の解法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#中間値の定理と二分法">8.2.3. 中間値の定理と二分法</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">8.3. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#漸近的計算量解析">8.3. 漸近的計算量解析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#プログラムの効率">8.3.1. プログラムの効率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#コンピュータの性能測定">8.3.2. コンピュータの性能測定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#計算量（複雑さ）">8.3.3. 計算量（複雑さ）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#O記法">8.3.4. O記法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#指数時間">8.3.5. 指数時間</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#NPと計算困難★">8.4. NPと計算困難★</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#NP完全問題">8.4.1. NP完全問題</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">8.5. 演習問題</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -461,15 +475,15 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="アルゴリズムを学ぶ">
 <h1><span class="section-number">8. </span>アルゴリズムを学ぶ<a class="headerlink" href="#アルゴリズムを学ぶ" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>いよいよアルゴリズム編に本格的に入っていきます。</p>
+<p>そろそろ、プログラミング入門は卒業し、 本格的にプログラムで問題を解く方法を学んでいきます。</p>
 <div class="section" id="アルゴリズムとは？">
 <h2><span class="section-number">8.1. </span>アルゴリズムとは？<a class="headerlink" href="#アルゴリズムとは？" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>アルゴリズムとは、問題を解くための手順のことです。 もともと、9 世紀のバグダットの数学者アル・フワーリズミー (Al-Khwarizmi) 著の「インド数の計算法 (Algoritmi de numero Indorum)」が、12 世紀のヨーロッパに伝わり、長らくヨーロッパの大学の教科書となっていたことに由来しています。</p>
-<p>現在では、数学、計算機科学、情報学の分野において、特にコンピュータを用いた問題解法の学問となっています。 最高な</p>
+<p>現在では、数学、計算機科学、情報学の分野において、特にコンピュータを用いた問題解法の学問となっています。</p>
 <div class="section" id="世界最古のアルゴリズム">
 <h3><span class="section-number">8.1.1. </span>世界最古のアルゴリズム<a class="headerlink" href="#世界最古のアルゴリズム" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>アルゴリズムはたとえ名称が耳新しいとしても、全く未知なものではありません。</p>
-<p>みなさんが、高校生のときに習った<strong>ユークリッドの互除法</strong>は、世界最古のアルゴリズムと呼ばれ、代表的なアルゴリズムとなっています。</p>
+<p>みなさんが、高校生のときに習った<strong>ユークリッドの互除法</strong>は、世界最古のアルゴリズムと呼ばれ、 代表的なアルゴリズムとなっています。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">ユークリッドの互除法</p>
 <p>自然数 <span class="math notranslate nohighlight">\(u, v\)</span> の最大公約数は、次の手順で求められる。</p>
@@ -485,6 +499,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">8.1.2. </span>アルゴリズムとレシピ<a class="headerlink" href="#アルゴリズムとレシピ" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>アルゴリズムは、プログラミングにとってレシピに例えられます。もしくは、アルゴリズムとは情報のレシピと呼ぶ人もいます。</p>
 <p>「カスタードクリームを作る」レシピを比較してみましょう。</p>
+<p><img alt="95186a38ab5a4a92bedad171955fdf9c" class="no-scaled-link" src="https://img.cpcdn.com/recipes/644527/840x1461s/5c411dec210c6168f51cbdbccfc0e5b2?u=243036&amp;p=1435802070" style="width: 40%;" /></p>
 <p><strong>カスタードクリームのレシピ</strong></p>
 <ol class="arabic simple">
 <li><p>卵黄、砂糖、小麦粉を火にかける</p></li>
@@ -571,85 +586,389 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="どう解くべきか？">
 <h3><span class="section-number">8.1.4. </span>どう解くべきか？<a class="headerlink" href="#どう解くべきか？" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>アルゴリズムは、コンピュータが発明される以前は、人間が手計算で計算していました。それ以外 方法がなかったからです。しかし、コンピュータが登場した現在では、人間の代わりにプログラミングして問題を解きます。人間が手計算で解くと、計算間違いなどをするため、<strong>手計算で解く必然性は全くありません</strong>。</p>
+<p>アルゴリズムは、コンピュータが発明される以前は、人間が手計算で計算していました。それ以外 方法がなかったからです。しかし、コンピュータが登場した現在では、人間の代わりにプログラミングして問題を解きます。 人間が手計算で解くと、計算間違いなどをするため、<strong>手計算で解く必然性は全くありません</strong>。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">IT化/DXの本質</p>
+<p>コンピュータで処理できることはコンピュータで処理する</p>
+</div>
 <p>昔は、プログラミングという技法が低く見られることがありました。曰く：</p>
 <ul class="simple">
 <li><p>プログラミングとは、(ユークリッドの互除法のような頭のよい人が考えた)アルゴリズムをコードに翻訳するだけの単純作業である</p></li>
 <li><p>本当に付加価値の高い重要な仕事はアルゴリズムを考えることにある</p></li>
 </ul>
-<p>この考え方は、半分あっています。確かに、<strong>アルゴリズムを考えることが重要</strong>です。</p>
-<p>現代社会の中で活躍しているアルゴリズムの多くは、コンピュータが登場した以降に、計算機科学者やエンジニアがプログラミングしながら考案したものです。プログラミングという技法を用いなければ生まれなかったでしょう。</p>
+<p>この考え方は、半分あっています。確かに、<strong>アルゴリズムを考えることが重要</strong>です。しかし、プログラミングが必要でないわけではありません。</p>
+<p>現代社会の中で活躍しているアルゴリズムの多くは、コンピュータの発明後、計算機科学者やエンジニアがプログラミングしながら考案したものです。プログラミングという技法を用いなければ生まれなかったでしょう。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">プログラミング</p>
 <p>アルゴリズムを考えるための思考の道具</p>
 </div>
-<p>プログラミング力とアルゴリズム力は、車輪の両輪です。アルゴリズムだけ暗記科目として覚える必要は全くありません。自分でアルゴリズムをプログラミングしてみないと理解できないこともあります。是非、アルゴリズムをプログラミングしながら、思考力を高めていきましょう。</p>
+<p>プログラミング力とアルゴリズム力は、車輪の両輪です。アルゴリズムだけ暗記科目として覚える必要は全くありません。<strong>自分でアルゴリズムをプログラミングしてみないと理解できない</strong>こともあります。是非、アルゴリズムをプログラミングしながら、思考力を高めていきましょう。</p>
 </div>
 </div>
 <div class="section" id="アルゴリズムの特徴">
 <h2><span class="section-number">8.2. </span>アルゴリズムの特徴<a class="headerlink" href="#アルゴリズムの特徴" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>アルゴリズムは、問題の解法です。</p>
+<p>アルゴリズムは、問題の解法です。 最初にユークリッドの互除法を見てもらい、特別なものではないよと知ってもらいました。 しかし、現代のアルゴリズムは、コンピュータの特性を活かして、考案されています。</p>
+<div class="section" id="探索する（探す）">
+<h3><span class="section-number">8.2.1. </span>探索する（探す）<a class="headerlink" href="#探索する（探す）" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="admonition tip"><p><strong>例題（４整数の和）</strong></p>
 <p>0より大きい整数<span class="math notranslate nohighlight">\(a,b,c,d\)</span>の組で次の満たす数を求めよ</p>
 <div class="math notranslate nohighlight">
 \[a+b+c+d=n\]</div>
 <p><strong>例:</strong> <span class="math notranslate nohighlight">\(n\)</span> が 35 のとき、<span class="math notranslate nohighlight">\((a,b,c,d)\)</span> の組み合わせは <span class="math notranslate nohighlight">\((8,9,9,9)\)</span>、<span class="math notranslate nohighlight">\((9,8,9,9)\)</span>、<span class="math notranslate nohighlight">\((9,9,8,9)\)</span>、<span class="math notranslate nohighlight">\((9,9,9,8)\)</span> の <span class="math notranslate nohighlight">\(4\)</span>通り</p>
-</div><p>コンピュータは、全ての組み合わせを計算することは得意です。</p>
-<p>解放して## 見本</p>
+</div><p>コンピュータは、計算することは得意です。 人間ではとてもできませんが、全ての組み合わせを列挙して、 全部の組み合わせを計算してしまうこともできます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="o">+</span><span class="n">d</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                        <span class="n">count</span> <span class="o">+=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">count</span>
+<span class="n">solve</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+4
+</pre></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">全探索</p>
+<p>全ての組み合わせを調べること</p>
+</div>
+<p>コンピュータ上のアルゴリズムは、 コンピュータの性質や強みを活かして、問題の解決にいたるものが多いです。</p>
+</div>
+<div class="section" id="方程式の解法">
+<h3><span class="section-number">8.2.2. </span>方程式の解法<a class="headerlink" href="#方程式の解法" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>もう少しよく慣れた解法を比較して、アルゴリズムの違いをみていきます。</p>
+<div class="admonition tip"><p><strong>例題（方程式の解）</strong></p>
+<p>次の解を求めよ。</p>
+<div class="math notranslate nohighlight">
+\[f(x) = x^2 - 2x - 8 = 0\]</div>
+</div><p>中学数学では、因数分解や解の公式による解法を習いました。</p>
+<div class="math notranslate nohighlight">
+\[(x + 2)(x - 4) = 0 ~~~\mbox{もしくは}~~~
+x = \frac{2 \pm \sqrt{2^2 + 4\cdot 8}}{2}\]</div>
+<p>アルゴリズムでは、コンピュータの計算能力を活用する方法を考えます。 方程式の場合は、<span class="math notranslate nohighlight">\(f(x)\)</span>は一瞬で計算できるので、<span class="math notranslate nohighlight">\(f(x)=0\)</span>となる<span class="math notranslate nohighlight">\(x\)</span>を探します。</p>
+<img alt="eq1.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2ec6fd3c-beb3-7718-16e1-a6b522354ce6.png" />
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x =&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">) =&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x = -5 f(-5) = 27
+x = -4 f(-4) = 16
+x = -3 f(-3) = 7
+x = -2 f(-2) = 0
+x = -1 f(-1) = -5
+x = 0 f(0) = -8
+x = 1 f(1) = -9
+x = 2 f(2) = -8
+x = 3 f(3) = -5
+x = 4 f(4) = 0
+x = 5 f(5) = 7
+</pre></div></div>
+</div>
+<p>もちろん、方程式の解が整数の場合ばかりではありません。実数の場合もあります。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">(1//2)</span></code> が、正しく <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> にならない理由を考えてみよう</p>
+<p><span class="math notranslate nohighlight">\(\sqrt{2}\)</span>(つまり、<span class="math notranslate nohighlight">\(x^2 - 2 = 0\)</span> の正の解)を求めてみよう。</p>
 </div>
-<p>まずは、リストを使わなくても解ける問題ですが、リストの練習を兼ねて解いてみましょう。</p>
-<div class="section" id="平均点">
-<h3><span class="section-number">8.2.1. </span>平均点<a class="headerlink" href="#平均点" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<div class="admonition tip"><p><strong>例題（平均点）</strong></p>
-<p>期末試験は5人受験した。 点数が40点未満の生徒は全員，補習を受け，成績が40点になった。 5人の平均点を求めよ。</p>
-<p>入力例：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span>
-<span class="mi">65</span>
-<span class="mi">100</span>
-<span class="mi">30</span>
-<span class="mi">95</span>
+<p>1と2の間で、0.1にして刻み幅を小さく探してみます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<p>出力例：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x =&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">) =&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a">AtCoder (JOI2014 予選)</a></p>
-</div><p><strong>(解法) リストを使う場合</strong></p>
-<ol class="arabic simple">
-<li><p>期末試験を記録する空の得点リスト <code class="docutils literal notranslate"><span class="pre">scores</span></code> を用意する</p></li>
-<li><p>5人分繰り返し、点数を読んで、<code class="docutils literal notranslate"><span class="pre">scores</span></code> に追加する</p></li>
-<li><p>平均点は <code class="docutils literal notranslate"><span class="pre">sum(scores)</span> <span class="pre">//</span> <span class="pre">5</span></code></p></li>
-</ol>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Python</p></th>
-<th class="head"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max(a)</span></code></p></td>
-<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の最大値</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min(a)</span></code></p></td>
-<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の最小値</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum(a)</span></code></p></td>
-<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の合計値</p></td>
-</tr>
-</tbody>
-</table>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x = 1.0 f(1.0) = -1.0
+x = 1.1 f(1.1) = -0.7899999999999998
+x = 1.2 f(1.2) = -0.56
+x = 1.3 f(1.3) = -0.30999999999999983
+x = 1.4 f(1.4) = -0.04000000000000026
+x = 1.5 f(1.5) = 0.25
+x = 1.6 f(1.6) = 0.5600000000000005
+x = 1.7 f(1.7) = 0.8899999999999997
+x = 1.8 f(1.8) = 1.2400000000000002
+x = 1.9 f(1.9) = 1.6099999999999999
+</pre></div></div>
+</div>
+<p>ぴったり<span class="math notranslate nohighlight">\(f(x)=0\)</span>となりませんが、0に近い<span class="math notranslate nohighlight">\(x=1.4\)</span>が得られました。 このような解を<strong>近似解</strong>と言います。 コンピュータで数値解を求めるとき、なかなか厳密な精密解にはなりません。 そのため、精度も重要になってきます。</p>
+</div>
+<div class="section" id="中間値の定理と二分法">
+<h3><span class="section-number">8.2.3. </span>中間値の定理と二分法<a class="headerlink" href="#中間値の定理と二分法" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>もう少し詳しく方程式の解法をみていきましょう。</p>
+<p>あらかじめ、解のありそうな探索範囲がわかっていれば、刻み幅を小さくして精度の高い解を探すことができます。 しかし、探索幅がわかっていないと、かなりの回数を探索することになります。 そこで、探索幅を狭めながら、効率よく計算する方法が使えるときがあります。</p>
+<p>連続関数は中間値の定理が成り立ちます。</p>
+<img alt="eq2.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/30476d33-7e14-af5f-cf84-07996e19038c.png" />
+<p><span class="math notranslate nohighlight">\(x_a\)</span>と<span class="math notranslate nohighlight">\(x_b\)</span>の中間点を計算することで、解が<span class="math notranslate nohighlight">\(x_a\)</span>側にあるか、<span class="math notranslate nohighlight">\(x_b\)</span>側にあるか判定し、探索範囲を狭めていきます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">eps</span> <span class="o">=</span> <span class="mf">0.00001</span>
+<span class="n">xa</span> <span class="o">=</span> <span class="mf">0.0</span>　<span class="c1">#探索範囲の左側</span>
+<span class="n">xb</span> <span class="o">=</span> <span class="mf">2.0</span>　<span class="c1">#探索範囲の右側</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">xm</span> <span class="o">=</span> <span class="p">(</span><span class="n">xa</span> <span class="o">+</span> <span class="n">xb</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xm</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x =&#39;</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">xm</span><span class="si">}</span><span class="s1">) =&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">:</span> <span class="c1"># 精度以下なら終了</span>
+        <span class="k">break</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span> <span class="c1"># xa側</span>
+        <span class="n">xb</span> <span class="o">=</span> <span class="n">xm</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1">#解は xb側</span>
+        <span class="n">xa</span> <span class="o">=</span> <span class="n">xm</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x = 1.0 f(1.0) = -1.0
+x = 1.5 f(1.5) = 0.25
+x = 1.25 f(1.25) = -0.4375
+x = 1.375 f(1.375) = -0.109375
+x = 1.4375 f(1.4375) = 0.06640625
+x = 1.40625 f(1.40625) = -0.0224609375
+x = 1.421875 f(1.421875) = 0.021728515625
+x = 1.4140625 f(1.4140625) = -0.00042724609375
+x = 1.41796875 f(1.41796875) = 0.0106353759765625
+x = 1.416015625 f(1.416015625) = 0.005100250244140625
+x = 1.4150390625 f(1.4150390625) = 0.0023355484008789062
+x = 1.41455078125 f(1.41455078125) = 0.0009539127349853516
+x = 1.414306640625 f(1.414306640625) = 0.0002632737159729004
+x = 1.4141845703125 f(1.4141845703125) = -8.200109004974365e-05
+x = 1.41424560546875 f(1.41424560546875) = 9.063258767127991e-05
+x = 1.414215087890625 f(1.414215087890625) = 4.314817488193512e-06
+</pre></div></div>
+</div>
+<p>コンピュータは計算が速いといっても、人間より速いだけで無制限に計算できるわけではありません。 このように<strong>計算量を減らす</strong>工夫が重要になっていきます。</p>
+<div class="alert alert-info"><p>Newton-Raphson 法</p>
+<p>方程式の求解アルゴリズムとしては， <a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%88%E3%83%B3%E6%B3%95">Newton-Raphson 法</a> など，より収束効率が優れたものが存在します。興味があったら、調べて書いてみよう。</p>
+<div></div>
+</div>
+<div class="section" id="漸近的計算量解析">
+<h2><span class="section-number">8.3. </span>漸近的計算量解析<a class="headerlink" href="#漸近的計算量解析" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>計算量解析は、アルゴリズムの効率を見積もり、アルゴリズムを選択する助けとなります。計算量と複雑さの考え方を理解しておきましょう。</p>
+<div class="section" id="プログラムの効率">
+<h3><span class="section-number">8.3.1. </span>プログラムの効率<a class="headerlink" href="#プログラムの効率" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>プログラムの効率 プログラムの効率は、次の2つの側面から評価できます。</p>
+<p><strong>コードの効率</strong></p>
+<ul class="simple">
+<li><p>プログラミングの経験的な知見に基づく</p></li>
+<li><p>アーキテクチャやコンパイラ最適化、プログラミング言語の知識に基づく</p></li>
+</ul>
+<p><strong>アルゴリズムの効率</strong></p>
+<ul class="simple">
+<li><p>アルゴリズムの効率は、より普遍的で理論的な考察に基づく</p></li>
+<li><p>コンピュータの種類やプログラミング言語に依存しない</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">コードの効率:どちらが高速?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">*</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>ヒント；計算機アーキテクチャで習ったALUの原理まで戻れば、どちらの計算が速いかわかる</p>
+</div>
+</div>
+<div class="section" id="コンピュータの性能測定">
+<h3><span class="section-number">8.3.2. </span>コンピュータの性能測定<a class="headerlink" href="#コンピュータの性能測定" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Python では、time モジュールを用いて、プログラムの処理時間を計測します。 また、Colab上では、<code class="docutils literal notranslate"><span class="pre">%%time</span></code>を先頭につけると、実行速度を表示してくれます。</p>
+<p>フィボナッチ数を計算する関数を定義して試してみましょう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%time</span>
+
+<span class="k">def</span> <span class="nf">fibo</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">fibo</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibo</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">fibo</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 198 ms, sys: 2.91 ms, total: 201 ms
+Wall time: 202 ms
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+832040
+</pre></div></div>
+</div>
+<p>コンピュータで計測される時刻は精度の限界があります。極端に短い時間(ミリ秒以下)はあまり 信用できません。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">nは35くらいまでに</p>
+<p>理由はあとから説明しますが、<span class="math notranslate nohighlight">\(n\)</span>を大きくしすぎてはいけません。</p>
+</div>
+</div>
+<div class="section" id="計算量（複雑さ）">
+<h3><span class="section-number">8.3.3. </span>計算量（複雑さ）<a class="headerlink" href="#計算量（複雑さ）" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>プログラムの処理時間は、コンピュータの性能が変わると大きく変わります。</p>
+<p>計算量（複雑さ）は、プログラムに対する入力データが増えると、どのように処理量が増えるかという視点で理論的に見積もります。</p>
+<p>処理量は、時間(処理時間)と空間(使用メモリ量)で測ります。</p>
+<p><strong>時間計算量 (time complexity)</strong></p>
+<ul class="simple">
+<li><p>プログラムの実行に必要な時間の見積もり</p></li>
+</ul>
+<p><strong>空間計算量 (space complexity)</strong></p>
+<ul class="simple">
+<li><p>プログラムの実行に必要なメモリ使用量の見積もり</p></li>
+</ul>
+<p>一般に、計算量といえば、時間計算量のことをさします。また、計算量という用語は紛らわしいため、複雑さ(complexity)を好む人も多いです。</p>
+</div>
+<div class="section" id="O記法">
+<h3><span class="section-number">8.3.4. </span>O記法<a class="headerlink" href="#O記法" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>コンピュータ科学では、計算量を表す記法として、O 記法(ランダウの記法、オーダー記法)を用います。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">O記法</p>
+<p>入力規模 <span class="math notranslate nohighlight">\(n\)</span> に対する計算量の増加程度を示す記法</p>
+<ul class="simple">
+<li><p>影響力の大きい(次数の大きい)項以外は無視する</p></li>
+<li><p>定数倍の差は無視する</p></li>
+</ul>
+</div>
+<p><strong>例</strong></p>
+<p>ある入力サイズ<span class="math notranslate nohighlight">\(n\)</span>の問題を解く手順が<span class="math notranslate nohighlight">\(T(n) = 4n^2 -2n + 2\)</span>と見積もられるとき、 <span class="math notranslate nohighlight">\(n\)</span> を次第に大きくしていくと <span class="math notranslate nohighlight">\(n^2\)</span> の項ばかり効いて、他の項はほとんど無視できます。 したがって、このアルゴリズムの計算量は、<span class="math notranslate nohighlight">\(O(n^2)\)</span>となります。</p>
+<p><strong>代表的なアルゴリズムと計算量</strong></p>
+<img alt="order-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/b326f3e2-c3ac-9501-983a-2c239d80bcdd.png" />
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">暗記ものではないが</p>
+<p>アルゴリズムを覚えたら、必ず計算量も確認しておこう</p>
+</div>
+</div>
+<div class="section" id="指数時間">
+<h3><span class="section-number">8.3.5. </span>指数時間<a class="headerlink" href="#指数時間" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>データ量が増えてプログラムが動かなくなる様子は、「指数爆発した」と形容されます。 どうして爆発と形容されるのでしょうか?</p>
+<p>O(2n) のアルゴリズムがあったとします。</p>
+<ul class="simple">
+<li><p>比較的小さな入力数 <span class="math notranslate nohighlight">\(n = 100\)</span> でも、</p></li>
+<li><p>仮に、1 秒間に <span class="math notranslate nohighlight">\(10^{10}\)</span> 回計算できる高性能コンピュータを用いても</p></li>
+<li><p><span class="math notranslate nohighlight">\(4 \times 10^{12}\)</span> 年かかる</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">指数時間</p>
+<p>簡単に宇宙の寿命を超えてしまう</p>
+</div>
+<p>宇宙の寿命と言われても実感がわかないと思います。</p>
+<p>最初に試したフィボナッチ関数の計算を思い出してみましょう。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fibo</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">fibo</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibo</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>この関数は、入力<span class="math notranslate nohighlight">\(n\)</span>に対する計算量は<span class="math notranslate nohighlight">\(O(\left\{\frac{1+\sqrt{t}}{2}\right\}^n)\)</span>と見積もられ、指数時間アルゴリズムです。こんなに簡単ですが..</p>
+<p><span class="math notranslate nohighlight">\(n\)</span>を大きくしていくと、途中から爆発的に計算時間がかかるようになります。</p>
+<p><img alt="a5090998ccc54b79bc8d5aef7ae4918c" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">フィボナッチ・ベンチマーク </p>
+<p>フィボナッチの再帰関数は、簡単なプログラムで簡単に負荷がかけられるので、プログラミング言語の性能を測る簡単なベンチマークテストとして重宝されてきました。</p>
+</div>
+<p>なお、フィボナッチ数は、線形時間<span class="math notranslate nohighlight">\(O(n)\)</span>で解くアルゴリズムがあります。 詳しくは、動的計画法の回で説明しますので、そちらをお楽しみにお待ちください。</p>
+</div>
+</div>
+<div class="section" id="NPと計算困難★">
+<h2><span class="section-number">8.4. </span>NPと計算困難★<a class="headerlink" href="#NPと計算困難★" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>アルゴリズムの計算量(複雑さ)に関する研究が進むにつれてある種の問題は、多項式時間アルゴリズムが見つからないことが明らかになってきました。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">NP 完全問題 (NP complete problem) </p>
+<p>さらに、同じ難しさのクラスだとわかってきた.</p>
+<ul class="simple">
+<li><p>多項式時間アルゴリズムが見つからない</p></li>
+<li><p><strong>多項式時間アルゴリズムが存在しない</strong>と証明されたわけではない</p></li>
+</ul>
+</div>
+<div class="section" id="NP完全問題">
+<h3><span class="section-number">8.4.1. </span>NP完全問題<a class="headerlink" href="#NP完全問題" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><strong>巡回セールスマン問題</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(n\)</span> 個の都市に対する距離の集合と上限 <span class="math notranslate nohighlight">\(D\)</span> が与えられる. <span class="math notranslate nohighlight">\(d \le D\)</span> となる巡回路 <span class="math notranslate nohighlight">\(d\)</span> は存在するか?</p></li>
+</ul>
+<p><strong>ハミルトン閉路問題</strong></p>
+<ul class="simple">
+<li><p>有向グラフ <span class="math notranslate nohighlight">\(G\)</span> が与えられたとき、ハミルトン閉路を存在するか?</p></li>
+</ul>
+<p><strong>部分集合和問題(∼ ナップサック問題の一般化)</strong></p>
+<ul class="simple">
+<li><p>整数 <span class="math notranslate nohighlight">\(w_1, ..., w_n\)</span> と目標値 W が与えられる. このとき、<span class="math notranslate nohighlight">\(\{w_1, ..., w_n\}\)</span> の部分集合で合計が W となるものは存在するか?</p></li>
+</ul>
+<p><strong>制約充足問題(3-SAT)</strong></p>
+<ul class="simple">
+<li><p>変数の集合 <span class="math notranslate nohighlight">\(X = \{x_1, .., x_n\}\)</span> 上の長さ 3 節の <span class="math notranslate nohighlight">\(C_1, .., C_k\)</span> が与えられる. このとき全てを充足する真偽値割り当ては存在するか?</p></li>
+</ul>
+<p>クラス P を多項式時間で解ける問題クラスとすると、次の予想がされています。</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle"><span class="math notranslate nohighlight">\(P \ne NP\)</span> 予想 </p>
+<p><span class="math notranslate nohighlight">\(P \ne NP\)</span> と信じられているが、証明されていない</p>
+<ul class="simple">
+<li><p>（数学の）有名な未解決問題</p></li>
+<li><p>コンピュータ科学の本質的な問い</p></li>
+</ul>
+</div>
+<p>現代の暗号技術は、多項式時間アルゴリズムがないことを根拠ににsて、暗号解読ができないことになっています。 したがって、<span class="math notranslate nohighlight">\(P \ne NP\)</span>予想が覆されると、情報社会の根幹となっているセキュリティとプライバシがひっくり返ります。</p>
 </div>
 </div>
 <div class="section" id="演習問題">
-<h2><span class="section-number">8.3. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">8.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc179/tasks/abc179_c">A x B + C</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc187/tasks/abc187_b">Gentle Pairs</a>: 組(タプル)を使いましょう</p></li>
@@ -666,7 +985,9 @@ div.rendered_html tbody tr:hover {
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc083/tasks/abc083_b">とある総和</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc090/tasks/abc090_b">回文数</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc156/tasks/abc156_b">K進数</a>: 文字列問題か？</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/ABC146/tasks/ABC146_c">整数屋さん</a>: 二分探索</p></li>
 </ul>
+<p><a class="reference external" href="https://kei1107.github.io/algorithm/abc145/">https://kei1107.github.io/algorithm/abc145/</a></p>
 </div>
 </div>
 

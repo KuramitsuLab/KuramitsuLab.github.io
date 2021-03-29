@@ -99,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -196,11 +196,10 @@
 <h1>Pythonプログラミングとアルゴリズムの基礎<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>本講義ノートは、
 日本女子大学で提供しているPythonプログラミングの講義ノートを加筆・修正してまとめたものです。
-今までの講義の内容が含まれるため、かなり膨大です。
-自習して理解を深めるための解説もあるため、授業では全ての内容を扱うわけではありません。</p>
+今までの講義の内容が含まれるため、かなり膨大です。授業では全ての内容を扱うわけではありません。</p>
 <p>Python 言語の文法は、１年次に「<strong>既に習っていること</strong>」を前提にしています。
 だから、文法は軽く復習する程度に留め、Google Colabや AtCoder を使いながら、
-プログラミング技量を高めていくことを目指します。</p>
+プログラミング力とアルゴリズム力を高めていくことを目指しています。</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -208,7 +207,7 @@
 <li class="toctree-l2"><a class="reference internal" href="py01oj.html#Colabとプログラミング">1.1. Colabとプログラミング</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py01oj.html#プログラムの構造と入出力">1.2. プログラムの構造と入出力</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py01oj.html#オンラインジャッジに挑戦">1.3. オンラインジャッジに挑戦</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py01oj.html#頻出の入出力例">1.4. 頻出の入出力例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py01oj.html#頻出の入出力プログラム">1.4. 頻出の入出力プログラム</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py01oj.html#演習問題">1.5. 演習問題</a></li>
 </ul>
 </li>
@@ -216,7 +215,7 @@
 <li class="toctree-l2"><a class="reference internal" href="py02eval.html#計算してみよう">2.1. 計算してみよう</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py02eval.html#式と評価">2.2. 式と評価</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py02eval.html#変数">2.3. 変数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py02eval.html#変数とよくある間違い">2.4. 変数とよくある間違い</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py02eval.html#エラー対策に強くなろう">2.4. エラー対策に強くなろう</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py02eval.html#演習問題">2.5. 演習問題</a></li>
 </ul>
 </li>
@@ -224,28 +223,28 @@
 <li class="toctree-l2"><a class="reference internal" href="py03if.html#命題と論理式">3.1. 命題と論理式</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py03if.html#条件分岐">3.2. 条件分岐</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py03if.html#条件式（三項演算子）">3.3. 条件式（三項演算子）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py03if.html#繰り返し(while文とfor文)">3.4. 繰り返し(while文とfor文)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py03if.html#繰り返し">3.4. 繰り返し</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py03if.html#演習問題">3.5. 演習問題</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="py04forlist.html#リストとは">4.1. リストとは</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py04forlist.html#リストの操作">4.2. リストの操作</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py04forlist.html#N回繰り返す">4.3. N回繰り返す</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py04forlist.html#id9">4.2. リストと繰り返し</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py04forlist.html#リストの操作">4.3. リストの操作</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py04forlist.html#演習問題">4.4. 演習問題</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="py05string.html#文字と文字列">5.1. 文字と文字<strong>列</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="py05string.html#文字列操作">5.2. 文字列操作</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py05string.html#見本">5.3. 見本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py05string.html#文字">5.1. 文字</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py05string.html#文字列">5.2. 文字列</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py05string.html#文字列操作">5.3. 文字列操作</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py05string.html#演習問題">5.4. 演習問題</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="py07func.html#関数を定義する">6.1. 関数を定義する</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py07func.html#再帰とは">6.2. 再帰とは</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py07func.html#ラムダ式と高階関数">6.3. ラムダ式と高階関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py07func.html#ラムダ式と高階関数★">6.3. ラムダ式と高階関数★</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py07func.html#演習問題">6.4. 演習問題</a></li>
 </ul>
 </li>
@@ -259,13 +258,16 @@
 <li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="py08algo.html#アルゴリズムとは？">8.1. アルゴリズムとは？</a></li>
 <li class="toctree-l2"><a class="reference internal" href="py08algo.html#アルゴリズムの特徴">8.2. アルゴリズムの特徴</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py08algo.html#演習問題">8.3. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py08algo.html#漸近的計算量解析">8.3. 漸近的計算量解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py08algo.html#NPと計算困難★">8.4. NPと計算困難★</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py08algo.html#演習問題">8.5. 演習問題</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="py10prime.html#TODO">9.1. TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py10prime.html#見本">9.2. 見本</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py10prime.html#演習問題">9.3. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py10prime.html#モジュロ(mod)">9.1. モジュロ(mod)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py10prime.html#素数">9.2. 素数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py10prime.html#エラトステネスのふるい">9.3. エラトステネスのふるい</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py10prime.html#演習問題">9.4. 演習問題</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a><ul>
@@ -287,15 +289,19 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="py12dp.html#TODO">12.1. TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py12dp.html#見本">12.2. 見本</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py12dp.html#演習問題">12.3. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py12dp.html#フィボナッチ数">12.1. フィボナッチ数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py12dp.html#ループに変換する">12.2. ループに変換する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py12dp.html#コインの問題">12.3. コインの問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py12dp.html#ナップサック問題">12.4. ナップサック問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py12dp.html#演習問題">12.5. 演習問題</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 探索アルゴリズム</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="py13search.html#TODO">13.1. TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py13search.html#見本">13.2. 見本</a></li>
-<li class="toctree-l2"><a class="reference internal" href="py13search.html#演習">13.3. 演習</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="py13search.html#木構造とグラフ">13.1. 木構造とグラフ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py13search.html#グラフ探索問題">13.2. グラフ探索問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py13search.html#探索の例:-油分け算">13.3. 探索の例: 油分け算</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py13search.html#エイトクイーン">13.4. エイトクイーン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py13search.html#演習">13.5. 演習</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a><ul>

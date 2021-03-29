@@ -10,13 +10,17 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.9.1-final"
+   "version": "3.9.2-final"
   },
   "orig_nbformat": 2,
   "kernelspec": {
    "name": "python3",
-   "display_name": "Python 3",
-   "language": "python"
+   "display_name": "Python 3.9.2 64-bit",
+   "metadata": {
+    "interpreter": {
+     "hash": "ac2eaa0ea0ebeafcc7822e65e46aa9d4f966f30b695406963e145ea4a91cd4fc"
+    }
+   }
   }
  },
  "nbformat": 4,
@@ -26,9 +30,11 @@
    "source": [
     "# 文字と情報\n",
     "\n",
-    "人類の扱う情報の大半は、文字によって伝えられます。したがって、文字や文字列を扱うことは、情報処理の基本中の基本と言えます。今回は、Pythonの文字列処理を練習しましょう。\n",
+    "人類の扱う情報の大半は、文字によって伝えられます。だから、文字や文字列を扱うことは、**情報処理**の基礎中の基礎となります。\n",
     "\n",
-    "\n",
+    "ひとつ嬉しい話をすると、文字列処理はPythonの得意分野です。\n",
+    "つまり、とてもプログラミングしやすいです。\n",
+    "しっかり練習して、文字列処理をマスターしましょう。\n",
     "\n"
    ],
    "cell_type": "markdown",
@@ -36,7 +42,7 @@
   },
   {
    "source": [
-    "## 文字と文字**列**\n",
+    "## 文字\n",
     "\n",
     "文字は、コンピュータの内部では、文字コードと呼ばれる番号で表現されています。\n",
     "\n",
@@ -89,14 +95,27 @@
    "source": [
     "<div class=\"alert alert-info\">\n",
     "\n",
+    "Let's try\n",
+    "\n",
+    "`あ` の文字コードを調べてみよう！\n",
+    "\n",
+    "</div>"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
     "Pythonの文字\n",
     "\n",
-    "Pythonでは、文字は1文字長の文字列に過ぎません。ユニコードに対応しているため、日本語も１文字として扱うことができます。\n",
+    "Pythonでは、文字は1文字長の文字列に過ぎません。[ユニコード](https://ja.wikipedia.org/wiki/Unicode)に対応しているため、日本語も１文字として扱うことができます。\n",
     "\n",
     "</div>\n",
     "\n",
     "文字 `c` の種類の判定は文字コードに基づいておこないます。\n",
-    "Python は便利な文字列メソッドも用意してくれているので、通常は２つ目の書き方を使います。\n",
+    "Python は便利な文字列メソッドも用意してくれているので、通常はコメントの方を使います。\n",
     "\n",
     "__数字の判定__\n",
     "```\n",
@@ -112,14 +131,23 @@
     "```\n",
     "'a' <= c and c <= 'z' # もしくは c.islower()\n",
     "```\n",
-    "\n"
+    "\n",
+    "__ひらがなの判定__\n",
+    "```\n",
+    "'ぁ' <= c and c <= 'ん' \n",
+    "```\n",
+    "\n",
+    "__カタカナの判定__\n",
+    "```\n",
+    "'ァ' <= c and c <= 'ン' \n",
+    "```\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
    "source": [
-    "### 文字列\n",
+    "## 文字列\n",
     "\n",
     "文字列は、文字通り、文字の列です。\n",
     "リストと同じように、文字列を先頭から数えて i 番目の文字のように取り出すことができます。\n",
@@ -255,47 +283,92 @@
   },
   {
    "source": [
-    "文字列と「文字のリスト」の大きな違いは、破壊的な操作、つまり変更できるかどうかにあります。\n",
-    "リストは変更できますが、文字列は変更できません。\n",
+    "文字列と「文字のリスト」の大きな違いは、**破壊的な操作**、つまり変更できるかどうかにあります。\n",
+    "リストは変更できますが、文字列は不変で変更できません。\n",
     "\n",
     "<div class=\"alert alert-info\">\n",
     "\n",
-    "不変性\n",
+    "**不変性(Immutablitiy)**\n",
     "\n",
     "値が変更できないこと\n",
+    "（プログラミングでは重要な概念）\n",
     "\n",
     "</div>\n",
-    "\n",
-    "もし文字列の並びを変更したいときは、文字列を文字リストに変換して操作することができます。\n",
-    "\n",
-    "* 文字列から文字リストに変換する: `cs = list(s)`\n",
-    "* **文字リストを変更する**\n",
-    "* 文字リストから文字列に戻す `s = \"\".join(cs)`"
+    "\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "error",
+     "ename": "TypeError",
+     "evalue": "'str' object does not support item assignment",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-21-faf39c17bf80>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0ms\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m\"abc\"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0ms\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m\"A\"\u001b[0m \u001b[0;31m# 先頭を変更 (ただし、エラーになります)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m: 'str' object does not support item assignment"
+     ]
+    }
+   ],
    "source": [
+    "s = \"abc\"\n",
+    "s[0] = \"A\" # 先頭を変更 (ただし、エラーになります)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "['A', 'b', 'c']\n"
+     ]
+    }
+   ],
+   "source": [
+    "a = ['a', 'b', 'c']\n",
+    "a[0] = 'A'  # こちらは変更可能\n",
+    "print(a)"
+   ]
+  },
+  {
+   "source": [
+    "__文字列の内容を変更したいとき__\n",
+    "\n",
+    "文字列を文字リストに変換して操作することができます。\n",
+    "\n",
+    "* 文字列から文字リストに変換する: `cs = list(s)`\n",
+    "* **文字リストを変更する**\n",
+    "* 文字リストから文字列に戻す `s = \"\".join(cs)`\n",
+    "\n",
     "<div class=\"admonition tip\">\n",
     "\n",
-    "**例題（文字列のソート）**\n",
+    "**例題（ひらがなとカタカナ）**\n",
     "\n",
-    "入力された文字列をアルファベット順（文字コード順）に並べ変えた文字列にしよう。\n",
+    "文字列中のひらがなをカタカナに変換してみよう\n",
     "\n",
     "入力例：\n",
     "```\n",
-    "hello\n",
+    "めじろはなこ\n",
     "```\n",
     "\n",
     "出力例：\n",
     "```\n",
-    "ehllo\n",
+    "メジロハナコ\n",
     "```\n",
     "</div>\n",
     "\n",
-    "文字列を文字のリストに変換し、`sort()`でソートします。\n",
-    "ソートしたのち、再度、文字列に変換して戻します。"
+    "文字列を文字のリストに変換し、ひらがなの場合は文字コードを96大きくします。\n",
+    "そして、再度、文字列に変換して戻します。"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -309,14 +382,16 @@
      "output_type": "stream",
      "name": "stdout",
      "text": [
-      "ehllo\n"
+      "メジロハナコ\n"
      ]
     }
    ],
    "source": [
-    "s = \"hello\"\n",
+    "s = \"めじろはなこ\"\n",
     "cs = list(s)  # 文字のリストに変換\n",
-    "cs.sort()\n",
+    "for i, c in enumerate(cs):\n",
+    "    if 'ぁ' <= c and c <= 'ん':\n",
+    "        cs[i] = chr(ord(c) + 96)\n",
     "s = ''.join(cs) # 文字列に変換\n",
     "print(s)"
    ]
@@ -371,18 +446,35 @@
   },
   {
    "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "文字列ライブラリ\n",
+    "\n",
+    "Python には、さまざまな文字列ライブラリがあります。\n",
+    "\n",
+    "* 文字列操作: https://docs.python.org/ja/3/library/string.html\n",
+    "* 正規表現: https://docs.python.org/ja/3/library/re.html\n",
+    "\n",
+    "</div>"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
     "<div class=\"admonition tip\">\n",
     "\n",
     "**例題（文字列操作）**\n",
     "\n",
-    "次の文字列を文字列操作によって求める\n",
+    "次を文字列操作によって求める\n",
     "\n",
     "1. `'Hello'`を全て英大文字に変換する\n",
     "2. `'Hello'`の中に含まれる`l`の数\n",
-    "3. `'12'`, `'50'`, `'00'`を`':'`で連結した文字列\n",
-    "4. `1,3,4,8`を数字のリスト(`[1,3,4,8]`)に変換する\n",
-    "\n",
-    "\n",
+    "3. `-123`の先頭の`-`を取り除いた部分文字列\n",
+    "4. `'*'`が28個続く文字列\n",
+    "5. `'12'`, `'50'`, `'00'`を`':'`で連結する\n",
+    "6. `1,3,4,8`をカンマ区切りから空白区切り(`1 3 4 8`)に変換する\n",
+    "7. `1,3,4,8`から、数列(`[1,3,4,8]`)に変換する\n",
     "</div>\n",
     "\n"
    ],
@@ -390,60 +482,439 @@
    "metadata": {}
   },
   {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "'HELLO'"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 12
+    }
+   ],
    "source": [
-    "## 見本\n",
+    "s = 'Hello'\n",
+    "s.upper()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "2"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 13
+    }
+   ],
+   "source": [
+    "s = \"Hello\"\n",
+    "s.count('l')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "'123'"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 14
+    }
+   ],
+   "source": [
+    "s = \"-123\"\n",
+    "s[1:]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "'****************************'"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 15
+    }
+   ],
+   "source": [
+    "s = '*'\n",
+    "s * 28"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "'12:50:00'"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 16
+    }
+   ],
+   "source": [
+    "a = ['12', '50', '00']\n",
+    "':'.join(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "'1 3 4 8'"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 17
+    }
+   ],
+   "source": [
+    "s = '1,3,4,8'\n",
+    "s.replace(',', ' ')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "['1', '3', '4', '8']"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 18
+    }
+   ],
+   "source": [
+    "s = '1,3,4,8'\n",
+    "s.split(',')  # このままでは文字のリスト"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[1, 3, 4, 8]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 20
+    }
+   ],
+   "source": [
+    "s = '1,3,4,8'\n",
+    "[int(c) for c in s.split(',')]"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"admonition tip\">\n",
     "\n",
-    "<div class=\"alert alert-info\">\n",
+    "**例題（数字の和）**\n",
     "\n",
-    "Let's try\n",
+    "図のようなリング状の文字列 s の任意の位置から、時計回りに連続した文字をいくつか選んで、\n",
+    "文字列 p が作れるかを判定するプログラムを作成してください。\n",
     "\n",
-    "`2 ** (1//2)` が、正しく $\\sqrt{2}$ にならない理由を考えてみよう\n",
+    "![リング](https://judge.u-aizu.ac.jp/onlinejudge/IMAGE2/ITP1_8_D.png)\n",
     "\n",
+    "\n",
+    "入力例\n",
+    "```\n",
+    "vanceknowledgetoad\n",
+    "advance\n",
+    "```\n",
+    "\n",
+    "出力例\n",
+    "```\n",
+    "True\n",
+    "```\n",
+    "\n",
+    "入力例\n",
+    "```\n",
+    "vanceknowledgetoad\n",
+    "advanced\n",
+    "```\n",
+    "\n",
+    "出力例\n",
+    "```\n",
+    "False\n",
+    "```\n",
+    "\n",
+    "出典 [AOJ ITP1_8_D Ring](https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_8_D&lang=ja)\n",
     "</div>\n",
     "\n",
-    "まずは、リストを使わなくても解ける問題ですが、リストの練習を兼ねて解いてみましょう。\n",
+    "このプログラムは、文字列処理が苦手なC言語で解こうとすると、かなり難問です。\n",
+    "ただし、Pythonなら少し工夫すれば、基本文字列操作で解くことができます。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s = \"vanceknowledgetoad\"\n",
+    "p = \"advance\"\n",
+    "p in s + s "
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-warning\">\n",
     "\n",
-    "### 平均点\n",
+    "どうして文字列`s`を連結しているの？\n",
+    "\n",
+    "と、質問されることがありますが、連結するとどうなるか落ち着いて考えてみてください。\n",
+    "\n",
+    "</div>"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（数字の和）**\n",
+    "\n",
+    "与えられた数の各桁の和を計算するプログラムを作成して下さい。\n",
+    "\n",
+    "入力例\n",
+    "```\n",
+    "1234\n",
+    "```\n",
+    "\n",
+    "出力例\n",
+    "```\n",
+    "10\n",
+    "```\n",
+    "\n",
+    "出典 [AOJ ITP1_8_B Sum of Numbers](https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_8_B&lang=ja)\n",
+    "</div>\n",
+    "\n",
+    "まず、基本通り、確実にプログラミングできるようになりましょう。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s = \"1234\"\n",
+    "n = 0\n",
+    "for i in range(len(s)): # 文字列の大きさだけ繰り返す\n",
+    "    n += int(s[i])\n",
+    "print(n)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "10\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = \"1234\"\n",
+    "n = 0\n",
+    "for c in list(s):  # 文字のリストとして1文字ずつ処理する\n",
+    "    n += int(c)\n",
+    "print(n)"
+   ]
+  },
+  {
+   "source": [
+    "リスト内包記法を使えば、コンパクトに書くことができるようになります。\n",
+    "（書ける必要はありまえんが、ソースコードを読んで理解するためには読めるようになる必要があります。）"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "10"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 11
+    }
+   ],
+   "source": [
+    "s = \"1234\"\n",
+    "sum(int(c) for c in list(s)) "
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "リスト内包記法の[]を省略\n",
+    "\n",
+    "リスト内包記法を引数で用いるときは、`[ ]`を省略してもよいです。\n",
+    "\n",
+    "```\n",
+    "sum([int(c) for c in list(s)]) \n",
+    "```\n",
+    "\n",
+    "<div>"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 辞書を使ってみる\n",
     "\n",
     "<div class=\"admonition tip\">\n",
     "\n",
-    "**例題（平均点）**\n",
+    "**例題（文字の数）**\n",
     "\n",
-    "期末試験は5人受験した。\n",
-    "点数が40点未満の生徒は全員，補習を受け，成績が40点になった。\n",
-    "5人の平均点を求めよ。\n",
+    "文字列`s`に含まれる、各アルファベットの数を数えるプログラムを作成して下さい。 \n",
+    "なお、英小文字と英大文字は区別しません。\n",
     "\n",
-    "入力例：\n",
+    "\n",
+    "入力例\n",
     "```\n",
-    "10\n",
-    "65\n",
-    "100\n",
-    "30\n",
-    "95\n",
+    "This is a pen.\n",
     "```\n",
     "\n",
-    "出力例：\n",
+    "出力例\n",
     "```\n",
-    "68\n",
+    "a : 1\n",
+    "e : 1\n",
+    "h : 1\n",
+    "i : 2\n",
+    "n : 1\n",
+    "p : 1\n",
+    "s : 2\n",
+    "t : 1\n",
     "```\n",
     "\n",
-    "[AtCoder (JOI2014 予選)](https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a)\n",
-    "\n",
+    "出典 [AOJ ITP1_8_C Counting Characters](https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_8_C&lang=ja)\n",
     "</div>\n",
     "\n",
-    "__(解法) リストを使う場合__\n",
+    "__ヒント__\n",
     "\n",
-    "1. 期末試験を記録する空の得点リスト `scores` を用意する\n",
-    "2. 5人分繰り返し、点数を読んで、`scores` に追加する \n",
-    "3. 平均点は `sum(scores) // 5`\n",
+    "* 文字列内のアルファベットを 文字コード c に変換し、`count[c] += 1`する\n",
+    "* 文字列内の文字をすべて、辞書で数え、アルファベットのみ出力する\n",
     "\n",
+    "**辞書(dict)**は、文字列をキーして値を管理できるデータ構造です。\n",
     "\n",
+    "まずは、辞書って便利だなと感じてください。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "{'t': 1, 'h': 1, 'i': 2, 's': 2, ' ': 3, 'a': 1, 'p': 1, 'e': 1, 'n': 1, '.': 1}\na : 1\ne : 1\nh : 1\ni : 2\nn : 1\np : 1\ns : 2\nt : 1\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 入力\n",
+    "s = \"This is a pen.\"\n",
     "\n",
-    "|Python|説明|\n",
-    "|--------|-------------|\n",
-    "|`max(a)`|数列`a`の最大値|\n",
-    "|`min(a)`|数列`a`の最小値|\n",
-    "|`sum(a)`|数列`a`の合計値| \n"
+    "d = {} #空の辞書を作る\n",
+    "\n",
+    "for c in list(s.lower()):\n",
+    "    d[c] = d.get(c, 0) + 1\n",
+    "\n",
+    "print(d)\n",
+    "\n",
+    "for key in sorted(d.keys()):\n",
+    "    if key.isalpha():\n",
+    "        print(key, ':', d[key])\n"
+   ]
+  },
+  {
+   "source": [
+    "辞書は、リストのインデックス(数値)の代わりに文字列が使えるようになります。\n",
+    "文字列を学んだら、あわせてマスターしておきたいデータ構造です。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "主な辞書(d)の操作\n",
+    "\n",
+    "| コード | 説明|\n",
+    "|--|-|\n",
+    "|`d = {}` | 空の辞書を生成し、d という名前にする|\n",
+    "|`d[key]` | `key` に対する値をえる (key がない場合はエラー) \n",
+    "|`d.get(key,v)`| `key に対する値をえる (key がない場合は v を使う)|\n",
+    "|`key in d`| 辞書内`d`に `key` が存在するかどうか?`|\n",
+    "|`d[key]=v`| `key` に対応する値`v`をセットする|\n",
+    "|`len(d)`  | 辞書 `d` の大きさ(キーの数) をえる|\n",
+    "|`d.keys()`| 辞書 d のキーのリストをえる|\n",
+    "\n",
+    "</div>"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -451,6 +922,8 @@
   {
    "source": [
     "## 演習問題\n",
+    "\n",
+    "簡単な文字列問題を集めてみました。\n",
     "\n",
     "* [文字列の連結](https://atcoder.jp/contests/abc149/tasks/abc149_a)\n",
     "* [文字列の比較](https://atcoder.jp/contests/abc152/tasks/abc152_b)\n",
@@ -462,11 +935,12 @@
     "* [セキュリティコード](https://atcoder.jp/contests/abc131/tasks/abc131_a): 入力しやすい\n",
     "* [Coffee](https://atcoder.jp/contests/abc160/tasks/abc160_a)\n",
     "* [しりとり](https://atcoder.jp/contests/abc060/tasks/abc060_a)\n",
+    "* [シーザー暗号](https://atcoder.jp/contests/joi2007yo/tasks/joi2007yo_c)\n",
+    "* [ROT N](https://atcoder.jp/contests/abc146/tasks/abc146_b): これもシーザー暗号\n",
     "* [文字列の置き換え](https://atcoder.jp/contests/abc111/tasks/abc111_a): ちょっと工夫してください\n",
     "* [エコー](https://atcoder.jp/contests/abc145/tasks/abc145_b): 部分文字列の練習です\n",
     "* [...](https://atcoder.jp/contests/abc168/tasks/abc168_b): 実用的な文字列処理\n",
     "* [奇数文字目](https://atcoder.jp/contests/abc072/tasks/abc072_b): スライスでもできます\n",
-    "\n",
     "* [クイズ](https://atcoder.jp/contests/abc184/tasks/abc184_b)"
    ],
    "cell_type": "markdown",

@@ -30,8 +30,7 @@
    "source": [
     "# リストと繰り返し\n",
     "\n",
-    "プログラミングの鍵となるリストと繰り返しについて説明します。\n",
-    "\n"
+    "プログラミングの鍵となるリストと繰り返しについて説明します。\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -51,9 +50,9 @@
     "print(a1, a2, a3)  #３つが限界だな..\n",
     "```\n",
     "\n",
-    "リストは、複数個の値をひとまとまりの**順序をもったデータ**とする方法です。\n",
+    "リストは、複数個の値をひとまとまりとして扱うときの**順序をもったデータ表現**とする方法です。\n",
     "リストを使えば、値にひとつずつ変数名をつける代わりに数列$a_i$のように、\n",
-    "$i$番目の値として扱えるようになります。\n",
+    "リストの$i$番目の値として扱えます。\n",
     "\n",
     "__リストを用いて値をまとめて扱う場合__：\n",
     "\n",
@@ -62,8 +61,8 @@
     "print(a[0], a[1], a[2])\n",
     "```\n",
     "リストを使えば、値が100個に増えても、10,000個に増えても問題ありません。\n",
-    "リストの使い方は、アルゴリズムやデータサイエンスの基礎になります。\n",
-    "しっかり、マスターしていきましょう。\n",
+    "リストは、アルゴリズムや来年以降、データサイエンスを学ぶときの基礎になります。\n",
+    "しっかり、基礎をマスターしていきましょう。\n",
     "\n"
    ],
    "cell_type": "markdown",
@@ -71,9 +70,9 @@
   },
   {
    "source": [
-    "### リストとインデックス(添字)\n",
+    "### インデックス(添字)\n",
     "\n",
-    "リストは、数列$a_i, ..., a_j$に由来し、難しい概念ではありません。\n",
+    "リストは、数列$a_i, ..., a_j$に由来し、難しい概念ではありません。添字のことを**インデックス(index)**と呼びます。\n",
     "\n",
     "__注意すべき点__\n",
     "\n",
@@ -91,7 +90,7 @@
     "\n",
     "<div class=\"alert alert-info\">\n",
     "\n",
-    "(プログラミングの)$N$個数える\n",
+    "$N$個数える\n",
     "\n",
     "プログラミングでは、原則、「**0から**$N-1$まで」のように0から数えます。\n",
     "\n",
@@ -108,8 +107,9 @@
     "\n",
     "**例題（インデックス）**\n",
     "\n",
-    "次のコードからエラーを取り除いて、\n",
-    "リスト`a`の先頭と末尾の要素の合計を求めるにプログラムに変更してください。\n",
+    "次のコードはエラーがあります。\n",
+    "リスト`a`の先頭と末尾の値の合計を求められるように\n",
+    "正しく修正してください。\n",
     "\n",
     "```python\n",
     "a = [1, 2, 3, 5, 8]\n",
@@ -154,7 +154,7 @@
     "\n",
     "</div>\n",
     "\n",
-    "インデックスは、0から数えますので、先頭は`a[0]`、末尾は`a[4]`になります。\n"
+    "インデックスは、**0から数えます**ので、先頭は`a[0]`、末尾は`a[4]`になります。\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -186,7 +186,8 @@
     "\n",
     "Let's try\n",
     "\n",
-    "リストの大きさが増減しても末尾から値が取れるように直してみよう\n",
+    "リストの大きさが増減しても常に末尾から値が取れるように、\n",
+    "リストの要素数から末尾のインデックスを計算してみよう。\n",
     "\n",
     "```python\n",
     "a = [1, 2, 3, 5, 8, 13]\n",
@@ -219,7 +220,7 @@
   },
   {
    "source": [
-    "Python 独自の記法として、`a[-1]`のようにマイナスのインデックスを指定すると、後ろから数えてくれます。（ただし、このような記法はPythonだけのユニークな記法なので気をつけましょう。）"
+    "Python 独自の記法として、`a[-1]`のようにマイナスのインデックスを指定すると、後ろから数えてくれます。（ただし、このような記法はPythonだけの独自の記法なので、他のプログラミング言語では使えません。）"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -371,15 +372,13 @@
   },
   {
    "source": [
-    "### `list()`関数で変換する\n",
+    "### リストの変更（とタプル）\n",
     "\n",
-    "__数列(連番)リスト__\n",
+    "リストは、代入演算子を用いて、値を変更することができます。\n",
     "\n",
     "\n",
-    "__リストに変換する__\n",
-    "```\n",
-    "a = list(\"123\")\n",
-    "```"
+    "\n",
+    "\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -390,19 +389,30 @@
    "metadata": {},
    "outputs": [
     {
-     "output_type": "execute_result",
-     "data": {
-      "text/plain": [
-       "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
-      ]
-     },
-     "metadata": {},
-     "execution_count": 9
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "[9, 2, 3]\n"
+     ]
     }
    ],
    "source": [
-    "list(range(1, 10))  # 1から10未満までの数列\n"
+    "a = [1, 2, 3]\n",
+    "a[0] = 9\n",
+    "print(a)"
    ]
+  },
+  {
+   "source": [
+    "リストによく似たデータ構造にタプル（組）があります。タプルは、`( )` で値の列を囲んで作ります。\n",
+    "\n",
+    "リストとタプルの違いは、(よく質問されますが）要素の値を変更できるかどうかです。\n",
+    "\n",
+    "* リスト: 変更可能\n",
+    "* タプル: 変更不可能\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
   },
   {
    "cell_type": "code",
@@ -410,19 +420,63 @@
    "metadata": {},
    "outputs": [
     {
-     "output_type": "execute_result",
-     "data": {
-      "text/plain": [
-       "['a', 'b', 'c', 'd', 'e', 'f', 'g']"
-      ]
-     },
-     "metadata": {},
-     "execution_count": 10
+     "output_type": "error",
+     "ename": "TypeError",
+     "evalue": "'tuple' object does not support item assignment",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-10-11b86ec22fde>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0ma\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;36m2\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;36m3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0ma\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m9\u001b[0m  \u001b[0;31m# 変更しようとするとエラー\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mTypeError\u001b[0m: 'tuple' object does not support item assignment"
+     ]
     }
    ],
    "source": [
-    "list(\"abcdefg\")  # 文字列を分解した文字リスト"
+    "a = (1, 2, 3)\n",
+    "a[0] = 9  # 変更しようとするとエラー\n",
+    "print(a)"
    ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "タプル\n",
+    "\n",
+    "要素の値を変更できない分、メモリ利用効率がよい\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### リストと変数展開\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（リスト）**\n",
+    "\n",
+    "空白区切りで与えられる2つの整数を入力から読み、\n",
+    "その和、差、積、商からなる新たなリストを出力せよ。\n",
+    "\n",
+    "入力例：\n",
+    "```\n",
+    "21 17\n",
+    "```\n",
+    "\n",
+    "出力例：\n",
+    "```\n",
+    "[38, 4, 351, 1]\n",
+    "```\n",
+    "</div>\n",
+    "\n",
+    "文字通りにプログラムを書くと：\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
   },
   {
    "cell_type": "code",
@@ -433,7 +487,7 @@
      "output_type": "execute_result",
      "data": {
       "text/plain": [
-       "[1, 2, 3]"
+       "[38, 4, 357, 1]"
       ]
      },
      "metadata": {},
@@ -441,8 +495,118 @@
     }
    ],
    "source": [
-    "input = lambda : \"1 2 3\"\n",
-    "list(map(int, input().split())) # おなじみのmap関数からlistに変換"
+    "# a = list(map(int, input().split()))\n",
+    "a = [21, 17]\n",
+    "[a[0] + a[1], a[0] - a[1], a[0] * a[1], a[0] // a[1]]\n"
+   ]
+  },
+  {
+   "source": [
+    "これは少し読みにくいですよね。\n",
+    "頻繁に使うリストの要素は、変数に展開した方が間違いが減ります。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[38, 4, 357, 1]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 12
+    }
+   ],
+   "source": [
+    "x = a[0]\n",
+    "y = a[1]\n",
+    "[x+y, x-y, x*y, x//y]\n"
+   ]
+  },
+  {
+   "source": [
+    "あ、いつも何気なく入力処理で使っている書き方をしても構いません。\n",
+    "\n",
+    "```python\n",
+    "x, y = list(map(int, input().split()))\n",
+    "[x+y, x-y, x*y, x//y]\n",
+    "```\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "デストラクタ代入（変数への展開）\n",
+    "\n",
+    "要素の数がn個のとき、n個の変数に分割して代入する記法\n",
+    "\n",
+    "```python\n",
+    "x, y = [1, 2]  # ２個のとき\n",
+    "x, y, z = [1, 2, 3]  #3個のとき\n",
+    "```\n",
+    "</div>\n",
+    "\n",
+    "ちなみに、リストを引数に展開するときは、`*`をつけます。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "[1, 2, 3, 4]\n1 2 3 4\n1 2 3 4\n"
+     ]
+    }
+   ],
+   "source": [
+    "a = [1, 2, 3, 4]\n",
+    "print(a)\n",
+    "print(a[0], a[1], a[2], a[3])\n",
+    "print(*a)"
+   ]
+  },
+  {
+   "source": [
+    "\n",
+    "### `list()`関数\n",
+    "\n",
+    "関数`list()`は、リストではないけど、\n",
+    "値が並んでいる列（シーケンス）からリストに変換する関数です。\n",
+    "\n",
+    "__数列(連番)リスト__\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 14
+    }
+   ],
+   "source": [
+    "list(range(1, 10))  # 1から10未満までの数列\n"
    ]
   },
   {
@@ -467,244 +631,143 @@
   },
   {
    "source": [
-    "#### 外延とリスト内包記法\n",
+    "__文字列__\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "['a', 'b', 'c', 'd', 'e', 'f', 'g']"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 15
+    }
+   ],
+   "source": [
+    "list(\"abcdefg\")  # 文字列を分解した文字リスト"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[1, 2, 3]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 16
+    }
+   ],
+   "source": [
+    "input = lambda : \"1 2 3\"\n",
+    "list(map(int, input().split())) # おなじみのmap関数からlistに変換"
+   ]
+  },
+  {
+   "source": [
+    "### リスト内包記法★\n",
     "\n",
-    "リストの定義は、集合の記法に由来しています。\n",
-    "ただし、リストは、集合と異なり、順序が存在し重複が認められるので、\n",
+    "リストの定義は、数学の集合記法に由来しています。\n",
+    "\n",
+    "リストは、集合と異なり、順序が存在し重複が認められるので、\n",
     "集合とは区別して`{ }`でなく`[ ]`で囲みます。\n",
     "\n",
-    "__外延定義__: $A = \\{ 1, 2, 3, 5, 8, 13, 21, 34, 55 \\}$\n",
+    "__外延定義__: \n",
+    "\n",
+    "$A = \\{ 1, 2, 3, 5, 8, 13, 21, 34, 55 \\}$\n",
     "```python\n",
     "A = [1, 2, 3, 5, 8, 13, 21, 34, 55]\n",
     "```\n",
     "\n",
     "集合記法と同じように、既に定義してある集合から内包的に定義することもできます。\n",
     "\n",
-    "__内包定義__: $B = \\{ 2x | x \\in A \\}$\n",
+    "__内包定義__: \n",
+    "\n",
+    "$B = \\{ 2x | x \\in A \\}$\n",
     "\n",
     "```\n",
     "B = [2*x for x in A]\n",
     "```\n",
     "\n",
-    "__内包定義__: $C = \\{ x | x \\in A, \\mbox{xは奇数} \\}$\n",
+    "$C = \\{ x | x \\in A, \\mbox{xは奇数} \\}$\n",
     "\n",
     "```\n",
     "C = [x for x in A　if x % 2 == 1]\n",
     "```\n",
     "\n",
-    "__内包定義__: $D = \\{ 2x | x \\in A, \\mbox{xは奇数} \\}$\n",
+    "$D = \\{ 2x | x \\in A, \\mbox{xは奇数} \\}$\n",
     "\n",
     "```\n",
     "D = [2 * x for x in A　if x % 2 == 1]\n",
-    "```"
-   ],
-   "cell_type": "markdown",
-   "metadata": {}
-  },
-  {
-   "source": [
-    "\n",
-    "\n",
-    "\n",
-    "<div class=\"admonition tip\">\n",
-    "\n",
-    "**例題（リスト）**\n",
-    "\n",
-    "空白区切りで与えられる2つの整数を入力から読み、\n",
-    "その和、差、積、商からなる新たなリストを出力せよ。\n",
-    "\n",
-    "入力例：\n",
-    "```\n",
-    "21 17\n",
-    "```\n",
-    "\n",
-    "出力例：\n",
-    "```\n",
-    "[38, 4, 351, 1]\n",
-    "```\n",
-    "</div>\n",
-    "\n",
-    "文字通りにプログラムを書くと：\n",
-    "\n",
-    "```python\n",
-    "a = list(map(int, input().split()))\n",
-    "[a[0] + a[1], a[0] - a[1], a[0] * a[1], a[0] // a[1]]\n",
-    "```\n",
-    "\n",
-    "これは少し読みにくいですよね。\n",
-    "頻繁に使うリストの要素は、変数に展開した方が間違いが減ります。\n",
-    "\n",
-    "```python\n",
-    "a = list(map(int, input().split()))\n",
-    "x = a[0]\n",
-    "y = a[1]\n",
-    "[x+y, x-y, x*y, x//y]\n",
-    "```\n",
-    "\n",
-    "あ、いつの書き方で書き直してもいいですね。\n",
-    "\n",
-    "```python\n",
-    "x, y = list(map(int, input().split()))\n",
-    "[x+y, x-y, x*y, x//y]\n",
     "```\n",
     "\n",
     "<div class=\"alert alert-info\">\n",
     "\n",
-    "デストラクタ代入\n",
+    "Pythonの集合(Set)\n",
     "\n",
-    "要素の数がn個のとき、n個の変数に分割して代入する記法\n",
+    "Python で集合を使いたいときは、`set()`で変換します。\n",
     "\n",
     "```python\n",
-    "x, y = [1, 2]  # ２個のとき\n",
-    "x, y, z = [1, 2, 3]  #3個のとき\n",
+    "set(['1, 2, 3, 1, 2`])\n",
     "```\n",
+    "\n",
+    "順序も重複もない値の集合が得られます。\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## リストと繰り返し\n",
+    "\n",
+    "前回、プログラミングの頻出する構造として、**N回繰り返す**パターンを練習しました。\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "決まり文句: N回繰り返す構造\n",
+    "\n",
+    "```python\n",
+    "for i in range(N):\n",
+    "\t# 繰り返す\n",
+    "\t# プログラム\n",
+    "```\n",
+    "\n",
     "</div>\n",
     "\n",
-    "\n",
-    " \n"
-   ],
-   "cell_type": "markdown",
-   "metadata": {}
-  },
-  {
-   "source": [
-    "### リストの変更\n",
-    "\n",
-    "リストは、代入演算子を用いて、値を変更することができます。\n"
+    "__Hello Worldを10回繰り返す__"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 17,
    "metadata": {},
-   "outputs": [],
-   "source": [
-    "a = [1, 2, 3]\n",
-    "a[0] = 9\n",
-    "print(a)"
-   ]
-  },
-  {
-   "source": [],
-   "cell_type": "markdown",
-   "metadata": {}
-  },
-  {
-   "source": [
-    "### リストの集約計算\n",
-    "\n",
-    "リストが使えるようになると、データの集まりをまとめて処理できるようになります。\n",
-    "\n",
-    "特に、リストの要素が数値、つまり数列の場合は、威力を発揮します。\n",
-    "\n",
-    "|Python|説明|\n",
-    "|--------|-------------|\n",
-    "|`max(a)`|数列`a`の最大値|\n",
-    "|`min(a)`|数列`a`の最小値|\n",
-    "|`sum(a)`|数列`a`の合計値| \n"
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "0 Hello World\n1 Hello World\n2 Hello World\n3 Hello World\n4 Hello World\n5 Hello World\n6 Hello World\n7 Hello World\n8 Hello World\n9 Hello World\n"
+     ]
+    }
    ],
-   "cell_type": "markdown",
-   "metadata": {}
-  },
-  {
-   "source": [
-    "## リストの操作\n",
-    "\n",
-    "|Python|操作の説明|\n",
-    "|------|--------|\n",
-    "|`len(a)`|リスト$a$の個数|\n",
-    "|`a[i]`|$i$ 番目の値|\n",
-    "|`a[i] = x`|$i$ 番目の値を$x$に置き換える|\n",
-    "|`a[i:j]`|$i$ 番目から$j$番目までの部分リスト|\n",
-    "|`a[i:]`|$i$ 番目から最後尾までの部分リスト|\n",
-    "|`a[:j]`|先頭から$j$番目までの部分リスト|\n",
-    "|`x in a`|リスト$a$に$x$が含まれるかどうか|\n",
-    "|`a.find(x)`|リスト$a$内の最初の$x$の位置|\n",
-    "|`a.rfind(x)`|リスト$a$内の最後の$x$の位置|\n",
-    "|``||\n",
-    "|``||\n",
-    "|``||\n",
-    "\n",
-    "\\begin{tabular}{llr}\n",
-    "Python3  &　C++ & 操作の内容  \\\\\n",
-    "\\textbf{（基本操作）} & &  \\\\\\hline\n",
-    "{\\tt len(a)}  &  & リスト$a$の個数 \\\\\n",
-    "{\\tt a[i]}  & {\\tt\\color{blue} a[i]} & $i$ 番目の値  \\\\\n",
-    "{\\tt a[i] = x} & {\\tt\\color{blue} a[i] = x} & $i$ 番目の値を$x$に置き換える\\\\\n",
-    "{\\tt a[i:j]} & & $i$ 番目から$j$番目までの部分リスト \\\\\\hline\n",
-    "{\\tt a[i:]} & & $i$ 番目から最後尾までの部分リスト \\\\\n",
-    "{\\tt a[:j]} & & 先頭から$j$番目までの部分リスト \\\\\n",
-    "{\\tt a[:]} & & リスト$a$のコピー（破壊的操作の前に実施） \\\\\\hline\n",
-    "{\\tt x in a} & & リスト$a$に$x$が含まれるか判定 \\\\\n",
-    "{\\tt a.find(x)} & & リスト$a$内の最初の$x$の位置（ない場合は -1） \\\\\n",
-    "{\\tt a.rfind(x)} & & リスト$a$内の最後の$x$の位置（ない場合は -1） \\\\\n",
-    "&&\\\\\n",
-    "\\textbf{（新しいリスト）} & &  \\\\\\hline\n",
-    "{\\tt [] }  &  & 空のリスト \\\\\n",
-    "{\\tt [0] * N}  &  & 0が$N$個並んだリスト \\\\\n",
-    "{\\tt [[0] * N for \\_ in range(M)]}  &  & 0が$M\\times{N}$個並んだ2次元リスト \\\\\n",
-    "{\\tt list(range(a, b))}  &  & 整数$a$から$b$未満までの数列 \\\\\n",
-    "&&\\\\\n",
-    "\\textbf{（破壊的操作）} & &  \\\\\\hline\n",
-    "{\\tt a.append(x)}  & & リストの最後尾に x を追加する \\\\\n",
-    "{\\tt a.extend(b)}  & & リストの最後尾にリストbの値をすべて追加する \\\\\n",
-    "{\\tt a.pop()}  & & リストの最後尾から値を取り出す \\\\\n",
-    "{\\tt a.pop(i)}  & & $i$ 番目から値を取り出す \\\\\n",
-    "{\\tt a.sort()}  & & リストを整列する \\\\\n",
-    "{\\tt a.reverse()}  & & リストを逆順にする \\\\\n",
-    "\n",
-    "%{\\tt a.push\\_back(x)} & {\\tt a.append(x)} & リストの最後尾に x を追加する \\\\\n",
-    "%{\\tt a.pop\\_back(x)} & {\\tt a.pop()} & リストの最後尾から要素を取り出す \\\\\n",
-    "%{\\tt l.find(x)}  & 文字列中の x の位置を返す (ない場合は -1) \\\\\n",
-    "%{\\tt l.rfind(x)}  & 文字列中の x の位置を後ろから探して返す \\\\\n",
-    "%{\\tt l.sort()}  & リストl の要素を並べる \\\\\n",
-    "%{\\tt l.reverse()}  & リストl の要素の順序を入れ替える \\\\\n",
-    "&&\\\\\n",
-    "\\textbf{（集約操作）} & &  \\\\\\hline\n",
-    "% {\\tt list(x)} & & リストに変換する \\\\ \n",
-    "{\\tt max(a)} & & リスト(数列)の最大値 \\\\\n",
-    "{\\tt min(a)} & & リスト(数列)の最小値 \\\\\n",
-    "{\\tt sum(a)} & & リスト(数列)の合計値 \\\\\n",
-    "{\\tt list(map(f, a))} & & リストaのすべての値を関数$f$で変換したリスト \\\\\n",
-    " & & (\\verb|[f(x) for x in a]| と等しい) \\\\\n",
-    "{\\tt list(filter(f, a))} & & リストaを関数$f$でフィルターしたリスト \\\\\n",
-    " & & (\\verb|[x for x in a　if f(x)]| と等しい) \\\\\n",
-    "\\end{tabular}\n",
-    "\n",
-    "\\if0"
-   ],
-   "cell_type": "markdown",
-   "metadata": {}
-  },
-  {
-   "source": [
-    "## N回繰り返す\n",
-    "\n",
-    "プログラミングを書いていて、\n",
-    "頻出するのは**N回繰り返すという制御構造**です。\n",
-    "\n",
-    "\n",
-    "Pythonでは、`for`文を用いて、{{X}}をN回繰り返すように書きます。\n",
-    "\n",
-    "```python\n",
-    "{{A}}\n",
-    "for i in range(N):\n",
-    "\t{{X}}\n",
-    "{{B}}\n",
-    "```\n",
-    "\n",
-    "これは、**決まり文句**として覚えてしまいましょう。\n"
-   ],
-   "cell_type": "markdown",
-   "metadata": {}
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
    "source": [
     "for i in range(10):\n",
     "    print(f\"{i} Hello World\")"
@@ -712,32 +775,63 @@
   },
   {
    "source": [
-    "<div class=\"alert alert-warning\">\n",
+    "### for文と列\n",
     "\n",
-    "for 文の変数\n",
-    "\n",
-    "変数 `i`には0から始まる整数が繰り返しの回数分に割り当てられます。\n",
-    "（リストと同じく**0 から始まります。**）\n",
-    "</div>\n",
-    "\n",
-    "### range: 数列の書き方\n",
+    "for文は、 実はリストなどの列をの値を**順番に取り出して**、一つずつ処理する制御構造です。\n",
     "\n",
     "<div class=\"alert alert-info\">\n",
     "\n",
-    "`range(N)`\n",
+    "`for x in a` の意味\n",
     "\n",
-    "`range()`は、等差数列を作る便利な関数です。\n",
+    "列`a`の先頭から順番に値を取り出して、\n",
+    "変数 x に代入し、列`a`の個数だけ繰り返す\n",
+    "</div>\n",
     "\n",
-    "|Python|説明|\n",
-    "|------|---|\n",
-    "|`range(N)`|$0$から$N-1$までの数列|\n",
-    "|`range(1,N+1)`|$1$から$N$までの数列|\n",
-    "|`range(0,N,2)`|$0$から$N-1$までの$2$間隔ごとの数列|\n",
-    "|`range(N,0,-1)`|$N$から$1$までの数列(**逆順**)|\n",
+    "つまり、`range(10)`は0から9までの数列なので、`range(N)`で数列を作らなくても、次のようにリストを処理するのと同じになります。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "0 Hello World\n1 Hello World\n2 Hello World\n3 Hello World\n4 Hello World\n5 Hello World\n6 Hello World\n7 Hello World\n8 Hello World\n9 Hello World\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:\n",
+    "    print(f\"{i} Hello World\")"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
     "\n",
-    "__ポイント__: リストも`range(N)`も**0から**数えます。\n",
+    "列とリスト\n",
     "\n",
-    "</div>\n"
+    "Pythonの理解しにくいところのひとつは、列とリストの違いです。\n",
+    "列は、値の並んだ抽象的な集まりです。リストは、代表的な列ですが、列はリストだけではありません。\n",
+    "\n",
+    "__列の例__\n",
+    "\n",
+    "* リスト `[1, 2, 3]`\n",
+    "* タプル `(1, 2, 3)`\n",
+    "* 文字列 `\"123\"`\n",
+    "* 配列(NumPy) `np.array([1, 2, 3])`\n",
+    "* イテレータ(数列): `range(1, 4)`\n",
+    "\n",
+    "列は、値が順番に並んでいるという共通した性質があるため、種類にかかわらず、\n",
+    "for 文で順番に処理することができます。\n",
+    "\n",
+    "</div>\n",
+    "\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -775,9 +869,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 19,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "12\n15\n18\n"
+     ]
+    }
+   ],
    "source": [
     "a = [3, 6, 9, 12, 15, 18, 21, 24]\n",
     "N = len(a)\n",
@@ -787,29 +889,18 @@
    ]
   },
   {
-   "source": [
-    "もう少し`for`文の原理を理解してすっきりと書く練習をしておきましょう。\n",
-    "\n",
-    "<div class=\"alert alert-info\">\n",
-    "\n",
-    "`for x in a` の意味\n",
-    "\n",
-    "列`a`の先頭から順番に値を取り出して、\n",
-    "変数 x に代入し、列`a`の個数だけ繰り返す\n",
-    "</div>\n",
-    "\n",
-    "つまり、`range(N)`で数列を作らなくてもそのまま先頭から順番に処理できるようになります。\n",
-    "\n",
-    "\n"
-   ],
-   "cell_type": "markdown",
-   "metadata": {}
-  },
-  {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 20,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "12\n15\n18\n"
+     ]
+    }
+   ],
    "source": [
     "a = [3, 6, 9, 12, 15, 18, 21, 24]\n",
     "for n in a:\n",
@@ -819,7 +910,27 @@
   },
   {
    "source": [
-    "### break: 繰り返しの途中で抜ける\n",
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "enumerate(列)\n",
+    "\n",
+    "`enumerate`は、列に対して、0から番号をつけてくれます。\n",
+    "何番目の要素を処理しているか知りたいとき、重宝します。\n",
+    "\n",
+    "```python\n",
+    "a = [3, 6, 9, 12, 15, 18, 21, 24]\n",
+    "for i, n in enumerate(a):\n",
+    "    if 10 <= n and n <= 20:\n",
+    "        print(i, n)\n",
+    "```\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### break\n",
     "\n",
     "最後に、繰り返しに慣れてきたら、\n",
     "繰り返しを途中で抜ける方法も理解しておきましょう。\n",
@@ -842,38 +953,168 @@
     "```\n",
     "</div>\n",
     "\n",
-    "```\n",
-    "n = int(input())\n",
+    "小さい方から順に割って、約数かどうか判定しましょう。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "13\n17\n19\n23\n29\n221\n247\n299\n323\n377\n391\n437\n493\n551\n667\n4199\n5083\n5681\n6409\n7163\n7429\n8671\n9367\n11339\n12673\n96577\n121771\n147407\n164749\n215441\n"
+     ]
+    }
+   ],
+   "source": [
+    "# n = int(input())\n",
+    "n = 2800733\n",
     "for d in range(2, n):\n",
-    "\tif n % d == 0:\n",
-    "\t\tprint(d)\n",
-    "```\n",
+    "    if n % d == 0:\n",
+    "        print(d)\n"
+   ]
+  },
+  {
+   "source": [
+    "あらら、最小の約数だけでなく、2以上の全ての約数を表示してしまいます。\n",
     "\n",
-    "しかし、上のコードは最小の約数だけでなく、\n",
-    "2以上の全ての約数を表示してしまいます。\n",
+    "`break`文を用いて、**それ以上繰り返す必要がないときに繰り返しを抜け出し**てしまいましょう。\n",
     "\n",
-    "`break`文を用いて、\n",
-    "**それ以上繰り返す必要がないときに繰り返しを抜け出すこと**ことで\n",
-    "防ぐことができます。\n",
+    "<div class=\"alert alert-info\">\n",
     "\n",
-    "```\n",
-    "n = int(input()) # 13を入力\n",
+    "Let's try\n",
+    "\n",
+    "どこに `break`を入れるかわかるかな？\n",
+    "\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "13\n"
+     ]
+    }
+   ],
+   "source": [
+    "# n = int(input())\n",
+    "n = 2800733\n",
     "for d in range(2, n):\n",
-    "\tif n % d == 0:\n",
-    "\t\tprint(d)\n",
-    "\t\tbreak\n",
-    "```\n",
-    "\n",
-    "```\n",
-    "13\n",
-    "```\n",
+    "    if n % d == 0:\n",
+    "        print(d)\n",
+    "        break\n"
+   ]
+  },
+  {
+   "source": [
+    "そろそろ、`break`は的確に使えるようにしていきましょう。\n",
     "\n",
     "<div class=\"alert alert-info\">\n",
     "\n",
     "効率のよいプログラム\n",
     "\n",
-    "無駄な繰り返しは発生しないようにする\n",
-    "</div>\n",
+    "無駄な繰り返しはしない（さっさとbreakする）\n",
+    "</div>\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "## リストの操作\n",
+    "\n",
+    "リストは、Python のオブジェクト指向プログラミングの機能を使って提供されています。メソッドを通して、さまざまな操作ができます。\n",
+    "\n",
+    "|コード|操作の説明|\n",
+    "|------|--------|\n",
+    "|`len(a)`|リスト$a$の個数|\n",
+    "|`a[i]`|$i$ 番目の値|\n",
+    "|`a[i] = x`|$i$ 番目の値を$x$に置き換える|\n",
+    "|`a[i:j]`|$i$ 番目から$j$番目までの部分リスト|\n",
+    "|`a[i:]`|$i$ 番目から最後尾までの部分リスト|\n",
+    "|`a[:j]`|先頭から$j$番目までの部分リスト|\n",
+    "|`x in a`|リスト$a$に$x$が含まれるかどうか|\n",
+    "|`a.find(x)`|リスト$a$内の最初の$x$の位置|\n",
+    "|`a.rfind(x)`|リスト$a$内の最後の$x$の位置|\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### スライス\n",
+    "\n",
+    "スライスとは、部分列の始まり(start)と終わり(end)を指定して、部分列を取り出す操作です。\n",
+    "\n",
+    "```python\n",
+    "a[start:end]\n",
+    "a[start:end:step]  # step は間隔\n",
+    "```\n",
+    "\n",
+    "インデックスは、0から始まります。`end`番目は、`range()`関数と同じく、部分列に含まれません。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n",
+    "a[2:5:1]"
+   ]
+  },
+  {
+   "source": [
+    "開始(start), 終端(end), 間隔(step)は省略できます。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(a[2:5])\n",
+    "print(a[2:])  #省略すると最後まで\n",
+    "print(a[:5])  #省略すると先頭から\n",
+    "print(a[::-1])  #逆順に"
+   ]
+  },
+  {
+   "source": [
+    "### 破壊的操作\n",
+    "\n",
+    "リストの内容が変わる操作のことを破壊的操作、もしくはinplace操作と呼びます。\n",
+    "\n",
+    "|コード|操作の説明|\n",
+    "|------|--------|\n",
+    "|`a.append(x)`|リストの最後尾に x を追加する|\n",
+    "|`a.extend(b)`|リストの最後尾にリストbの値をすべて追加する|\n",
+    "|`a.pop()`|リストの最後尾から値を取り出す|\n",
+    "|`a.pop(i)`|$i$ 番目から値を取り出す|\n",
+    "|`a.sort()`|リストを整列する|\n",
+    "|`a.reverse()`|リストを逆順にする|\n",
+    "\n",
+    "\n",
     "\n"
    ],
    "cell_type": "markdown",
@@ -905,33 +1146,164 @@
     "```\n",
     "</div>\n",
     "\n",
-    "__(解法) a[len(a)-1], a[len(a)-2], .. と後ろから表示する__\n",
+    "色々、解法があります。\n",
+    "あわせて、リストの破壊的操作がどのようなものかも確認しておきたいと思います。\n",
     "\n",
+    "まず、入力されたリスト`a`を作ってみます。\n",
     "\n",
-    "```\n",
-    "a = list(map(int, input().split()))\n",
-    "for i in range(len(a), 0):\n",
-    "\tprint(a[i-1])\n",
-    "```\n",
+    "ここでは、同じ結果になるように`input()`の代わりに、リスト内包記法で合成。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[1, 4, 9, 16, 25]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 25
+    }
+   ],
+   "source": [
+    "# a = list(map(int, input().split()))\n",
+    "a = [x**2 for x in range(1, 6)]  #入力されたリストの例 \n",
+    "a"
+   ]
+  },
+  {
+   "source": [
+    "__(解法)__ `a[len(a)-1]`, `a[len(a)-2]`, .. と後ろから表示する\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "25\n16\n9\n4\n1\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(len(a), 0, -1):\n",
+    "\tprint(a[i-1])"
+   ]
+  },
+  {
+   "source": [
+    "__(解放)__: スライスで後ろから読む"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "25\n16\n9\n4\n1\n"
+     ]
+    }
+   ],
+   "source": [
+    "for n in a[::-1]:\n",
+    "    print(n)"
+   ]
+  },
+  {
+   "source": [
+    "__(解法)__ 後ろから順番に`pop()`していく\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "25\n16\n9\n4\n1\n[]\n"
+     ]
+    }
+   ],
+   "source": [
+    "for _ in range(len(a)):\n",
+    "    print(a.pop())\n",
+    "print(a) # 破壊的操作なので、最後は空になる"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
     "\n",
-    "__(別解)__\n",
+    "破壊的操作\n",
     "\n",
-    "リストを`a.reverse()`を用いて逆順に並べます。\n",
+    "破壊的操作はリストの内容が変更されるため、もう一度リストを使うときは、\n",
+    "事前にコピーして複製を作るとよい。\n",
     "\n",
-    "```\n",
-    "a = [int(t) for t  in input().split()]\n",
-    "a.reverse()  #リストを逆順にする\n",
-    "for x in a:\n",
-    "\tprint(x)\n",
-    "```\n",
+    "</div>\n",
     "\n",
-    "|Python|説明|\n",
-    "|------|---|\n",
-    "|`a.reverse()`|`a`の並びを逆順にする|\n",
-    "|`a.sort()`|`a`の並びを昇順(小さい順)にソートする|\n",
+    "__リストの複製__"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "b = [6, 5, 4, 3, 2, 1]\na = [1, 2, 3, 4, 5, 6]\n"
+     ]
+    }
+   ],
+   "source": [
+    "a = [x for x in range(1, 7)]\n",
+    "b = a[:]  # リストの複製\n",
+    "b.reverse()\n",
+    "print('b =', b) # 逆順に \n",
+    "print('a =', a) # そのまま\n"
+   ]
+  },
+  {
+   "source": [
+    "### リストの集約計算\n",
     "\n",
+    "リストが使えるようになると、データの集まりをまとめて処理できるようになります。\n",
     "\n",
-    "### リストと集約\n",
+    "特に、リストの要素が数値、つまり数列の場合は、威力を発揮します。\n",
+    "\n",
+    "|コード|説明|\n",
+    "|--------|-------------|\n",
+    "|`max(a)`|数列`a`の最大値|\n",
+    "|`min(a)`|数列`a`の最小値|\n",
+    "|`sum(a)`|数列`a`の合計値| \n",
     "\n",
     "<div class=\"admonition tip\">\n",
     "\n",
@@ -942,84 +1314,231 @@
     "\n",
     "入力例\n",
     "```\n",
-    "71\n",
-    "29 \n",
-    "83 \n",
-    "45 \n",
-    "35 \n",
+    "71 29 83 45 35 \n",
     "```\n",
     "\n",
     "出力例\n",
     "```\n",
-    "8\n",
-    "6\n",
-    "7\n",
+    "263 83 29\n",
     "```\n",
     "</div>\n",
     "\n",
-    "\n",
-    "\\begin{Py}\n",
-    "a0 = int(input())\n",
-    "sum_a = a0\n",
-    "max_a = a0\n",
-    "min_a = a0\n",
-    "for i in range(5):\n",
-    "\tx = int(input())\n",
-    "\tsum_a += x\n",
-    "\tmax_a = max(x, max_a)\n",
-    "\tmin_a = min(x, min_a)\n",
-    "\n",
-    "print(sum_a)\n",
-    "print(max_a)\n",
-    "print(min_a)\n",
-    "\\end{Py}\n",
-    "\n",
-    "\\begin{multicols}{2}\n",
-    "\\Run{Cっぽい書き方}\n",
-    "\\begin{Py}\n",
-    "a = [0] * 6\n",
-    "for i in range(6):\n",
-    "\tx = int(input())\n",
-    "\ta[i] = x\n",
-    "\\end{Py}\n",
-    "\\columnbreak\n",
-    "\\Run{よりPythonらしい}\n",
-    "\\begin{Py}\n",
-    "a = [] # 空のリスト\n",
-    "for i in range(6):\n",
-    "\tx = int(input())\n",
-    "\ta.append(x)  # 追加する\n",
-    "\\end{Py}\n",
-    "\\end{multicols}\n",
-    "\n",
-    "\\begin{multicols}{2}\n",
-    "\\begin{Py}\n",
-    "# .. リストに入れたら\n",
-    "print(sum(a))\n",
-    "print(max(a))\n",
-    "print(min(a))\n",
-    "\\end{Py}\n",
-    "\\columnbreak\n",
-    "\\begin{cbox}{覚えておこう}\n",
-    "\\begin{itemize}\n",
-    "%\\item \\CC{len(a)}: リストの個数\n",
-    "\\item \\CC{sum(a)}: 値の合計値\n",
-    "\\item \\CC{max(a)}: 最大値\n",
-    "\\item \\CC{min(a)}: 最小値\n",
-    "\\end{itemize}\n",
-    "\\end{cbox}\n",
-    "\\end{multicols}\n",
-    "\n"
+    "まず、成績の数列を`a`に読み込みます。\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# a = list(map(int, input().split())\n",
+    "a = [71, 29, 83, 45, 35]\n"
+   ]
+  },
+  {
+   "source": [
+    "クラシックな（しかも原理を理解して書けるようになって欲しい）方法は、最大値、最小値を順番に更新していく方法です。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "263 83 29\n"
+     ]
+    }
+   ],
+   "source": [
+    "sumScore = 0\n",
+    "maxScore = 0  # （原理的な）最小値に\n",
+    "minScore = 100 # （原理的な）最大値に\n",
+    "for s in a:\n",
+    "    sumScore += s\n",
+    "    if maxScore < s:\n",
+    "        maxScore = s\n",
+    "    if minScore > s:\n",
+    "        minScore = s\n",
+    "print(sumScore, maxScore, minScore)"
+   ]
+  },
+  {
+   "source": [
+    "上の原理が理解できたら、これからは、ありがたく**集約計算**を使いましょう。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "263 83 6\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(sum(a), max(a), max(b))"
+   ]
+  },
+  {
+   "source": [
+    "### ２次元リストとzip★\n",
+    "\n",
+    "少し複雑なリスト操作にも慣れておきましょう。\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題(２次元リスト)**\n",
+    "\n",
+    "次の２次元リスト（リストのリスト）縦横の話を計算して表示してみよう。\n",
+    "\n",
+    "入力例\n",
+    "```\n",
+    "a = [\n",
+    "    [1, 2, 3, 4, 5],\n",
+    "    [6, 7, 8, 9, 10],\n",
+    "    [11, 12, 13, 14, 15],\n",
+    "    [16, 17, 18, 19, 20],\n",
+    "    [21, 22, 23, 24, 25],\n",
+    "]\n",
+    "```\n",
+    "\n",
+    "出力例\n",
+    "```\n",
+    "1 2 3 4 5 15\n",
+    "6 7 8 9 10 40\n",
+    "11 12 13 14 15 65\n",
+    "16 17 18 19 20 90\n",
+    "21 22 23 24 25 115\n",
+    "55 60 65 70 75 325\n",
+    "```\n",
+    "</div>\n",
+    "\n",
+    "まず、2次元リスト（リストのリスト）に慣れておきましょう。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "[6, 7, 8, 9, 10]\n8\n"
+     ]
+    }
+   ],
+   "source": [
+    "a = [\n",
+    "    [1, 2, 3, 4, 5],\n",
+    "    [6, 7, 8, 9, 10],\n",
+    "    [11, 12, 13, 14, 15],\n",
+    "    [16, 17, 18, 19, 20],\n",
+    "    [21, 22, 23, 24, 25],\n",
+    "]\n",
+    "print(a[1])  # 1行目(0から数える)\n",
+    "print(a[1][2]) # 1行目の2列目の値 "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "1 2 3 4 5 15\n6 7 8 9 10 40\n11 12 13 14 15 65\n16 17 18 19 20 90\n21 22 23 24 25 115\n"
+     ]
+    }
+   ],
+   "source": [
+    "for line in a:\n",
+    "    print(*line, sum(line))"
+   ]
+  },
+  {
+   "source": [
+    "`zip(a, b)`はふたつのリストをタプルのリストにして返してくれる関数です。\n",
+    "名前は、zipperに由来しています。\n",
+    "\n",
+    "<img src=\"https://1.bp.blogspot.com/-Mc5vHuzm9No/VWmAi70AJKI/AAAAAAAAtx4/NKBEto8KjxU/s800/fashion_zip_chakku.png\" width=\"40%\"/>\n",
+    " "
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[(1, 6), (2, 7), (3, 8), (4, 9), (5, 10)]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 45
+    }
+   ],
+   "source": [
+    "list(zip(a[0], a[1]))"
+   ]
+  },
+  {
+   "source": [
+    "これを5個同時にzipして縦方向もタプルを作り、集約します。"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "55 60 65 70 75 325\n"
+     ]
+    }
+   ],
+   "source": [
+    "line_sum = [sum(row) for row in zip(*a)]\n",
+    "print(*line_sum, sum(line_sum))\n"
+   ]
+  },
+  {
    "source": [
     "## 演習問題\n",
     "\n",
-    "今回は情報オリンピックの過去問から多く出題します。\n",
-    "\n",
+    "リストは、数値が複数、登場し、繰り返し処理するときに活用すると便利です。\n",
+    "ぜひ、積極的にリストを使って、プログラミングしていきましょう。\n",
     "\n",
     "* [平均点](https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a): リストを使わなくても解けるけど、リストを使ってみよう\n",
     "* [５つの変数](https://atcoder.jp/contests/abc170/tasks/abc170_a): もちろんリストを使います\n",
