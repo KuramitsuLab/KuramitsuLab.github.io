@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Kuramitsu Lab. | ACHIEVEMENT</title>
+        <link rel="stylesheet" href="./css/reset.css">
+        <Link rel="stylesheet" href="./css/style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@200;400;800&display=swap" rel="stylesheet"> 
+        <script src="js/jquery.min.js"></script>
+        <script src="js/function.js"></script>
+        <script>
+            $(function() {
+                var $win = $(window),
+                    $main = $('main'),
+                    $nav = $('#nav'),
+                    navHeight = $nav.outerHeight(),
+                    navPos = $nav.offset().top,
+                    isheight = 'is-height';
+                    fixedClass = 'is-fixed';
+            
+                $win.on('load scroll', function() {
+                var value = $(this).scrollTop();
+                if ( value > navPos ) {
+                    $nav.addClass(fixedClass);
+                } else {
+                    $nav.removeClass(fixedClass);
+                    $main.css('margint-top', '0');
+                }
+                });
+            });
+        </script>
+        <script>
+            jQuery(function(){
+                var windowWidth = $(window).width();
+                var headerHight = 50; 
+                jQuery('a[href^=#]').click(function() {
+                var speed = 1000;
+                var href= jQuery(this).attr("href");
+                var target = jQuery(href == "#" || href == "" ? 'html' : href);
+                var position = target.offset().top-headerHight;
+                jQuery('body,html').animate({scrollTop:position}, speed, 'swing');
+                return false;
+               });
+            });
+        </script>
+        <script>
+            $(function() {
+                $('body').fadeIn(1000); //1秒かけてフェードイン！
+            });
+        </script>
+        <script>
+            $(function () {
+                $('.menu').on('click', function () {
+                    $(this).toggleClass('active');
+                    $("#nav").toggleClass('active');
+                })
+            }); 
+            $(function () {
+                $('#nav a').on('click', function () {
+                    $('#nav').toggleClass('active');
+                    $(".menu").toggleClass('active');
+                })
+            });
+        </script>
+        
+    </head>
+    <body>
+        
+        <header>
+            <div id="nav">
+                <ul>
+                    <li><a href="../index.html#top">TOP</a></li>
+                    <li><a href="../index.html#research">RESEARCH</a></li>
+                    <li><a href="../index.html#schedule">SCHEDULE</a></li>
+                    <li><a href="../index.html#member">MEMBER</a></li>
+                    <li><a href="#">ACHIEVEMENT</a></li>
+                </ul>
+            </div> 
+            <div class="menu"><span></span><span></span><span></span></div>
+        </header>
+        <main>
+            <div id="achievement">
+                <h1>ACHIEVEMENT</h1>
+                <h2>2020</h2>
+                <div id="contents">
+                    <h3>Thesis</h3>
+                    <p>・単語分散表現を用いた軽量な係り受け解析の提案 (B4)</p>
+                    <p>・オンラインジャッジにおける学習支援AIの開発に向けて (B4)</p>
+                    <p>・BERTを用いた自由記述感想文からの学習意欲の推定手法 (B4)</p>
+                    <p>・学習ログとブロックチェーンによる多角的なプログラミング・スキルの証明書 (B4) </p>
+                    <p>・ソースコード・日本語の機械翻訳に向けた研究 (B4)</p>
+                    <p>・エンピリカルスタディ：もっと女子に情報科学をアピールするには？ (B4) </p>
+                    <p>・アルゴリズムの理解を助ける自動アニメーション生成手法の研究 (B4)</p>
+                    <p>・WEBフロントエンド開発におけるフレームワークの比較評価実験 (B4)</p>
+                    <h3>Society</h3>
+                    <p>・情報処理学会xSIGワークショップ, オンライン, 7月(M1口頭) ＜Outstanding Undergraduate 賞＞</p>
+                    <p>・情報処理学会第131回プログラミング研究発表会, 東京, 10月(M1: 口頭)</p>
+                    <p>・情報処理学会 情報教育シンポジウム12月(B4: ポスター, M1口頭)</p>
+                </div>
+                <h2>2019</h2>
+                <div id="contents">
+                    <h3>Thesis</h3>
+                    <p>・単語分散表現を用いた軽量な係り受け解析の提案 (B4)</p>
+                    <p>・オンラインジャッジにおける学習支援AIの開発に向けて (B4)</p>
+                    <p>・BERTを用いた自由記述感想文からの学習意欲の推定手法 (B4)</p>
+                    <p>・学習ログとブロックチェーンによる多角的なプログラミング・スキルの証明書 (B4) </p>
+                    <p>・ソースコード・日本語の機械翻訳に向けた研究 (B4)</p>
+                    <p>・エンピリカルスタディ：もっと女子に情報科学をアピールするには？ (B4) </p>
+                    <p>・アルゴリズムの理解を助ける自動アニメーション生成手法の研究 (B4)</p>
+                    <p>・WEBフロントエンド開発におけるフレームワークの比較評価実験 (B4)</p>
+                    <h3>Society</h3>
+                    <p>・情報処理学会xSIGワークショップ, オンライン, 7月(M1口頭) ＜Outstanding Undergraduate 賞＞</p>
+                    <p>・情報処理学会第131回プログラミング研究発表会, 東京, 10月(M1: 口頭)</p>
+                    <p>・情報処理学会 情報教育シンポジウム12月(B4: ポスター, M1口頭)</p>
+                </div>
+            </div>
+            
+        </main>
+        <footer>
+            <div id="title">
+                <h2>Japan Weman University</h2>
+                <h1>Kuramitsu Lab.</h1>
+            </div>
+            <div id="copy">
+                <p>©︎2020 Kuramitsu Lab.</p>
+            </div>
+            <div id="access">
+                <p>
+                    〒112-8681<br>
+                    東京都文京区目白台2丁目8-1<br>
+                    日本女子大学百年館　倉光研究室<br>
+                    mail: xxxx.xxxxx.xxxx@xxx.xx.xx
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>

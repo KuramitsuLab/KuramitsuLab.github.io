@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Kuramitsu Lab.</title>
+        <link rel="stylesheet" href="./css/reset.css">
+        <Link rel="stylesheet" href="./css/style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@200;400;800&display=swap" rel="stylesheet"> 
+        <script src="js/jquery.min.js"></script>
+        <script src="js/function.js"></script>
+        <script>
+            $(function() {
+                var $win = $(window),
+                    $main = $('main'),
+                    $nav = $('#nav'),
+                    navHeight = $nav.outerHeight(),
+                    navPos = $nav.offset().top,
+                    isheight = 'is-height';
+                    fixedClass = 'is-fixed';
+            
+                $win.on('load scroll', function() {
+                var value = $(this).scrollTop();
+                if ( value > navPos ) {
+                    $nav.addClass(fixedClass);
+                } else {
+                    $nav.removeClass(fixedClass);
+                    $main.css('margint-top', '0');
+                }
+                });
+            });
+        </script>
+        <script>
+            jQuery(function(){
+                var windowWidth = $(window).width();
+                var headerHight = 50; 
+                jQuery('a[href^=#]').click(function() {
+                var speed = 1000;
+                var href= jQuery(this).attr("href");
+                var target = jQuery(href == "#" || href == "" ? 'html' : href);
+                var position = target.offset().top-headerHight;
+                jQuery('body,html').animate({scrollTop:position}, speed, 'swing');
+                return false;
+               });
+            });
+        </script>
+        <script>
+            $(function () {
+                $('.menu').on('click', function () {
+                    $(this).toggleClass('active');
+                    $("#nav").toggleClass('active');
+                })
+            }); 
+            $(function () {
+                $('#nav a').on('click', function () {
+                    $('#nav').toggleClass('active');
+                    $(".menu").toggleClass('active');
+                })
+            });
+        </script>
+    </head>
+    <body>
+        
+        <header>
+            <div id="top">
+                <img src="./images/logo.png">
+            </div>
+            <div id="nav">
+                <ul>
+                    <li><a href="#top">TOP</a></li>
+                    <li><a href="#research">RESEARCH</a></li>
+                    <li><a href="#schedule">SCHEDULE</a></li>
+                    <li><a href="#member">MEMBER</a></li>
+                    <li><a href="#achievement">ACHIEVEMENT</a></li>
+                </ul>
+            </div> 
+            <div class="menu"><span></span><span></span><span></span></div>
+        </header>
+        <main>
+            <div id="research">
+                <h2>About us</h2>
+                <div id="text">
+                    本研究室は、
+                    2018年、横浜国立大学から日本女子大学に教授として異動してきて、
+                    開設されたコンピュータサイエンス系の研究室です。
+                    女子大学という特色を活かし、プログラミング、言語、人工知能、情報教育など、
+                    各方面のアイディアを研究に取り込みながら、
+                    情報社会で活躍できるエンジニア・研究者を育成しています。
+                </div>
+                <div id="gallery">
+                    <img src="./images/photo1.jpg">
+                    <img src="./images/photo2.jpg">
+                    <img src="./images/photo3.jpg">
+                    <img src="./images/photo1.jpg">
+                    <img src="./images/photo2.jpg">
+                    <img src="./images/photo3.jpg">
+                </div>
+    
+                <div class="contens">
+                    <h3>プログラミングと言語</h3>
+                    <p>
+                        学生時代は、坂村健教授の元でトロンOSの開発に取り組んでいたため、
+                        基盤ソフトウェア開発、特に言語処理系に興味があります。
+                        過去は、静的型付けスクリプト言語Konoha、
+                        高信頼システム開発への言語支援に取り組みました。
+                        現在は、物理エンジンと融合された<a href="">新しい教育言語 Puppy </a>の研究開発に
+                        着手しております。
+                        また、深層学習(AI)とソフトウェア開発の融合に関心を広げ、
+                        人工知能がソフトウェア開発をしやすいAI言語の構想に取り掛かっています。    
+                    </p>
+                </div>
+                <div class="contens">
+                    <h3>形式表現文法と自然言語処理</h3>
+                    <p>
+                        文書分類、翻訳 、要約、質問応答など。
+                        ソフトウェア開発をできるようなAIを作っています。
+                        AIの基礎を学びながら取り組みます。
+                    </p>
+                </div>
+                <div class="contens">
+                    <h3>情報教育</h3>
+                    <p>
+                        プログラミングやデータサイエンスを中心に広く、
+                        情報教育に取り組んでいます。
+                    </p>
+                </div>
+            </div>
+            <div id="member">
+                <h1>MEMBER</h1>
+                <div id="professor">
+                    <h2>Professor</h2>
+                    <img src="./images/face.png">
+                    <h3>倉光 君郎</h3>
+                    <h4>Kimio Kuramitsu</h4>
+                    <p>
+                        東京大学工学部機械情報工学科<br>
+                        東京大学大学院理学系研究科情報科学専攻<br>
+                        博士（理学）指導教授 坂村健
+                    </p>
+                    <p>
+                        <h5>略歴</h5>
+                        2001年 東大大学院情報学環 助手<br>
+                        2005年 横浜国立大学工学部電子情報工学科 講師<br>
+                        2006年 米ジョージア工科大学 客員研究員<br>
+                        2007年 横浜国立大学大学院物理情報工学専攻 准教授<br>
+                        2018年 日本女子大学理学部数物科学科 教授
+                    </p>
+                    <p>
+                        <h5>研究プロジェクト（研究代表者）</h5>
+                        経済産業省　IPA 未踏ソフトウェア創造事業<br>
+                        総務省　SCOPE-R 組込み向けバーチャルマシン<br>
+                        文部科学省　JST/CREST 高信頼OSプロジェクト<br>
+                    </p>
+                </div>
+                <div id="students">
+                    <h2>Students</h2>
+                    <h5>M2</h5>
+                    <p>Yuka Akinobu</p>
+                    <p>Mari Taguchi</p>
+                    <h5>B1</h5>
+                    <p>Mayu Tomioka</p>
+                    <p>Miyu Tamura</p>
+                </div>
+                <div id="students">
+                    <h2>Alumnuies</h2>
+                    <p>Emi Nuijima</p>
+                    <p>Juri Hotaka</p>
+                    <p>Makoto Sakane</p>
+                    <p>Megumi Matsubara</p>
+                    <p>Mika Yagihashi</p>
+                    <p>Momoko Hattori</p>
+                    <p>Yui Wakasugi</p>
+                    <p>Yuka Fujiwara</p>
+                    <p>Yuna Sugimoto</p>
+                    <p>Yurino Sugiuchi</p>
+                </div>
+            </div>
+            <div id="achievement">
+                <h1>ACHIEVEMENT</h1>
+                <h2>2020</h2>
+                <div id="contents">
+                    <h3>Thesis</h3>
+                    <ul>
+                        <li>単語分散表現を用いた軽量な係り受け解析の提案 (B4)</li>
+                        <li>オンラインジャッジにおける学習支援AIの開発に向けて (B4)</li>
+                        <li>BERTを用いた自由記述感想文からの学習意欲の推定手法 (B4)</li>
+                        <li>学習ログとブロックチェーンによる多角的なプログラミング・スキルの証明書 (B4) </li>
+                        <li>ソースコード・日本語の機械翻訳に向けた研究 (B4)</li>
+                        <li>エンピリカルスタディ：もっと女子に情報科学をアピールするには？ (B4) </li>
+                        <li>アルゴリズムの理解を助ける自動アニメーション生成手法の研究 (B4)</li>
+                        <li>WEBフロントエンド開発におけるフレームワークの比較評価実験 (B4)</li>
+                    </ul>
+                    
+                    <h3>Society</h3>
+                    <ul>
+                        <li>・情報処理学会xSIGワークショップ, オンライン, 7月(M1口頭) ＜Outstanding Undergraduate 賞＞</li>
+                        <li>・情報処理学会第131回プログラミング研究発表会, 東京, 10月(M1: 口頭)</li>
+                        <li>・情報処理学会 情報教育シンポジウム12月(B4: ポスター, M1口頭)</li>
+                    </ul>
+                </div>
+                <div id="button">
+                    <a href="./achievement/index.html">MORE</a>
+                </div>
+            </div>
+            <div id="gallery">
+                <img src="./images/photo1.jpg">
+                <img src="./images/photo2.jpg">
+                <img src="./images/photo3.jpg">
+            </div>
+            <div id="schedule">
+                <h1>SCHEDULE</h1>
+                <img class="pc" src="./images/schedule_pc.png" width="100%">
+                <img class="ipad" src="./images/schedule_ipad.png" width="100%">
+                <img class="sp" src="./images/schedule_sp.png" width="100%">
+            </div>
+        </main>
+        <footer>
+            <div id="title">
+                <h2>Japan Weman University</h2>
+                <h1>Kuramitsu Lab.</h1>
+            </div>
+            <div id="copy">
+                <p>©︎2020 Kuramitsu Lab.</p>
+            </div>
+            <div id="access">
+                <p>
+                    〒112-8681<br>
+                    東京都文京区目白台2丁目8-1<br>
+                    日本女子大学百年館　倉光研究室<br>
+                    mail: xxxx.xxxxx.xxxx@xxx.xx.xx
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,602 @@
+body{
+    font-size: 14px;
+    line-height: 2.0;
+    font-weight: 200;
+    font-family: 'Overpass', sans-serif;
+    animation: fadeIn 3s ease 0s 1 normal;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0}
+	100% {opacity: 1}
+}
+
+
+
+/*----------------- header ----------------------- */
+
+header{
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+}
+
+#top{
+    width: 100%;
+    height: 400px;
+    background-image: url(../images/header.png);
+    background-size: cover;
+    background-position: center center;
+    text-align: center;
+}
+
+#top img{
+    margin: 140px auto;
+    height: 120px;
+}
+
+#nav{
+    text-align: center;
+    padding: 20px 0px;
+    height: 50px;
+    overflow: hidden;
+    font-weight: 200;
+}
+
+#nav li{    
+    margin: 0 40px;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    font-size: 15px;
+    letter-spacing: 3px;
+}
+
+#nav a{
+    color: #000;
+    text-decoration: none;
+}
+
+#nav a:hover{
+    color: #ccc;
+    text-decoration: none;
+}
+
+.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    background-color: #fff;
+}
+
+
+/*------------------------- main ----------------------------------*/
+
+main{
+    margin: 460px auto 0 auto;
+    width: 1000px;
+    position: relative;
+}
+
+main h1{
+    padding: 100px 0;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+#research h2{
+    float: left;
+    padding: 0 50px;
+    width: 100px;
+    font-size: 20px;
+}
+
+#research #text{
+    float: right;
+    padding: 0 50px;
+    width: 700px;
+}
+
+#research .contens{
+    clear: both;
+    width: 300px;
+    height: 200px;
+    margin: 80px 15px;
+    display: inline-block;
+    vertical-align:middle;
+    background-color: #eee;
+}
+
+#research .contens h3{
+    margin: 20px;
+    font-weight: bold;
+    text-align: center; 
+}
+
+#research .contens p{
+    margin: 20px;
+}
+
+#schedule img{
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.pc { display: block !important; }
+.ipad { display: none !important; }
+.sp { display: none !important; }
+
+#member{
+    width: 100%;
+    background-color: #f8f8f8;
+}
+
+#member h2{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#member #professor{
+    width: 400px;
+    height: 1000px;
+    margin-left: 100px;
+    display: inline-block;
+    vertical-align:middle;
+}
+
+#member #professor img{
+    width: 200px;
+    margin: 30px 0;
+}
+
+#member #professor h3{
+    font-size: 20px;
+}
+
+#member #professor p{
+    margin: 20px 0;
+}
+
+#member #students{
+    width: 400px;
+    height: 1000px;
+    margin-right: 96px;
+    display: inline-block;
+    vertical-align:middle;
+}
+
+#member #students h5{
+    margin-top: 30px;
+    font-weight: 400;
+}
+
+#member #students p{
+    line-height: 3.9;
+    border-bottom: 1px dotted #000;
+}
+
+#achievement{
+    margin-bottom: 150px;
+}
+#achievement h2{
+    font-size: 18px;
+    line-height: 3.0;
+    color: #aaa;
+}
+
+#achievement #contents{
+    margin-left: 20px;
+    padding-left: 100px;
+    border-left: 1px solid #ccc;
+}
+
+#achievement #contents h3{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 3.0;
+}
+
+#achievement #contents li{
+    border-bottom: 1px dotted #000;
+    line-height: 3.0;
+}
+
+#achievement #button {
+    margin: 50px 0;
+    text-align: right;
+}
+
+#achievement #button a{
+    text-decoration: none;
+    color: #fff;
+    padding: 20px 40px;
+    background-color: #000;
+    border-radius: 100vh;
+}
+
+#gallery{
+    margin-bottom: 100px;
+}
+
+#gallery img{
+    width: 33%;
+}
+
+/*---------------- topボタン ----------------------*/
+#page-top{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #000;
+}
+
+.arrow{
+    margin: 35px auto;
+    width: 20px;
+    height: 20px;
+    border: 3px solid;
+    border-color: #fff #fff transparent transparent;
+    transform: rotate(-45deg);
+}
+
+/*---------------- footer ----------------------*/
+
+footer{
+    width: 100%;
+    height: 200px;
+    background-color: #eee;
+}
+
+#title{
+    width: 29%;
+    height: 200px;
+    display: inline-block;
+    vertical-align:middle;
+}
+
+#title h2{
+    margin: 77.5px 0 0 40px;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+#title h1{
+    margin: 0 0 77.5px 40px;
+    font-size: 23px;
+    font-weight: 900;
+    line-height: 30px;
+}
+
+#copy{
+    width: 40%;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    display: inline-block;
+    vertical-align:middle;
+}
+
+#access{
+    width: 29%;
+    height: 200px;
+    display: inline-block;
+    vertical-align:middle;
+}
+
+#access p{
+    margin: 40px 40px 40px 0;
+    font-size: 13px;
+    line-height: 30px;
+    text-align: right;
+}
+
+@media screen and (max-width:1023px){
+
+    #top{
+        width: 100%;
+        height: 300px;
+    }
+    
+    #top img{
+        margin: 100px auto;
+        height: 100px;
+    }
+
+    /*----------------hamburger---------------*/
+
+    .menu, .menu span {
+        display: inline-block;
+        -webkit-transition: all .4s;
+        transition: all .4s;
+        box-sizing: border-box;
+    }
+    
+    .menu {
+        position: fixed;
+        top: 25px;
+        left: 25px;
+        width: 35px;
+        height: 22px;
+        z-index: 10;
+    }
+
+    .menu span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #000;
+        z-index: 10;
+    }
+
+    .menu span:nth-of-type(1) {
+        top: 0px;
+    }
+    .menu span:nth-of-type(2) {
+        top: 10px;
+    }
+    .menu span:nth-of-type(3) {
+        bottom: 0px;
+    }
+    .menu.active span:nth-of-type(1) {
+        -webkit-transform: translateY(10px) rotate(45deg);
+        transform: translateY(10px) rotate(45deg);
+    }
+    .menu.active span:nth-of-type(2) {
+        opacity: 0;
+    }
+    .menu.active span:nth-of-type(3) {
+        -webkit-transform: translateY(-10px) rotate(-45deg);
+        transform: translateY(-10px) rotate(-45deg);
+    }
+    
+    #nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 10;
+        width: 100%;
+        height: 100vh;
+        opacity: 0;
+        background-color: #fff;
+        transition: all 0.3s ease-in-out;
+        visibility: hidden;
+    }
+
+    #nav.active {
+        right: 0;
+        opacity: 1;
+        -moz-transform: translateX(0);
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        visibility: visible;
+    }
+      
+    #nav ul {
+        margin: 20px 0;
+        padding: 20px 0;
+    }
+
+    #nav ul li {
+        list-style-type: none;
+        display: block;
+    }
+
+    #nav ul li a {
+        display: block;
+        padding: 20px 0;
+        transition: all 0.2s ease-in-out;
+        text-align: center;
+        text-decoration: none;
+        color: #333;
+    }
+
+    #nav ul li a:hover {
+        color: #f65d5d;
+    }
+    
+    main{
+        margin: 310px auto 0 auto;
+        width: 80%;
+    }
+
+    main h1{
+        padding: 70px 0;
+        font-size: 23px;
+    }
+
+    #research h2{
+        float: none;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+
+    }
+
+    #research #text{
+        float: none;
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    #research .contens{
+        clear: both;
+        width: 70%;
+        height: auto;
+        padding: 5px;
+        margin: 30px 15%;
+        display: block;
+        background-color: #eee;
+    }
+
+    .pc { display: none !important; }
+    .ipad { display: block !important; }
+    .sp { display: none !important; }
+
+
+    #member{
+        text-align: center;
+    }
+    
+    #member #professor{
+        width: 70%;
+        height: 1000px;
+        margin:0 auto;
+        display: block;
+    }
+    
+    #member #professor p{
+        margin: 20px 0;
+    }
+    
+    #member #students{
+        width: 70%;
+        height: 1000px;
+        margin:0 auto;
+        display: block;
+        
+    }
+
+    #achievement #contents{
+        margin-left: 20px;
+        padding-left: 50px;
+        border-left: 1px solid #ccc;
+    }
+
+    #gallery img{
+        width: 32.9%;
+    }
+
+    footer{
+        padding: 40px 0;
+        height: auto;
+    }
+
+    #title{
+        width: 100%;
+        height: auto;
+        display: block;
+        text-align: center;
+    }
+
+    #title h2{
+        margin: 0;
+    }
+
+    #title h1{
+        margin: 0;
+    }
+
+    #copy{
+        width: 100%;
+        height: auto;
+        line-height: 6.0;
+        text-align: center;
+        display: block;
+        
+    }
+
+    #access{
+        width: 100%;
+        height: auto;
+        display: block;
+       
+    }
+
+    #access p{
+        margin: 0;
+        text-align: center;
+    }
+    
+}
+
+@media screen and (max-width:500px){
+    #top img{
+        margin: 100px auto;
+        width: 80%;
+        height: auto;
+    }
+
+    main{
+        margin: 310px auto 0 auto;
+        width: 90%;
+    }
+
+    main h1{
+        padding: 50px 0;
+        font-size: 23px;
+    }
+
+    #research h2{
+        float: none;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+
+    }
+
+    #research #text{
+        float: none;
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    #research .contens{
+        clear: both;
+        width: 80%;
+        height: auto;
+        padding: 5%;
+        margin: 30px 5%;
+        display: block;
+        background-color: #eee;
+    }
+
+    .pc { display: none !important; }
+    .ipad { display: none !important; }
+    .sp { display: block !important; }
+
+    #member{
+        text-align: center;
+        padding-bottom: 50px;
+    }
+    
+    #member #professor{
+        width: 90%;
+        height: 1000px;
+        margin:0 auto;
+        display: block;
+    }
+    
+    #member #professor p{
+        margin: 20px 0;
+    }
+    
+    #member #students{
+        width: 70%;
+        height: auto;
+        margin:0 auto;
+        display: block;
+        
+    }
+
+    #achievement #contents{
+        margin-left: 20px;
+        padding-left: 30px;
+        border-left: 1px solid #ccc;
+    }
+
+    #gallery img{
+        width: 90%;
+        margin: 0 5%;
+    }
+}
