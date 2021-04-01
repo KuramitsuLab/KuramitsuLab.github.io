@@ -285,12 +285,7 @@
     "\n",
     "</div>\n",
     "\n",
-    "実際に、入力する値を変えて、結果の変化を試してみましょう。\n",
-    "\n",
-    "```python\n",
-    "\n",
-    "```\n",
-    "\n"
+    "実際に、入力する値を変えて、結果の変化を試してみましょう。\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -409,7 +404,7 @@
     }
    ],
    "source": [
-    "# a = int(input()) \n",
+    "# x = int(input()) \n",
     "x = 3\n",
     "\n",
     "if x % 2 != 0:\n",
@@ -606,27 +601,63 @@
     "</div>\n",
     "\n",
     "\n",
-    "__if式で書いた例__\n",
-    "```\n",
-    "a, b = map(int, input().split())\n",
-    "print(a if a > b else b)\n",
-    "```\n",
-    "\n",
-    "__if文で書いた例__\n",
-    "```\n",
-    "a, b = map(int, input().split())\n",
-    "if a > b:\n",
-    "\tprint(a)\n",
-    "else:\n",
-    "\tprint(b)\n",
-    "```\n",
-    "\n",
-    "if式（三項演算子）は、\n",
-    "ソースコードが冗長になるのを防いでコンパクトに書くことができます。\n",
-    "ぜひ、積極的に利用してみましょう。"
+    "__if式で書いた例__"
    ],
    "cell_type": "markdown",
    "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "#a, b = map(int, input().split())\n",
+    "a, b = 3, 2\n",
+    "\n",
+    "print(a if a > b else b)\n"
+   ]
+  },
+  {
+   "source": [
+    "if式（三項演算子）は、ソースコードが冗長になるのを防いでコンパクトに書くことができます。\n",
+    "ぜひ、積極的に利用してみましょう。\n",
+    "\n",
+    "__if文で書いた例(冗長な書き方）__\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "# a, b = map(int, input().split())\n",
+    "a, b = 3, 2\n",
+    "\n",
+    "if a > b:\n",
+    "\tprint(a)\n",
+    "else:\n",
+    "\tprint(b)"
+   ]
   },
   {
    "source": [
@@ -655,7 +686,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [
     {
@@ -682,7 +713,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [
     {
@@ -770,6 +801,24 @@
    "metadata": {}
   },
   {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "0 \n1 *\n2 **\n3 ***\n4 ****\n5 *****\n6 ******\n7 *******\n8 ********\n9 *********\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(10):\n",
+    "    print(i, '*' * i)"
+   ]
+  },
+  {
    "source": [
     "### シミュレーション\n",
     "\n",
@@ -802,7 +851,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
@@ -838,7 +887,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [
     {
@@ -879,7 +928,8 @@
     "## 演習問題\n",
     "\n",
     "繰り返しは、次回以降、リストや文字列とあわせて練習していきます。\n",
-    "今回は、条件分岐に慣れましょう。\n",
+    "\n",
+    "今回は、まず条件分岐に慣れましょう。少し予習で繰り返しも混ざっています。\n",
     "\n",
     "* [二つの数の間](https://atcoder.jp/contests/abc061/tasks/abc061_a)\n",
     "* [ブラックジャック](https://atcoder.jp/contests/abc147/tasks/abc147_a)\n",
@@ -896,7 +946,17 @@
     "* [Xに最も近い値](https://atcoder.jp/contests/joi2020yo1c/tasks/joi2020_yo1c_a)\n",
     "* [鉛筆](https://atcoder.jp/contests/joi2018yo/tasks/joi2018_yo_a)\n",
     "* [ソーシャルゲーム](https://atcoder.jp/contests/joi2019yo/tasks/joi2019_yo_a)\n",
-    "\n"
+    "\n",
+    "<div class=\"alert alert-warning\">\n",
+    "\n",
+    "インデントのエラーに困ったら\n",
+    "\n",
+    "Python は、コードをコピペすると、空白記号とタブ記号が混ざって、\n",
+    "インデント周りのエラーが発生しやすくなります。\n",
+    "どうにかなりませんかと言われますが、正直、コピペしないで、\n",
+    "自分でインデントを統一的に書くのが確実です。\n",
+    "\n",
+    "</div>"
    ],
    "cell_type": "markdown",
    "metadata": {}

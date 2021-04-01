@@ -550,7 +550,7 @@ div.rendered_html tbody tr:hover {
 <li><p><span class="math notranslate nohighlight">\(121\)</span>は<span class="math notranslate nohighlight">\(11\)</span>の倍数でない</p></li>
 <li><p>文字<code class="docutils literal notranslate"><span class="pre">&quot;e&quot;</span></code> は文字列<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code>に含まれる</p></li>
 </ol>
-</div><p><img alt="c741260fcbdd43079300c917d4667858" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+</div><p><img alt="fb55c72d148843dab9bdc46eb71e0932" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -672,9 +672,6 @@ True
 </pre></div>
 </div>
 </div><p>実際に、入力する値を変えて、結果の変化を試してみましょう。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -759,7 +756,7 @@ even
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># a = int(input())</span>
+<span></span><span class="c1"># x = int(input())</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
 
 <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
@@ -911,19 +908,52 @@ big
 </pre></div>
 </div>
 </div><p><strong>if式で書いた例</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="n">b</span><span class="p">)</span>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<p><strong>if文で書いた例</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#a, b = map(int, input().split())</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="n">b</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3
+</pre></div></div>
+</div>
+<p>if式（三項演算子）は、ソースコードが冗長になるのを防いでコンパクトに書くことができます。 ぜひ、積極的に利用してみましょう。</p>
+<p><strong>if文で書いた例(冗長な書き方）</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># a, b = map(int, input().split())</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span>
+
 <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>if式（三項演算子）は、 ソースコードが冗長になるのを防いでコンパクトに書くことができます。 ぜひ、積極的に利用してみましょう。</p>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3
+</pre></div></div>
+</div>
 </div>
 <div class="section" id="繰り返し">
 <h2><span class="section-number">3.4. </span>繰り返し<a class="headerlink" href="#繰り返し" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -933,7 +963,7 @@ big
 <img alt="code_while-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/975ed466-4bfa-9560-230a-faa0a09f97e1.png" />
 <p><strong>while文</strong>: 条件を満たす限り、繰り返す</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -958,7 +988,7 @@ big
 </div>
 <p>ちなみに、「if文は条件を満たせば、高々１回実行される」構造でした。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1011,6 +1041,33 @@ big
 <p class="admonition-title fa fa-exclamation-circle">for 文の変数</p>
 <p>変数 <code class="docutils literal notranslate"><span class="pre">i</span></code>には0から始まる整数が繰り返しの回数分に割り当てられます。 （リストと同じく<strong>0 から始まります。</strong>）</p>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+1 *
+2 **
+3 ***
+4 ****
+5 *****
+6 ******
+7 *******
+8 ********
+9 *********
+</pre></div></div>
+</div>
 </div>
 <div class="section" id="シミュレーション">
 <h3><span class="section-number">3.4.3. </span>シミュレーション<a class="headerlink" href="#シミュレーション" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -1021,7 +1078,7 @@ big
 </div><p>等比数列から計算してもよいですが、シミュレーション（繰り返し）で書いてみましょう。</p>
 <p><strong>while文で書いたとき</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1050,7 +1107,7 @@ big
 </div>
 <p>for文で書くときは、少し大きめの繰り返し回数を指定し、 条件を満たしたら、ループを抜ける<code class="docutils literal notranslate"><span class="pre">break</span></code>文を使います。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1083,7 +1140,8 @@ big
 </div>
 <div class="section" id="演習問題">
 <h2><span class="section-number">3.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>繰り返しは、次回以降、リストや文字列とあわせて練習していきます。 今回は、条件分岐に慣れましょう。</p>
+<p>繰り返しは、次回以降、リストや文字列とあわせて練習していきます。</p>
+<p>今回は、まず条件分岐に慣れましょう。少し予習で繰り返しも混ざっています。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc061/tasks/abc061_a">二つの数の間</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc147/tasks/abc147_a">ブラックジャック</a></p></li>
@@ -1101,6 +1159,10 @@ big
 <li><p><a class="reference external" href="https://atcoder.jp/contests/joi2018yo/tasks/joi2018_yo_a">鉛筆</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/joi2019yo/tasks/joi2019_yo_a">ソーシャルゲーム</a></p></li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">インデントのエラーに困ったら</p>
+<p>Python は、コードをコピペすると、空白記号とタブ記号が混ざって、 インデント周りのエラーが発生しやすくなります。 どうにかなりませんかと言われますが、正直、コピペしないで、 自分でインデントを統一的に書くのが確実です。</p>
+</div>
 </div>
 </div>
 

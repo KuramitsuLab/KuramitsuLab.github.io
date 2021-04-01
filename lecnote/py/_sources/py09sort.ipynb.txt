@@ -601,6 +601,109 @@
   },
   {
    "source": [
+    "### マージソート\n",
+    "\n",
+    "次は、倉光が効率を気にせずにお気楽に書いた[マージソート](https://medium-company.com/マージソート/)の実装です。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "def merge_sort(a): \n",
+    "    if len(a) <= 1:\n",
+    "        return a\n",
+    "    \n",
+    "    sep = len(a) // 2\n",
+    "    b = merge_sort(a[:sep]) \n",
+    "    c = merge_sort(a[sep:])\n",
+    "\n",
+    "    a = []\n",
+    "    while len(b) > 0 and len(c) > 0:\n",
+    "        # b, c の先頭をみて\n",
+    "        b0 = b[0]\n",
+    "        c0 = c[0]\n",
+    "        # 小さい方を追加する\n",
+    "        if b0 < c0: \n",
+    "            a.append(b0)\n",
+    "            b.pop(0) \n",
+    "        else:\n",
+    "            a.append(c0)\n",
+    "            c.pop(0)\n",
+    "    a.extend(b)\n",
+    "    a.extend(c) \n",
+    "    return a\n",
+    "a = [5, 3, 1, 9, 8, 0, 4, 2, 7, 6] \n",
+    "merge_sort(a)"
+   ],
+   "cell_type": "code",
+   "metadata": {},
+   "execution_count": 1,
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 1
+    }
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Let’s try\n",
+    "\n",
+    "マージソートのコードを分析して、平均計算量と最悪計算量を求めてみよう\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "マージソートの教科書的な計算量は、$O(N \\log{N})$です。しかし、上のコードは少々ヤバいところがあります。\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
+    "### 帰着\n",
+    "\n",
+    "最後に、同等な計算量のアルゴリズムに帰着して考える方法をみてみましょう。\n",
+    "\n",
+    "<div class=\"admonition tip\">\n",
+    "\n",
+    "**例題（中央値）**\n",
+    "\n",
+    "大きさ N の数列 a の中央値を求める計算量は?\n",
+    "\n",
+    "</div>\n",
+    "\n",
+    "中央値とは、順に並んでいるときのちょうど中央の値です。\n",
+    "数列 a の中央値は、a がソートされているのなら `a[len(a)//2]` となります。\n",
+    "\n",
+    "しかし、数列 a が常にソートされていると仮定できないので、まずソートしなければなりません。\n",
+    "したがって、中央値を求めるアルゴリズムは、一般にソートアルゴリズムの計算量$O(N \\log{N})$に帰着されます。\n",
+    "\n",
+    "<div class=\"alert alert-warning\">\n",
+    "\n",
+    "ちょっと疑問\n",
+    "\n",
+    "本当にソートは、$O(N \\log{N})$より、効率のよいアルゴリズムはないのか?\n",
+    "</div>\n",
+    "\n",
+    "アルゴリズム論の本質的な問いですが、「もっと計算量の優れたアルゴリズムはない」ことは証明できません。\n",
+    "\n",
+    "なお、中央値は、ソートを用いず、「$n$ 個の要素をもつ集合の $i$ 番目に小さい要素を計算量 $O(n)$ で 計算するアルゴリズム」に帰着させれば、線形最悪時間で解くこともできるようです。\n",
+    "\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "source": [
     "## 見本\n",
     "\n",
     "<div class=\"alert alert-info\">\n",
