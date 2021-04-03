@@ -120,6 +120,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#データ分割に着目">データ分割に着目</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#マージソート">10.4.2. マージソート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#帰着">10.4.3. 帰着</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#見本">10.5. 見本</a><ul>
@@ -905,6 +907,71 @@ div.rendered_html tbody tr:hover {
 <p>例えば、クリックソートでは、N 回繰り返すループをまわす度に、入力データを(平均して)<span class="math notranslate nohighlight">\(N/2\)</span> と半分に分割していきます。この場合は、分割する回数は <span class="math notranslate nohighlight">\(O(\log{N})\)</span> となります。最終的には、 <span class="math notranslate nohighlight">\(O(N \log{N})\)</span>となります。</p>
 <img alt="nlogn-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/c476455a-7362-1aaf-a5e9-524869a9e256.png" />
 </div>
+</div>
+<div class="section" id="マージソート">
+<h3><span class="section-number">10.4.2. </span>マージソート<a class="headerlink" href="#マージソート" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>次は、倉光が効率を気にせずにお気楽に書いた<a class="reference external" href="https://medium-company.com/マージソート/">マージソート</a>の実装です。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">merge_sort</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+    <span class="n">sep</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="n">sep</span><span class="p">])</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">sep</span><span class="p">:])</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># b, c の先頭をみて</span>
+        <span class="n">b0</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">c0</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># 小さい方を追加する</span>
+        <span class="k">if</span> <span class="n">b0</span> <span class="o">&lt;</span> <span class="n">c0</span><span class="p">:</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b0</span><span class="p">)</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c0</span><span class="p">)</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">merge_sort</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p>マージソートのコードを分析して、平均計算量と最悪計算量を求めてみよう</p>
+</div>
+<p>マージソートの教科書的な計算量は、<span class="math notranslate nohighlight">\(O(N \log{N})\)</span>です。しかし、上のコードは少々ヤバいところがあります。</p>
+</div>
+<div class="section" id="帰着">
+<h3><span class="section-number">10.4.3. </span>帰着<a class="headerlink" href="#帰着" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>最後に、同等な計算量のアルゴリズムに帰着して考える方法をみてみましょう。</p>
+<div class="admonition tip"><p><strong>例題（中央値）</strong></p>
+<p>大きさ N の数列 a の中央値を求める計算量は?</p>
+</div><p>中央値とは、順に並んでいるときのちょうど中央の値です。 数列 a の中央値は、a がソートされているのなら <code class="docutils literal notranslate"><span class="pre">a[len(a)//2]</span></code> となります。</p>
+<p>しかし、数列 a が常にソートされていると仮定できないので、まずソートしなければなりません。 したがって、中央値を求めるアルゴリズムは、一般にソートアルゴリズムの計算量<span class="math notranslate nohighlight">\(O(N \log{N})\)</span>に帰着されます。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">ちょっと疑問</p>
+<p>本当にソートは、<span class="math notranslate nohighlight">\(O(N \log{N})\)</span>より、効率のよいアルゴリズムはないのか?</p>
+</div>
+<p>アルゴリズム論の本質的な問いですが、「もっと計算量の優れたアルゴリズムはない」ことは証明できません。</p>
+<p>なお、中央値は、ソートを用いず、「<span class="math notranslate nohighlight">\(n\)</span> 個の要素をもつ集合の <span class="math notranslate nohighlight">\(i\)</span> 番目に小さい要素を計算量 <span class="math notranslate nohighlight">\(O(n)\)</span> で 計算するアルゴリズム」に帰着させれば、線形最悪時間で解くこともできるようです。</p>
 </div>
 </div>
 <div class="section" id="見本">

@@ -39,7 +39,7 @@
    "source": [
     "## モジュロ(mod)\n",
     "\n",
-    "剰余演算（モジュロ）は、整数 a を整数 b で除算し、余りをえる演算です。\n",
+    "剰余演算（モジュロ）は、整数 a を整数 b で除算し、余りをえる$a \\mod b$です。\n",
     "\n",
     "```python\n",
     "a % b\n",
@@ -53,27 +53,62 @@
     "a % b == 0\n",
     "```\n",
     "\n",
-    "__重要な性質__\n",
+    "__モジュロの数学的な性質__\n",
     "\n",
-    "* `(a % M) % M == a % M`\n",
-    "* `(M * n) % M == 0`\n",
-    "* `(a * b) % M == ((a % M) * (b % M)) % M`\n",
-    "* `(a + b) % M == ((a % M) + (b % M)) % M`\n",
-    "\n",
-    "Python では、無限長の整数が扱えます。\n",
-    "しかし、\n",
-    "\n",
-    "\n"
+    "* $(a \\mod M) \\mod M = a \\mod M$\n",
+    "* $(M \\cdot n) \\mod M = 0$\n",
+    "* $(a \\cdot b) \\mod M = ((a \\mod M) * (b \\mod M)) \\mod M$\n",
+    "* $(a + b) \\mod M = ((a \\mod M) + (b \\mod M)) \\mod M$\n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
    "source": [
-    "### 最大公約数と最小公倍数"
+    "### 最大公約数\n",
+    "\n",
+    "最大公約数(GCD)と最小公倍数(LCM)は、整数問題で頻出の概念です。\n",
+    "\n",
+    "次の公式だけ覚えておけば、いつでも関数定義して作り出せます。\n",
+    "\n",
+    "* $GCD(a, b) = GCD(b, a \\mod b)$\n",
+    "* $GCD(a, b)\\cdot LCM(a, b) = ab$\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "Let's try\n",
+    "\n",
+    "$a > b$ のとき、最小公倍数を求めるLCM(a,b)を定義してみよう\n",
+    "</div>"
    ],
    "cell_type": "markdown",
    "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "630"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 1
+    }
+   ],
+   "source": [
+    "def GCD(a, b):\n",
+    "    if b == 0: return a\n",
+    "    return GCD(b, a % b)\n",
+    "\n",
+    "def LCM(a, b):\n",
+    "    return a * b // GCD(a, b)\n",
+    "\n",
+    "LCM(63,30)"
+   ]
   },
   {
    "source": [
@@ -128,7 +163,7 @@
     "\n",
     "今では、色々な方法でコードを書くためのゲームになっています。\n",
     "\n",
-    "__if文も使わないFizzBuzz__"
+    "__if文を使わないでFizzBuzzを書いてみた場合__"
    ],
    "cell_type": "markdown",
    "metadata": {}
@@ -151,6 +186,20 @@
     "for i in range(1, 101):\n",
     "    print(d.get(i%15, i), end=' ')"
    ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "Let's try\n",
+    "\n",
+    "世の中には色々なFizzBuzzの書き方があります。\n",
+    "調べてみましょう。\n",
+    "\n",
+    "</div>"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
   },
   {
    "source": [
@@ -329,30 +378,49 @@
     "\n",
     "ドイツ語版ウィキペディアのSKoppさんによる作画\n",
     "\n",
-    ". 自然数の入った「ふるい (篩, sieve)」を考える\n",
-    "2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23...\n",
-    "2. ふるいの中の一番小さな数を選ぶ. このとき、選ばれた数は素数となる. そして、素数で リストの残りの数を割り、割り切れる数を消してゆく.\n",
-    "最初は， 2 . 2 より大きい 2 の倍数を消します。\n",
-    "2 3 4/ 5 6/ 7 8/ 9 1//0 11 1//2 13 1//4 15 1//6 17 1//8 19 2//0 21 2//2 23... 次にふるいの中の最も小さい数値は、 3 . 3 より大きい 3 の倍数を消します。\n",
-    "2 3 4/ 5 6/ 7 8/ /9 1//0 11 1//2 13 1//4 1//5 1//6 17 1//8 19 2//0 2//1 2//2 23... 次にふるいの中の最も小さい数値は、 5 . ....\n",
-    "3. この一連の操作を繰り返す. 最後までふるいに残った数が素数のリストとなる. \n"
+    "1. 自然数の入った**ふるい**(篩, sieve)を考える\n",
+    "2. ふるいの中の一番小さな数を選ぶ. \n",
+    " ** このとき、選ばれた数は素数となる. \n",
+    " ** そして、この素数でリストの残りの数を割り、割り切れる数を消す。\n",
+    "3. この一連の操作を**繰り返す**. 最後までふるいに残った数が素数のリストとなる. \n"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
    "source": [
-    "素直に用いると"
+    "「エラトステネスのふるい」を実装する鍵は「データ表現」です。\n",
+    "\n",
+    "Python には「ふるい型」はないので、既存のデータ型を使って「ふるい」をうまく表現する方法を考えます。素直に考えると、 `sieve = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...]`のようにリストでふるい表現します。"
    ],
    "cell_type": "markdown",
    "metadata": {}
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 5,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "CPU times: user 762 ms, sys: 2.53 ms, total: 765 ms\nWall time: 764 ms\n"
+     ]
+    },
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "5736396"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 5
+    }
+   ],
    "source": [
+    "%%time \n",
     "def eratosthenes(n):\n",
     "    #まず 2からn未満の整数をふるい(sieve)に入れる\n",
     "    sieve = list(range(2, n)) \n",
@@ -361,16 +429,17 @@
     "            for j in range(p * 2, n, p):  # p の倍数をすべてふるいから取り除く\n",
     "                if j in sieve:\n",
     "                    sieve.remove(j)\n",
-    "    return len(sieve)"
+    "    return sieve\n",
+    "\n",
+    "sum(eratosthenes(10_000))"
    ]
   },
   {
    "source": [
-    "効率を改善する鍵:データ表現 「エラトステネスのふるい」を実装する鍵は「データ表現」です。Python には「ふるい型」はない\n",
-    "ので、既存のデータ型を使って「ふるい」をうまく表現する方法を考えます。\n",
-    "素直な発想  \n",
-    "eratosthenes(n) のようにリストを用いて「ふるい」を表現します。 sieve = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...]\n",
-    "Python は便利なメソッドを提供しているので、リストから要素を取り除くことが簡単にできます。 しかし、あとから習うとおり、sieve.remove(n) を用いてリストから要素を取り除くのは O(n) で 効率がよくありません。\n",
+    "### 効率を改善する鍵:データ表現\n",
+    "\n",
+    "\n",
+    "Python は便利なメソッドを提供しているので、リストから要素を取り除くことが簡単にできます。 しかし、`sieve.remove(n)` を用いてリストから要素を取り除くのは $O(n)$ で、効率がよくありません。\n",
     "\n",
     "<div class=\"alert alert-info\">\n",
     "\n",
@@ -381,12 +450,12 @@
     "</div>\n",
     "\n",
     "ポイントは数がふるいに入っているかどうか?\n",
-    "エラトステネスのふるいでは、自然数 n がふるいの中に入っているか判定できればよいので、論理\n",
-    "値 True, False を用いて判定することができる.\n",
     "\n",
-    "sieve[n] == True なら、n は「ふるい」 の中\n",
-    "▷ sieve[n] == False なら、n は「ふる い」の外\n",
-    "▷ sieve[n] = False で、n をふるいから 取り除く\n",
+    "エラトステネスのふるいでは、自然数 n がふるいの中に入っているか判定できればよいので、論理値 True, False を用いて判定することができる.\n",
+    "\n",
+    "* `sieve[n] == True` なら、`n` は「ふるい」 の中\n",
+    "* `sieve[n] == False` なら、`n` は「ふる い」の外\n",
+    "* `sieve[n] = False` で、`n` をふるいから 取り除く\n",
     "\n",
     "\n",
     "\n"
@@ -395,8 +464,73 @@
    "metadata": {}
   },
   {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "CPU times: user 2.26 ms, sys: 79 µs, total: 2.34 ms\nWall time: 2.35 ms\n"
+     ]
+    },
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "1230"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 4
+    }
+   ],
    "source": [
-    "### 高速版: isPrime(n)"
+    "%%time\n",
+    "\n",
+    "def eratosthenes(n):\n",
+    "    #まず 2からn未満の整数をふるい(sieve)に入れる\n",
+    "    sieve = [False, False] + [True] * (n-1) \n",
+    "    for p in range(2, n): #小さい方から順番に古いの数字をみる\n",
+    "        if sieve[p] == True: # sieveに残っていたら、pは素数\n",
+    "            for j in range(p * 2, n, p):  # p の倍数をすべてふるいから取り除く\n",
+    "                sieve[j] = False\n",
+    "    return sieve\n",
+    "sum(eratosthenes(10_000))"
+   ]
+  },
+  {
+   "source": [
+    "### 高速版: isPrime(n)\n",
+    "\n",
+    "最後に高速な素数判定プログラムを紹介しておきます。（これは、さまざまなプログラムに活用できるテクニックです。）\n"
+   ],
+   "cell_type": "markdown",
+   "metadata": {}
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sieve = eratosthenes(100_0000)\n",
+    "\n",
+    "def isPrime(n):\n",
+    "    if n < 100_0000:\n",
+    "        return sieve[n]"
+   ]
+  },
+  {
+   "source": [
+    "<div class=\"alert alert-info\">\n",
+    "\n",
+    "**ミラー–ラビン素数判定法（Miller–Rabin primality test）**\n",
+    "\n",
+    "[乱択アルゴリズム](https://ja.wikipedia.org/wiki/%E4%B9%B1%E6%8A%9E%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0)による素数判定アルゴリズム。素数かどうか確率的に高速に判定することができる。\n",
+    "\n",
+    "</div>"
    ],
    "cell_type": "markdown",
    "metadata": {}

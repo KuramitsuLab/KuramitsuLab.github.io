@@ -499,7 +499,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">8.1.2. </span>アルゴリズムとレシピ<a class="headerlink" href="#アルゴリズムとレシピ" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>アルゴリズムは、プログラミングにとってレシピに例えられます。もしくは、アルゴリズムとは情報のレシピと呼ぶ人もいます。</p>
 <p>「カスタードクリームを作る」レシピを比較してみましょう。</p>
-<p><img alt="95186a38ab5a4a92bedad171955fdf9c" class="no-scaled-link" src="https://img.cpcdn.com/recipes/644527/840x1461s/5c411dec210c6168f51cbdbccfc0e5b2?u=243036&amp;p=1435802070" style="width: 40%;" /></p>
+<p><img alt="2ac285af85d642ac9e0c853e6f08242b" class="no-scaled-link" src="https://img.cpcdn.com/recipes/644527/840x1461s/5c411dec210c6168f51cbdbccfc0e5b2?u=243036&amp;p=1435802070" style="width: 40%;" /></p>
 <p><strong>カスタードクリームのレシピ</strong></p>
 <ol class="arabic simple">
 <li><p>卵黄、砂糖、小麦粉を火にかける</p></li>
@@ -510,6 +510,9 @@ div.rendered_html tbody tr:hover {
 </ol>
 <p><strong>似ている部分</strong> 1. アルゴリズムも料理のレシピも、どちらも順番があります。順番を間違えると、大惨事にな ります。 2. ある条件を満たすまで「繰り返す(待つ)」ことがあります。</p>
 <p>アルゴリズムも、料理のレシピも、どちらも自分でゼロから考えるのは大変です。 先人や達人たちの知識を学ぶことで、プログラムや料理の腕があがります。</p>
+<ul class="simple">
+<li><p>国立情報学研究所宇野先生の大変わかりやすい<a class="reference external" href="http://research.nii.ac.jp/~uno/algo_3.htm">アルゴリズム解説</a>も参考にしてみてください</p></li>
+</ul>
 </div>
 <div class="section" id="アルゴリズムの解き方">
 <h3><span class="section-number">8.1.3. </span>アルゴリズムの解き方<a class="headerlink" href="#アルゴリズムの解き方" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -785,9 +788,11 @@ x = 1.414215087890625 f(1.414215087890625) = 4.314817488193512e-06
 </pre></div></div>
 </div>
 <p>コンピュータは計算が速いといっても、人間より速いだけで無制限に計算できるわけではありません。 このように<strong>計算量を減らす</strong>工夫が重要になっていきます。</p>
-<div class="alert alert-info"><p>Newton-Raphson 法</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Newton-Raphson 法</p>
 <p>方程式の求解アルゴリズムとしては， <a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%88%E3%83%B3%E6%B3%95">Newton-Raphson 法</a> など，より収束効率が優れたものが存在します。興味があったら、調べて書いてみよう。</p>
-<div></div>
+</div>
+</div>
 </div>
 <div class="section" id="漸近的計算量解析">
 <h2><span class="section-number">8.3. </span>漸近的計算量解析<a class="headerlink" href="#漸近的計算量解析" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -918,7 +923,7 @@ Wall time: 202 ms
 </div>
 <p>この関数は、入力<span class="math notranslate nohighlight">\(n\)</span>に対する計算量は<span class="math notranslate nohighlight">\(O(\left\{\frac{1+\sqrt{t}}{2}\right\}^n)\)</span>と見積もられ、指数時間アルゴリズムです。こんなに簡単ですが..</p>
 <p><span class="math notranslate nohighlight">\(n\)</span>を大きくしていくと、途中から爆発的に計算時間がかかるようになります。</p>
-<p><img alt="a5090998ccc54b79bc8d5aef7ae4918c" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
+<p><img alt="c198d531b9c54d9181abde9b27f220dd" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">フィボナッチ・ベンチマーク </p>
 <p>フィボナッチの再帰関数は、簡単なプログラムで簡単に負荷がかけられるので、プログラミング言語の性能を測る簡単なベンチマークテストとして重宝されてきました。</p>
@@ -969,6 +974,7 @@ Wall time: 202 ms
 </div>
 <div class="section" id="演習問題">
 <h2><span class="section-number">8.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>探索問題や少し工夫の必要な問題を集めてみました。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc179/tasks/abc179_c">A x B + C</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc187/tasks/abc187_b">Gentle Pairs</a>: 組(タプル)を使いましょう</p></li>
@@ -987,8 +993,9 @@ Wall time: 202 ms
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc156/tasks/abc156_b">K進数</a>: 文字列問題か？</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/ABC146/tasks/ABC146_c">整数屋さん</a>: 二分探索</p></li>
 </ul>
-<p><a class="reference external" href="https://kei1107.github.io/algorithm/abc145/">https://kei1107.github.io/algorithm/abc145/</a></p>
-</div>
+<!--
+https://kei1107.github.io/algorithm/abc145/
+--></div>
 </div>
 
 
