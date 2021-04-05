@@ -120,14 +120,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#データ分割に着目">データ分割に着目</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#マージソート">10.4.2. マージソート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#帰着">10.4.3. 帰着</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#最悪ケース計算量と平均ケース計算量">10.4.2. 最悪ケース計算量と平均ケース計算量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#お気楽なマージソート">10.4.3. お気楽なマージソート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#帰着">10.4.4. 帰着</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#見本">10.5. 見本</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#平均点">10.5.1. 平均点</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#分割倒置法">10.5. 分割倒置法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#演習問題">10.6. 演習問題</a></li>
 </ul>
 </li>
@@ -908,9 +906,13 @@ div.rendered_html tbody tr:hover {
 <img alt="nlogn-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/c476455a-7362-1aaf-a5e9-524869a9e256.png" />
 </div>
 </div>
-<div class="section" id="マージソート">
-<h3><span class="section-number">10.4.2. </span>マージソート<a class="headerlink" href="#マージソート" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>次は、倉光が効率を気にせずにお気楽に書いた<a class="reference external" href="https://medium-company.com/マージソート/">マージソート</a>の実装です。</p>
+<div class="section" id="最悪ケース計算量と平均ケース計算量">
+<h3><span class="section-number">10.4.2. </span>最悪ケース計算量と平均ケース計算量<a class="headerlink" href="#最悪ケース計算量と平均ケース計算量" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クイックソートの計算量は、注意が必要です。クイックソートの計算量は、原理的には<span class="math notranslate nohighlight">\(O(N \log{N})\)</span>となりますが、データを分割する方法に依存します。つまり、理想的には<span class="math notranslate nohighlight">\(N\)</span>個のデータが<span class="math notranslate nohighlight">\(N/2, N/2\)</span>に分割されることが望ましいですが、最悪の場合<span class="math notranslate nohighlight">\(N-1, 1\)</span>に分割されることもあります。このような分割が重なると、クイックソートの計算量は<span class="math notranslate nohighlight">\(O(N^2)\)</span>となります。このような場合の計算量を、文字通り、<strong>最悪ケース計算量</strong>といいます。極めて特殊なケースを仮定しない場合の計算量を<strong>平均ケース計算量</strong>と呼びます。</p>
+</div>
+<div class="section" id="お気楽なマージソート">
+<h3><span class="section-number">10.4.3. </span>お気楽なマージソート<a class="headerlink" href="#お気楽なマージソート" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>次は、効率を気にせずにアルゴリズム通りに、お気楽に書かれた<a class="reference external" href="https://medium-company.com/マージソート/">マージソート</a>の実装です。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -955,12 +957,12 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p>マージソートのコードを分析して、平均計算量と最悪計算量を求めてみよう</p>
+<p>ソースコードを読んで、マージソートの原理を理解しよう。 さらに、コードを分析して、平均ケース計算量と最悪ケース計算量を求めてみよう</p>
 </div>
-<p>マージソートの教科書的な計算量は、<span class="math notranslate nohighlight">\(O(N \log{N})\)</span>です。しかし、上のコードは少々ヤバいところがあります。</p>
+<p>ちなみに、マージソートの教科書的な計算量は、<span class="math notranslate nohighlight">\(O(N \log{N})\)</span>です。しかし、上のお気楽なマージソートは少しヤバいところがあります。多分、<span class="math notranslate nohighlight">\(O(N^2 \log{N})\)</span>です。どうしてなのか、考えてみましょう。</p>
 </div>
 <div class="section" id="帰着">
-<h3><span class="section-number">10.4.3. </span>帰着<a class="headerlink" href="#帰着" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.4.4. </span>帰着<a class="headerlink" href="#帰着" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>最後に、同等な計算量のアルゴリズムに帰着して考える方法をみてみましょう。</p>
 <div class="admonition tip"><p><strong>例題（中央値）</strong></p>
 <p>大きさ N の数列 a の中央値を求める計算量は?</p>
@@ -974,62 +976,62 @@ div.rendered_html tbody tr:hover {
 <p>なお、中央値は、ソートを用いず、「<span class="math notranslate nohighlight">\(n\)</span> 個の要素をもつ集合の <span class="math notranslate nohighlight">\(i\)</span> 番目に小さい要素を計算量 <span class="math notranslate nohighlight">\(O(n)\)</span> で 計算するアルゴリズム」に帰着させれば、線形最悪時間で解くこともできるようです。</p>
 </div>
 </div>
-<div class="section" id="見本">
-<h2><span class="section-number">10.5. </span>見本<a class="headerlink" href="#見本" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="分割倒置法">
+<h2><span class="section-number">10.5. </span>分割倒置法<a class="headerlink" href="#分割倒置法" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>計算量は、入力データのサイズ <span class="math notranslate nohighlight">\(N\)</span> に依存することがわかってきた思います。効率のよいアルゴリズ ムのコツは、入力データのサイズを分割して、<span class="math notranslate nohighlight">\(N\)</span>の要因を下げることです。このようなアルゴリズム・デザインの戦略を<strong>分割倒置法 (divide-and-conquer)</strong> と呼びます。</p>
+<p><strong>分割倒置法の例</strong></p>
+<ul class="simple">
+<li><p>二分探索　二分法</p></li>
+<li><p>クイックソート</p></li>
+<li><p>マージソート</p></li>
+</ul>
+<p>分割統治法のコツは、並列アルゴリズムのように単に入力データを分割するだけでなく、分割を再帰的に繰り返し、N/2, N/4, N/8 と細かくしていくことです。</p>
+<div class="admonition tip"><p><strong>例題（分割倒置法）</strong></p>
+<p><span class="math notranslate nohighlight">\(3^{16}\)</span>を分割倒置法で効率よく計算してみよう。</p>
+</div><p>まずは、紙とえんぴつを用意して解いてみましょう。</p>
+<p><img alt="9fd279c0769b47a3a3d9d08cf0c018e2" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
+<p>普通に計算すると、3を15回、掛け算することになります。</p>
+<div class="math notranslate nohighlight">
+\[3^{16} = 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3\]</div>
+<p>半分に分割します。</p>
+<div class="math notranslate nohighlight">
+\[3^{16} = (3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3)^{2}\]</div>
+<p>さらに分割していきます。</p>
+<div class="math notranslate nohighlight">
+\[3^{16} = ((3 \times 3 \times 3 \times 3)^{2} )^2\]</div>
+<div class="math notranslate nohighlight">
+\[3^{16} = (((3 \times 3)^{2})^2)^2\]</div>
+<p>この考え方は、実は繰り返し二乗法です。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">(1//2)</span></code> が、正しく <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> にならない理由を考えてみよう</p>
-</div>
-<p>まずは、リストを使わなくても解ける問題ですが、リストの練習を兼ねて解いてみましょう。</p>
-<div class="section" id="平均点">
-<h3><span class="section-number">10.5.1. </span>平均点<a class="headerlink" href="#平均点" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<div class="admonition tip"><p><strong>例題（平均点）</strong></p>
-<p>スワップを用いて、リストを逆順に変換してみよう。</p>
-<p>入力例：</p>
-<p>出力例：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">68</span>
-</pre></div>
-</div>
-<p><a class="reference external" href="https://atcoder.jp/contests/joi2014yo/tasks/joi2014yo_a">AtCoder (JOI2014 予選)</a></p>
-</div><p><strong>(解法) リストを使う場合</strong></p>
-<ol class="arabic simple">
-<li><p>期末試験を記録する空の得点リスト <code class="docutils literal notranslate"><span class="pre">scores</span></code> を用意する</p></li>
-<li><p>5人分繰り返し、点数を読んで、<code class="docutils literal notranslate"><span class="pre">scores</span></code> に追加する</p></li>
-<li><p>平均点は <code class="docutils literal notranslate"><span class="pre">sum(scores)</span> <span class="pre">//</span> <span class="pre">5</span></code></p></li>
-</ol>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Python</p></th>
-<th class="head"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max(a)</span></code></p></td>
-<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の最大値</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min(a)</span></code></p></td>
-<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の最小値</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum(a)</span></code></p></td>
-<td><p>数列<code class="docutils literal notranslate"><span class="pre">a</span></code>の合計値</p></td>
-</tr>
-</tbody>
-</table>
+<p class="admonition-title fa fa-exclamation-circle">繰り返し二乗法</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}pow(m,n) = \begin{cases}
+    1 &amp; (n=1\mbox{のとき}) \\
+    pow(m^2, n/2) &amp; (n\mbox{が偶数のとき}) \\
+    pow(m^2, n/2)\times m &amp; (n\mbox{が奇数のとき}) \\
+  \end{cases}\end{split}\]</div>
 </div>
 </div>
 <div class="section" id="演習問題">
 <h2><span class="section-number">10.6. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ソートやアルゴリズム的な考え方を活用して解ける問題を集めてみました。</p>
+<p><a class="reference external" href="../ac.html">課題リスト</a>より</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc161/tasks/abc161_a">ABCスワップ</a>: ボーナス！</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2021yo1a/tasks/joi2021_yo1a_a">２番目に大きい整数</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc093/tasks/abc093_a">abc</a>: 文字ソート</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc041/tasks/abc041_c">背の順</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc103/tasks/abc103_a">タスクスケジュール</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2020yo1b/tasks/joi2020_yo1b_c">最頻値</a>: 統計処理の定番</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2020yo1a/tasks/joi2020_yo1a_c">マージ</a>: マージソートを思い出して</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc102/tasks/abc102_b">最大距離</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc067/tasks/abc067_b">ヘビのおもちゃ</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/agc027/tasks/agc027_a">キャンディの配布</a>: ソートして配ります</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc128/tasks/abc128_b">ガイドブック</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc117/tasks/abc117_b">多角形</a>: ソートしてみますか？</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/typical-algorithm/tasks/typical_algorithm_a">二分探索</a>: ソートの応用</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc146/tasks/abc146_c">整数屋さん</a>: 二分探索</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/joi2007ho/tasks/joi2007ho_a">最大の和</a>: 問題文は読みにくいけど、良問</p></li>
 </ul>
 </div>
 </div>

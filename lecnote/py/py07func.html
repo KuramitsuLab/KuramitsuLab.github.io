@@ -114,7 +114,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#内包記法と高階関数">6.3.4. 内包記法と高階関数</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">6.4. 演習問題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">6.4. 演習問題</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ヒント：Colab上で入力がめんどくさく感じたら">6.4.1. ヒント：Colab上で入力がめんどくさく感じたら</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
@@ -465,7 +468,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="関数、再帰関数、そして高階関数">
 <h1><span class="section-number">6. </span>関数、再帰関数、そして高階関数<a class="headerlink" href="#関数、再帰関数、そして高階関数" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>より抽象度の高いプログラミングを目指して、関数、ラムダ式、高階関数の考え方を習得します。</p>
-<p><img alt="044fb72b3f5447399eeeb7ade9097e32" src="http://s3.amazonaws.com/lyah/fx.png" /></p>
+<p><img alt="2734a2aa02ee443fac88d1f5fdf03760" src="http://s3.amazonaws.com/lyah/fx.png" /></p>
 <div class="section" id="関数を定義する">
 <h2><span class="section-number">6.1. </span>関数を定義する<a class="headerlink" href="#関数を定義する" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>今まで、<code class="docutils literal notranslate"><span class="pre">print(x)</span></code>関数や<code class="docutils literal notranslate"><span class="pre">max(x,y)</span></code>を使ってプログラミングをしてきました。 今回は、まず関数を定義する方法を覚えましょう。</p>
@@ -489,7 +492,7 @@ div.rendered_html tbody tr:hover {
 </div><p><strong>1.</strong>: <span class="math notranslate nohighlight">\(f(x) = x + 1\)</span></p>
 <p>パラメータは<code class="docutils literal notranslate"><span class="pre">x</span></code>, 関数の結果は<code class="docutils literal notranslate"><span class="pre">x+1</span></code>になります。 関数の結果は、<code class="docutils literal notranslate"><span class="pre">return</span></code>文を用いて返すようにします。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -500,7 +503,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>一旦、関数を定義してしまうと、あとは、<code class="docutils literal notranslate"><span class="pre">f(0)</span></code>, <code class="docutils literal notranslate"><span class="pre">f(1)</span></code>のように用いることができます。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -541,7 +544,7 @@ f(9) = 10
 <p><strong>2</strong>: <span class="math notranslate nohighlight">\(f(x) = x + a\)</span></p>
 <p>ちょっと数学にありがちな「その<span class="math notranslate nohighlight">\(a\)</span>はどこから出てきたのかな？」と思ってしまう関数定義です。 次の２通りの実装方法があります。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -552,7 +555,7 @@ f(9) = 10
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -570,7 +573,7 @@ f(9) = 10
 <p><strong>3.</strong> <span class="math notranslate nohighlight">\(f(a, b) = \begin{cases}  a &amp; (a&gt;b) \\  b &amp; (otherwise)  \end{cases}\)</span></p>
 <p>いわゆる<code class="docutils literal notranslate"><span class="pre">max(a,b)</span></code>を定義します。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -583,7 +586,7 @@ f(9) = 10
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -595,7 +598,7 @@ f(9) = 10
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -609,7 +612,7 @@ f(9) = 10
 <p>ここで、<span class="math notranslate nohighlight">\(f(x) = x^{n}\)</span>ということに注意すれば、<span class="math notranslate nohighlight">\(f(x) = \begin{cases}  1 &amp; (n=0) \\  x \cdot f(x-1) &amp; (otherwise)  \end{cases}\)</span></p>
 <p>これを素直に直すと：</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -642,7 +645,7 @@ f(9) = 10
 </div>
 </div><p>素直に、二重ループを用いて長方形を書いてみます。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -668,7 +671,7 @@ f(9) = 10
 </div>
 <p>正方形は、長方形の縦横の長さが等しい場合なので..</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -717,7 +720,7 @@ f(9) = 10
 \[n! = n \times n-1 \times ... \times 2 \times 1\]</div>
 <p>なので、<span class="math notranslate nohighlight">\(\times\)</span>の数に注目すると、<span class="math notranslate nohighlight">\(n-1\)</span>回、掛け算することになります。 繰り返す回数がわかれば、あとは<span class="math notranslate nohighlight">\(N\)</span>回繰り返す構文を用いて計算します。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -743,7 +746,7 @@ f(9) = 10
 <p><span class="math notranslate nohighlight">\(factorinal(n)=n!\)</span>なので、</p>
 <p><span class="math notranslate nohighlight">\(factorial(n) = \begin{cases}  1 &amp; (n=1) \\  n \cdot factorial(n-1) &amp; (n&gt;1)  \end{cases}\)</span></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -809,17 +812,17 @@ f(9) = 10
 </div>
 <p>コールスタックと再帰関数の関係は、最初の <code class="docutils literal notranslate"><span class="pre">factorial(n)</span></code>に<code class="docutils literal notranslate"><span class="pre">print()</span></code>を入れて、確認しておきましょう。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="c1">#print(f&#39;引数{n}でコール&#39;)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;引数</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">でコール&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c1">#print(f&#39;n={n}の結果として{res}を返す&#39;)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">の結果として</span><span class="si">{</span><span class="n">res</span><span class="si">}</span><span class="s1">を返す&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">res</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
@@ -831,6 +834,16 @@ f(9) = 10
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+引数5でコール
+引数4でコール
+引数3でコール
+引数2でコール
+引数1でコール
+n=1の結果として1を返す
+n=2の結果として2を返す
+n=3の結果として6を返す
+n=4の結果として24を返す
+n=5の結果として120を返す
 120
 </pre></div></div>
 </div>
@@ -841,7 +854,7 @@ f(9) = 10
 <p>再帰関数では簡単に発生します。例えば、<code class="docutils literal notranslate"><span class="pre">factorial(-1)</span></code>などを呼んでみると、いつまでも再帰呼び出しを続けて、コールスタックを使い切ります。</p>
 <p>実行するときは、<code class="docutils literal notranslate"><span class="pre">print()</span></code>はコメントアウトしておいた方がよいかも。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -865,12 +878,12 @@ f(9) = 10
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">RecursionError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-17-2a6fc6f38288&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">&lt;ipython-input-15-2a6fc6f38288&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">      8</span>     <span class="ansi-green-fg">return</span> res
 <span class="ansi-green-intense-fg ansi-bold">      9</span>
 <span class="ansi-green-fg">---&gt; 10</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>factorial<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-17-2a6fc6f38288&gt;</span> in <span class="ansi-cyan-fg">factorial</span><span class="ansi-blue-fg">(n)</span>
+<span class="ansi-green-fg">&lt;ipython-input-15-2a6fc6f38288&gt;</span> in <span class="ansi-cyan-fg">factorial</span><span class="ansi-blue-fg">(n)</span>
 <span class="ansi-green-intense-fg ansi-bold">      4</span>         res <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1</span>
 <span class="ansi-green-intense-fg ansi-bold">      5</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
 <span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg">         </span>res <span class="ansi-blue-fg">=</span> n <span class="ansi-blue-fg">*</span> factorial<span class="ansi-blue-fg">(</span>n<span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
@@ -879,7 +892,7 @@ f(9) = 10
 
 ... last 1 frames repeated, from the frame below ...
 
-<span class="ansi-green-fg">&lt;ipython-input-17-2a6fc6f38288&gt;</span> in <span class="ansi-cyan-fg">factorial</span><span class="ansi-blue-fg">(n)</span>
+<span class="ansi-green-fg">&lt;ipython-input-15-2a6fc6f38288&gt;</span> in <span class="ansi-cyan-fg">factorial</span><span class="ansi-blue-fg">(n)</span>
 <span class="ansi-green-intense-fg ansi-bold">      4</span>         res <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1</span>
 <span class="ansi-green-intense-fg ansi-bold">      5</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
 <span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg">         </span>res <span class="ansi-blue-fg">=</span> n <span class="ansi-blue-fg">*</span> factorial<span class="ansi-blue-fg">(</span>n<span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
@@ -928,12 +941,13 @@ f(9) = 10
 <p>まず、関数が値であるとはどういうことなのか確認しておきましょう。数値をひとつ増やす succ(n) 関数を定義してみた例をみてください。</p>
 <p><strong>関数 succ(n) の定義</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">def</span> <span class="nf">succ</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="n">succ</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -948,7 +962,7 @@ f(9) = 10
 </div>
 <p>関数は、<code class="docutils literal notranslate"><span class="pre">succ(0)</span></code> のように引数を適用することで呼び出すことができます。実は、ここ で <code class="docutils literal notranslate"><span class="pre">succ</span></code> という識別子は<strong>関数を値として保持している変数名</strong>にもなっています。だから、 <code class="docutils literal notranslate"><span class="pre">type(succ)</span></code> とすると、その値の型を調べることができます。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -957,7 +971,7 @@ f(9) = 10
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -967,7 +981,7 @@ function
 </div>
 <p>関数は、変数名 <code class="docutils literal notranslate"><span class="pre">succ</span></code> に代入された値なので、整数や文字列と同じように他の変数に代入することができます。すると、代入された変数名の方から、<code class="docutils literal notranslate"><span class="pre">succ</span></code> 関数を呼び出せるようになります。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -989,8 +1003,8 @@ function
 <div class="section" id="ラムダ式">
 <h3><span class="section-number">6.3.2. </span>ラムダ式<a class="headerlink" href="#ラムダ式" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ラムダ式 (lambda expression) は、関数を値として、直接定義する記法です。関数名を 付ける必要はないため、無名関数とも呼ばれます。先ほどの succ 関数は、ラムダ式を用いると、 次のように直接、値として書き直すことができます。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -998,6 +1012,14 @@ function
 <span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2
+</pre></div></div>
 </div>
 <p>ラムダ式は、Aronzo Church の λ 計算 (λx.x + 1) に由来していますが、プログラミン グ言語のラムダ式は、単に、関数を値として定義するための記法に過ぎません。β 簡約や Church 数などを理解しなくとも、恐れるところはありません。</p>
 <p>Python3 のラムダ式は、式しか与えることができません。つまり、制御構造などが含まれたプログラムは、ラムダ式として定義することはできず、<code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">succ(n):</span></code> の例のように、名前付きの関数として一旦、定義し、関数名から参照することになります。</p>
@@ -1009,7 +1031,7 @@ function
 <p><strong>map関数</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">map(f,xs)</span></code> のパラメータは、関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> とリスト <code class="docutils literal notranslate"><span class="pre">xs</span></code> をとります。リスト<code class="docutils literal notranslate"><span class="pre">xs</span></code>から、 順番に要素を取り出し、各要素に関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> を適用します。最終的に、新しいリストに関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> の適用した結果を入れて、返します。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1021,8 +1043,9 @@ function
 </pre></div>
 </div>
 </div>
+<p>パラメータで渡せる関数は、定義済みの関数名、もしくはラムダ式になります。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1031,7 +1054,7 @@ function
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1040,7 +1063,7 @@ function
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1049,7 +1072,7 @@ function
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1060,7 +1083,7 @@ function
 <p><strong>filter関数</strong></p>
 <p>filter(f,xs) のパラメータは、関数 <code class="docutils literal notranslate"><span class="pre">f</span></code> とリスト <code class="docutils literal notranslate"><span class="pre">xs</span></code> をとります。リスト<code class="docutils literal notranslate"><span class="pre">xs</span></code>から、 順番に要素を取り出し、各要素に関数 f でフィルタします。最終的に、関数<code class="docutils literal notranslate"><span class="pre">f</span></code>の適用結果が真だった要素だけのリストを作り、結果として返します。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1074,7 +1097,7 @@ function
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1083,7 +1106,7 @@ function
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1130,25 +1153,120 @@ function
 <p>できる限り、関数を定義して使っていきましょう。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc183/tasks/abc183_a">ReLU</a></p></li>
-<li><p><cite>:math:`a+a^2+a^3</cite> &lt;<a class="reference external" href="https://atcoder.jp/contests/abc172/tasks/abc172_a">https://atcoder.jp/contests/abc172/tasks/abc172_a</a>&gt;`__: 関数定義しましょう！</p></li>
-<li><p><a class="reference external" href="https://atcoder.jp/contests/abc184/tasks/abc184_a">行列式</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc172/tasks/abc172_a">a+a2+a3</a>: 関数定義しましょう！</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/past202004-open/tasks/past202004_a">エレベーター</a>: <code class="docutils literal notranslate"><span class="pre">1F,</span> <span class="pre">2F,</span> <span class="pre">3F</span></code>を渡すと、数値に変換する関数を考えます。</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc187/tasks/abc187_a">大きい数字</a></p></li>
-<li><p><a class="reference external" href="https://atcoder.jp/contests/abc185/tasks/abc185_b">スマホ中毒</a></p></li>
-<li><p><a class="reference external" href="https://atcoder.jp/contests/abc182/tasks/abc182_b">ほぼGCD</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc083/tasks/abc083_b">とある総和</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc090/tasks/abc090_b">回文数</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc156/tasks/abc156_b">K進数</a>: K進数に変換する関数を定義</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc185/tasks/abc185_b">スマホ中毒</a>: 入力がめんどくさいので、<strong>ヒント</strong>を読もう</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc182/tasks/abc182_b">ほぼGCD</a>: 正直、問題文の理解が一番むずかしい</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc162/tasks/abc162_b">FizzBuzzの和</a>: 有名なFizzBuzz問題のバリエーション</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc155/tasks/abc155_b">入国審査</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc157/tasks/abc157_b">ビンゴ</a>: ビンゴを判定する関数定義しましょう</p></li>
-<li><p><a class="reference external" href="https://atcoder.jp/contests/abc079/tasks/abc079_c">列車のチケット</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc156/tasks/abc156_c">ラリー</a></p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc107/tasks/abc107_b">グリッド圧縮</a></p></li>
-<li><p><a class="reference external" href="https://atcoder.jp/contests/abc114/tasks/abc114_c">７５５</a> 再帰関数を使います</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc019/tasks/abc019_2">文字列圧縮</a>: ランレングス圧縮を関数化します。</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc114/tasks/abc114_c">７５５</a> 再帰関数を使います</p></li>
 </ul>
-<!--
-* [異世界数式](https://atcoder.jp/contests/colopl2018-final-open/tasks/colopl2018_final_b): いわゆる構文解析の問題です。
-
-* [多項式の零点の個](https://atcoder.jp/contests/ttpc2019/tasks/ttpc2019_l): 構文解析
---></div>
+<div class="section" id="ヒント：Colab上で入力がめんどくさく感じたら">
+<h3><span class="section-number">6.4.1. </span>ヒント：Colab上で入力がめんどくさく感じたら<a class="headerlink" href="#ヒント：Colab上で入力がめんどくさく感じたら" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Colab上で入力がめんどくさく感じたら、少し<strong>禁断のテクニック</strong>ですが、 <code class="docutils literal notranslate"><span class="pre">input()</span></code>関数を書き換えてしまいましょう。</p>
+<p>次のIn関数は、与えられた文字列を1行ずつ<code class="docutils literal notranslate"><span class="pre">input()</span></code>に渡すようにする 関数です。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">In</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="c1">#Colab上で最初に一度定義する。</span>
+  <span class="k">global</span> <span class="nb">input</span>
+  <span class="kn">import</span> <span class="nn">builtins</span>
+  <span class="n">data</span>  <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+  <span class="k">def</span> <span class="nf">input_new</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="nb">input</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">input</span> <span class="c1"># 元に戻す</span>
+      <span class="k">return</span> <span class="n">builtins</span><span class="o">.</span><span class="n">input</span><span class="p">()</span>
+  <span class="nb">input</span> <span class="o">=</span> <span class="n">input_new</span>
+</pre></div>
+</div>
+</div>
+<p>複数行にわたる入力文字列もトリプルクート(<code class="docutils literal notranslate"><span class="pre">'''</span></code>)で囲んで渡すと、<code class="docutils literal notranslate"><span class="pre">input()</span></code>を置き換えます。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">In</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">10 2 20</span>
+<span class="s1">9 11</span>
+<span class="s1">13 17</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>すると、渡した入力文字列がある間は、順番に渡されるようになります。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">input</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;10 2 20&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">input</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;9 11&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">input</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;13 17&#39;
+</pre></div></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">必ずいるので注意</p>
+<p>AtCoder に提出するときは、<code class="docutils literal notranslate"><span class="pre">In(...)</span></code>の部分は入れないでください。 <code class="docutils literal notranslate"><span class="pre">input()</span></code>を書き換えるので、正しくAtCoderの入力が読めなくなります。</p>
+</div>
+</div>
+</div>
 </div>
 
 

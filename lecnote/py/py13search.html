@@ -116,7 +116,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#エイトクイーン">13.4. エイトクイーン</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#演習">13.5. 演習</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#演習問題">13.5. 演習問題</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
@@ -518,7 +518,7 @@ div.rendered_html tbody tr:hover {
 <div class="admonition tip"><p><strong>例題（油分け算）</strong></p>
 <p>10L の容器いっぱいに油が入っている。7L の容器 A と 3L の容器 B を使って、 この油を 5L ずつに分ける。どのような分け方があるか?</p>
 </div><p>油分け算は、実はグラフの探索問題として解くことができます。 まずは、紙とえんぴつを用意して解いてみましょう。</p>
-<p><img alt="502c963fa3f141f4862cc5428e07fe2f" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
+<p><img alt="25c30c9a14a840dbbc1651b9e74c27f8" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
 <div class="section" id="考え方">
 <h3><span class="section-number">13.3.1. </span>考え方<a class="headerlink" href="#考え方" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>容器 A, B にそれぞれ aL, bL 入っている状態を (a, b) のペアで表現することにします。 最初の状態は、(0,0) とします。(5, 0)の状態になるか探索します。</p>
@@ -665,20 +665,27 @@ div.rendered_html tbody tr:hover {
 <li><p>置いたクイーン (Q) の移動できる場所を置けなくし、次の列に進む</p></li>
 <li><p>次の列で置けなかったら、バックトラック (backtrack) して前の列に戻り、別の場所を試す</p></li>
 </ul>
-<p><img alt="5f8fac3880d14a639b9b36020b63ddd5" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Eight-queens-animation.gif" style="width: 40%;" /></p>
+<p><img alt="0feb31186efd4b309ef19cf88b49114d" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Eight-queens-animation.gif" style="width: 40%;" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>エイトクイーンは、 ほとんどの情報系大学の演習問題として、一度は挑戦する課題です。 プログラミング力を鍛えるよい練習問題だからです。</p>
 <p>Webには、エイトクイーンの解説が溢れていますが、 まず解説を見ずに自力で解いてみましょう。 <strong>自力でできるところまで考えてみる</strong>というのが大切です。 レポート課題は、自分で考えて動いたところまでで提出すれば十分です。</p>
 </div>
 </div>
-<div class="section" id="演習">
-<h2><span class="section-number">13.5. </span>演習<a class="headerlink" href="#演習" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>AtCoder 上で手頃な探索問題を探しています。（もし見つかったら教えてください）</p>
+<div class="section" id="演習問題">
+<h2><span class="section-number">13.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>グラフを活用する問題を集めてみました。</p>
+<p><a class="reference external" href="../ac.html">課題リスト</a>より</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc172/tasks/abc172_c">積読</a>: 探索問題の感じ</p></li>
-<li><p><a class="reference external" href="https://atcoder.jp/contests/abc176/tasks/abc176_d">ワープ魔法</a>: 変形探索問題？</p></li>
 <li><p><a class="reference external" href="https://atcoder.jp/contests/atc001/tasks/dfs_a">深さ優先探索</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/atc002/tasks/abc007_3">幅優先探索</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc079/tasks/abc079_c">列車のチケット</a>: bit探索</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/abc176/tasks/abc176_d">ワープ魔法</a>: 変形探索問題</p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/typical-algorithm/tasks/typical_algorithm_b">区間スケジューリング</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/typical-algorithm/tasks/typical_algorithm_c">巡回セールスマン</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/typical-algorithm/tasks/typical_algorithm_d">単一始点最短経路問題</a></p></li>
+<li><p><a class="reference external" href="https://atcoder.jp/contests/typical-algorithm/tasks/typical_algorithm_e">全点対最短経路問題</a></p></li>
 </ul>
 </div>
 </div>
