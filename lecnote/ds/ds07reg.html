@@ -116,10 +116,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#目的変数の分布を見る">7.4.1. 目的変数の分布を見る</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ポイント(2):-相関を調べる">7.4.2. ポイント(2): 相関を調べる</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#全てのパラメータを説明変数">7.4.3. 全てのパラメータを説明変数</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#(おまけ）ランダムフォレスト">7.4.4. (おまけ）ランダムフォレスト</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#コースワーク">7.5. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">7.5. コースワーク</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#(補足）ランダムフォレストとは">7.5.1. (補足）ランダムフォレストとは</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds08ml.html">8. 機械学習とクラス分類問題</a></li>
@@ -522,7 +524,7 @@ div.rendered_html tbody tr:hover {
 <p>つまり、次の<span class="math notranslate nohighlight">\(E\)</span>が最小になるa, bを求めます。</p>
 <div class="math notranslate nohighlight">
 \[E = \sum ^n _ {i = 1}(ax_i +b - y)^2\]</div>
-<p><img alt="6cd601c551f04e54ad2301c9f7b256c1" src="https://mathtrain.jp/wp-content/uploads/2014/12/leastsquare-300x282.png" /></p>
+<p><img alt="6cc23daa9049402688fd36fecaf23768" src="https://mathtrain.jp/wp-content/uploads/2014/12/leastsquare-300x282.png" /></p>
 </div>
 <div class="section" id="NumPyによる解法">
 <h3><span class="section-number">7.1.2. </span>NumPyによる解法<a class="headerlink" href="#NumPyによる解法" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -1505,11 +1507,27 @@ R squared error 0.7343070437613075
 <div class="output_area docutils container">
 <img alt="_images/ds07reg_57_1.svg" src="_images/ds07reg_57_1.svg" /></div>
 </div>
+<p>説明変数を全て入れると、一見、最もよい回帰モデルが作れそうですが、<strong>多重共線性(multi-colinearlity、和製英語: マルチコ)</strong>が生じることがあります。例えば、説明変数に<span class="math notranslate nohighlight">\(x\)</span>と<span class="math notranslate nohighlight">\(x^2\)</span>のように、<span class="math notranslate nohighlight">\(x\)</span>が大きくなると、<span class="math notranslate nohighlight">\(x^2\)</span>も大きくなる変数が入っていると、マルチコが発生します。</p>
+<p>マルチコへの対応は分野によって異なります。</p>
+<ul class="simple">
+<li><p>統計学的には、放置してはいけない</p></li>
+<li><p>機械学習的には、モデルの説明力を低下させるものの、予測精度にあまり影響を与えない</p></li>
+</ul>
 </div>
-<div class="section" id="(おまけ）ランダムフォレスト">
-<h3><span class="section-number">7.4.4. </span>(おまけ）ランダムフォレスト<a class="headerlink" href="#(おまけ）ランダムフォレスト" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+<div class="section" id="コースワーク">
+<h2><span class="section-number">7.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition tip"><p><strong>例題（ボストンハウジング）</strong></p>
+<ol class="arabic simple">
+<li><p>最も精度（決定係数）が高くなる３つの説明変数の組み合わせを探してみよう (<code class="docutils literal notranslate"><span class="pre">0.75</span></code>は超えるはずです。)</p></li>
+<li><p>最も精度（決定係数）が高くなる４つ以上の説明変数の組み合わせを選んでみよう</p></li>
+<li><p>（もし余力があって、機械学習の世界観を広げたいのなら）ランダムフォレストやXGBoostを調べて、重回帰モデルと精度を比較してみよう</p></li>
+</ol>
+<p><strong>予習できる場合</strong>：次回に習うホールドアウト法を用いて、70:30で訓練データとテストデータを使ってモデルを評価してみるといいです。</p>
+</div><div class="section" id="(補足）ランダムフォレストとは">
+<h3><span class="section-number">7.5.1. </span>(補足）ランダムフォレストとは<a class="headerlink" href="#(補足）ランダムフォレストとは" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>今回は、データ分析の基礎中の基礎なので、線形回帰（単回帰と重回帰）を紹介しました。 しかし、機械学習アルゴリズムは長足の進歩を遂げているので、 回帰で予測モデルを作りたいのなら、線形回帰に強くこだわる必要はありません。</p>
-<p>ボストン住宅価格データセットも、 決定木と乱択アルゴリズムを組み合わせたランダムフォレストを用いると、 素晴らしくよい予測モデルが得られます。</p>
+<p>ボストン住宅価格データセットも、 決定木と乱択アルゴリズムを組み合わせた<strong>ランダムフォレスト</strong>を用いると、 素晴らしくよい予測モデルが得られます。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
@@ -1538,24 +1556,9 @@ R squared error 0.9826474554780945
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds07reg_59_1.svg" src="_images/ds07reg_59_1.svg" /></div>
+<img alt="_images/ds07reg_61_1.svg" src="_images/ds07reg_61_1.svg" /></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p>どのような機械学習アルゴリズムがあるか調べてみよう。 データサイエンティストになるには、 最新アルゴリズムに関心をもち、 データセットにあわせて使い分けることも重要です。 （残念ながら授業では扱いきれません。）</p>
-</div>
-</div>
-</div>
-<div class="section" id="コースワーク">
-<h2><span class="section-number">7.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="admonition tip"><p><strong>例題（ボストンハウジング）</strong></p>
-<ol class="arabic simple">
-<li><p>決定係数<code class="docutils literal notranslate"><span class="pre">0.75</span></code>を超える<strong>重回帰モデル</strong>を構築してみよう。</p></li>
-<li><p>ランダムフォレストの原理も調べて、パラメータを調整して精度をあげてみよう</p></li>
-<li><p>勾配ブーストを用いた決定木(XGBoos)も試してみよう。</p></li>
-</ol>
-<p><strong>予習できる場合</strong>：ホールドアウト法を用いて、70:30で訓練データとテストデータを使ってモデルを評価してください。</p>
-</div><p><strong>（3. のヒント）</strong></p>
+<p><strong>（3. のヒント）</strong></p>
 <p>勾配ブーストを用いた決定木(GBDT)によるクラス分類や回帰はデータ分析コンペでも非常によく使われています。</p>
 <p><a class="reference external" href="https://arxiv.org/abs/1603.02754">https://arxiv.org/abs/1603.02754</a></p>
 <p>その中でも2016年に出されたXGBoostはLightGBMと並びよく使われている手法です。</p>
@@ -1566,6 +1569,11 @@ R squared error 0.9826474554780945
 <span class="c1">#xgb.plot_importance(model)</span>
 <span class="c1">#xgb.to_graphviz(model, num_trees=5)</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p>どのような機械学習アルゴリズムがあるか調べてみよう。 データサイエンティストになるには、 最新アルゴリズムに関心をもち、 データセットにあわせて使い分けることも重要です。 倉光研究室の学生をみていると、最新のアルゴリズムを試してきて、 色々、報告してくれます。先生より詳しいです。</p>
+</div>
 </div>
 </div>
 </div>

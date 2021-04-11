@@ -683,13 +683,18 @@ $\displaystyle \frac{x y + x}{x}$</div></div>
 </div>
 <div class="section" id="基本的な代数操作">
 <h2><span class="section-number">2.3. </span>基本的な代数操作<a class="headerlink" href="#基本的な代数操作" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>数学でおなじみの台数操作を使えるようにしましょう。</p>
+<p>数学でおなじみの代数操作（式の変形）を使ってみましょう。</p>
 <ol class="arabic simple">
 <li><p>展開 (expand)</p></li>
 <li><p>因数分解(factor)</p></li>
 <li><p>簡易化 (symplify)</p></li>
 <li><p>代入 (substitution)</p></li>
 </ol>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">Pythonは英語</p>
+<p>Pythonの関数名やメソッド名は、英語か英語の省略した名称になっています。 英語に強いと意味はすぐにわかりますが、英語だと認識しないとアルファベット列です。 関数を覚えるときは、（辞書で意味を調べて）<strong>英単語</strong>も同時に覚えるようにしましょう。</p>
+</div>
+<p><strong>準備</strong></p>
 <p>x, y, z をシンボルとします。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -705,7 +710,7 @@ $\displaystyle \frac{x y + x}{x}$</div></div>
 <div class="section" id="式の展開">
 <h3><span class="section-number">2.3.1. </span>式の展開<a class="headerlink" href="#式の展開" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>式を展開するときは、<code class="docutils literal notranslate"><span class="pre">expand()</span></code>を用います。</p>
-<p>例. <span class="math notranslate nohighlight">\((x+y)^3\)</span>の展開</p>
+<p><strong>例.</strong> <span class="math notranslate nohighlight">\((x+y)^3\)</span>の展開</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -740,13 +745,14 @@ $\displaystyle \left(x + y\right)^{3}$</div></div>
 <div class="math notranslate nohighlight">
 $\displaystyle x^{3} + 3 x^{2} y + 3 x y^{2} + y^{3}$</div></div>
 </div>
-<p>例. <span class="math notranslate nohighlight">\(cos(x+y)\)</span></p>
+<p>三角関数が含まれるときは、<code class="docutils literal notranslate"><span class="pre">trig=True</span></code>を追加します。</p>
+<p><strong>例</strong>. <span class="math notranslate nohighlight">\(cos(x+y)\)</span></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">expand</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">),</span> <span class="n">trig</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1">#三角関数はtrig=Trueをつける</span>
+<span></span><span class="n">expand</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">),</span> <span class="n">trig</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -759,7 +765,7 @@ $\displaystyle x^{3} + 3 x^{2} y + 3 x y^{2} + y^{3}$</div></div>
 $\displaystyle - \sin{\left(x \right)} \sin{\left(y \right)} + \cos{\left(x \right)} \cos{\left(y \right)}$</div></div>
 </div>
 <p>部分分数への展開は<code class="docutils literal notranslate"><span class="pre">apart()</span></code>を用います。</p>
-<p>例. <span class="math notranslate nohighlight">\(\frac{1}{x(x+1)}\)</span></p>
+<p><strong>例.</strong> <span class="math notranslate nohighlight">\(\frac{1}{x(x+1)}\)</span></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
@@ -798,7 +804,7 @@ $\displaystyle - \frac{1}{x + 1} + \frac{1}{x}$</div></div>
 <div class="section" id="因数分解">
 <h3><span class="section-number">2.3.2. </span>因数分解<a class="headerlink" href="#因数分解" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>式を因数分解するときは、<code class="docutils literal notranslate"><span class="pre">factor()</span></code>を用います。</p>
-<p><strong>例. (受験でお馴染みの):math:`x^3+y^3+z^3 - 3xyz`の因数分解</strong></p>
+<p><strong>例.</strong> (受験でお馴染みの)<span class="math notranslate nohighlight">\(x^3+y^3+z^3 - 3xyz\)</span>の因数分解</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
@@ -837,7 +843,7 @@ $\displaystyle \left(x + y + z\right) \left(x^{2} - x y - x z + y^{2} - y z + z^
 <div class="section" id="式の簡略化">
 <h3><span class="section-number">2.3.3. </span>式の簡略化<a class="headerlink" href="#式の簡略化" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>式を簡易化するときは<code class="docutils literal notranslate"><span class="pre">simplify()</span></code>を用います。</p>
-<p><strong>例. :math:`frac{x+xy}{x}` の簡略化</strong></p>
+<p><strong>例.</strong> <span class="math notranslate nohighlight">\(\frac{x+xy}{x}\)</span> の簡略化</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
@@ -878,7 +884,7 @@ $\displaystyle \cos{\left(2 x \right)}$</div></div>
 <div class="section" id="式の代入">
 <h3><span class="section-number">2.3.4. </span>式の代入<a class="headerlink" href="#式の代入" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>式への代入は、subs()メソッドを用います。</p>
-<p>例. <span class="math notranslate nohighlight">\(x^3+y^3+z^3-3xyz\)</span> の <span class="math notranslate nohighlight">\(z=1\)</span>のとき</p>
+<p><strong>例.</strong> <span class="math notranslate nohighlight">\(x^3+y^3+z^3-3xyz\)</span> の<span class="math notranslate nohighlight">\(z\)</span>に1を代入する</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
@@ -965,7 +971,7 @@ $\displaystyle x^{3} - 3 x y + y^{3} + 1$</div></div>
 $\displaystyle 1$</div></div>
 </div>
 <p>無限大は、<code class="docutils literal notranslate"><span class="pre">oo</span></code>と書きます。</p>
-<p><strong>例.</strong> <span class="math notranslate nohighlight">\(\lim_{x \to \infty} x^x\)</span></p>
+<p><strong>例.</strong> <span class="math notranslate nohighlight">\(\lim_{x \to \infty} \frac{1}{x}\)</span></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>

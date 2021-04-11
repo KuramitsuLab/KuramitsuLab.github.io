@@ -108,20 +108,25 @@
 <li class="toctree-l3"><a class="reference internal" href="#勾配降下法">10.1.5. 勾配降下法</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#単純パーセプトロンの実装">10.2. 単純パーセプトロンの実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#NumPyによる原理の確認">10.2. NumPyによる原理の確認</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#活性化関数">10.2.1. 活性化関数</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">10.2.2. 勾配降下法</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#パーセプトロンの原理">10.2.3. パーセプトロンの原理</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#エポック(epoch)">10.2.4. エポック(epoch)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">10.2.2. 勾配降下法</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#多層パーセプトロン">10.3. 多層パーセプトロン</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#線形分離不可能な問題">10.3.1. 線形分離不可能な問題</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">10.3.2. 多層パーセプトロン</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#深層学習へ">10.3.3. 深層学習へ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#単純パーセプトロンの原理">10.3. 単純パーセプトロンの原理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#入力(x)と出力(y)">10.3.1. 入力(x)と出力(y)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ニューロンの数理モデル">10.3.2. ニューロンの数理モデル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#学習モデル">10.3.3. 学習モデル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#エポック(epoch)">10.3.4. エポック(epoch)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#コースワーク">10.4. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#多層パーセプトロンと深層学習">10.4. 多層パーセプトロンと深層学習</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#線形分離不可能な問題">10.4.1. 線形分離不可能な問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#多層パーセプトロン">10.4.2. 多層パーセプトロン</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#深層学習へ">10.4.3. 深層学習へ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">10.5. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds11deep.html">11. 深層学習と画像認識</a></li>
@@ -556,13 +561,22 @@ div.rendered_html tbody tr:hover {
 <p class="admonition-title fa fa-exclamation-circle">学習率(learning_rate): <span class="math notranslate nohighlight">\(\eta(&gt;0)\)</span></p>
 <p>学習率は、収束しやすさを調整するハイパーパラメータです。 通常は、<span class="math notranslate nohighlight">\(0.1\)</span>や<span class="math notranslate nohighlight">\(0.01\)</span>などの適当な小さい値を与えます。</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">ニューラル・ネットワークの数理をより深く探求したいときは</p>
+<p>次のスライドは、大変に面白いと思います</p>
+<p><a class="reference external" href="https://www.slideshare.net/trinmu/ss-226711018">https://www.slideshare.net/trinmu/ss-226711018</a></p>
 </div>
 </div>
-<div class="section" id="単純パーセプトロンの実装">
-<h2><span class="section-number">10.2. </span>単純パーセプトロンの実装<a class="headerlink" href="#単純パーセプトロンの実装" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>NumPyを使って、単純パーセプトロンを実装してみましょう。</p>
+</div>
+<div class="section" id="NumPyによる原理の確認">
+<h2><span class="section-number">10.2. </span>NumPyによる原理の確認<a class="headerlink" href="#NumPyによる原理の確認" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>NumPyを使って、単純パーセプトロンの原理を実装しながら確認していきましょう。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">数式も理解するためには</p>
+<p>少しPythonを使ってコーディングしてみると、理解が深まります。 (NumPyの練習にもなりますし。)</p>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -582,7 +596,7 @@ div.rendered_html tbody tr:hover {
     0  &amp; (x\le0)
   \end{cases}\end{split}\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -600,25 +614,25 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x11cf03190&gt;]
+[&lt;matplotlib.lines.Line2D at 0x125f184c0&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds10nw_7_1.svg" src="_images/ds10nw_7_1.svg" /></div>
+<img alt="_images/ds10nw_8_1.svg" src="_images/ds10nw_8_1.svg" /></div>
 </div>
 <p><strong>標準シグモイド</strong></p>
 <div class="math notranslate nohighlight">
 \[\sigma(x) = \frac{1}{1+e^{-x}}\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -634,23 +648,23 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x11ce44d60&gt;]
+[&lt;matplotlib.lines.Line2D at 0x12602cca0&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds10nw_9_1.svg" src="_images/ds10nw_9_1.svg" /></div>
+<img alt="_images/ds10nw_10_1.svg" src="_images/ds10nw_10_1.svg" /></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h3><span class="section-number">10.2.2. </span>勾配降下法<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id9">
+<h3><span class="section-number">10.2.2. </span>勾配降下法<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><strong>勾配降下法(GD)</strong>は、関数<span class="math notranslate nohighlight">\(f(x)\)</span>があったとき、<span class="math notranslate nohighlight">\(f(x)\)</span>を最小にするような<span class="math notranslate nohighlight">\(x\)</span>(<span class="math notranslate nohighlight">\({\mathop{\rm arg~max}\limits}_{x}　f(x)\)</span>とも書く)を求める手法です。 最急降下法（Gradient descent, steepest descent）と呼ばれることもあります。</p>
 <p><strong>原理</strong></p>
 <div class="math notranslate nohighlight">
@@ -666,7 +680,7 @@ div.rendered_html tbody tr:hover {
 \[\begin{split}f(x) = 3x^4 −4x^3 −12x^2 +3\\
 f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -691,10 +705,10 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds10nw_11_0.svg" src="_images/ds10nw_11_0.svg" /></div>
+<img alt="_images/ds10nw_12_0.svg" src="_images/ds10nw_12_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -712,19 +726,19 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.PathCollection at 0x11f3bf040&gt;
+&lt;matplotlib.collections.PathCollection at 0x126100370&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds10nw_12_1.svg" src="_images/ds10nw_12_1.svg" /></div>
+<img alt="_images/ds10nw_13_1.svg" src="_images/ds10nw_13_1.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">大域最適性と局所最適性</p>
@@ -736,7 +750,7 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 \[z = x^2 + y^2 ~~~
 \frac{\partial z}{\partial x} = 2x ~~\frac{\partial z}{\partial y} = 2y\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -770,10 +784,10 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds10nw_14_0.svg" src="_images/ds10nw_14_0.svg" /></div>
+<img alt="_images/ds10nw_15_0.svg" src="_images/ds10nw_15_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -788,7 +802,7 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 <span class="k">def</span> <span class="nf">dfdy</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y</span>
 
-
+<span class="n">eta</span> <span class="o">=</span> <span class="mf">0.1</span>   <span class="c1"># 学習率</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">dfdx</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># 勾配降下法</span>
     <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">dfdy</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># 勾配降下法</span>
@@ -803,7 +817,7 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds10nw_15_0.svg" src="_images/ds10nw_15_0.svg" /></div>
+<img alt="_images/ds10nw_16_0.svg" src="_images/ds10nw_16_0.svg" /></div>
 </div>
 <p>最先端のニューラルネットワークでは、勾配降下法に完成項(momentum)を追加させた手法、さらに適応的に学習率を変更するAdaGradが使われています。</p>
 <ul class="simple">
@@ -811,11 +825,12 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 <li><p>Momentum: <span class="math notranslate nohighlight">\(\mathbf{x}_{i+1} = \mathbf{x}_i - \eta \nabla f+ \alpha \Delta \mathbf{w}\)</span></p></li>
 <li><p>AdaGrad: <span class="math notranslate nohighlight">\(\mathbf{x}_{i+1} = \mathbf{x}_i - \eta \frac{1}{\sqrt{h_i}}\nabla f\)</span>, <span class="math notranslate nohighlight">\(h_{i+1} = h_i + (\nabla f)^2\)</span></p></li>
 </ul>
-<p><img alt="5e455850bb5f4fbfa3a3aec08b520557" class="no-scaled-link" src="https://watlab-blog.com/wp-content/uploads/2020/03/gd-momentum-adagrad.gif" style="width: 50%;" /></p>
+<p><img alt="12b26b0cfb56456aa1e93080d2306133" class="no-scaled-link" src="https://watlab-blog.com/wp-content/uploads/2020/03/gd-momentum-adagrad.gif" style="width: 50%;" /></p>
 <p><a class="reference external" href="https://watlab-blog.com/2020/03/08/adagrad/">wat氏のわかりやすい解説</a>より引用</p>
 </div>
-<div class="section" id="パーセプトロンの原理">
-<h3><span class="section-number">10.2.3. </span>パーセプトロンの原理<a class="headerlink" href="#パーセプトロンの原理" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+<div class="section" id="単純パーセプトロンの原理">
+<h2><span class="section-number">10.3. </span>単純パーセプトロンの原理<a class="headerlink" href="#単純パーセプトロンの原理" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>単純パーセプトロンの動作原理を確認していましょう。</p>
 <p><strong>サンプルデータ</strong></p>
 <table class="docutils align-default">
@@ -849,13 +864,15 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 </tr>
 </tbody>
 </table>
+<div class="section" id="入力(x)と出力(y)">
+<h3><span class="section-number">10.3.1. </span>入力(x)と出力(y)<a class="headerlink" href="#入力(x)と出力(y)" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x.shape&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;t.shape&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
@@ -871,7 +888,7 @@ t.shape (4,)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -888,10 +905,13 @@ t.shape (4,)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-w = [ 2.84961805 -1.06240844]
+w = [-0.44617575  0.38226703]
 b = 0
 </pre></div></div>
 </div>
+</div>
+<div class="section" id="ニューロンの数理モデル">
+<h3><span class="section-number">10.3.2. </span>ニューロンの数理モデル<a class="headerlink" href="#ニューロンの数理モデル" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>次は、ニューロンのモデルを計算してみましょう。</p>
 <div class="math notranslate nohighlight">
 \[y = \mathbf{w} \mathbf{x}^T + b\]</div>
@@ -901,7 +921,7 @@ b = 0
 <p>複数の入力データをまとめて計算すること。 （GPUの性能を引き出すときに必須のテクニックです。）</p>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -915,12 +935,12 @@ b = 0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-y =  [ 0.         -1.06240844  2.84961805  1.78720961]
+y =  [ 0.          0.38226703 -0.44617575 -0.06390872]
 </pre></div></div>
 </div>
 <p>活性化関数を適用して、[0.0, 1.0]の範囲にします。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -934,12 +954,16 @@ y =  [ 0.         -1.06240844  2.84961805  1.78720961]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-y =  [0.5        0.25684947 0.94529894 0.85658483]
+y =  [0.5        0.59441977 0.3902704  0.48402826]
 </pre></div></div>
 </div>
+</div>
+<div class="section" id="学習モデル">
+<h3><span class="section-number">10.3.3. </span>学習モデル<a class="headerlink" href="#学習モデル" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ニューラルネットワークは、誤差を少なくするようにパラメータ（重み）を調整することで、学習します。</p>
 <p><span class="math notranslate nohighlight">\(y\)</span>は、ニューロンから予想された出力になります。ここから正解<span class="math notranslate nohighlight">\(t\)</span>との差分を計算します。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -949,21 +973,21 @@ y =  [0.5        0.25684947 0.94529894 0.85658483]
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-array([ 0., -1., -2., -3.])
+array([ 0.5       , -0.40558023, -0.6097296 , -0.51597174])
 </pre></div></div>
 </div>
-<p>勾配効果法で1ステップだけ進めてみましょう。</p>
+<p>勾配降下法で1ステップだけ進めてみましょう。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{w}^{(k+1)} = = \mathbf{w}^{(k)} - \eta \sum_{n=1}^{N}(t_n - y_n)\mathbf{x}_n\\
 b^{(k+1)} == b^{(k)} - \eta \sum_{n=1}^N (y_n - t_n)\end{split}\]</div>
 <p>積の和を<code class="docutils literal notranslate"><span class="pre">np.matmul()</span></code>を使って一度に計算しています。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -989,18 +1013,18 @@ b^{(k+1)} == b^{(k)} - \eta \sum_{n=1}^N (y_n - t_n)\end{split}\]</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 BEFORE
-w = [ 2.84961805 -1.06240844]
+w = [-0.44617575  0.38226703]
 b = 0
-delta = [ 0. -1. -2. -3.]
-w = [ 3.34961805 -0.66240844]
-b = 0.6000000000000001
+delta = [ 0.5        -0.40558023 -0.6097296  -0.51597174]
+w = [-0.33360561  0.47442222]
+b = 0.10312815795821506
 </pre></div></div>
 </div>
 <p>損失関数は、交差エントロピー誤差から計算します。</p>
 <div class="math notranslate nohighlight">
 \[E(\mathbf{w}, b) = - \sum_{n=1}^{N} t_n \log{y_n} + (1 - t_n)\log{1-y_n}\]</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1012,20 +1036,20 @@ b = 0.6000000000000001
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--4.160569009889807
+2.8798441566860675
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="エポック(epoch)">
-<h3><span class="section-number">10.2.4. </span>エポック(epoch)<a class="headerlink" href="#エポック(epoch)" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>何回か繰り返し計算することで収束します。</p>
+<h3><span class="section-number">10.3.4. </span>エポック(epoch)<a class="headerlink" href="#エポック(epoch)" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>何回か繰り返し計算することで誤差が小さく収束していきます。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1052,6 +1076,7 @@ b = 0.6000000000000001
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;y[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">]=&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;loss[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
     <span class="n">yloss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="c1"># グラフ描画用</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;最終予測結果: &#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;loss:&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解: &#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;w =&#39;</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="s1">&#39;b =&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">epoch</span><span class="p">),</span> <span class="n">yloss</span><span class="p">)</span>
@@ -1084,48 +1109,41 @@ y[81]= [0.23164401 0.90283047 0.92040537 0.99720186] loss[81] 0.4514657678920776
 y[86]= [0.22267285 0.90688269 0.92259466 0.99753832] loss[86] 0.4326661729160132
 y[91]= [0.21434046 0.91062524 0.92471665 0.99782485] loss[91] 0.4153010085768411
 y[96]= [0.20658203 0.91409088 0.9267676  0.9980701 ] loss[96] 0.3992146105506623
+最終予測結果:  [0.2021787  0.91604936 0.92796322 0.9982004 ] loss: 0.3901200762554914
 正解:  [0 1 1 1]
 w = [3.94331525 3.77972392] b = -1.381611021055158
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x11e55c1c0&gt;]
+[&lt;matplotlib.lines.Line2D at 0x1262cf6a0&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds10nw_31_2.svg" src="_images/ds10nw_31_2.svg" /></div>
+<img alt="_images/ds10nw_32_2.svg" src="_images/ds10nw_32_2.svg" /></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
+<p>エポック100回の予測結果と正解を比べてみると、0.5を境界にして、0と1に分類すれば、正解と等しい予測が得られています。まだ、loss が大きいので、もう少しエポックを増やして学習させることでより明確な結果が得られます。</p>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="多層パーセプトロン">
-<h2><span class="section-number">10.3. </span>多層パーセプトロン<a class="headerlink" href="#多層パーセプトロン" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="多層パーセプトロンと深層学習">
+<h2><span class="section-number">10.4. </span>多層パーセプトロンと深層学習<a class="headerlink" href="#多層パーセプトロンと深層学習" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>単純パーセプトロンは、原理的にロジスティック回帰と等価です。 （実装で頑張っても）<strong>線形分離可能な問題</strong>しか解くことができません。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle"><strong>線形分離可能な問題</strong></p>
 <p>幾何学においてふたつの集合が二次元平面上にあるとき、それらの集合を一本の直線で分離できることです。</p>
 <p><strong>線形分離可能な例</strong></p>
-<p><img alt="da9c3ab0b8f3468ba7c2782bc390a317" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1dd6e067-1875-27a8-fbf4-e81158f54719.png" style="width: 40%;" /></p>
+<p><img alt="a8b77014fb764fdda201af5bcdef1c90" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1dd6e067-1875-27a8-fbf4-e81158f54719.png" style="width: 40%;" /></p>
 <p>一般化して、<span class="math notranslate nohighlight">\(n\)</span> 次元空間上のふたつの集合を <span class="math notranslate nohighlight">\(n − 1\)</span> 次元の超平面で 分離できることも線形分離可能と呼びます。 逆に、線形分離不可能な問題を線形分離不可能問題と呼びます。</p>
 </div>
 <div class="section" id="線形分離不可能な問題">
-<h3><span class="section-number">10.3.1. </span>線形分離不可能な問題<a class="headerlink" href="#線形分離不可能な問題" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.4.1. </span>線形分離不可能な問題<a class="headerlink" href="#線形分離不可能な問題" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>線形分離不可能な問題は、日常的に存在します。例えば、論理回路のXOR回路も設計分離不可能です。</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1154,34 +1172,34 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 </tr>
 <tr class="row-odd"><td><p>1</p></td>
 <td><p>1</p></td>
-<td><p>1</p></td>
+<td><p>0</p></td>
 </tr>
 </tbody>
 </table>
 <p><strong>線形分離不可能な例</strong></p>
 <p>赤い部分が分離できていない。</p>
-<p><img alt="66abf5121ffb40b9810905e424f6d972" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/db9d8fa2-05e1-6dd5-e3ef-09582a1b0b1b.png" style="width: 40%;" /></p>
+<p><img alt="ed68f4c3aff64ba9a42a9402003576b6" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/db9d8fa2-05e1-6dd5-e3ef-09582a1b0b1b.png" style="width: 40%;" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>単純パーセプトロンの実装コードを使って、線形不分離問題を解こうとするとどうなるか調べてみよう。</p>
 </div>
 </div>
-<div class="section" id="id14">
-<h3><span class="section-number">10.3.2. </span>多層パーセプトロン<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="多層パーセプトロン">
+<h3><span class="section-number">10.4.2. </span>多層パーセプトロン<a class="headerlink" href="#多層パーセプトロン" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>線形分離不可能な問題を解くためのアイディアは、パーセプトロンを組み合わせて多層化することです。</p>
 <p><strong>３層パーセプトロンの例</strong></p>
-<p><img alt="d74ab8d73f384d3782a6b7c73a1e8ad3" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1c2f261f-701d-e020-2f49-c3df596b8363.png" style="width: 60%;" /></p>
+<p><img alt="55baa6fae2f0479aa2255f2ce2458561" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1c2f261f-701d-e020-2f49-c3df596b8363.png" style="width: 60%;" /></p>
 <p>このように多層化することで、各ニューロンの学習結果が組み合わさって、 線形分離不可能な問題でも複数の分離線の組み合わせで分離可能になります。</p>
-<p><img alt="4f36deec519c4560bd54bc281075ed54" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5ce7c474-466c-7889-f3d4-19277c815289.png" style="width: 40%;" /></p>
+<p><img alt="df48c2da5a4a45e086bdf05674f47c13" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5ce7c474-466c-7889-f3d4-19277c815289.png" style="width: 40%;" /></p>
 <p>さて、「多層パーセプトロンも実装してみましょう！」としたいところですが、 ちょっと１回の講義では多すぎる気がしますので重要な概念だけ紹介しておきます。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">逆誤差伝搬法</p>
 <p>ニューロンは、順方向に発火させていきますが、学習を効率よく行うため、誤差を逆に伝搬させます。</p>
-<p><img alt="cc28f0d795974687b0c250114fdb10df" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/49a140bb-5aa0-45a7-a365-7c3aa5c914b6.png" style="width: 60%;" /></p>
+<p><img alt="8ac4ac874d23446485a5e668bfb7aa16" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/49a140bb-5aa0-45a7-a365-7c3aa5c914b6.png" style="width: 60%;" /></p>
 </div>
 </div>
 <div class="section" id="深層学習へ">
-<h3><span class="section-number">10.3.3. </span>深層学習へ<a class="headerlink" href="#深層学習へ" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.4.3. </span>深層学習へ<a class="headerlink" href="#深層学習へ" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>多層パーセプトロンは、４層以上の局所最適解や勾配消失などの技術的な問題によって、十分に学習させられず、性能も芳しくなく、1990年代は機械学習のメインストリームから外れていました。</p>
 <p>深層学習は、2006年に、ジェフリー・ヒントンらがオートエンコーダを提案し、多層でも十分に学習できるように改善したニューラルネットワークです。</p>
 <div class="admonition note">
@@ -1195,7 +1213,7 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 </div>
 </div>
 <div class="section" id="コースワーク">
-<h2><span class="section-number">10.4. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>今回は、少々難解な数式が出て、コードも「とっ散らかった」感じになってしまいました。 このようなコードは、ライブラリとしてまとめておくと、再利用しやすくなります。</p>
 <div class="admonition tip"><p><strong>演習（SinglePerceptron クラス）</strong></p>
 <p>Python 言語のクラスを定義を使って、 単純パーセプトロンのコードを sklearn 風に学習と予測ができるようにまとめてみましょう。</p>
@@ -1211,10 +1229,10 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-</div><div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">数学・物理コース向け</p>
-<p>ニューラル・ネットワークの数理を探求したいときは</p>
-<p><a class="reference external" href="https://www.slideshare.net/trinmu/ss-226711018">https://www.slideshare.net/trinmu/ss-226711018</a></p>
+</div><div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">コースワークについて</p>
+<p>今回のコースワークは、 <strong>オブジェクト指向プログラミング（計算機数学II)の復習</strong>です。</p>
+<p>オブジェクト指向プログラミングを用いると、複数のパラメータをひとまとまりにして、 より複雑な深層学習向けのニューラルネットワークが構築しやすくなります。 本格的に深層学習に進みたいときは、避けては通れませんので、 クラス、オブジェクト、メソッドの概念をもう一度復習してみてください。</p>
 </div>
 </div>
 </div>

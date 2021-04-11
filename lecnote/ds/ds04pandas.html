@@ -117,7 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#グループごとの集計">4.4.2. グループごとの集計</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#時系列データ">4.5. 時系列データ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#時系列データ(★)">4.5. 時系列データ(★)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#日付">4.5.1. 日付</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#クロス集計">4.5.2. クロス集計</a></li>
 </ul>
@@ -525,7 +525,7 @@ Overwriting arashi.csv
 <p>一部間違っていると指摘をよく受けます。 どうぞ、各自でご自由に、ご修正して練習にお使いください。</p>
 </div>
 <p>CSV ファイルは、表計算ソフト(Excel)のファイルをデータ処理しやすく、カンマ区切り形式のテキストで出力したものです。当然、Excel 等の表計算ソフトで開いてみることができます。</p>
-<p><img alt="5f2fe6edc91a48d986c4b7bd9561ed17" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0dd26ba4-bbfb-a468-6547-56968d575ce0.png" style="width: 60%;" /></p>
+<p><img alt="ce178f7583d54e9f8533cb79268f6e83" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0dd26ba4-bbfb-a468-6547-56968d575ce0.png" style="width: 60%;" /></p>
 <p>もうひとつ、あとから表データの結合をする練習で用いる <code class="docutils literal notranslate"><span class="pre">junk.csv</span></code> (わざと少し壊れたファイル）も作っておきましょう。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -564,8 +564,8 @@ Overwriting junk.csv
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle"><strong>覚えておこう：Pandas用語</strong></p>
 <ul class="simple">
-<li><p>カラム: 行方向のデータ</p></li>
-<li><p>インデックス: 列方向のデータ</p></li>
+<li><p>カラム: 列方向のデータ</p></li>
+<li><p>インデックス: 行方向のデータ</p></li>
 </ul>
 </div>
 <div class="section" id="CSVファイルの読み込み">
@@ -2293,12 +2293,17 @@ data
 <p>ぜひ使えるようになりたいところですが、今回のサンプルはデータ件数が少なすぎます。 余力がある人は、次の時系列データで練習してみてください。</p>
 </div>
 </div>
-<div class="section" id="時系列データ">
-<h2><span class="section-number">4.5. </span>時系列データ<a class="headerlink" href="#時系列データ" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="時系列データ(★)">
+<h2><span class="section-number">4.5. </span>時系列データ(★)<a class="headerlink" href="#時系列データ(★)" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>時系列データとは、時間の順番に並んだデータです。 <strong>コンピュータが記録するデータ（ログ）</strong>は、時系列データになっていることが多く、 データ分析を始める前に理解しやすい形に集計しなおす必要があります。</p>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">この節は、Pandas 初心者は、スキップして構いません。</p>
+<p>時系列データは、データサイエンスの前処理で重要なデータ形式です。</p>
+<p>しかし、初めて Pandas を習ったような場合は、 内容が多すぎて理解が追いつかなくなる可能性があります。 （スキップしてもらって、<a class="reference external" href="#コースワーク">コースワーク</a>に進んでもらって構いません。）</p>
+</div>
 <p><strong>データの入手</strong></p>
 <p>UNIXコマンド <code class="docutils literal notranslate"><span class="pre">wget</span></code>で以下のURLから取り寄せてください。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!wget https://KuramitsuLab.github.io/data/oj2018.csv
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!wget https://KuramitsuLab.github.io/data/elearn2018.csv
 </pre></div>
 </div>
 <div class="nbinput docutils container">
@@ -2306,7 +2311,7 @@ data
 </pre></div>
 </div>
 <div class="input_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>data = pd.read_csv(&#39;oj2018.csv&#39;)
+<span></span>data = pd.read_csv(&#39;elearn2018.csv&#39;)
 data.head()
 </pre></div>
 </div>
@@ -2388,6 +2393,7 @@ data.head()
 <li><p>得点（point)</p></li>
 </ul>
 <p><strong>解答者一覧と回答数</strong></p>
+<p>解答者ごとの回答数を調べてみましょう。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
@@ -2515,7 +2521,7 @@ print(&#39;エポック秒&#39;, int(data[&#39;date&#39;][0].timestamp()))
 エポック秒 1525228500.0
 </pre></div></div>
 </div>
-<p>エポック秒とは、UNIX上で使われる1970年1月1日を起点にした秒です。 整数値として、日付が処理しやすくなります。 エポック秒に変換したカラムを作っておきましょう。</p>
+<p>エポック秒とは、UNIX上で使われる1970年1月1日を起点にした秒です。 エポック秒に変換すると、整数値として、日付が処理しやすくなります。 エポック秒に変換し、新しいカラム<code class="docutils literal notranslate"><span class="pre">epoch</span></code>を作っておきましょう。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
@@ -2651,7 +2657,7 @@ data
 </div></div>
 </div>
 <p>ここから、2018年５月１日を起点に、一週間ごとにデータを区切って、各週ごとの学習状況をみてみたいと思います。</p>
-<p><strong>2018年5月1日のエポック秒</strong></p>
+<p><strong>2018年5月1日のエポック秒を調べる</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>

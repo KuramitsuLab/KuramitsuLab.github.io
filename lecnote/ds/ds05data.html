@@ -492,7 +492,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="データ入手">
 <h2><span class="section-number">5.1. </span>データ入手<a class="headerlink" href="#データ入手" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>今回は、<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/student+performance">ポルトガルの高校生の数学の成績データ</a>を使って、データ解析をします。</p>
-<p><img alt="65063ef459cf404eb6df6b6fee74a756" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/315e0d53-5fed-3f10-db50-eda9ece4f5f9.jpeg" style="width: 40%;" /></p>
+<p><img alt="d313bd7bb8fe499c80674f6d3cf96291" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/315e0d53-5fed-3f10-db50-eda9ece4f5f9.jpeg" style="width: 40%;" /></p>
 <p><strong>データの取り寄せ</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!wget https://kuramitsulab.github.io/data/student-mat.csv
 </pre></div>
@@ -1056,8 +1056,8 @@ memory usage: 102.0+ KB
 </ul>
 <p>重要なのは、<strong>数値データ（量的データ）</strong>、<strong>カテゴリデータ（質的データ）</strong>を区別することです。</p>
 <ul class="simple">
-<li><p>数値データ: 量が数値によって連続的に表現されるデータであり、基本的に比較可能。（例. 人数や金額など)</p></li>
-<li><p>カテゴリデータ: カテゴリやグループを表す不連続のデータ</p></li>
+<li><p><strong>数値データ</strong>: 量が数値によって連続的に表現されるデータであり、基本的に比較可能。（例. 人数や金額など)</p></li>
+<li><p><strong>カテゴリデータ</strong>: カテゴリやグループを表す不連続のデータ</p></li>
 </ul>
 <p>少し注意したいのは、カテゴリデータであっても、カテゴリの種類が数値で表現されていると、<code class="docutils literal notranslate"><span class="pre">int64</span></code>形式となります。 同じく、カテゴリデータであっても、論理値などの比較可能な数値に変換できるものがあります。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Medu</span></code>や<code class="docutils literal notranslate"><span class="pre">Fedu</span></code>は、カテゴリの種類が数値で入っていますが、数値データ(<code class="docutils literal notranslate"><span class="pre">int64</span></code>)と解釈されていますが、カテゴリデータとして処理したいなら、型を<code class="docutils literal notranslate"><span class="pre">object</span></code>に変更しておくとよいでしょう。</p>
@@ -1248,6 +1248,17 @@ yes    132
 Name: romantic, dtype: int64
 
 </pre></div></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">Pandas 力をあげるためには？</p>
+<p>Pandas は高機能で、Google で調べるといってもなかなか求めている機能を探すことが難しいです。 最初のうちは、よくわからないコードが出てきたら、地道にひとつずつ動きを確認するようにしましょう。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">dtypes</span>
+<span class="n">data</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+<p>こういう地道な努力がプログラミング向上に繋がります。</p>
 </div>
 </div>
 <div class="section" id="数値データの要約">
@@ -1510,7 +1521,7 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_22_0.svg" src="_images/ds05data_22_0.svg" /></div>
+<img alt="_images/ds05data_23_0.svg" src="_images/ds05data_23_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -1527,7 +1538,7 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_23_0.svg" src="_images/ds05data_23_0.svg" /></div>
+<img alt="_images/ds05data_24_0.svg" src="_images/ds05data_24_0.svg" /></div>
 </div>
 <p>seaborn の<code class="docutils literal notranslate"><span class="pre">boxplot()</span></code>を用いれば、もう少しこった凝ったヒストグラムを描画できます。</p>
 <div class="nbinput docutils container">
@@ -1547,7 +1558,7 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_25_0.svg" src="_images/ds05data_25_0.svg" /></div>
+<img alt="_images/ds05data_26_0.svg" src="_images/ds05data_26_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
@@ -1577,7 +1588,11 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_26_0.svg" src="_images/ds05data_26_0.svg" /></div>
+<img alt="_images/ds05data_27_0.svg" src="_images/ds05data_27_0.svg" /></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle">可視化の達人になるためには</p>
+<p>皆さんから、先生のようにPandasやMatplotlibを使いこなせるようになりたいと言われますが、 過去に書いたグラフを直しながら、必要に応じてGoogleで調べて、書き直しているだけです。 とにかく、色々なグラフを書いて試してみて、 後で探しやすいようにColabのノートブックでライブラリを作っておきましょう。</p>
 </div>
 </div>
 <div class="section" id="ヒストグラム">
@@ -1601,7 +1616,7 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_28_0.svg" src="_images/ds05data_28_0.svg" /></div>
+<img alt="_images/ds05data_30_0.svg" src="_images/ds05data_30_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
@@ -1620,8 +1635,10 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_29_0.svg" src="_images/ds05data_29_0.svg" /></div>
+<img alt="_images/ds05data_31_0.svg" src="_images/ds05data_31_0.svg" /></div>
 </div>
+<p><strong>グループ分けされたヒストグラム</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">hue</span></code>を追加すると、カテゴリーごとに色分けされたヒストグラムが得られます。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
@@ -1639,7 +1656,7 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_30_0.svg" src="_images/ds05data_30_0.svg" /></div>
+<img alt="_images/ds05data_33_0.svg" src="_images/ds05data_33_0.svg" /></div>
 </div>
 <p><strong>カーネル密度推定法によるヒストグラム</strong></p>
 <div class="nbinput docutils container">
@@ -1660,12 +1677,13 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_32_0.svg" src="_images/ds05data_32_0.svg" /></div>
+<img alt="_images/ds05data_35_0.svg" src="_images/ds05data_35_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="散布図と相関係数">
 <h3><span class="section-number">5.2.3. </span>散布図と相関係数<a class="headerlink" href="#散布図と相関係数" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>ここまでは、基本的にひとつの属性に着目してきました。 属性間の関係性により注目するため、散布図と相関係数を学びます。</p>
+<p>ここまでは、基本的にひとつの属性に着目してきました。 データサイエンスや機械学習では、<strong>２つの属性間の関係性</strong>がより重要になります。</p>
+<p>属性間の関係性により注目するため、散布図と相関係数を学びます。</p>
 <p><strong>一学期の成績(G1)と最終成績(G3)</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
@@ -1683,7 +1701,7 @@ Name: G3, dtype: float64
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_34_0.svg" src="_images/ds05data_34_0.svg" /></div>
+<img alt="_images/ds05data_37_0.svg" src="_images/ds05data_37_0.svg" /></div>
 </div>
 <p>第一学期から成績が良い学生が最終成績の成績がよくなる傾向がグラフから読み取ることができます。</p>
 <p>この関係性を数値化する手法が、<a class="reference external" href="https://ja.wikipedia.org/wiki/相関係数">相関係数</a>です。</p>
@@ -1763,7 +1781,11 @@ a= [0.58065293] , b= 4.861250211993213
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_40_0.svg" src="_images/ds05data_40_0.svg" /></div>
+<img alt="_images/ds05data_43_0.svg" src="_images/ds05data_43_0.svg" /></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title fa fa-exclamation-circle">詳しくは</p>
+<p><a class="reference external" href="ds07reg.html">第7回目 線形回帰</a>でもう一度勉強します。</p>
 </div>
 </div>
 </div>
@@ -2092,7 +2114,7 @@ a= [0.58065293] , b= 4.861250211993213
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_44_1.svg" src="_images/ds05data_44_1.svg" /></div>
+<img alt="_images/ds05data_48_1.svg" src="_images/ds05data_48_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="ヒストグラムと散布図をまとめて書く">
@@ -2126,7 +2148,7 @@ a= [0.58065293] , b= 4.861250211993213
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_46_1.svg" src="_images/ds05data_46_1.svg" /></div>
+<img alt="_images/ds05data_50_1.svg" src="_images/ds05data_50_1.svg" /></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
@@ -2150,7 +2172,7 @@ a= [0.58065293] , b= 4.861250211993213
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_47_1.svg" src="_images/ds05data_47_1.svg" /></div>
+<img alt="_images/ds05data_51_1.svg" src="_images/ds05data_51_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="カテゴリーデータを視覚化する">
@@ -2177,47 +2199,13 @@ a= [0.58065293] , b= 4.861250211993213
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/ds05data_49_0.svg" src="_images/ds05data_49_0.svg" /></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
+<img alt="_images/ds05data_53_0.svg" src="_images/ds05data_53_0.svg" /></div>
 </div>
 </div>
 </div>
 <div class="section" id="コースワーク">
 <h2><span class="section-number">5.4. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="admonition tip"><p><strong>演習（セールス）</strong></p>
-<p>販売データを</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 75%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>ヘッダ名称</p></th>
-<th class="head"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>datetid</p></td>
-<td><p>インデックスとして使用する日付</p></td>
-</tr>
-</tbody>
-</table>
-</div><p><strong>データの入手方法</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">raw</span><span class="p">::</span> <span class="n">html</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>&lt;div class=」admonition tip」&gt;</p>
-</div></blockquote>
-<p><strong>演習（ランチボックス）</strong></p>
+<div class="admonition tip"><p><strong>演習（ランチボックス）</strong></p>
 <p>カフェフロアで販売されているお弁当の販売数のデータを可視化して、 特徴をつかんでみよう。</p>
 <table class="docutils align-default">
 <colgroup>

@@ -520,12 +520,12 @@ div.rendered_html tbody tr:hover {
 <p class="admonition-title fa fa-exclamation-circle">マークダウン記法と数式</p>
 <p>簡易文書作成記法です。ソフトウェアエンジニアや科学者の間では、標準的な記法になっています。 また、Colabでは Mathjax(<a class="reference external" href="http://www.latex-cmd.com/index.html#equation">Latexによる数式埋め込み</a>)も対応しているため、<code class="docutils literal notranslate"><span class="pre">$\sqrt{2}$</span></code>のように<code class="docutils literal notranslate"><span class="pre">$</span></code>で囲むと、 <span class="math notranslate nohighlight">\(\sqrt{2}\)</span>のように数式も記述できます。</p>
 <img alt="colab_math.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/76e6eecd-c5ed-b4fe-7577-f5db26897034.png" />
-<p>データサイエンティストとしては、Latex記法で数式がかけるのも常識です。</p>
+<p>データサイエンティストとしては、数式はLatex記法でかけるようになった方がレポートが綺麗に仕上がります。</p>
 </div>
 <div class="section" id="コードセル">
 <h4>コードセル<a class="headerlink" href="#コードセル" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>プログラム（ソースコード）を入力して、実行ボタンを押すことで、実行結果を表示します。</p>
-<p><img alt="04f0ea1bdcda4968849141d5e0e0aaa8" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2453d50e-b99d-be10-bbce-24e46e59b3ce.png" style="width: 60%;" /></p>
+<p><img alt="5666f8eb730b42c384d6708c0ad21e79" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2453d50e-b99d-be10-bbce-24e46e59b3ce.png" style="width: 60%;" /></p>
 <p>本資料では、実行セルに入力すべきコードと実行結果は、次のように記載します。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -586,6 +586,29 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <p>Colab は、使いやすいユーザインターフェースを備えていますが、ユーザインターフェースからは全ての操作はできません。UNIXコマンドを使いこなすと、細かい操作ができるようになります。 UNIXコマンドは、Colabに限らず、 <strong>クラウドなどのコンピューティング基盤を使いこなす必須スキル</strong>といえます。 本講義を通して、少しずつ覚えていきましょう。</p>
+<p><strong>本講義で使う主なUNIXコマンド</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>コマンド</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">head</span></code></p></td>
+<td><p>ファイルの先頭を表示して確認する</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wget</span></code></p></td>
+<td><p>URLからファイルをダウンロード</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unzip</span></code></p></td>
+<td><p>ZIPファイルを展開する</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="データサイエンスとPython">
@@ -785,6 +808,7 @@ div.rendered_html tbody tr:hover {
 <li><p>素数かどうか判定する関数を作ってフィルタする</p></li>
 </ol>
 <p>簡単な方でどうぞ</p>
+<p>今回は、Python の復習ですが、 もし全く手がつかない人は、<a class="reference external" href="https://kuramitsulab.github.io/lecnote/py/py10prime.html#%E7%B4%A0%E6%95%B0">２年生向けの解説</a>も参考にしてください。</p>
 </div>
 </div>
 
