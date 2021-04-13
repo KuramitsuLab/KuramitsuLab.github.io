@@ -16,6 +16,7 @@ function GetQueryString(){
 
 problems = [
     //腕試し
+    ["植木算", "https://atcoder.jp/contests/abc007/tasks/abc007_1", "最初の１問"],
     ["複数形","https://atcoder.jp/contests/abc029/tasks/abc029_a", "初級 文字列"],
     ["円", "https://atcoder.jp/contests/abc145/tasks/abc145_a", "初級 整数変換"], //: 数値に変換しわすれないで
     ["直方体", "https://atcoder.jp/contests/abc041/tasks/abc041_b", "入出力"], //: 頻出入出力を参考に。
@@ -91,7 +92,7 @@ problems = [
     //関数
     ["ReLU", "https://atcoder.jp/contests/abc183/tasks/abc183_a", ""], //
     ["$a+a^2+a^3$", "https://atcoder.jp/contests/abc172/tasks/abc172_a", ""], //: 関数定義しましょう！
-    ["行列式", "https://atcoder.jp/contests/abc184/tasks/abc184_a", ""], //
+    //["行列式", "https://atcoder.jp/contests/abc184/tasks/abc184_a", ""], //
     ["大きい数字", "https://atcoder.jp/contests/abc187/tasks/abc187_a", ""], //
     ["とある総和", "https://atcoder.jp/contests/abc083/tasks/abc083_b", ""], //
     ["回文数", "https://atcoder.jp/contests/abc090/tasks/abc090_b", ""], //
@@ -220,6 +221,15 @@ window.onload = function () {
     function tail(ss) {
         return ss[ss.length-1];
     }
+
+    function count(d, key, n) {
+        if(key in d) {
+            d[key] += n;
+        }
+        else {
+            d[key] = n;
+        }
+    }
     
     for (var i=0; i<problems.length; i++) {
         if(problems[i].length == 1) continue;
@@ -248,8 +258,15 @@ window.onload = function () {
             response.text().then(function(text) {
                 //console.log(text);
                 const data = JSON.parse(text);
+                var AC = 0;
+                var score = {};
+                var epoch = [];
                 for(var i = 0; i < data.length; i+=1) {
                     var problem_id = data[i].problem_id;
+                    if(data[i].epoch_second > 1614556800) {
+                        epoch.push(data[i].epoch_second);
+                    }
+                    
                     //https://atcoder.jp/contests/abc029/submissions/21458111
                     if (problem_id in cells) {
                         var contest_id = data[i].contest_id;
@@ -257,6 +274,10 @@ window.onload = function () {
                         var s = '';
                         if (data[i].result == 'AC') {
                             s = `<span class="label-ac">AC</span>`;
+                            if (!(problem_id in score)) {
+                                AC += 1;
+                            }
+                            count(score, problem_id, 1);
                         }
                         else {
                             s = '<span class="label-wa">' + data[i].result + '</span>';
@@ -264,6 +285,17 @@ window.onload = function () {
                         cells[problem_id].innerHTML += `<a href="${url}" target="_blank">${s}</a> `;
                     }
                 }
+                //
+                epoch.sort();
+                //console.log(epoch);
+                var time = 0;
+                for(var i = 1; i < epoch.length; i+=1) {
+                    time += Math.min(epoch[i]-epoch[i-1], 45*60);
+                }
+                time = (((time * 100)/3600)|0)/100
+                //
+                var element = document.getElementById('results');
+                element.innerHTML=`<span class="label-ac">正解問題数</span> ${AC} <span class="label-wa">時間(概算)</span> ${time}`
             });
         });
     }
