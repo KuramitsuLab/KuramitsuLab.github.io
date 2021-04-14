@@ -111,7 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#変数値の増減">2.3.6. 変数値の増減</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#エラー対策に強くなろう">2.4. エラー対策に強くなろう</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#エラーに強くなろう">2.4. エラーに強くなろう</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#演習問題">2.5. 演習問題</a></li>
 </ul>
 </li>
@@ -125,7 +125,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. グラフと深さ優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -471,7 +471,7 @@ div.rendered_html tbody tr:hover {
 <p>コンピュータは、その名前が由来する通り、計算機です。 <strong>計算</strong>することは、プログラミングの基礎となります。</p>
 <p>まず、コンピュータに計算させることを学びます。</p>
 <p>今回もColabを使いながらハンズオン演習していきましょう。</p>
-<p><img alt="b7568d289c8b4857a9ff4df9de2847dd" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/dd518dc4-71b7-298d-cb03-dc525cf0205d.png" style="width: 90%;" /></p>
+<p><img alt="a078cbf1539640c9b1eed3c94587affc" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/dd518dc4-71b7-298d-cb03-dc525cf0205d.png" style="width: 90%;" /></p>
 <div class="section" id="数式とプログラミング">
 <h3><span class="section-number">2.1.1. </span>数式とプログラミング<a class="headerlink" href="#数式とプログラミング" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>Pythonは、<strong>できる限り新しいことを覚えなく</strong>ても プログラムを書けるように工夫されて作られています。 だから、数式を計算するとき、中学校から習ってきた数式を<strong>ほぼ</strong>そのまま使えるようになっています。</p>
@@ -535,7 +535,7 @@ div.rendered_html tbody tr:hover {
 <li><p><span class="math notranslate nohighlight">\(2^3\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\sqrt{2}\)</span> (ヒント: <span class="math notranslate nohighlight">\(2^{\frac{1}{2}}\)</span>)</p></li>
 </ol>
-</div><p><img alt="7554a288d0824dae89c9640174f479e3" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+</div><p><img alt="0078effe0389477c87420db8e5161707" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
 <p>(正解)　<span class="math notranslate nohighlight">\(1\times2+3\)</span></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -730,7 +730,7 @@ div.rendered_html tbody tr:hover {
 <td><p>xの平方根</p></td>
 </tr>
 <tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\lceil x \rceil\)</span></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">math.ciel(x)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">math.ceil(x)</span></code></p></td>
 <td><p>xの（小数点以下）切り上げ</p></td>
 </tr>
 <tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\lfloor x \rfloor\)</span></p></td>
@@ -765,7 +765,7 @@ div.rendered_html tbody tr:hover {
 <li><p>465と360の最大公約数</p></li>
 <li><p><span class="math notranslate nohighlight">\(7/2\)</span> の(小数点以下）切り上げ</p></li>
 </ol>
-</div><p><img alt="93968d9bd63f481782470bebe902f1b9" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+</div><p><img alt="c758dfb40d6c4ffd8e1a84bd65a50a43" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
 <p>(正解) −1と8の差の絶対値</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
@@ -1063,15 +1063,15 @@ div.rendered_html tbody tr:hover {
 </table>
 </div>
 </div>
-<div class="section" id="エラー対策に強くなろう">
-<h2><span class="section-number">2.4. </span>エラー対策に強くなろう<a class="headerlink" href="#エラー対策に強くなろう" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="エラーに強くなろう">
+<h2><span class="section-number">2.4. </span>エラーに強くなろう<a class="headerlink" href="#エラーに強くなろう" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>プログラミングは、いつも正しく動作することが続きません。</p>
-<p><img alt="f47792a58c9a447688f1a3f3efe5f3f4" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/154fadd2-3e70-3477-55e7-92befcfa8dda.png" style="width: 60%;" /></p>
+<p><img alt="d2e24996288d4199b4c5c56babbc9ece" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/154fadd2-3e70-3477-55e7-92befcfa8dda.png" style="width: 60%;" /></p>
 <p>むしろ、ほとんどの場合は正しく動きません。 <strong>エラーメッセージ</strong>等を見ながら、正しく動作するようにするのがプログラミングです。</p>
 <p>初学者にありがちなよく間違えるエラーを集めてみました。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p>是非、エラーを取り除いて正しく動作するようにしてみましょう。</p>
+<p>以下のエラーを取り除いて正しく動作するようにしてみましょう。</p>
 </div>
 <p><strong>``ハロー世界``と出力したいのに..</strong></p>
 <div class="nbinput docutils container">
