@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>7. 回帰：線形近似から予測する &mdash; Python &amp; Data Science 2021  ドキュメント</title>
   
@@ -16,10 +16,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -57,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Python & Data Science 2021
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python & Data Science 2021
           
 
           
@@ -169,8 +166,6 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -182,7 +177,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/ds07reg.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -524,7 +519,7 @@ div.rendered_html tbody tr:hover {
 <p>つまり、次の<span class="math notranslate nohighlight">\(E\)</span>が最小になるa, bを求めます。</p>
 <div class="math notranslate nohighlight">
 \[E = \sum ^n _ {i = 1}(ax_i +b - y)^2\]</div>
-<p><img alt="b3649d8a31e14d338b23c3801ac392b4" src="https://mathtrain.jp/wp-content/uploads/2014/12/leastsquare-300x282.png" /></p>
+<p><img alt="dc9e4fac54d245d29dca636e3ac9bf25" src="https://mathtrain.jp/wp-content/uploads/2014/12/leastsquare-300x282.png" /></p>
 </div>
 <div class="section" id="NumPyによる解法">
 <h3><span class="section-number">7.1.2. </span>NumPyによる解法<a class="headerlink" href="#NumPyによる解法" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -642,6 +637,10 @@ LinearRegression()
 <div class="section" id="ボストン住宅価格">
 <h2><span class="section-number">7.2. </span>ボストン住宅価格<a class="headerlink" href="#ボストン住宅価格" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ボストン住宅価格データセットは、米国国勢調査局が収集した情報から抽出＆加工して作成された「1970年代後半における（米国マサチューセッツ州にある）ボストンの住宅価格」の表形式データセットです。データサイエンスや統計処理（線形回帰）の練習データセットとして広く使われています。</p>
+<p><strong>データの入手</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!wget https://KuramitsuLab.github.io/data/boston2.csv
+</pre></div>
+</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -1519,7 +1518,7 @@ R squared error 0.7343070437613075
 <h2><span class="section-number">7.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="admonition tip"><p><strong>例題（ボストンハウジング）</strong></p>
 <ol class="arabic simple">
-<li><p>最も精度（決定係数）が高くなる３つの説明変数の組み合わせを探してみよう (<code class="docutils literal notranslate"><span class="pre">0.75</span></code>は超えるはずです。)</p></li>
+<li><p>最も精度（決定係数）が高くなる３つの説明変数の組み合わせを探してみよう (<code class="docutils literal notranslate"><span class="pre">0.65</span></code>は超えるはずです。)</p></li>
 <li><p>最も精度（決定係数）が高くなる４つ以上の説明変数の組み合わせを選んでみよう</p></li>
 <li><p>（もし余力があって、機械学習の世界観を広げたいのなら）ランダムフォレストやXGBoostを調べて、重回帰モデルと精度を比較してみよう</p></li>
 </ol>
@@ -1572,7 +1571,7 @@ R squared error 0.9826474554780945
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p>どのような機械学習アルゴリズムがあるか調べてみよう。 データサイエンティストになるには、 最新アルゴリズムに関心をもち、 データセットにあわせて使い分けることも重要です。 倉光研究室の学生をみていると、最新のアルゴリズムを試してきて、 色々、報告してくれます。先生より詳しいです。</p>
+<p>どのような機械学習アルゴリズムがあるか調べてみよう。 データサイエンティストになるには、 最新アルゴリズムに関心をもち、 データセットにあわせて使い分けることも重要です。 研究室の学生をみていると、最新のアルゴリズムを試してきて、 色々、報告してくれます。教員より詳しいです。</p>
 </div>
 </div>
 </div>
@@ -1583,29 +1582,37 @@ R squared error 0.9826474554780945
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="ds08ml.html" class="btn btn-neutral float-right" title="8. 機械学習とクラス分類問題" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="ds06classfy.html" class="btn btn-neutral float-left" title="6. クラスタリングしてみよう" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="ds08ml.html" class="btn btn-neutral float-right" title="8. 機械学習とクラス分類問題" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ds06classfy.html" class="btn btn-neutral float-left" title="6. クラスタリングしてみよう" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+        
+        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
