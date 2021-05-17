@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>5. 文字と情報 &mdash; Python Programming 2021  ドキュメント</title>
   
@@ -16,10 +16,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -57,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Python Programming 2021
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
           
 
           
@@ -114,7 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. グラフと深さ優先探索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -156,8 +153,6 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -169,7 +164,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/py05string.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -460,7 +455,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="文字">
 <h2><span class="section-number">5.1. </span>文字<a class="headerlink" href="#文字" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>文字は、コンピュータの内部では、文字コードと呼ばれる番号で表現されています。</p>
-<img alt="ascii-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a3570dc4-ba9d-26a1-39e3-2ee18a50ae56.png" />
+<p><img alt="ascii-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a3570dc4-ba9d-26a1-39e3-2ee18a50ae56.png" /></p>
 <p>文字コードは覚える必要はありません。Python の関数で相互に変換することができます。</p>
 <p><strong>文字コードcから文字へ</strong>: <code class="docutils literal notranslate"><span class="pre">chr(c)</span></code></p>
 <div class="nbinput docutils container">
@@ -481,15 +476,24 @@ div.rendered_html tbody tr:hover {
 &#39;A&#39;
 </pre></div></div>
 </div>
-<p><strong>文字cから文字コードへ</strong>: <code class="docutils literal notranslate"><span class="pre">chr('A')</span></code></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<p><strong>文字’A’から文字コードへ</strong>: <code class="docutils literal notranslate"><span class="pre">ord('A')</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="mi">65</span>
+<span></span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+65
+</pre></div></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
@@ -1060,7 +1064,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="admonition tip"><p><strong>例題（数字の和）</strong></p>
 <p>図のようなリング状の文字列 s の任意の位置から、時計回りに連続した文字をいくつか選んで、 文字列 p が作れるかを判定するプログラムを作成してください。</p>
-<img alt="リング" src="https://judge.u-aizu.ac.jp/onlinejudge/IMAGE2/ITP1_8_D.png" />
+<p><img alt="リング" src="https://judge.u-aizu.ac.jp/onlinejudge/IMAGE2/ITP1_8_D.png" /></p>
 <p>入力例</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vanceknowledgetoad</span>
 <span class="n">advance</span>
@@ -1299,29 +1303,37 @@ t : 1
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="py07func.html" class="btn btn-neutral float-right" title="6. 関数、再帰関数、そして高階関数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="py04forlist.html" class="btn btn-neutral float-left" title="4. リストと繰り返し" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="py07func.html" class="btn btn-neutral float-right" title="6. 関数、再帰関数、そして高階関数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="py04forlist.html" class="btn btn-neutral float-left" title="4. リストと繰り返し" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+        
+        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

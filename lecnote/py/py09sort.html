@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>10. ソートと計算量 &mdash; Python Programming 2021  ドキュメント</title>
   
@@ -16,10 +16,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -57,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Python Programming 2021
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
           
 
           
@@ -131,7 +128,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. グラフと深さ優先探索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -173,8 +170,6 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -186,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/py09sort.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -477,7 +472,7 @@ div.rendered_html tbody tr:hover {
 <h2><span class="section-number">10.1. </span>ソートとは？<a class="headerlink" href="#ソートとは？" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><strong>ソート(sort, 整列)</strong> とは、順番をそろえて並び替える操作です。 ランキングや大学入試の合格者判定など、ソートは日常のあらゆる場面で活用されているアルゴリズムと言えます。</p>
 <p>例えば、 次のような数列を昇順にソートすると:</p>
-<img alt="sort-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d476c3d-0c93-f9b3-8ff6-613c876c5597.png" />
+<p><img alt="sort-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d476c3d-0c93-f9b3-8ff6-613c876c5597.png" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">ソートの順序</p>
 <p>日常よく用いる「小さい順」と呼ばず、英語圏の「値が大きくなっていく様子」から昇順と呼 びます。</p>
@@ -611,7 +606,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="選択ソート">
 <h3><span class="section-number">10.2.1. </span>選択ソート<a class="headerlink" href="#選択ソート" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><strong>選択ソート (selection sort)</strong> は、配列 <code class="docutils literal notranslate"><span class="pre">a</span></code> の中から一番小さな要素を探し、それを先頭の要素とスワッ プすることでソートします。もっとも<strong>人間の思考に近いソートアルゴリズム</strong>と言えます。</p>
-<img alt="selection-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/aab191ac-a2ee-704b-5b04-8811ce48e4c7.png" />
+<p><img alt="selection-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/aab191ac-a2ee-704b-5b04-8811ce48e4c7.png" /></p>
 <p>最も小さいソートを先頭にもってくることができたら、先頭をひとつ進め、同じ要領で繰 り返していきます。次は、まず start 以降のリスト a の要素から最小となる位置を探す関数 <code class="docutils literal notranslate"><span class="pre">find_min_index(a,</span> <span class="pre">start)</span></code> を定義しています。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -666,7 +661,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">10.2.2. </span>バブルソート<a class="headerlink" href="#バブルソート" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><strong>バブルソート (bubble sort)</strong> は、もっとも実装が簡単(と言われている)ソートアルゴリズムです。</p>
 <p><strong>アルゴリズム</strong> * 隣り合った 2 つの要素 <code class="docutils literal notranslate"><span class="pre">a[i]</span></code> と <code class="docutils literal notranslate"><span class="pre">a[i+1]</span></code> を比較して、<code class="docutils literal notranslate"><span class="pre">a[i]</span> <span class="pre">&gt;</span> <span class="pre">a[i+1]</span></code> なら両者をスワップする * 以上をスワップする必要がなくなるまで繰り返す</p>
-<img alt="bubble-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6b135fc1-9f17-6a6b-66a7-1d94cd317ca7.png" />
+<p><img alt="bubble-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6b135fc1-9f17-6a6b-66a7-1d94cd317ca7.png" /></p>
 <p>まず、一巡スワップさせてみましょう。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -767,7 +762,7 @@ div.rendered_html tbody tr:hover {
 <h2><span class="section-number">10.3. </span>クイックソート<a class="headerlink" href="#クイックソート" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><strong>クイックソート(quick sort)</strong>は、1960 年、Antony Hoare が考案した高速かつエレガントなアルゴリズムです。 ソートアルゴリズムの代名詞になっています。</p>
 <p><strong>手順</strong> * 適当な数 (ピボット (pivot) と呼ぶ) を選択する * ピボットより小さい要素の集合、大きい要素の集合に分割する * 2 分割された各々の配列を、それぞれ分割できなくなるまで繰り返す</p>
-<img alt="qsort-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d79f4894-af91-ce69-ccee-9929c642cb3e.png" />
+<p><img alt="qsort-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/d79f4894-af91-ce69-ccee-9929c642cb3e.png" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">アルゴリズムと言えば..</p>
 <p>クイックソートというくらい頻出。原理は絶対に理解して覚えておこう！！</p>
@@ -897,13 +892,13 @@ div.rendered_html tbody tr:hover {
 <h4>ループを見る<a class="headerlink" href="#ループを見る" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>時間計算量は、入力サイズ <span class="math notranslate nohighlight">\(N\)</span> に依存して繰り返しの回数が決まるループに着目します。</p>
 <p>バブルソートでは、長さ <span class="math notranslate nohighlight">\(N\)</span> のリストを <span class="math notranslate nohighlight">\(N\)</span> 回繰り返す2重ループを用いて比較しています。 ループ が 2 重なので、時間計算量は <span class="math notranslate nohighlight">\(O(N^2)\)</span> となります。(外側のループは <span class="math notranslate nohighlight">\(N − 1\)</span> 回などと細かいことを考える必要はありません。)</p>
-<img alt="nn-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/7b0aa1af-d760-0187-4150-d16478367c30.png" />
+<p><img alt="nn-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/7b0aa1af-d760-0187-4150-d16478367c30.png" /></p>
 </div>
 <div class="section" id="データ分割に着目">
 <h4>データ分割に着目<a class="headerlink" href="#データ分割に着目" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>入力データを分割する処理があるときは、後述する「分割統治法」の可能性があります。</p>
 <p>例えば、クリックソートでは、N 回繰り返すループをまわす度に、入力データを(平均して)<span class="math notranslate nohighlight">\(N/2\)</span> と半分に分割していきます。この場合は、分割する回数は <span class="math notranslate nohighlight">\(O(\log{N})\)</span> となります。最終的には、 <span class="math notranslate nohighlight">\(O(N \log{N})\)</span>となります。</p>
-<img alt="nlogn-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/c476455a-7362-1aaf-a5e9-524869a9e256.png" />
+<p><img alt="nlogn-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/c476455a-7362-1aaf-a5e9-524869a9e256.png" /></p>
 </div>
 </div>
 <div class="section" id="最悪ケース計算量と平均ケース計算量">
@@ -989,7 +984,7 @@ div.rendered_html tbody tr:hover {
 <div class="admonition tip"><p><strong>例題（分割倒置法）</strong></p>
 <p><span class="math notranslate nohighlight">\(3^{16}\)</span>を分割倒置法で効率よく計算してみよう。</p>
 </div><p>まずは、紙とえんぴつを用意して解いてみましょう。</p>
-<p><img alt="a7939470b2df472998653dd8127bf5db" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
+<p><img alt="a84539d8c0cd4faa8229765b38351350" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
 <p>普通に計算すると、3を15回、掛け算することになります。</p>
 <div class="math notranslate nohighlight">
 \[3^{16} = 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3\]</div>
@@ -1041,29 +1036,37 @@ div.rendered_html tbody tr:hover {
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="py11dict.html" class="btn btn-neutral float-right" title="11. 辞書を作ってみる" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="py10prime.html" class="btn btn-neutral float-left" title="9. 整数アルゴリズム" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="py11dict.html" class="btn btn-neutral float-right" title="11. 辞書を作ってみる" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="py10prime.html" class="btn btn-neutral float-left" title="9. 整数アルゴリズム" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+        
+        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

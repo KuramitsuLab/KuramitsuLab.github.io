@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>8. アルゴリズムを学ぶ &mdash; Python Programming 2021  ドキュメント</title>
   
@@ -16,10 +16,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -57,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Python Programming 2021
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
           
 
           
@@ -134,7 +131,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. グラフと深さ優先探索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
 </ul>
 
@@ -176,8 +173,6 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -189,7 +184,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/py08algo.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -499,7 +494,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">8.1.2. </span>アルゴリズムとレシピ<a class="headerlink" href="#アルゴリズムとレシピ" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>アルゴリズムは、プログラミングにとってレシピに例えられます。もしくは、アルゴリズムとは情報のレシピと呼ぶ人もいます。</p>
 <p>「カスタードクリームを作る」レシピを比較してみましょう。</p>
-<p><img alt="902ee8d920a34b19bc12be8e6f066c1b" class="no-scaled-link" src="https://img.cpcdn.com/recipes/644527/840x1461s/5c411dec210c6168f51cbdbccfc0e5b2?u=243036&amp;p=1435802070" style="width: 40%;" /></p>
+<p><img alt="2a0641434b9448a5a2407bb2f8663814" class="no-scaled-link" src="https://img.cpcdn.com/recipes/644527/840x1461s/5c411dec210c6168f51cbdbccfc0e5b2?u=243036&amp;p=1435802070" style="width: 40%;" /></p>
 <p><strong>カスタードクリームのレシピ</strong></p>
 <ol class="arabic simple">
 <li><p>卵黄、砂糖、小麦粉を火にかける</p></li>
@@ -664,7 +659,7 @@ div.rendered_html tbody tr:hover {
 \[(x + 2)(x - 4) = 0 ~~~\mbox{もしくは}~~~
 x = \frac{2 \pm \sqrt{2^2 + 4\cdot 8}}{2}\]</div>
 <p>アルゴリズムでは、コンピュータの計算能力を活用する方法を考えます。 方程式の場合は、<span class="math notranslate nohighlight">\(f(x)\)</span>は一瞬で計算できるので、<span class="math notranslate nohighlight">\(f(x)=0\)</span>となる<span class="math notranslate nohighlight">\(x\)</span>を探します。</p>
-<img alt="eq1.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2ec6fd3c-beb3-7718-16e1-a6b522354ce6.png" />
+<p><img alt="eq1.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/2ec6fd3c-beb3-7718-16e1-a6b522354ce6.png" /></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -740,7 +735,7 @@ x = 1.9 f(1.9) = 1.6099999999999999
 <p>もう少し詳しく方程式の解法をみていきましょう。</p>
 <p>あらかじめ、解のありそうな探索範囲がわかっていれば、刻み幅を小さくして精度の高い解を探すことができます。 しかし、探索幅がわかっていないと、かなりの回数を探索することになります。 そこで、探索幅を狭めながら、効率よく計算する方法が使えるときがあります。</p>
 <p>連続関数は中間値の定理が成り立ちます。</p>
-<img alt="eq2.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/30476d33-7e14-af5f-cf84-07996e19038c.png" />
+<p><img alt="eq2.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/30476d33-7e14-af5f-cf84-07996e19038c.png" /></p>
 <p><span class="math notranslate nohighlight">\(x_a\)</span>と<span class="math notranslate nohighlight">\(x_b\)</span>の中間点を計算することで、解が<span class="math notranslate nohighlight">\(x_a\)</span>側にあるか、<span class="math notranslate nohighlight">\(x_b\)</span>側にあるか判定し、探索範囲を狭めていきます。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -894,7 +889,7 @@ Wall time: 202 ms
 <p><strong>例</strong></p>
 <p>ある入力サイズ<span class="math notranslate nohighlight">\(n\)</span>の問題を解く手順が<span class="math notranslate nohighlight">\(T(n) = 4n^2 -2n + 2\)</span>と見積もられるとき、 <span class="math notranslate nohighlight">\(n\)</span> を次第に大きくしていくと <span class="math notranslate nohighlight">\(n^2\)</span> の項ばかり効いて、他の項はほとんど無視できます。 したがって、このアルゴリズムの計算量は、<span class="math notranslate nohighlight">\(O(n^2)\)</span>となります。</p>
 <p><strong>代表的なアルゴリズムと計算量</strong></p>
-<img alt="order-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/b326f3e2-c3ac-9501-983a-2c239d80bcdd.png" />
+<p><img alt="order-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/b326f3e2-c3ac-9501-983a-2c239d80bcdd.png" /></p>
 <div class="admonition warning">
 <p class="admonition-title fa fa-exclamation-circle">暗記ものではないが</p>
 <p>アルゴリズムを覚えたら、必ず計算量も確認しておこう</p>
@@ -923,7 +918,7 @@ Wall time: 202 ms
 </div>
 <p>この関数は、入力<span class="math notranslate nohighlight">\(n\)</span>に対する計算量は<span class="math notranslate nohighlight">\(O(\left\{\frac{1+\sqrt{t}}{2}\right\}^n)\)</span>と見積もられ、指数時間アルゴリズムです。こんなに簡単ですが..</p>
 <p><span class="math notranslate nohighlight">\(n\)</span>を大きくしていくと、途中から爆発的に計算時間がかかるようになります。</p>
-<p><img alt="e6dc349cfc6d45d98a8ac88b44a05d96" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
+<p><img alt="09bbc6270ece459d86afad10ebb259d5" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">フィボナッチ・ベンチマーク </p>
 <p>フィボナッチの再帰関数は、簡単なプログラムで簡単に負荷がかけられるので、プログラミング言語の性能を測る簡単なベンチマークテストとして重宝されてきました。</p>
@@ -1002,29 +997,37 @@ https://kei1107.github.io/algorithm/abc145/
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="py10prime.html" class="btn btn-neutral float-right" title="9. 整数アルゴリズム" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="py06tips.html" class="btn btn-neutral float-left" title="7. プログラミング上達のコツ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="py10prime.html" class="btn btn-neutral float-right" title="9. 整数アルゴリズム" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="py06tips.html" class="btn btn-neutral float-left" title="7. プログラミング上達のコツ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+        
+        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
