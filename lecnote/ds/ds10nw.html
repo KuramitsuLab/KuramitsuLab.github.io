@@ -820,7 +820,7 @@ f'(x) = 12x^3 − 12x^2 − 24x \\\end{split}\]</div>
 <li><p>Momentum: <span class="math notranslate nohighlight">\(\mathbf{x}_{i+1} = \mathbf{x}_i - \eta \nabla f+ \alpha \Delta \mathbf{w}\)</span></p></li>
 <li><p>AdaGrad: <span class="math notranslate nohighlight">\(\mathbf{x}_{i+1} = \mathbf{x}_i - \eta \frac{1}{\sqrt{h_i}}\nabla f\)</span>, <span class="math notranslate nohighlight">\(h_{i+1} = h_i + (\nabla f)^2\)</span></p></li>
 </ul>
-<p><img alt="06c2da9747304ba2a5d4c326f2a82d7c" class="no-scaled-link" src="https://watlab-blog.com/wp-content/uploads/2020/03/gd-momentum-adagrad.gif" style="width: 50%;" /></p>
+<p><img alt="eebc8062f9014c89a3cc5e79cd77dd1d" class="no-scaled-link" src="https://watlab-blog.com/wp-content/uploads/2020/03/gd-momentum-adagrad.gif" style="width: 50%;" /></p>
 <p><a class="reference external" href="https://watlab-blog.com/2020/03/08/adagrad/">wat氏のわかりやすい解説</a>より引用</p>
 </div>
 </div>
@@ -1134,7 +1134,7 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 <p class="admonition-title fa fa-exclamation-circle"><strong>線形分離可能な問題</strong></p>
 <p>幾何学においてふたつの集合が二次元平面上にあるとき、それらの集合を一本の直線で分離できることです。</p>
 <p><strong>線形分離可能な例</strong></p>
-<p><img alt="e7f5747138f84d19a327528ba3f962a4" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1dd6e067-1875-27a8-fbf4-e81158f54719.png" style="width: 40%;" /></p>
+<p><img alt="1a540a846eca4f40b2ac83426115ab2b" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1dd6e067-1875-27a8-fbf4-e81158f54719.png" style="width: 40%;" /></p>
 <p>一般化して、<span class="math notranslate nohighlight">\(n\)</span> 次元空間上のふたつの集合を <span class="math notranslate nohighlight">\(n − 1\)</span> 次元の超平面で 分離できることも線形分離可能と呼びます。 逆に、線形分離不可能な問題を線形分離不可能問題と呼びます。</p>
 </div>
 <div class="section" id="線形分離不可能な問題">
@@ -1173,7 +1173,7 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 </table>
 <p><strong>線形分離不可能な例</strong></p>
 <p>赤い部分が分離できていない。</p>
-<p><img alt="9ec50b417721454c929428f28f509557" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/db9d8fa2-05e1-6dd5-e3ef-09582a1b0b1b.png" style="width: 40%;" /></p>
+<p><img alt="d1bafebfc01e440b8ae0d3f9f2a33754" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/db9d8fa2-05e1-6dd5-e3ef-09582a1b0b1b.png" style="width: 40%;" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>単純パーセプトロンの実装コードを使って、線形不分離問題を解こうとするとどうなるか調べてみよう。</p>
@@ -1183,14 +1183,14 @@ w = [3.94331525 3.77972392] b = -1.381611021055158
 <h3><span class="section-number">10.4.2. </span>多層パーセプトロン<a class="headerlink" href="#多層パーセプトロン" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>線形分離不可能な問題を解くためのアイディアは、パーセプトロンを組み合わせて多層化することです。</p>
 <p><strong>３層パーセプトロンの例</strong></p>
-<p><img alt="b14813dc25794667a1eef74361a020a3" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1c2f261f-701d-e020-2f49-c3df596b8363.png" style="width: 60%;" /></p>
+<p><img alt="0bceb00e35d24cdc8eb116beabc3f286" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/1c2f261f-701d-e020-2f49-c3df596b8363.png" style="width: 60%;" /></p>
 <p>このように多層化することで、各ニューロンの学習結果が組み合わさって、 線形分離不可能な問題でも複数の分離線の組み合わせで分離可能になります。</p>
-<p><img alt="06431096691d4099ab03a14e615c9b16" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5ce7c474-466c-7889-f3d4-19277c815289.png" style="width: 40%;" /></p>
+<p><img alt="c56c3b1170594ea4944f8311e5a72d8b" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5ce7c474-466c-7889-f3d4-19277c815289.png" style="width: 40%;" /></p>
 <p>さて、「多層パーセプトロンも実装してみましょう！」としたいところですが、 ちょっと１回の講義では多すぎる気がしますので重要な概念だけ紹介しておきます。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">逆誤差伝搬法</p>
 <p>ニューロンは、順方向に発火させていきますが、学習を効率よく行うため、誤差を逆に伝搬させます。</p>
-<p><img alt="4415ead2aced4df6906b67c4a7cd8b7c" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/49a140bb-5aa0-45a7-a365-7c3aa5c914b6.png" style="width: 60%;" /></p>
+<p><img alt="700561e51b044ea7acb2b2651bd96ff9" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/49a140bb-5aa0-45a7-a365-7c3aa5c914b6.png" style="width: 60%;" /></p>
 </div>
 </div>
 <div class="section" id="深層学習へ">
