@@ -463,7 +463,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="関数、再帰関数、そして高階関数">
 <h1><span class="section-number">6. </span>関数、再帰関数、そして高階関数<a class="headerlink" href="#関数、再帰関数、そして高階関数" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>より抽象度の高いプログラミングを目指して、関数、ラムダ式、高階関数の考え方を習得します。</p>
-<p><img alt="13703a3e258940ab840727a337804eda" src="http://s3.amazonaws.com/lyah/fx.png" /></p>
+<p><img alt="fb76f08b87fe4533a1ddbd080b6b9a6b" src="http://s3.amazonaws.com/lyah/fx.png" /></p>
 <div class="section" id="関数を定義する">
 <h2><span class="section-number">6.1. </span>関数を定義する<a class="headerlink" href="#関数を定義する" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>今まで、<code class="docutils literal notranslate"><span class="pre">print(x)</span></code>関数や<code class="docutils literal notranslate"><span class="pre">max(x,y)</span></code>を使ってプログラミングをしてきました。 今回は、まず関数を定義する方法を覚えましょう。</p>
@@ -602,19 +602,28 @@ f(9) = 10
 </pre></div>
 </div>
 </div>
-<p><strong>4.</strong> <span class="math notranslate nohighlight">\(f(x) = \begin{cases}  1 &amp; (n=0) \\  x \cdot x^{n-1} &amp; (otherwise)  \end{cases}\)</span></p>
+<p><strong>4.</strong> <span class="math notranslate nohighlight">\(f(x,n) = \begin{cases}  1 &amp; (n=0) \\  x \cdot x^{n-1} &amp; (otherwise)  \end{cases}\)</span></p>
 <p>n乗を計算しています。</p>
-<p>ここで、<span class="math notranslate nohighlight">\(f(x) = x^{n}\)</span>ということに注意すれば、<span class="math notranslate nohighlight">\(f(x) = \begin{cases}  1 &amp; (n=0) \\  x \cdot f(x-1) &amp; (otherwise)  \end{cases}\)</span></p>
+<p>ここで、<span class="math notranslate nohighlight">\(f(x, n) = x^{n}\)</span>ということに注意すれば、<span class="math notranslate nohighlight">\(f(x, n) = \begin{cases}  1 &amp; (n=0) \\  x \cdot f(x,n-1) &amp; (otherwise)  \end{cases}\)</span></p>
 <p>これを素直に直すと：</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 5の3乗</span>
 </pre></div>
 </div>
 </div>
@@ -630,7 +639,7 @@ f(9) = 10
 <p>次の関数を定義してみよう。</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">rect(w,</span> <span class="pre">h)</span></code>: 縦<code class="docutils literal notranslate"><span class="pre">h</span></code>横<code class="docutils literal notranslate"><span class="pre">w</span></code>の長方形を<code class="docutils literal notranslate"><span class="pre">#</span></code>で表示する</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">square(w)</span></code>: 縦<code class="docutils literal notranslate"><span class="pre">h</span></code>横<code class="docutils literal notranslate"><span class="pre">h</span></code>の正方形を<code class="docutils literal notranslate"><span class="pre">#</span></code>表示する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">square(w)</span></code>: 縦<code class="docutils literal notranslate"><span class="pre">w</span></code>横<code class="docutils literal notranslate"><span class="pre">w</span></code>の正方形を<code class="docutils literal notranslate"><span class="pre">#</span></code>表示する</p></li>
 </ol>
 <p><strong>出力</strong>: <code class="docutils literal notranslate"><span class="pre">rect(4,</span> <span class="pre">3)</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">####</span>
@@ -1181,7 +1190,7 @@ function
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="nb">input</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">input</span> <span class="c1"># 元に戻す</span>
+      <span class="nb">input</span> <span class="o">=</span> <span class="n">builtins</span><span class="o">.</span><span class="n">input</span> <span class="c1"># 元に戻す</span>
       <span class="k">return</span> <span class="n">builtins</span><span class="o">.</span><span class="n">input</span><span class="p">()</span>
   <span class="nb">input</span> <span class="o">=</span> <span class="n">input_new</span>
 </pre></div>
