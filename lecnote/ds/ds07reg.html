@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>7. 回帰：線形近似から予測する &mdash; Python &amp; Data Science 2021  ドキュメント</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -54,7 +57,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python & Data Science 2021
+            <a href="index.html" class="icon icon-home"> Python & Data Science 2021
           
 
           
@@ -166,6 +169,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -177,7 +182,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/ds07reg.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -476,15 +481,16 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">japanize_matplotlib</span> <span class="c1">#日本語化 matplotlib</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;IPAexGothic&quot;</span><span class="p">)</span> <span class="c1">#日本語フォント設定</span>
 <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
-    <span class="k">pass</span>
+    <span class="o">!</span>pip install japanize_matplotlib
+    <span class="kn">import</span> <span class="nn">japanize_matplotlib</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;IPAexGothic&quot;</span><span class="p">)</span> <span class="c1">#日本語フォント設定</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="線形回帰">
 <h2><span class="section-number">7.1. </span>線形回帰<a class="headerlink" href="#線形回帰" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>線形回帰は、もともと統計学の回帰分析の一種です。説明変数(<span class="math notranslate nohighlight">\(x_0, x_1, .., x_n\)</span>)と目的変数<span class="math notranslate nohighlight">\(y\)</span>の組が与えられたとき、説明変数と目的変数の関係を表す最もらしい線形関数を求める分析です。</p>
+<p>線形回帰は、もともと統計学の回帰分析の一種です。 説明変数(<span class="math notranslate nohighlight">\(x_0, x_1, .., x_n\)</span>)と目的変数<span class="math notranslate nohighlight">\(y\)</span>の組が与えられたとき、 説明変数と目的変数の関係を表す最もらしい線形関数を求める分析です。</p>
 <ul class="simple">
 <li><p>単回帰: <span class="math notranslate nohighlight">\(y = a x + b\)</span></p></li>
 <li><p>重回帰: <span class="math notranslate nohighlight">\(y = a_0 x_0 + a_1 x_1 + .. + a_n x_n + b\)</span></p></li>
@@ -519,18 +525,20 @@ div.rendered_html tbody tr:hover {
 <p>つまり、次の<span class="math notranslate nohighlight">\(E\)</span>が最小になるa, bを求めます。</p>
 <div class="math notranslate nohighlight">
 \[E = \sum ^n _ {i = 1}(ax_i +b - y)^2\]</div>
-<p><img alt="86f36765413f44bd9d72c851843ba655" src="https://mathtrain.jp/wp-content/uploads/2014/12/leastsquare-300x282.png" /></p>
+<p><img alt="a3f78430809f4f4ebb5aca42627e1cd9" src="https://mathtrain.jp/wp-content/uploads/2014/12/leastsquare-300x282.png" /></p>
 </div>
 <div class="section" id="NumPyによる解法">
 <h3><span class="section-number">7.1.2. </span>NumPyによる解法<a class="headerlink" href="#NumPyによる解法" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>NumPyを使って、最もらしい直線<span class="math notranslate nohighlight">\(y = ax+b\)</span>を求めてみましょう。</p>
 <div class="math notranslate nohighlight">
 \[E = \sum ^n _ {i = 1}(ax_i +b - y)^2\]</div>
-<p>先に数学的な準備をしておきます。 <span class="math notranslate nohighlight">\(E\)</span>の最小値を求めるため、<span class="math notranslate nohighlight">\(a,b\)</span>の関数とみなし、偏微分します。</p>
+<p>先に数学的な準備をしておきます。</p>
+<p><span class="math notranslate nohighlight">\(E\)</span>の最小値を求めるため、<span class="math notranslate nohighlight">\(a,b\)</span>の関数とみなし、偏微分します。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\frac{\partial E}{\partial a} = \sum ^n_{i= 1} 2x_i (ax _i+ b - y_i) = 0 \\
 \frac{\partial E}{\partial b} = \sum ^n_{i= 1}(ax _i+ b - y_i) = 0\end{split}\]</div>
-<p>実際の式の変形は、<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%97%E6%B3%95">数学がお好きな子</a>にお任せします。 結論だけ書いておくと、a,bについて整理すると、</p>
+<p>実際の式の変形は、<a class="reference external" href="https://ja.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%97%E6%B3%95">数学がお好きな子</a>にお任せします。</p>
+<p>結論だけ書いておくと、a,bについて整理すると、</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}a = {\sum ^n _ {i = 1}x_i y_i - {1 \over n}\sum^n_{i = 1}x_i \sum^n_{i = 1}y_i \over \sum^n_{i = 1}x_i^2 - {1 \over n}(\sum^n_{i = 1}x_i)^2} \\
 b ={ 1\over n}\sum^n_{i= 1}(y_i - ax_i)\end{split}\]</div>
@@ -1582,37 +1590,29 @@ R squared error 0.9826474554780945
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="ds08ml.html" class="btn btn-neutral float-right" title="8. 機械学習とクラス分類問題" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="ds06classfy.html" class="btn btn-neutral float-left" title="6. クラスタリングしてみよう" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="ds08ml.html" class="btn btn-neutral float-right" title="8. 機械学習とクラス分類問題" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ds06classfy.html" class="btn btn-neutral float-left" title="6. クラスタリングしてみよう" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

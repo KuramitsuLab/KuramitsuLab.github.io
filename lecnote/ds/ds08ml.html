@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>8. 機械学習とクラス分類問題 &mdash; Python &amp; Data Science 2021  ドキュメント</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -54,7 +57,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python & Data Science 2021
+            <a href="index.html" class="icon icon-home"> Python & Data Science 2021
           
 
           
@@ -160,6 +163,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -171,7 +176,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/ds08ml.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -480,7 +485,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="学習と機械学習">
 <h2><span class="section-number">8.1. </span>学習と機械学習<a class="headerlink" href="#学習と機械学習" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ニュートンは、リンゴが落ちるのを見て、万有引力の法則を発見しました。 もう少し正確に書くと、いろんな現象の観察結果と微積分を使って、「<span class="math notranslate nohighlight">\(F ∼ Mm/r^2\)</span> としか思えない」という理由を示しています。</p>
-<p><img alt="50ac7d684bd9496b961fbbb8231c5803" class="no-scaled-link" src="http://ktymtskz.my.coocan.jp/S/physic/P/p88.jpg" style="width: 50%;" /></p>
+<p><img alt="cb60017a163c489e823a2d6948afa962" class="no-scaled-link" src="http://ktymtskz.my.coocan.jp/S/physic/P/p88.jpg" style="width: 50%;" /></p>
 <p>発見された万有引力の法則は、数理モデルとして記述されて、 これから発生する事象（未来）を予想できるようになります。</p>
 <p><strong>数理モデル</strong></p>
 <div class="math notranslate nohighlight">
@@ -503,10 +508,10 @@ div.rendered_html tbody tr:hover {
 </ul>
 <p><strong>学習</strong></p>
 <p>機械学習とは、説明変数と目的変数の大量のデータセットを与え、そこから目的変数を予測するモデルを作成することです。</p>
-<p><img alt="ml_fit-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/e14ceec0-fb4c-93b6-5273-658eba03f818.png" /></p>
+<img alt="ml_fit-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/e14ceec0-fb4c-93b6-5273-658eba03f818.png" />
 <p><strong>予測</strong> </p>
 <p>予測モデルに未知のデータを与えると、目的データが出力されます。</p>
-<p><img alt="model_predict_X-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a5454677-a908-8ef2-d8e5-551b322dd097.png" /></p>
+<img alt="model_predict_X-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/a5454677-a908-8ef2-d8e5-551b322dd097.png" />
 <p>目的データの種類によって、回帰問題と分類問題に分けられる。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">回帰と分類</p>
@@ -520,7 +525,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">8.1.2. </span>クラス分類<a class="headerlink" href="#クラス分類" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>クラス分類は、カテゴリデータを予測することです。カテゴリの数が２つなら２クラス分類、それ以上なら多クラス分類と呼ばれます。</p>
 <p>クラス分類が重要なのは、画像認識など興味深いアプリケーションが作れる点にあります。 例えば、画像を多次元データとして説明変数、そのラベルを目的変数として学習させると、 画像認識が可能になります。後半では、簡単な画像認識を少しだけ学びます。</p>
-<p><img alt="ml-image-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/49804ec0-fca7-ab8b-b832-426db4f96d64.png" /></p>
+<img alt="ml-image-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/49804ec0-fca7-ab8b-b832-426db4f96d64.png" />
 </div>
 <div class="section" id="回帰からクラス分類へ">
 <h3><span class="section-number">8.1.3. </span>回帰からクラス分類へ<a class="headerlink" href="#回帰からクラス分類へ" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -589,6 +594,10 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="２クラス分類問題">
 <h2><span class="section-number">8.2. </span>２クラス分類問題<a class="headerlink" href="#２クラス分類問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>乳がんデータセットを用いて、２クラス分類問題として、乳がんの良性・悪性を判定しましょう。</p>
+<p><strong>データの準備</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!wget https://KuramitsuLab.github.io/data/cancer_ja.csv
+</pre></div>
+</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -937,12 +946,12 @@ array([0])
 <h3><span class="section-number">8.2.2. </span>正解率<a class="headerlink" href="#正解率" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ロジスティック回帰を始め、機械学習によって予測されるモデルは基本的に確率的なモデルです。 100%正解ということはまずありません。 予測されたモデルがどの程度、正解率なのか調べる必要があります。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Accuracy: 正解率</p>
+<p class="admonition-title fa fa-exclamation-circle"><strong>Accuracy: 正解率</strong></p>
 <p>正解率を定量的に図る指標</p>
 <div class="math notranslate nohighlight">
-\[\frac{TF+TN}{TP+FP+FN+TN}\]</div>
+\[\frac{TP+TN}{TP+FP+FN+TN}\]</div>
 <ul class="simple">
-<li><p>TF(True Positive): 例. 良性かつ良性と予想される</p></li>
+<li><p>TP(True Positive): 例. 良性かつ良性と予想される</p></li>
 <li><p>FN(False Negative, 偽陰性): 悪性であるが、良性と予想される</p></li>
 <li><p>FP(False Positive, 偽陽性): 良性であるが、悪性と予想される</p></li>
 <li><p>TN(True Negative): 悪性かつ悪性と判定される</p></li>
@@ -1041,7 +1050,7 @@ array([0])
 <div class="section" id="ホールドアウト法">
 <h2><span class="section-number">8.3. </span>ホールドアウト法<a class="headerlink" href="#ホールドアウト法" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>人工知能では、過去に学習したデータではなく、 未来の<strong>未知のデータ</strong>に対する予測精度が重要になります。</p>
-<p><strong>ホールドアウト法</strong>は、全データを訓練データとテストデータに分割することで、モデルの精度を評価する方法です。一部のデータを未知のデータとすることで、未知のデータに対する精度が測定できるようになります。</p>
+<p><strong>ホールドアウト法</strong>は、全データを訓練データとテストデータに分割することで、モデルの精度を評価する方法です。 一部のデータを未知のデータとすることで、未知のデータに対する精度が測定できるようになります。</p>
 <ul class="simple">
 <li><p>訓練データ: モデルを学習するためのデータ</p></li>
 <li><p>テストデータ: モデルを評価するためのデータ</p></li>
@@ -1485,37 +1494,29 @@ LogisticRegression()
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="ds09ds.html" class="btn btn-neutral float-right" title="9. データ・サイエンティストへの道" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="ds07reg.html" class="btn btn-neutral float-left" title="7. 回帰：線形近似から予測する" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="ds09ds.html" class="btn btn-neutral float-right" title="9. データ・サイエンティストへの道" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ds07reg.html" class="btn btn-neutral float-left" title="7. 回帰：線形近似から予測する" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
+        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
