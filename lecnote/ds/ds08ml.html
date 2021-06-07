@@ -107,16 +107,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#２クラス分類問題">8.2. ２クラス分類問題</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#学習モデル">8.2.1. 学習モデル</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#正解率">8.2.2. 正解率</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#オッズ比の分析">8.2.3. オッズ比の分析</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#ホールドアウト法">8.3. ホールドアウト法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#多クラスロジスティック回帰">8.4. 多クラスロジスティック回帰</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#学習">8.4.1. 学習</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ホールドアウト法">8.3. ホールドアウト法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#多クラスロジスティック回帰(おまけ)">8.3.1. 多クラスロジスティック回帰(おまけ)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#クラス分類アルゴリズム">8.5. クラス分類アルゴリズム</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#コースワーク">8.6. コースワーク</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#クラス分類アルゴリズム">8.4. クラス分類アルゴリズム</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#コースワーク">8.5. コースワーク</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ds09ds.html">9. データ・サイエンティストへの道</a></li>
@@ -485,7 +483,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="学習と機械学習">
 <h2><span class="section-number">8.1. </span>学習と機械学習<a class="headerlink" href="#学習と機械学習" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ニュートンは、リンゴが落ちるのを見て、万有引力の法則を発見しました。 もう少し正確に書くと、いろんな現象の観察結果と微積分を使って、「<span class="math notranslate nohighlight">\(F ∼ Mm/r^2\)</span> としか思えない」という理由を示しています。</p>
-<p><img alt="cb60017a163c489e823a2d6948afa962" class="no-scaled-link" src="http://ktymtskz.my.coocan.jp/S/physic/P/p88.jpg" style="width: 50%;" /></p>
+<p><img alt="b3fbba37b67a4ba2a4e5ee4b9d760af2" class="no-scaled-link" src="http://ktymtskz.my.coocan.jp/S/physic/P/p88.jpg" style="width: 50%;" /></p>
 <p>発見された万有引力の法則は、数理モデルとして記述されて、 これから発生する事象（未来）を予想できるようになります。</p>
 <p><strong>数理モデル</strong></p>
 <div class="math notranslate nohighlight">
@@ -575,7 +573,7 @@ div.rendered_html tbody tr:hover {
 <p><strong>ロジスティック回帰</strong></p>
 <p>目的変数は、確率であるため<span class="math notranslate nohighlight">\(𝑝\)</span>とおきます。 すると、<span class="math notranslate nohighlight">\(𝑥_𝑖\)</span> がどんな値をとっても目的変数<span class="math notranslate nohighlight">\(𝑝\)</span>が<span class="math notranslate nohighlight">\(0\)</span>から<span class="math notranslate nohighlight">\(1\)</span>までの範囲に収まります。</p>
 <div class="math notranslate nohighlight">
-\[p = \frac{1}{1 + e^{a_1 x_1+a_2 x_2 + a_n x_n + b}}\]</div>
+\[p = \frac{1}{1 + e^{-(a_1 x_1+a_2 x_2 + a_n x_n + b)}}\]</div>
 <p>少し式を変形してみましょう。</p>
 <div class="math notranslate nohighlight">
 \[\frac{p}{1-p} = e^{a_1 x_1+a_2 x_2 + a_n x_n + b}\]</div>
@@ -585,11 +583,18 @@ div.rendered_html tbody tr:hover {
 <p>なお、<span class="math notranslate nohighlight">\(l\)</span>のことをロジットと呼び、ロジットの対数をとると、オッズ比が出てきます。 (オッズ比は、ある事象が発生する確率と発生しない確率の比になっています。)</p>
 <div class="math notranslate nohighlight">
 \[e^{l} = \frac{p}{1-p}\]</div>
-<div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">２クラス分類問題と多クラス分類問題</p>
-<p>数学的に扱いやすいため、２クラス分類問題と多クラス分類問題は区別されています。 上記の説明は、２クラス分類のケースですが、 ロジスティック回帰は多クラス分類に拡張されています。 興味があるときは、多クラスロジスティック回帰の原理も調べてみましょう。</p>
+<!--
+<div class="alert alert-info">
+
+２クラス分類問題と多クラス分類問題
+
+数学的に扱いやすいため、２クラス分類問題と多クラス分類問題は区別されています。
+上記の説明は、２クラス分類のケースですが、
+ロジスティック回帰は多クラス分類に拡張されています。
+興味があるときは、多クラスロジスティック回帰の原理も調べてみましょう。
+
 </div>
-</div>
+--></div>
 </div>
 <div class="section" id="２クラス分類問題">
 <h2><span class="section-number">8.2. </span>２クラス分類問題<a class="headerlink" href="#２クラス分類問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -977,75 +982,26 @@ array([0])
 0.8910369068541301
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="オッズ比の分析">
-<h3><span class="section-number">8.2.3. </span>オッズ比の分析<a class="headerlink" href="#オッズ比の分析" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>説明変数の各々が目的変数に及ぼす影響度を表わす偏係数は<code class="docutils literal notranslate"><span class="pre">.coef_</span></code>で習得できるので、 学習済みモデルの各変数のオッズ比を取得します。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">odds_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;係数&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;オッズ比:&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-             <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">],</span>
-             <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;オッズ比&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-係数 [[-1.0462619  -0.21688595]]
-オッズ比: [[0.3512483  0.80502177]]
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<!--
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+### オッズ比の分析
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>オッズ比</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>平均半径</th>
-      <td>0.351248</td>
-    </tr>
-    <tr>
-      <th>平均感触</th>
-      <td>0.805022</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-</div>
+説明変数の各々が目的変数に及ぼす影響度を表わす偏係数は`.coef_`で習得できるので、
+学習済みモデルの各変数のオッズ比を取得します。
+
+```
+odds_ratio = np.exp(model.coef_)
+```
+
+```
+print('係数', model.coef_)
+print('オッズ比:', np.exp(model.coef_))
+pd.DataFrame(np.exp(model.coef_).T,
+             index = [X.columns.values],
+             columns = ['オッズ比'])
+```
+
+--></div>
 </div>
 <div class="section" id="ホールドアウト法">
 <h2><span class="section-number">8.3. </span>ホールドアウト法<a class="headerlink" href="#ホールドアウト法" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -1058,7 +1014,7 @@ array([0])
 <p>sklearn には、ランダムにデータを訓練データとテストデータに分割する関数<code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code>が用意されています。通常は、この関数を使います。</p>
 <p><strong>訓練データとテストデータに分割</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">test_size</span></code>: 訓練用(60%),テスト用(30%)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_size</span></code>: 訓練用(70%),テスト用(30%)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">random_state=0</span></code>: 乱数の生成を固定し、毎回同じ乱数で分割させる</p></li>
 </ul>
 <div class="nbinput docutils container">
@@ -1084,7 +1040,7 @@ array([0])
 テストデータ数: 171
 </pre></div></div>
 </div>
-<p>学習は、<strong>訓練データ</strong>に対してのみ行います。（テストデータに対しても学習してしまうのは、機械学習的にはチートです。）</p>
+<p>学習は、<strong>訓練データ</strong>に対してのみ行います。（テストデータに対しても学習するのは、機械学習的にはチートです。）</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -1234,109 +1190,18 @@ LogisticRegression()
 <p class="admonition-title fa fa-exclamation-circle">過学習</p>
 <p>訓練データに特化して学習しすぎてしまうこと。 訓練データの正解率がテストデータより明らかに高い場合は、過学習を疑いましょう。</p>
 </div>
-</div>
-<div class="section" id="多クラスロジスティック回帰">
-<h2><span class="section-number">8.4. </span>多クラスロジスティック回帰<a class="headerlink" href="#多クラスロジスティック回帰" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>次は、ロジスティック回帰モデルによる多クラス分類をしてみましょう。</p>
-<p>今回は、身長体重データセットから職業を予測するモデルを作ってみます。 せっかくなので、学習済モデルを一旦ファイルに保存し、ロードしたモデルも正しく動作するか、 検証してみます。</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;bmi.csv&#39;</span><span class="p">)</span>
+<div class="section" id="多クラスロジスティック回帰(おまけ)">
+<h3><span class="section-number">8.3.1. </span>多クラスロジスティック回帰(おまけ)<a class="headerlink" href="#多クラスロジスティック回帰(おまけ)" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>余力のある人は、多クラスロジスティック回帰も挑戦してみましょう。</p>
+<ul class="simple">
+<li><p>データ：（コースワークで作成した）身長体重データセット(bmi.csv)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">身長</span></code>と<code class="docutils literal notranslate"><span class="pre">体重</span></code>を説明変数、<code class="docutils literal notranslate"><span class="pre">職業</span></code>を目的変数として予測する</p></li>
+<li><p>ロジスティック回帰モデルを使う</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;bmi.csv&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;データのサイズ&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-データのサイズ (1535, 4)
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>名前</th>
-      <th>身長</th>
-      <th>体重</th>
-      <th>職業</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>福井　優也</td>
-      <td>178.0</td>
-      <td>85.0</td>
-      <td>B</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>九里　亜蓮</td>
-      <td>187.0</td>
-      <td>92.0</td>
-      <td>B</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>加藤　拓也</td>
-      <td>176.0</td>
-      <td>88.0</td>
-      <td>B</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>大瀬良　大地</td>
-      <td>187.0</td>
-      <td>93.0</td>
-      <td>B</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>今村　猛</td>
-      <td>183.0</td>
-      <td>98.0</td>
-      <td>B</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<div class="section" id="学習">
-<h3><span class="section-number">8.4.1. </span>学習<a class="headerlink" href="#学習" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">身長</span></code>と<code class="docutils literal notranslate"><span class="pre">体重</span></code>を説明変数、<code class="docutils literal notranslate"><span class="pre">職業</span></code>を目的変数にしてロジスティック回帰モデルを作成します。 多クラス分類であっても、sklearnが適切に処理してくれるので、特に特別な設定は必要ありません。</p>
-<p>ホールドアウト法で訓練データとテストデータに分割するのを忘れないようにしましょう。</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="s1">&#39;体重&#39;</span><span class="p">]]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;身長&#39;</span><span class="p">,</span> <span class="s1">&#39;体重&#39;</span><span class="p">]]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;職業&#39;</span><span class="p">]</span>
 
 <span class="c1"># ホールドアウト法による訓練データとテストデータ</span>
@@ -1348,119 +1213,16 @@ LogisticRegression()
 <span class="c1"># 学習の実行</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-訓練データ数: 1074
-テストデータ数: 461
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-LogisticRegression()
-</pre></div></div>
-</div>
-<p>学習したモデルが予測するのは、<code class="docutils literal notranslate"><span class="pre">predict</span></code>を使います。</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;正解&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span> <span class="s1">&#39;予測&#39;</span><span class="p">:</span><span class="n">y_pred</span><span class="p">})</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>正解</th>
-      <th>予測</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1421</th>
-      <td>F</td>
-      <td>B</td>
-    </tr>
-    <tr>
-      <th>1018</th>
-      <td>F</td>
-      <td>F</td>
-    </tr>
-    <tr>
-      <th>651</th>
-      <td>B</td>
-      <td>B</td>
-    </tr>
-    <tr>
-      <th>303</th>
-      <td>B</td>
-      <td>B</td>
-    </tr>
-    <tr>
-      <th>1127</th>
-      <td>F</td>
-      <td>F</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<p>正解率も評価しておきましょう。</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解率(train)&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解率(train)&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解率(test)&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-正解率(train) 0.8305400372439479
-正解率(test) 0.8524945770065075
-</pre></div></div>
-</div>
+<p>多クラス分類であっても、sklearnが適切に処理してくれるので、特に特別な設定は必要ありません。</p>
 </div>
 </div>
 <div class="section" id="クラス分類アルゴリズム">
-<h2><span class="section-number">8.5. </span>クラス分類アルゴリズム<a class="headerlink" href="#クラス分類アルゴリズム" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">8.4. </span>クラス分類アルゴリズム<a class="headerlink" href="#クラス分類アルゴリズム" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>クラス分類アルゴリズムは、ロジスティック回帰以外あります。 sklearn から簡単に試せるものもあります。</p>
 <p><strong>決定木</strong>: <code class="docutils literal notranslate"><span class="pre">sklearn.tree.DecisionTreeClassifier</span></code></p>
 <p>決定木は、条件分岐によってグループを分割して分類する手法です。その際にグループがなるべく同じような属性で構成されるように分割します。</p>
@@ -1474,7 +1236,7 @@ LogisticRegression()
 <p>人間の脳（ニューロン）の数理モデルに基づくアルゴリズムです。深層学習に用いられています。詳しい原理は、授業の後半で扱います。</p>
 </div>
 <div class="section" id="コースワーク">
-<h2><span class="section-number">8.6. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">8.5. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="admonition tip"><p><strong>例題（２クラス分類問題）</strong></p>
 <p>乳がんのデータをホールドアウト法で訓練データとテストデータ(7:3)に分割し、 良性か悪性か判定する予測モデルを作成してみよう。</p>
 <ol class="arabic simple">
