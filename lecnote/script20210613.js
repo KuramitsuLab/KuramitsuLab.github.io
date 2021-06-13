@@ -284,6 +284,7 @@ window.onload = function () {
                 var AC = 0, AC2=0;
                 var score = {};
                 var epoch = [];
+                data.sort((x,y)=>x.epoch_second-y.epoch_second);
                 for (var i = 0; i < data.length; i += 1) {
                     var problem_id = data[i].problem_id;
                     if (data[i].epoch_second > 1614556800) {
