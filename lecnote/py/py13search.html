@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>13. グラフと深さ優先探索 &mdash; Python Programming 2021  ドキュメント</title>
+  <title>13. 深さ優先探索と幅優先探索 &mdash; Python Programming 2021  ドキュメント</title>
   
 
   
@@ -16,10 +16,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -34,6 +31,8 @@
         <script src="_static/doctools.js"></script>
         <script src="_static/translations.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -55,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Python Programming 2021
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
           
 
           
@@ -100,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
 <li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. グラフと深さ優先探索</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">13. 深さ優先探索と幅優先探索</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#木構造とグラフ">13.1. 木構造とグラフ</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#木構造(Tree)">13.1.1. 木構造(Tree)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#グラフ構造">13.1.2. グラフ構造</a></li>
@@ -160,20 +159,18 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">13. </span>グラフと深さ優先探索</li>
+      <li><span class="section-number">13. </span>深さ優先探索と幅優先探索</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/py13search.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -457,8 +454,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="グラフと深さ優先探索">
-<h1><span class="section-number">13. </span>グラフと深さ優先探索<a class="headerlink" href="#グラフと深さ優先探索" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="深さ優先探索と幅優先探索">
+<h1><span class="section-number">13. </span>深さ優先探索と幅優先探索<a class="headerlink" href="#深さ優先探索と幅優先探索" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>グラフ探索の基本である<strong>深さ優先探索 (DFS)</strong> と<strong>幅優先探索 (BFS)</strong> を学んでいきましょう。いよい よ、2年生で学ぶアルゴリズムのクライマックスとなります。</p>
 <div class="section" id="木構造とグラフ">
 <h2><span class="section-number">13.1. </span>木構造とグラフ<a class="headerlink" href="#木構造とグラフ" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -466,7 +463,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="木構造(Tree)">
 <h3><span class="section-number">13.1.1. </span>木構造(Tree)<a class="headerlink" href="#木構造(Tree)" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>木構造は、<strong>ノード(node, 節点、頂点)</strong>とノード間を結ぶ<strong>エッジ(edge, 枝、辺)</strong>で表すデータ構造です。ルート(root) と呼ばれる頂点があるのが特徴です。</p>
-<img alt="tree_data-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/3c976773-c6fc-16bd-949c-0dc99d2839ef.png" />
+<p><img alt="tree_data-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/3c976773-c6fc-16bd-949c-0dc99d2839ef.png" /></p>
 <p><strong>重要なバリエーション</strong></p>
 <ul class="simple">
 <li><p><strong>二分木 (binary tree)</strong> : 各ノードが子ノードを最大2つしかもたない木</p></li>
@@ -483,7 +480,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="グラフ構造">
 <h3><span class="section-number">13.1.2. </span>グラフ構造<a class="headerlink" href="#グラフ構造" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>グラフ (graph) は、木構造をより一般化したもので、ノード(頂点)群とノード間の連結関係を表すエッジ(枝)群で構成されるデータ型です。</p>
-<img alt="graph_data-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/b7e828a4-b1f9-572e-9dda-5c0649b87aea.png" />
+<p><img alt="graph_data-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/b7e828a4-b1f9-572e-9dda-5c0649b87aea.png" /></p>
 <p><strong>重要なバリエーション</strong></p>
 <ul class="simple">
 <li><p><strong>有向/無向 (directed or not)</strong> : エッジが方向をもつか持たないか?</p></li>
@@ -499,14 +496,14 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="グラフ探索問題">
 <h2><span class="section-number">13.2. </span>グラフ探索問題<a class="headerlink" href="#グラフ探索問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>グラフ探索問題とは、あるスタート地点(木の場合は主にルート)から<strong>ノードを巡回し、ゴールとなるノードを探す</strong>問題です。</p>
-<img alt="dfs0-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9cc11b25-1b97-43e4-91ff-db5940f94e0b.png" />
+<p><img alt="dfs0-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9cc11b25-1b97-43e4-91ff-db5940f94e0b.png" /></p>
 <p>ノードを巡回する順番によって、次の2つのアルゴリズムに分類されます。</p>
 <p><strong>深さ優先探索 (depth-first search)</strong></p>
 <p>現在のノードを調査し、その子ノードに対して同じことを繰り返す。 見つからなかったら、未調査の子ノードのあるノードにバックトラックします。</p>
-<img alt="dfs-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/77ba13f0-dab2-ed45-94bf-5002058e3556.png" />
+<p><img alt="dfs-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/77ba13f0-dab2-ed45-94bf-5002058e3556.png" /></p>
 <p><strong>幅優先探索(breadth-first search)</strong></p>
 <p>深さが同じノードを浅い方から順に走査していきます。</p>
-<img alt="bfs-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/193ee00e-a2fe-c04d-0742-1cc9a639e455.png" />
+<p><img alt="bfs-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/193ee00e-a2fe-c04d-0742-1cc9a639e455.png" /></p>
 <div class="admonition warning">
 <p class="admonition-title fa fa-exclamation-circle">必修</p>
 <p>深さ優先探索と幅優先探索の概念的な違いだけ必ず区別しよう</p>
@@ -518,7 +515,7 @@ div.rendered_html tbody tr:hover {
 <div class="admonition tip"><p><strong>例題（油分け算）</strong></p>
 <p>10L の容器いっぱいに油が入っている。7L の容器 A と 3L の容器 B を使って、 この油を 5L ずつに分ける。どのような分け方があるか?</p>
 </div><p>油分け算は、実はグラフの探索問題として解くことができます。 まずは、紙とえんぴつを用意して解いてみましょう。</p>
-<p><img alt="e67c47da045842fb9dd2f5c6f2bef00c" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
+<p><img alt="d7a4f69ff5394b848fc346c85fcc9ece" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
 <div class="section" id="考え方">
 <h3><span class="section-number">13.3.1. </span>考え方<a class="headerlink" href="#考え方" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>容器 A, B にそれぞれ aL, bL 入っている状態を (a, b) のペアで表現することにします。 最初の状態は、(0,0) とします。(5, 0)の状態になるか探索します。</p>
@@ -554,7 +551,7 @@ div.rendered_html tbody tr:hover {
 </tbody>
 </table>
 <p>図に書くと、次のようになります。</p>
-<img alt="yuwake-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/08ad820f-4e9c-74c1-09b6-569c1ff2a3c9.png" />
+<p><img alt="yuwake-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/08ad820f-4e9c-74c1-09b6-569c1ff2a3c9.png" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>(5, 0) の状態になるまで油の移動を書き出してみよう！</p>
@@ -613,7 +610,7 @@ div.rendered_html tbody tr:hover {
 <p class="admonition-title fa fa-exclamation-circle">コールスタックの原理</p>
 <p>関数コール(関数呼び出し)は、引数をスタックに積むことで実現している。 (関数はリターンすると、pop される。)</p>
 </div>
-<img alt="callstack-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5b6b616e-6c93-43e8-4099-89abd7c19c56.png" />
+<p><img alt="callstack-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5b6b616e-6c93-43e8-4099-89abd7c19c56.png" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -665,7 +662,7 @@ div.rendered_html tbody tr:hover {
 <li><p>置いたクイーン (Q) の移動できる場所を置けなくし、次の列に進む</p></li>
 <li><p>次の列で置けなかったら、バックトラック (backtrack) して前の列に戻り、別の場所を試す</p></li>
 </ul>
-<p><img alt="e9475b5c93ac4a34bc5b8b06607bef29" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Eight-queens-animation.gif" style="width: 40%;" /></p>
+<p><img alt="46db1e452c3c42faa46b4d3bc62c246e" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Eight-queens-animation.gif" style="width: 40%;" /></p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
 <p>エイトクイーンは、 ほとんどの情報系大学の演習問題として、一度は挑戦する課題です。 プログラミング力を鍛えるよい練習問題だからです。</p>
@@ -695,29 +692,37 @@ div.rendered_html tbody tr:hover {
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="py14pil.html" class="btn btn-neutral float-right" title="14. PNGアニメーション" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="py12dp.html" class="btn btn-neutral float-left" title="12. 動的計画法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="py14pil.html" class="btn btn-neutral float-right" title="14. PNGアニメーション" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="py12dp.html" class="btn btn-neutral float-left" title="12. 動的計画法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, 倉光君郎(Kimio Kuramitsu).
+        
+        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
