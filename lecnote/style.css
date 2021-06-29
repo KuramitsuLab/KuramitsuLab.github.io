@@ -45,6 +45,19 @@ span.label-ac{
   background-color: #5cb85c;
 }
 
+span.label-mod {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 80%;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  background-color: orange;
+}
+
 span.label-wa {
   display: inline;
   padding: .2em .6em .3em;
