@@ -483,8 +483,8 @@ div.rendered_html tbody tr:hover {
 </table>
 <p><strong>キー(key)</strong> は、「主キー制約」などに用いられるデータベース用語です。 データセットにおいて、重複しないユニークな値であれば文字列でなくても構いません。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">辞書の別称</p>
-<p>辞書は、色々な呼称がある。</p>
+<p class="admonition-title fa fa-exclamation-circle"><strong>辞書の別称</strong></p>
+<p>辞書は、プログラミング言語によって、色々な呼称がある。</p>
 <ul class="simple">
 <li><p>ハッシュ表 (hash table)</p></li>
 <li><p>連想記憶配列</p></li>
@@ -507,7 +507,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>線形リストの前から順番にキーを調べていくことで、キーに対応付けられた値を探すことができます。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -552,19 +552,21 @@ div.rendered_html tbody tr:hover {
 <p>同じように、線形リストの内容を検索する前にアルファベット順に並べておけば、英和辞典のように調べられるようになります。</p>
 <p>ポイントは、リストの中央を調べて、探しているキーがリストの前半にあるか、それとも後半にあ るか、調べることです。前半にあったら、また前半の中央を調べるように繰り返します。後半の場 合も同様に繰り返します。リストの探索域を狭めていき、空になるまで繰り返します。</p>
 <p>リストの探索域が半分になっていくので、二分探索 (binary search) と呼ばれます。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">DataBase</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span></span><span class="c1"># ソート</span>
+<span class="n">DataBase</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
 <span class="k">def</span> <span class="nf">binary_find</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">DataBase</span><span class="p">)):</span>
     <span class="n">mid</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">end</span> <span class="o">//</span> <span class="mi">2</span>
     <span class="c1"># 中央のタプルをとる</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">value</span>
-    <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+    <span class="n">ekey</span><span class="p">,</span> <span class="n">evalue</span> <span class="o">=</span> <span class="n">DataBase</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">ekey</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">evalue</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">ekey</span><span class="p">:</span>
         <span class="c1"># key は前半にある</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">mid</span>
     <span class="k">else</span><span class="p">:</span>
@@ -580,7 +582,15 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>二分探索は、平均計算量は、探索域が 2 分の 1 に絞られていくので、対数時間 <span class="math notranslate nohighlight">\(O(log N )\)</span> となります。 実用上も理論上も心配のいらない計算量といえます。しかし、頻繁にデータベースが更新され るときは注意が必要になります。データベースが更新される度に、ソートしていたら、ソート・ア ルゴリズムの計算量 <span class="math notranslate nohighlight">\(O(N log N )\)</span> の計算コストが必要になります。</p>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+300
+</pre></div></div>
+</div>
+<p>二分探索は、平均計算量は、探索域が 2 分の 1 に絞られていくので、対数時間 <span class="math notranslate nohighlight">\(O(log N )\)</span> となります。 実用上も理論上も心配のいらない計算量といえます。しかし、頻繁にデータベースが更新されるときは注意が必要になります。データベースが更新される度に、ソートしていたら、ソート・アルゴリズムの計算量 <span class="math notranslate nohighlight">\(O(N log N )\)</span> の計算コストが必要になります。</p>
 <div class="admonition note">
 <p class="admonition-title fa fa-exclamation-circle">二分探索 (Binary Search)</p>
 <p>探索域を分割する分割統治法による探索アルゴリズム</p>
@@ -591,8 +601,8 @@ div.rendered_html tbody tr:hover {
 <p>最後に、定数計算時間 O(1) でアクセスできる辞書の作り方をみてみましょう。定数時間ということは、辞書の大きさがどんなに大きくなっても計算コストは一定であるという夢のアルゴリズムといえます。</p>
 <p>まず、配列は「O(1) で要素にアクセスできるデータ構造」ということを思い出しておきましょう。 だから、辞書のキーを配列のインデックスに変換できれば、配列に格納できるようになります。</p>
 <p>Python は、オブジェクトのハッシュ値(整数)を計算する組み込み関数 <code class="docutils literal notranslate"><span class="pre">hash(x)</span></code> を提供しています。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -604,9 +614,21 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+apple 6676052660308446185
+orange 3908635519303473139
+banana 8531009946719913269
+pineapple -895507610814638941
+grape -660568232534393894
+</pre></div></div>
+</div>
 <p>残念ながら、ハッシュ値は大き過ぎるので、そのままインデックスにすることはできません。しかし、適切な大きさ<span class="math notranslate nohighlight">\(M\)</span>でモジュロを計算すると、よい感じの値になってくれます。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -614,14 +636,26 @@ div.rendered_html tbody tr:hover {
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">)</span> <span class="o">%</span><span class="k">M</span> )
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">)</span> <span class="o">%</span><span class="k">M</span> )
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>この <code class="docutils literal notranslate"><span class="pre">hash(key)</span> <span class="pre">%</span> <span class="pre">M</span></code> を配列のインデックスにして配列に格納すると、<span class="math notranslate nohighlight">\(O(1)\)</span> で検索できるようになり ます。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+apple 60
+orange 59
+banana 73
+pineapple 16
+grape 35
+</pre></div></div>
+</div>
+<p>この <code class="docutils literal notranslate"><span class="pre">hash(key)</span> <span class="pre">%</span> <span class="pre">M</span></code> を配列のインデックスにして配列に格納すると、<span class="math notranslate nohighlight">\(O(1)\)</span> で検索できるようになります。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -636,29 +670,49 @@ div.rendered_html tbody tr:hover {
 <span class="n">hash_set</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="n">hash_set</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">hash_find</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">hash_find</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">HashDB</span><span class="p">[</span><span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">hash_find</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+300
+</pre></div></div>
+</div>
 <div class="section" id="ハッシュ法と衝突">
 <h3><span class="section-number">11.4.1. </span>ハッシュ法と衝突<a class="headerlink" href="#ハッシュ法と衝突" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ハッシュ表の原理をみてきました。計算量の少ないアルゴリズムは原理も実装もシンプルなことが多いです。ただし、一つだけ困ったことが残っています。それは、<span class="math notranslate nohighlight">\(M\)</span> の値が小さいと、時々、モジュロをとったハッシュ値が同じ値になってしまうことです。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">７</span>
+<span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">7</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">)</span> <span class="o">%</span><span class="k">M</span> )
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">)</span> <span class="o">%</span><span class="k">M</span> )
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;pineapple&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">&#39;grape&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span> <span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+apple 1
+orange 6
+banana 1
+pineapple 0
+grape 3
+</pre></div></div>
 </div>
 <p>上の場合では、’apple’ と’banana’ の値は、共に HashDB[2] に格納されることになります。このような状態を<strong>衝突 (collision)</strong> と呼びます。</p>
 <p>ハッシュ表では、十分に大きなハッシュ表を作れば、衝突の発生頻度は下げられますが、原理的に回避することはできません。衝突が発生したとき、データを消さないようにする仕組みが必要になります。</p>
@@ -672,8 +726,8 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="結論：ありがたく辞書を使おう">
 <h2><span class="section-number">11.5. </span>結論：ありがたく辞書を使おう<a class="headerlink" href="#結論：ありがたく辞書を使おう" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Python は、ハッシュ表に基づく高性能な辞書をユーザに提供してくれています。よほどのことがない限り、自分で辞書を開発する必要はありません。むしろ、使いこなせるようにならないと、プログラミングの神様からバチが当たりますよ。</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -682,11 +736,19 @@ div.rendered_html tbody tr:hover {
     <span class="s1">&#39;banana&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
     <span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
     <span class="s1">&#39;pineapple&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-    <span class="s1">&#39;grape&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="s1">&#39;grape&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">DataBase</span><span class="p">[</span><span class="s1">&#39;grape&#39;</span><span class="p">])</span> <span class="c1">#300 と 表 示 さ れ る</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+300
+</pre></div></div>
 </div>
 <p><strong>覚えておきたい主な辞書(d)の操作</strong></p>
 <table class="docutils align-default">

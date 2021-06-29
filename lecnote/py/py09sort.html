@@ -122,7 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#帰着">10.4.4. 帰着</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#分割倒置法">10.5. 分割倒置法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#分割統治法">10.5. 分割統治法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#演習問題">10.6. 演習問題</a></li>
 </ul>
 </li>
@@ -971,9 +971,9 @@ div.rendered_html tbody tr:hover {
 <p>なお、中央値は、ソートを用いず、「<span class="math notranslate nohighlight">\(n\)</span> 個の要素をもつ集合の <span class="math notranslate nohighlight">\(i\)</span> 番目に小さい要素を計算量 <span class="math notranslate nohighlight">\(O(n)\)</span> で 計算するアルゴリズム」に帰着させれば、線形最悪時間で解くこともできるようです。</p>
 </div>
 </div>
-<div class="section" id="分割倒置法">
-<h2><span class="section-number">10.5. </span>分割倒置法<a class="headerlink" href="#分割倒置法" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>計算量は、入力データのサイズ <span class="math notranslate nohighlight">\(N\)</span> に依存することがわかってきた思います。効率のよいアルゴリズ ムのコツは、入力データのサイズを分割して、<span class="math notranslate nohighlight">\(N\)</span>の要因を下げることです。このようなアルゴリズム・デザインの戦略を<strong>分割倒置法 (divide-and-conquer)</strong> と呼びます。</p>
+<div class="section" id="分割統治法">
+<h2><span class="section-number">10.5. </span>分割統治法<a class="headerlink" href="#分割統治法" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>計算量は、入力データのサイズ <span class="math notranslate nohighlight">\(N\)</span> に依存することがわかってきた思います。効率のよいアルゴリズ ムのコツは、入力データのサイズを分割して、<span class="math notranslate nohighlight">\(N\)</span>の要因を下げることです。このようなアルゴリズム・デザインの戦略を<strong>分割統治法 (divide-and-conquer)</strong> と呼びます。</p>
 <p><strong>分割倒置法の例</strong></p>
 <ul class="simple">
 <li><p>二分探索　二分法</p></li>
@@ -981,10 +981,10 @@ div.rendered_html tbody tr:hover {
 <li><p>マージソート</p></li>
 </ul>
 <p>分割統治法のコツは、並列アルゴリズムのように単に入力データを分割するだけでなく、分割を再帰的に繰り返し、N/2, N/4, N/8 と細かくしていくことです。</p>
-<div class="admonition tip"><p><strong>例題（分割倒置法）</strong></p>
-<p><span class="math notranslate nohighlight">\(3^{16}\)</span>を分割倒置法で効率よく計算してみよう。</p>
+<div class="admonition tip"><p><strong>例題（分割統治法）</strong></p>
+<p><span class="math notranslate nohighlight">\(3^{16}\)</span>を分割統治法で効率よく計算してみよう。</p>
 </div><p>まずは、紙とえんぴつを用意して解いてみましょう。</p>
-<p><img alt="a26787bccb4049d6a7d0a74e22da5904" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
+<p><img alt="3bdf07274bca4e2eab89815fa88cff25" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
 <p>普通に計算すると、3を15回、掛け算することになります。</p>
 <div class="math notranslate nohighlight">
 \[3^{16} = 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3 \times 3\]</div>
