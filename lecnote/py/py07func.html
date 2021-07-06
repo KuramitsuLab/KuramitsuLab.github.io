@@ -1,195 +1,327 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="ja" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>6. 関数、再帰関数、そして高階関数 &mdash; Python Programming 2021  ドキュメント</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6. 関数、再帰関数、そして高階関数 &#8212; Python Programming 2021  ドキュメント</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="7. プログラミング上達のコツ" href="py06tips.html" />
-    <link rel="prev" title="5. 文字と情報" href="py05string.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="5. 文字と情報" href="py05string.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. 関数、再帰関数、そして高階関数</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#関数を定義する">6.1. 関数を定義する</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#関数定義">6.1.1. 関数定義</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#値を返さない関数">6.1.2. 値を返さない関数</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#再帰とは">6.2. 再帰とは</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#繰り返しと再帰関数">6.2.1. 繰り返しと再帰関数</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#スタックオーバーフローとは何か？">6.2.2. スタックオーバーフローとは何か？</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#閑話休題：入社面談より">6.2.3. 閑話休題：入社面談より</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ラムダ式と高階関数★">6.3. ラムダ式と高階関数★</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#関数も値">6.3.1. 関数も値</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ラムダ式">6.3.2. ラムダ式</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#高階関数">6.3.3. 高階関数</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#内包記法と高階関数">6.3.4. 内包記法と高階関数</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">6.4. 演習問題</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ヒント：Colab上で入力がめんどくさく感じたら">6.4.1. ヒント：Colab上で入力がめんどくさく感じたら</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Python Programming 2021</a>
-        
-      </nav>
+      
+      <h1 class="site-logo" id="site-title">Python Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="py01oj.html">
+   1. プログラミングの練習を始めよう
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py02eval.html">
+   2. 変数を評価する
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py03if.html">
+   3. 条件によって動作を変える
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py04forlist.html">
+   4. リストと繰り返し
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py05string.html">
+   5. 文字と情報
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   6. 関数、再帰関数、そして高階関数
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py06tips.html">
+   7. プログラミング上達のコツ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py08algo.html">
+   8. アルゴリズムを学ぶ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py10prime.html">
+   9. 整数アルゴリズム
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py09sort.html">
+   10. ソートと計算量
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py11dict.html">
+   11. 辞書を作ってみる
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py12dp.html">
+   12. 動的計画法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py13search.html">
+   13. 深さ優先探索と幅優先探索
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py14pil.html">
+   14. PNGアニメーション
+  </a>
+ </li>
+</ul>
 
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">6. </span>関数、再帰関数、そして高階関数</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/py07func.ipynb.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/py07func.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2Fpy07func.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#関数を定義する">
+   6.1. 関数を定義する
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#関数定義">
+     6.1.1. 関数定義
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#値を返さない関数">
+     6.1.2. 値を返さない関数
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#再帰とは">
+   6.2. 再帰とは
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#繰り返しと再帰関数">
+     6.2.1. 繰り返しと再帰関数
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#スタックオーバーフローとは何か？">
+     6.2.2. スタックオーバーフローとは何か？
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#閑話休題：入社面談より">
+     6.2.3. 閑話休題：入社面談より
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ラムダ式と高階関数★">
+   6.3. ラムダ式と高階関数★
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#関数も値">
+     6.3.1. 関数も値
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ラムダ式">
+     6.3.2. ラムダ式
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#高階関数">
+     6.3.3. 高階関数
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#内包記法と高階関数">
+     6.3.4. 内包記法と高階関数
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#演習問題">
+   6.4. 演習問題
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ヒント：Colab上で入力がめんどくさく感じたら">
+     6.4.1. ヒント：Colab上で入力がめんどくさく感じたら
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   
 <style>
 /* CSS for nbsphinx extension */
@@ -437,33 +569,11 @@ div.rendered_html tbody tr:nth-child(odd) {
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
-
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="section" id="関数、再帰関数、そして高階関数">
 <h1><span class="section-number">6. </span>関数、再帰関数、そして高階関数<a class="headerlink" href="#関数、再帰関数、そして高階関数" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>より抽象度の高いプログラミングを目指して、関数、ラムダ式、高階関数の考え方を習得します。</p>
-<p><img alt="1cce27f5a2fa405da933329d51a2e7c2" src="http://s3.amazonaws.com/lyah/fx.png" /></p>
+<p><img alt="36f803dfce3548628def7d36729be6cc" src="http://s3.amazonaws.com/lyah/fx.png" /></p>
 <div class="section" id="関数を定義する">
 <h2><span class="section-number">6.1. </span>関数を定義する<a class="headerlink" href="#関数を定義する" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>今まで、<code class="docutils literal notranslate"><span class="pre">print(x)</span></code>関数や<code class="docutils literal notranslate"><span class="pre">max(x,y)</span></code>を使ってプログラミングをしてきました。 今回は、まず関数を定義する方法を覚えましょう。</p>
@@ -526,7 +636,7 @@ f(9) = 10
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">関数本体に書けること</p>
+<p class="admonition-title">関数本体に書けること</p>
 <p>Python の関数は、パラメータを受け取り、計算して結果を返すプログラムです。 途中で、任意のPython コードを用いて計算することができます。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;引数&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
@@ -562,7 +672,7 @@ f(9) = 10
 </div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">グローバル変数とローカル変数</p>
+<p class="admonition-title">グローバル変数とローカル変数</p>
 <p>グローバル変数は、トップレベルで定義された変数で全ての関数から参照することができる。 一方、ローカル変数は関数内で定義された変数で関数内でのみ参照することができる。</p>
 </div>
 <p><strong>3.</strong> <span class="math notranslate nohighlight">\(f(a, b) = \begin{cases}  a &amp; (a&gt;b) \\  b &amp; (otherwise)  \end{cases}\)</span></p>
@@ -628,7 +738,7 @@ f(9) = 10
 </div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">再帰関数(recursive function)</p>
+<p class="admonition-title">再帰関数(recursive function)</p>
 <p>自分自身を再度呼び出す関数のこと</p>
 </div>
 </div>
@@ -698,7 +808,7 @@ f(9) = 10
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">関数を作るタイミング</p>
+<p class="admonition-title">関数を作るタイミング</p>
 <p>どこをどう関数化するかを判断するのは難しいところです。 最初は、練習をかねて積極的に関数化していきましょう。</p>
 </div>
 </div>
@@ -773,7 +883,7 @@ f(9) = 10
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">再帰構造とループ</p>
+<p class="admonition-title">再帰構造とループ</p>
 <p>再帰構造はループ (while 文, for 文) とプログラム意味論的には等価です。</p>
 <ul class="simple">
 <li><p>ループは再帰で書き直すことができる.</p></li>
@@ -797,7 +907,7 @@ f(9) = 10
 <li><p>末尾再帰の最適化がない言語は使わなければよい（意味不明）</p></li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">注意</p>
+<p class="admonition-title">注意</p>
 <p>倉光は再帰派（少数）なので、再帰に対し好意的です。</p>
 </div>
 </div>
@@ -806,7 +916,7 @@ f(9) = 10
 <p>再帰関数を書くときは、スタックオーバーフローに注意しましょう。</p>
 <p>スタック・オーバーフロー (stack overflow) は、再帰関数に限らずに関数のコールスタックを使い切ったときに発生します。プログラミングでは、わりとよく発生するバグです。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">コールスタック</p>
+<p class="admonition-title">コールスタック</p>
 <p>プログラミング言語は、関数の引数やローカル変数はスタックデータ構造に保存しています。</p>
 <ul class="simple">
 <li><p>関数を適用(コールする)と、引数とローカル変数は push される</p></li>
@@ -852,7 +962,7 @@ n=5の結果として120を返す
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s Try</p>
+<p class="admonition-title">Let’s Try</p>
 <p>スタックオーバーフローを発生させてみましょう</p>
 </div>
 <p>再帰関数では簡単に発生します。例えば、<code class="docutils literal notranslate"><span class="pre">factorial(-1)</span></code>などを呼んでみると、いつまでも再帰呼び出しを続けて、コールスタックを使い切ります。</p>
@@ -907,7 +1017,7 @@ n=5の結果として120を返す
 </pre></div></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">RecursionError: スタックオーバーフローのこと</p>
+<p class="admonition-title">RecursionError: スタックオーバーフローのこと</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">RecursionError</span><span class="p">:</span> <span class="n">maximum</span> <span class="n">recursion</span> <span class="n">depth</span> <span class="n">exceeded</span> <span class="ow">in</span> <span class="n">comparison</span>
 </pre></div>
 </div>
@@ -917,7 +1027,7 @@ n=5の結果として120を返す
 <h3><span class="section-number">6.2.3. </span>閑話休題：入社面談より<a class="headerlink" href="#閑話休題：入社面談より" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>google関数は、研究室の学生が過去 G 社の入社面談を受けたとき、ホワイトボードの前で「ちょっと書いてみて」と聞かれた設問です。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">ホワイトボード・コーディング</p>
+<p class="admonition-title">ホワイトボード・コーディング</p>
 <p>面接でプログラミング力を試させること。 ただ、書くだけでなく、エレガントなコーディングやセンスも問われる。</p>
 </div>
 <div class="admonition tip"><p><strong>課題（入社面談より）</strong></p>
@@ -936,7 +1046,7 @@ n=5の結果として120を返す
 <p>ラムダ式や高階関数は、もともと<a class="reference external" href="https://ja.wikipedia.org/wiki/関数型プログラミング">関数型プログラミング言語</a>に由来し、Python では上級？技法（少なくとも初心者むけの技法ではない）に位置するものです。</p>
 <p>だから、飛ばしてもらっても構いませんと言いたいところですが、３年生むけのデータサイエンスや機械学習では、容赦なく使われるのでやはりここでしっかり抑えておいて欲しいです。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">この章</p>
+<p class="admonition-title">この章</p>
 <p>知っておいて欲しいけど</p>
 </div>
 <div class="section" id="関数も値">
@@ -1120,7 +1230,7 @@ function
 </div>
 <p>なお、Python3 では、map 関数と filter 関数は組み込み関数として定義されているため、ふだんは自分で定義する必要はありません。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p class="admonition-title">Let’s try</p>
 <p>そろそろ、おなじみの<code class="docutils literal notranslate"><span class="pre">map(int,</span> <span class="pre">input().split())</span></code>がどんな処理をしているか説明できますね。</p>
 </div>
 </div>
@@ -1147,7 +1257,7 @@ function
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">内包記法</p>
+<p class="admonition-title">内包記法</p>
 <p>高階関数のmap()とfilter()をミックスしたことが簡単に書けます。 Pythonでは、内包記法を積極的に活用していきましょう。</p>
 </div>
 </div>
@@ -1266,7 +1376,7 @@ function
 </pre></div></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">必ずいるので注意</p>
+<p class="admonition-title">必ずいるので注意</p>
 <p>AtCoder に提出するときは、<code class="docutils literal notranslate"><span class="pre">In(...)</span></code>の部分は入れないでください。 <code class="docutils literal notranslate"><span class="pre">input()</span></code>を書き換えるので、正しくAtCoderの入力が読めなくなります。</p>
 </div>
 </div>
@@ -1274,59 +1384,36 @@ function
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="py06tips.html" class="btn btn-neutral float-right" title="7. プログラミング上達のコツ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="py05string.html" class="btn btn-neutral float-left" title="5. 文字と情報" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
+              </div>
+              
         
-        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="py05string.html" title="previous page"><span class="section-number">5. </span>文字と情報</a>
+    <a class='right-next' id="next-link" href="py06tips.html" title="next page"><span class="section-number">7. </span>プログラミング上達のコツ</a>
 
         </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>

@@ -1,189 +1,339 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="ja" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>13. 深さ優先探索と幅優先探索 &mdash; Python Programming 2021  ドキュメント</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>13. 深さ優先探索と幅優先探索 &#8212; Python Programming 2021  ドキュメント</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="14. PNGアニメーション" href="py14pil.html" />
-    <link rel="prev" title="12. 動的計画法" href="py12dp.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="12. 動的計画法" href="py12dp.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. 深さ優先探索と幅優先探索</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#木構造とグラフ">13.1. 木構造とグラフ</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#木構造(Tree)">13.1.1. 木構造(Tree)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#グラフ構造">13.1.2. グラフ構造</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#グラフ探索問題">13.2. グラフ探索問題</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#探索の例:-油分け算">13.3. 探索の例: 油分け算</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#考え方">13.3.1. 考え方</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#アルゴリズム化">13.3.2. アルゴリズム化</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#探索プログラムを作る">13.3.3. 探索プログラムを作る</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#探索経路の表示">13.3.4. 探索経路の表示</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#最短経路">13.3.5. 最短経路</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#エイトクイーン">13.4. エイトクイーン</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">13.5. 演習問題</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Python Programming 2021</a>
-        
-      </nav>
+      
+      <h1 class="site-logo" id="site-title">Python Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="py01oj.html">
+   1. プログラミングの練習を始めよう
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py02eval.html">
+   2. 変数を評価する
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py03if.html">
+   3. 条件によって動作を変える
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py04forlist.html">
+   4. リストと繰り返し
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py05string.html">
+   5. 文字と情報
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py07func.html">
+   6. 関数、再帰関数、そして高階関数
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py06tips.html">
+   7. プログラミング上達のコツ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py08algo.html">
+   8. アルゴリズムを学ぶ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py10prime.html">
+   9. 整数アルゴリズム
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py09sort.html">
+   10. ソートと計算量
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py11dict.html">
+   11. 辞書を作ってみる
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py12dp.html">
+   12. 動的計画法
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   13. 深さ優先探索と幅優先探索
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py14pil.html">
+   14. PNGアニメーション
+  </a>
+ </li>
+</ul>
 
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">13. </span>深さ優先探索と幅優先探索</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/py13search.ipynb.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/py13search.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2Fpy13search.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#木構造とグラフ">
+   13.1. 木構造とグラフ
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#木構造(Tree)">
+     13.1.1. 木構造(Tree)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#グラフ構造">
+     13.1.2. グラフ構造
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#グラフ探索問題">
+   13.2. グラフ探索問題
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#深さ優先探索-(depth-first-search)">
+     13.2.1. 深さ優先探索 (depth-first search)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#幅優先探索(breadth-first-search)">
+     13.2.2. 幅優先探索(breadth-first search)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#探索の例:-油分け算">
+   13.3. 探索の例: 油分け算
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#考え方">
+     13.3.1. 考え方
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#アルゴリズム化">
+     13.3.2. アルゴリズム化
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#深さ優先探索によるプログラム例">
+     13.3.3. 深さ優先探索によるプログラム例
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#関数-dfs(a,b)">
+       関数 dfs(a,b)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#探索経路の表示">
+     13.3.4. 探索経路の表示
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#最短経路">
+     13.3.5. 最短経路
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#演習問題">
+   13.4. 演習問題
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#エイトクイーン">
+     13.4.1. エイトクイーン
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#課題リスト">
+     13.4.2. 課題リスト
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   
 <style>
 /* CSS for nbsphinx extension */
@@ -431,38 +581,16 @@ div.rendered_html tbody tr:nth-child(odd) {
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
-
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="section" id="深さ優先探索と幅優先探索">
 <h1><span class="section-number">13. </span>深さ優先探索と幅優先探索<a class="headerlink" href="#深さ優先探索と幅優先探索" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>グラフ探索の基本である<strong>深さ優先探索 (DFS)</strong> と<strong>幅優先探索 (BFS)</strong> を学んでいきましょう。いよい よ、2年生で学ぶアルゴリズムのクライマックスとなります。</p>
+<p>グラフ探索の基本である<strong>深さ優先探索 (DFS)</strong> と<strong>幅優先探索 (BFS)</strong> を学んでいきましょう。 いよいよ、2年生で学ぶアルゴリズムのクライマックスとなります。</p>
 <div class="section" id="木構造とグラフ">
 <h2><span class="section-number">13.1. </span>木構造とグラフ<a class="headerlink" href="#木構造とグラフ" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>まず、基本データ構造の木構造とグラフ構造の用語を抑えておきましょう。</p>
 <div class="section" id="木構造(Tree)">
 <h3><span class="section-number">13.1.1. </span>木構造(Tree)<a class="headerlink" href="#木構造(Tree)" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>木構造は、<strong>ノード(node, 節点、頂点)</strong>とノード間を結ぶ<strong>エッジ(edge, 枝、辺)</strong>で表すデータ構造です。ルート(root) と呼ばれる頂点があるのが特徴です。</p>
+<p>木構造は、<strong>ノード(node, 節点、頂点)</strong>とノード間を結ぶ<strong>エッジ(edge, 枝、辺)</strong>で表すデータ構造です。<strong>ルート(root,根)</strong>と呼ばれる頂点があるのが特徴です。</p>
 <p><img alt="tree_data-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/3c976773-c6fc-16bd-949c-0dc99d2839ef.png" /></p>
 <p><strong>重要なバリエーション</strong></p>
 <ul class="simple">
@@ -484,8 +612,9 @@ div.rendered_html tbody tr:hover {
 <p><strong>重要なバリエーション</strong></p>
 <ul class="simple">
 <li><p><strong>有向/無向 (directed or not)</strong> : エッジが方向をもつか持たないか?</p></li>
-<li><p><strong>巡回/非巡回 (cyclic or acyclic)</strong> : 巡回するかしないか? グラフも、コンピュータ技術では広く利用されます。</p></li>
+<li><p><strong>巡回/非巡回 (cyclic or acyclic)</strong> : 巡回するかしないか?</p></li>
 </ul>
+<p>グラフも、コンピュータ技術では広く利用されます。</p>
 <p><strong>応用例</strong></p>
 <ul class="simple">
 <li><p>ネットワーク状のデータ構造(Web など)</p></li>
@@ -495,31 +624,40 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="グラフ探索問題">
 <h2><span class="section-number">13.2. </span>グラフ探索問題<a class="headerlink" href="#グラフ探索問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>グラフ探索問題とは、あるスタート地点(木の場合は主にルート)から<strong>ノードを巡回し、ゴールとなるノードを探す</strong>問題です。</p>
+<p>グラフ探索問題とは、あるノード(木の場合は主にルート)から<strong>ノードを巡回し、ゴールとなるノードを探す</strong>問題です。</p>
 <p><img alt="dfs0-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9cc11b25-1b97-43e4-91ff-db5940f94e0b.png" /></p>
 <p>ノードを巡回する順番によって、次の2つのアルゴリズムに分類されます。</p>
-<p><strong>深さ優先探索 (depth-first search)</strong></p>
-<p>現在のノードを調査し、その子ノードに対して同じことを繰り返す。 見つからなかったら、未調査の子ノードのあるノードにバックトラックします。</p>
+<div class="section" id="深さ優先探索-(depth-first-search)">
+<h3><span class="section-number">13.2.1. </span>深さ優先探索 (depth-first search)<a class="headerlink" href="#深さ優先探索-(depth-first-search)" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>現在のノードを調査し、子ノードのひとつを選んで調査を進めていきます。 見つからなかったら、未調査の子ノードのあるノードに戻って調査を行います。</p>
 <p><img alt="dfs-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/77ba13f0-dab2-ed45-94bf-5002058e3556.png" /></p>
-<p><strong>幅優先探索(breadth-first search)</strong></p>
+<div class="admonition note">
+<p class="admonition-title"><strong>バックトラック(backtracking)</strong></p>
+<p>深さ優先探索などで、前の状態に戻って探索を再開すること</p>
+</div>
+</div>
+<div class="section" id="幅優先探索(breadth-first-search)">
+<h3><span class="section-number">13.2.2. </span>幅優先探索(breadth-first search)<a class="headerlink" href="#幅優先探索(breadth-first-search)" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>深さが同じノードを浅い方から順に走査していきます。</p>
 <p><img alt="bfs-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/193ee00e-a2fe-c04d-0742-1cc9a639e455.png" /></p>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">必修</p>
-<p>深さ優先探索と幅優先探索の概念的な違いだけ必ず区別しよう</p>
+<p class="admonition-title">必修</p>
+<p>深さ優先探索と幅優先探索の概念的な違いだけは、 必ず区別できるようにしよう</p>
+</div>
 </div>
 </div>
 <div class="section" id="探索の例:-油分け算">
 <h2><span class="section-number">13.3. </span>探索の例: 油分け算<a class="headerlink" href="#探索の例:-油分け算" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>江戸時代の算術書『塵劫記』には、「油分け算」という興味深い問題が掲載されています。現代風に アレンジすると、</p>
+<p>江戸時代の算術書『<a class="reference external" href="https://ja.wikipedia.org/wiki/%E5%A1%B5%E5%8A%AB%E8%A8%98">塵劫記</a>』には、「油分け算」という興味深い問題が掲載されています。</p>
+<p>現代風にアレンジすると、次のような例題にあんります。</p>
 <div class="admonition tip"><p><strong>例題（油分け算）</strong></p>
-<p>10L の容器いっぱいに油が入っている。7L の容器 A と 3L の容器 B を使って、 この油を 5L ずつに分ける。どのような分け方があるか?</p>
+<p>10L の容器いっぱいに油が入っている。7L の容器 A と 3L の容器 B を使って、 この油を 5L ずつに分けたい。どのような分け方があるか?</p>
 </div><p>油分け算は、実はグラフの探索問題として解くことができます。 まずは、紙とえんぴつを用意して解いてみましょう。</p>
-<p><img alt="eccaba91d93048ff8b48b442d5dc5f95" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
+<p><img alt="f46d58e9a4fe4ea9992fd37c31aa3d8e" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
 <div class="section" id="考え方">
 <h3><span class="section-number">13.3.1. </span>考え方<a class="headerlink" href="#考え方" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>容器 A, B にそれぞれ aL, bL 入っている状態を (a, b) のペアで表現することにします。 最初の状態は、(0,0) とします。(5, 0)の状態になるか探索します。</p>
-<table class="docutils align-default">
+<p>容器 A, B にそれぞれ <span class="math notranslate nohighlight">\(a\)</span> L, <span class="math notranslate nohighlight">\(b\)</span> L 入っている状態を (a, b) のペアで表現することにします。 最初の状態は、(0,0) とします。ここから、(5, 0)の状態になるまで、操作を繰り返してゆきます。</p>
+<table class="table">
 <colgroup>
 <col style="width: 15%" />
 <col style="width: 9%" />
@@ -550,38 +688,61 @@ div.rendered_html tbody tr:hover {
 </tr>
 </tbody>
 </table>
-<p>図に書くと、次のようになります。</p>
+<p>このような操作を図に書くと、次のようなグラフになります。</p>
 <p><img alt="yuwake-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/08ad820f-4e9c-74c1-09b6-569c1ff2a3c9.png" /></p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p class="admonition-title">Let’s try</p>
 <p>(5, 0) の状態になるまで油の移動を書き出してみよう！</p>
 </div>
 </div>
 <div class="section" id="アルゴリズム化">
 <h3><span class="section-number">13.3.2. </span>アルゴリズム化<a class="headerlink" href="#アルゴリズム化" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>油分け算は、次のどれかの操作によって油をうつすことができます。</p>
-<p>可能な操作: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">→</span> <span class="pre">(a′,</span> <span class="pre">b′)</span></code></p>
+<p>油分け算は、<code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span></code>のとき、以下のいずれかの操作によって、<code class="docutils literal notranslate"><span class="pre">(a',</span> <span class="pre">b')</span></code>の状態に、油を移すことができます。</p>
+<p>可能な油分けの操作: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">→</span> <span class="pre">(a′,</span> <span class="pre">b′)</span></code></p>
 <ul class="simple">
 <li><p><strong>容器 A を満杯にする</strong>: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">-&gt;</span> <span class="pre">(7,</span> <span class="pre">b)</span></code></p></li>
-<li><p><strong>容器 B を満杯にする</strong> <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">-&gt;</span> <span class="pre">(a,</span> <span class="pre">3)</span></code></p></li>
+<li><p><strong>容器 B を満杯にする</strong>: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">-&gt;</span> <span class="pre">(a,</span> <span class="pre">3)</span></code></p></li>
 <li><p><strong>容器 A の油をこぼれないように B に移す</strong>: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">-&gt;</span> <span class="pre">(a-min(a,3-b),</span> <span class="pre">b+min(a,3-b))</span></code></p></li>
 <li><p><strong>容器 B の油をこぼれないように A に移す</strong>: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">-&gt;</span> <span class="pre">(a+min(7-a,b),</span> <span class="pre">b-min(7-a,b))</span></code></p></li>
 <li><p><strong>容器 A の油をもどす</strong>: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">-&gt;</span> <span class="pre">(0,</span> <span class="pre">b)</span></code></p></li>
 <li><p><strong>容器 B の油をもどす</strong>: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span> <span class="pre">-&gt;</span> <span class="pre">(a,</span> <span class="pre">0)</span></code></p></li>
 </ul>
-<p>上のどれかの操作を行って、(0, 0) から (5, 0) への操作手順を示せればよいわけです。</p>
-<p>気を付けなればならない点は、操作によっては同じ状態に何度もなることです。 だから、木構造の探索ではなく、グラフ構造 の探索になります。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">visited</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">#巡回を防ぐ</span>
+<p>したがって、上記のいずれかの操作を選んで、(0, 0) から (5, 0) への操作手順を示せればよいわけです。</p>
+<p>ただし、可能な操作は、最大６候補あります。それらを順番に探索するために、どの候補を探索すべきか状態を管理する必要があります。このとき、状態変化を管理するデータ構造によって、探索アルゴリズムが変わります。</p>
+<ul class="simple">
+<li><p><strong>深さ優先探索(DFS)</strong>： 前の状態を<a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF">スタック</a>に追加して探索する</p></li>
+<li><p><strong>幅優先探索(BFS)</strong>： 次に調べる状態を<a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%82%AD%E3%83%A5%E3%83%BC_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)">キュー（待ち行列）</a>に入れて探索する</p></li>
+</ul>
+</div>
+<div class="section" id="深さ優先探索によるプログラム例">
+<h3><span class="section-number">13.3.3. </span>深さ優先探索によるプログラム例<a class="headerlink" href="#深さ優先探索によるプログラム例" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>深さ優先探索は、スタックを使って (a, b) の状態遷移を管理します。</p>
+<ul class="simple">
+<li><p><strong>新しい状態を調べる</strong>: スタックに (a, b) を push する</p></li>
+<li><p><strong>前の状態に戻る(バックトラック)</strong>: スタックから pop する</p></li>
+</ul>
+<p>深さ優先探索は、<strong>スタックの代わりに</strong>再帰関数とコールスタックを使って、スタック構造を使わなくても書くことができます。だから、深さ優先探索は、幅優先探索より簡単に実装できます。</p>
+<div class="admonition note">
+<p class="admonition-title"><strong>コールスタックの原理</strong></p>
+<p>関数呼び出し(関数コール)は、引数の値をスタックにpushすることで実現しています。逆に、関数をリターンすることは、引数を pop することに相当します。</p>
+</div>
+<p><img alt="callstack-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5b6b616e-6c93-43e8-4099-89abd7c19c56.png" /></p>
+<div class="section" id="関数-dfs(a,b)">
+<h4>関数 dfs(a,b)<a class="headerlink" href="#関数-dfs(a,b)" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>dfs(a,b)を(a,b)の状態を探索する深さ優先探索アルゴリズムの実装とします。すると、<code class="docutils literal notranslate"><span class="pre">(a,b)-&gt;(a',b')</span></code>の状態遷移を探索することは、dfs(a’,b’)を再帰的に呼び出すことになります。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 
-<span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span></span><span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span> <span class="c1"># 発見 !!</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span> <span class="c1">#一度訪れていたら</span>
-        <span class="k">return</span> <span class="kc">False</span>
-    <span class="n">visited</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># 訪れた状態を記録する</span>
-
     <span class="c1"># 次の状態を探す</span>
     <span class="c1"># 容器 A を満杯にする `(a, b) -&gt; (7, b)`</span>
+    <span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
     <span class="c1"># 容器 B を満杯にする `(a, b) -&gt; (a, 3)`</span>
     <span class="c1"># 容器 A の油をこぼれないように B に移す `(a, b) -&gt; (a-min(a,3-b), b+min(a,3-b))`</span>
     <span class="c1"># 容器 B の油をこぼれないように A に移す `(a, b) -&gt; (a+min(7-a,b), b-min(7-a,b))`</span>
@@ -589,89 +750,207 @@ div.rendered_html tbody tr:hover {
     <span class="c1"># 容器 B の油をもどす `(a, b) -&gt; (a, 0)`</span>
 
     <span class="k">return</span> <span class="kc">False</span> <span class="c1"># (a, b) からは(5,0)に到達できず</span>
+
 </pre></div>
 </div>
-<p>次の状態は最大６候補あります。それらを順番に探索するために、どの候補を探索すべきか状態を管理する必要があります。</p>
-<ul class="simple">
-<li><p>深さ優先探索： スタックを使って管理する</p></li>
-<li><p>幅優先探索： キュー（待ち行列）を使って管理する</p></li>
-</ul>
 </div>
-<div class="section" id="探索プログラムを作る">
-<h3><span class="section-number">13.3.3. </span>探索プログラムを作る<a class="headerlink" href="#探索プログラムを作る" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>深さ優先探索プログラムは、再帰関数とコールスタックの原理を使って、特別なデータ構造をつかなくても書くことができます。</p>
-<p>深さ優先探索は、スタックを使って (a, b) の状態遷移を管理します。</p>
-<ul class="simple">
-<li><p><strong>新しい状態を調べる</strong>: スタックに (a, b) を push する</p></li>
-<li><p><strong>前の状態に戻る(バックトラック)</strong>: スタックから pop する</p></li>
-</ul>
-<p>深さ優先探索の重要なポイントは、スタックの代わりに再帰関数を使って書くことができる点です。 だから、深さ優先探索は、幅優先探索より簡単に実装できます。</p>
-<div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">コールスタックの原理</p>
-<p>関数コール(関数呼び出し)は、引数をスタックに積むことで実現している。 (関数はリターンすると、pop される。)</p>
-</div>
-<p><img alt="callstack-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/5b6b616e-6c93-43e8-4099-89abd7c19c56.png" /></p>
+<p>気を付けなればならない点は、油分けの操作によっては何度も同じ状態に遷移することです。だから、木構造の探索ではなく、グラフ構造の探索問題となります。</p>
+<p>同じ状態を繰り返し調べないようにするため、辞書 <code class="docutils literal notranslate"><span class="pre">visited</span></code>を使って、一度、探索した状態を記録して、繰り返さないようにします。</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+
+<span></span><span class="n">visited</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">#調べた状態を記録する</span>
+
+<span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span> <span class="c1"># 発見 !!</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span> <span class="c1">#一度訪れていたら</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">visited</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># 訪れた状態を記録する</span>
+    <span class="c1"># 次の状態を探す</span>
+    <span class="c1"># 容器 A を満杯にする `(a, b) -&gt; (7, b)`</span>
+    <span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="c1"># 容器 B を満杯にする `(a, b) -&gt; (a, 3)`</span>
+    <span class="c1"># 容器 A の油をこぼれないように B に移す `(a, b) -&gt; (a-min(a,3-b), b+min(a,3-b))`</span>
+    <span class="c1"># 容器 B の油をこぼれないように A に移す `(a, b) -&gt; (a+min(7-a,b), b-min(7-a,b))`</span>
+    <span class="c1"># 容器 A の油をもどす `(a, b) -&gt; (0, b)`</span>
+    <span class="c1"># 容器 B の油をもどす `(a, b) -&gt; (a, 0)`</span>
+
+    <span class="k">return</span> <span class="kc">False</span> <span class="c1"># (a, b) からは(5,0)に到達できず</span>
+
 </pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Let’s Try </p>
+<p>dfs(a,b)を完成させてみよう</p>
 </div>
 </div>
 </div>
 <div class="section" id="探索経路の表示">
 <h3><span class="section-number">13.3.4. </span>探索経路の表示<a class="headerlink" href="#探索経路の表示" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>関数 dfs(a,b) は、(a, b) の状態から開始して、(5, 0) に到達したら True を返します。しかし、こ のままでは、どういう手順で至ったのか (5, 0) に至ったのかわかりません。</p>
+<p>関数 dfs(a,b) は、(a, b) の状態から開始して、(5, 0) に到達したら True を返します。 しかし、このままでは、どういう操作によって (5, 0) に至ったのかわかりません。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s Try </p>
+<p class="admonition-title">Let’s Try </p>
 <p>探索経路を表示できるようにしてみよう</p>
 </div>
-<p><strong>ヒント</strong> : 探索経路は、True になるとき、コールスタックに積まれています。 正解を発見したときから，関数を戻るごとに表示すれば、(逆順になるが)順番が示されます。</p>
+<p><strong>ヒント</strong> : 正解を発見したときから，関数を戻るごとに表示すれば、(逆順になるが)順番が示されます。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">) =&gt; (</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 </div>
+<p>答えを見る前に自分で考えてみよう。</p>
+<p><img alt="04bd342fbe7e49329629421710779e7e" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 30%;" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Visited</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> <span class="c1"># (a, b)の状態を探します</span>
+  <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">return</span> <span class="kc">True</span> <span class="c1"># ゴールをみつけたら</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Visited</span><span class="p">:</span> <span class="c1"># 探索済なら探さない</span>
+    <span class="k">return</span> <span class="kc">False</span>
+  <span class="n">Visited</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;探索済&#39;</span>
+
+  <span class="c1">#1. A に油を入れる</span>
+  <span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="s1">&#39;=&gt;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="c1">#2. B に油を入れる</span>
+  <span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="s1">&#39;=&gt;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="c1"># 3. Aから Bにこぼさずうつす</span>
+  <span class="n">ab</span> <span class="o">=</span> <span class="n">a</span> <span class="k">if</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="n">b</span> <span class="p">)</span> <span class="o">&gt;</span> <span class="n">a</span> <span class="k">else</span> <span class="mi">3</span><span class="o">-</span> <span class="n">b</span>
+  <span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">ab</span><span class="p">,</span> <span class="n">b</span><span class="o">+</span><span class="n">ab</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="s1">&#39;=&gt;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">ab</span><span class="p">,</span> <span class="n">b</span><span class="o">+</span><span class="n">ab</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="c1"># 4 BからAにうつす</span>
+  <span class="n">ba</span> <span class="o">=</span> <span class="n">b</span> <span class="k">if</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">a</span> <span class="p">)</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="mi">7</span><span class="o">-</span> <span class="n">a</span>
+  <span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">ba</span> <span class="p">,</span> <span class="n">b</span><span class="o">-</span><span class="n">ba</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="s1">&#39;=&gt;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">ba</span><span class="p">,</span> <span class="n">b</span><span class="o">-</span><span class="n">ba</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="c1">#5. A を空にする</span>
+  <span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="s1">&#39;=&gt;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="c1">#6. B を空にする</span>
+  <span class="k">if</span> <span class="n">dfs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="s1">&#39;=&gt;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">return</span> <span class="kc">False</span> <span class="c1"># 見つからなかったら</span>
+
+
+<span class="n">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># (0,0)から探索します。</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(2, 3) =&gt; (5, 0)
+(2, 0) =&gt; (2, 3)
+(0, 2) =&gt; (2, 0)
+(7, 2) =&gt; (0, 2)
+(6, 3) =&gt; (7, 2)
+(6, 0) =&gt; (6, 3)
+(3, 3) =&gt; (6, 0)
+(3, 0) =&gt; (3, 3)
+(0, 3) =&gt; (3, 0)
+(7, 3) =&gt; (0, 3)
+(7, 0) =&gt; (7, 3)
+(0, 0) =&gt; (7, 0)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
 </div>
 <div class="section" id="最短経路">
 <h3><span class="section-number">13.3.5. </span>最短経路<a class="headerlink" href="#最短経路" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>深さ優先探索は名前が示すとおり、先にどんどん深く探索していきます。 つまり，手順数は多くてもお構いなしです。もっと短い手順で済む可能性があります。</p>
-<div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">深さ優先探索 </p>
+<p>深さ優先探索は、名前が示すとおり、ひとつ候補を選んでどんどん深く探索していきます。 つまり，手順数は多くてもお構いなしです。したがって、もっと短い手順で探索できる可能性があります。</p>
+<div class="admonition warning">
+<p class="admonition-title">深さ優先探索の限界</p>
 <p>最短手順は保証されない</p>
 </div>
 <p> 最短経路を探すためには、次のような方法があります。</p>
 <ul class="simple">
-<li><p><strong>幅優先探索 (breadth first search)</strong>: 同じ深さのノードから探索するため，最短手順が必ず見つかる。 原則，スタックの代わりにキューを使って容器の状態を管理する。</p></li>
+<li><p><strong>幅優先探索 (breadth first search)</strong>: 同じ深さのノードから探索するため，最短手順が必ず見つかる。 スタックの代わりにキューを使って容器の状態を管理する。</p></li>
 <li><p><strong>反復深化深さ優先探索 ( iterative deepening depth-first search)</strong>: 深さ優先探索の深さに制限を付け，徐々に制限を緩和することで浅い解を先に見つける</p></li>
 </ul>
-<p>練習問題としては，幅優先探索に挑戦してみてもらいたいです。しかし，深さ優先探索が簡単な理 由は，スタックを再帰関数で実装できる点です。幅優先探索は，スタックの代わりにキューを使う だけですが，実装はかなり手間が増えます。一方，反復深化は dfs 関数に深さ制限を付けるだけな ので，次の通り、少し直すだけで実装は比較的簡単です。</p>
-</div>
-</div>
-<div class="section" id="エイトクイーン">
-<h2><span class="section-number">13.4. </span>エイトクイーン<a class="headerlink" href="#エイトクイーン" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>「深さ優先探索」や「幅優先探索」はパズルを解くときに利用されます。 代表的なパズル問題を解いて練習しましょう。</p>
-<div class="admonition tip"><p><strong>演習問題（エイトクイーン）</strong></p>
-<p>問題 チェスのクイーンは，上下左右斜めの 8 方向，将棋の飛車と角行を合わせた動きをする。 8 個 のクイーンをチェス盤 (8 × 8) 上においたとき， どのクイーンも他のクイーンから取られないように配置する方法をすべて表示せよ。</p>
-</div><p><strong>考え方</strong></p>
-<ul class="simple">
-<li><p>2次元配列などでチェス面をデータ表現する</p></li>
-<li><p>(上の列から順番に) クイーン (Q) を置く</p></li>
-<li><p>置いたクイーン (Q) の移動できる場所を置けなくし、次の列に進む</p></li>
-<li><p>次の列で置けなかったら、バックトラック (backtrack) して前の列に戻り、別の場所を試す</p></li>
-</ul>
-<p><img alt="4f9fe455baa24569911d5b2d6aa70e0e" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Eight-queens-animation.gif" style="width: 40%;" /></p>
-<div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
-<p>エイトクイーンは、 ほとんどの情報系大学の演習問題として、一度は挑戦する課題です。 プログラミング力を鍛えるよい練習問題だからです。</p>
-<p>Webには、エイトクイーンの解説が溢れていますが、 まず解説を見ずに自力で解いてみましょう。 <strong>自力でできるところまで考えてみる</strong>というのが大切です。 レポート課題は、自分で考えて動いたところまでで提出すれば十分です。</p>
+<p>プログラミングの練習としては、是非、状態遷移をキューで管理するように変更し、幅優先探索で最短経路を探してもらいたいところです。</p>
+<p>深さ優先探索が簡単な理由は，スタックを使わずに、再帰関数で実装できる点です。幅優先探索は，スタックの代わりにキューを使うことになりますが、実装はかなり手間が増えます。一方，反復深化は dfs(a,b) 関数に、dfs(a,b,depth)のように深さ制限をつけるだけなので、少しの改良で実装できます。</p>
 </div>
 </div>
 <div class="section" id="演習問題">
-<h2><span class="section-number">13.5. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>グラフを活用する問題を集めてみました。</p>
+<h2><span class="section-number">13.4. </span>演習問題<a class="headerlink" href="#演習問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>今回は、前期アルゴリズムの最終回なのでレポート問題も出題します。</p>
+<div class="section" id="エイトクイーン">
+<h3><span class="section-number">13.4.1. </span>エイトクイーン<a class="headerlink" href="#エイトクイーン" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>「深さ優先探索」や「幅優先探索」はパズルを解くときに利用されます。 代表的なパズル問題を解いて練習しましょう。</p>
+<div class="admonition tip"><p><a href="#id13"><span class="problematic" id="id14">**</span></a>レポート問題<a href="#id15"><span class="problematic" id="id16">**</span></a><a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%A4%E3%83%88%E3%83%BB%E3%82%AF%E3%82%A4%E3%83%BC%E3%83%B3">エイトクイーン</a></p>
+<p>問題 チェスのクイーンは，上下左右斜めの 8 方向，将棋の飛車と角行を合わせた動きをする。 8 個 のクイーンをチェス盤 (8 × 8) 上においたとき，どのクイーンも他のクイーンから取られないように配置する方法をすべて表示せよ。</p>
+<p><strong>一例</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>□□□👸□□□□
+□□□□□□👸□
+□□👸□□□□□
+□□□□□□□👸
+□👸□□□□□□
+□□□□👸□□□
+👸□□□□□□□
+□□□□□👸□□
+</pre></div>
+</div>
+</div><p><strong>考え方</strong></p>
+<ul class="simple">
+<li><p>（2次元配列などで）チェス面をデータ表現する</p></li>
+<li><p>(上の列から順番に) クイーン (👸) を置く</p></li>
+<li><p>置いたクイーン (👸) の移動できる場所を置けなくし、次の列に進む</p></li>
+<li><p>次の列で置けなかったら、バックトラック (backtrack) して前の列に戻り、別の場所を試す</p></li>
+</ul>
+<p><img alt="36267ec9b4a448b88cff840481e74da1" class="no-scaled-link" src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Eight-queens-animation.gif" style="width: 40%;" /></p>
+<div class="admonition note">
+<p class="admonition-title">Let’s try</p>
+<p>エイトクイーンは、 プログラミング力を鍛える程よい練習問題として、情報系の学生が一度は挑戦する課題です。</p>
+<p>Webには、エイトクイーンの解説が溢れていますが、まずは自分の力で考えてプログラミングしてみましょう。</p>
+<ol class="arabic simple">
+<li><p>チェス盤をデータ表現できる</p></li>
+<li><p>クイーン(👸)をお互い取り合わないようにおける</p></li>
+<li><p>再帰関数で探索プログラムが書ける</p></li>
+<li><p>バックトラック処理が正しく書ける</p></li>
+<li><p>全ての配置を表示できる</p></li>
+</ol>
+<p>レポートは、自分で理解してプログラムできたところまで報告していただければいいです。 逆に、正解に至るプログラムの場合は、コピペを判定するのが難しいです。 最後までかけたら、プログラムを教員に見せてください。</p>
+</div>
+</div>
+<div class="section" id="課題リスト">
+<h3><span class="section-number">13.4.2. </span>課題リスト<a class="headerlink" href="#課題リスト" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>グラフや探索を活用する問題を集めてみました。</p>
 <p><a class="reference external" href="../ac.html">課題リスト</a>より</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://atcoder.jp/contests/abc172/tasks/abc172_c">積読</a>: 探索問題の感じ</p></li>
@@ -686,61 +965,39 @@ div.rendered_html tbody tr:hover {
 </ul>
 </div>
 </div>
+</div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="py14pil.html" class="btn btn-neutral float-right" title="14. PNGアニメーション" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="py12dp.html" class="btn btn-neutral float-left" title="12. 動的計画法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
+              </div>
+              
         
-        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="py12dp.html" title="previous page"><span class="section-number">12. </span>動的計画法</a>
+    <a class='right-next' id="next-link" href="py14pil.html" title="next page"><span class="section-number">14. </span>PNGアニメーション</a>
 
         </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>

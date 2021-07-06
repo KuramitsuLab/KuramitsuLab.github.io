@@ -1,203 +1,359 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="ja" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>8. アルゴリズムを学ぶ &mdash; Python Programming 2021  ドキュメント</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8. アルゴリズムを学ぶ &#8212; Python Programming 2021  ドキュメント</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="9. 整数アルゴリズム" href="py10prime.html" />
-    <link rel="prev" title="7. プログラミング上達のコツ" href="py06tips.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="7. プログラミング上達のコツ" href="py06tips.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">8. アルゴリズムを学ぶ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#アルゴリズムとは？">8.1. アルゴリズムとは？</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#世界最古のアルゴリズム">8.1.1. 世界最古のアルゴリズム</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#アルゴリズムとレシピ">8.1.2. アルゴリズムとレシピ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#アルゴリズムの解き方">8.1.3. アルゴリズムの解き方</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#手計算">手計算</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#プログラミング">プログラミング</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#どう解くべきか？">8.1.4. どう解くべきか？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#アルゴリズムの特徴">8.2. アルゴリズムの特徴</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#探索する（探す）">8.2.1. 探索する（探す）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#方程式の解法">8.2.2. 方程式の解法</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#中間値の定理と二分法">8.2.3. 中間値の定理と二分法</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#漸近的計算量解析">8.3. 漸近的計算量解析</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#プログラムの効率">8.3.1. プログラムの効率</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#コンピュータの性能測定">8.3.2. コンピュータの性能測定</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#計算量（複雑さ）">8.3.3. 計算量（複雑さ）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#O記法">8.3.4. O記法</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#指数時間">8.3.5. 指数時間</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#NPと計算困難★">8.4. NPと計算困難★</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#NP完全問題">8.4.1. NP完全問題</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">8.5. 演習問題</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Python Programming 2021</a>
-        
-      </nav>
+      
+      <h1 class="site-logo" id="site-title">Python Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="py01oj.html">
+   1. プログラミングの練習を始めよう
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py02eval.html">
+   2. 変数を評価する
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py03if.html">
+   3. 条件によって動作を変える
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py04forlist.html">
+   4. リストと繰り返し
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py05string.html">
+   5. 文字と情報
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py07func.html">
+   6. 関数、再帰関数、そして高階関数
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py06tips.html">
+   7. プログラミング上達のコツ
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   8. アルゴリズムを学ぶ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py10prime.html">
+   9. 整数アルゴリズム
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py09sort.html">
+   10. ソートと計算量
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py11dict.html">
+   11. 辞書を作ってみる
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py12dp.html">
+   12. 動的計画法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py13search.html">
+   13. 深さ優先探索と幅優先探索
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py14pil.html">
+   14. PNGアニメーション
+  </a>
+ </li>
+</ul>
 
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">8. </span>アルゴリズムを学ぶ</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/py08algo.ipynb.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/py08algo.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2Fpy08algo.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#アルゴリズムとは？">
+   8.1. アルゴリズムとは？
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#世界最古のアルゴリズム">
+     8.1.1. 世界最古のアルゴリズム
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#アルゴリズムとレシピ">
+     8.1.2. アルゴリズムとレシピ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#アルゴリズムの解き方">
+     8.1.3. アルゴリズムの解き方
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#手計算">
+       手計算
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#プログラミング">
+       プログラミング
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#どう解くべきか？">
+     8.1.4. どう解くべきか？
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#アルゴリズムの特徴">
+   8.2. アルゴリズムの特徴
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#探索する（探す）">
+     8.2.1. 探索する（探す）
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#方程式の解法">
+     8.2.2. 方程式の解法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#中間値の定理と二分法">
+     8.2.3. 中間値の定理と二分法
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#漸近的計算量解析">
+   8.3. 漸近的計算量解析
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#プログラムの効率">
+     8.3.1. プログラムの効率
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#コンピュータの性能測定">
+     8.3.2. コンピュータの性能測定
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#計算量（複雑さ）">
+     8.3.3. 計算量（複雑さ）
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#O記法">
+     8.3.4. O記法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#指数時間">
+     8.3.5. 指数時間
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#NPと計算困難★">
+   8.4. NPと計算困難★
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#NP完全問題">
+     8.4.1. NP完全問題
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#演習問題">
+   8.5. 演習問題
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   
 <style>
 /* CSS for nbsphinx extension */
@@ -445,28 +601,6 @@ div.rendered_html tbody tr:nth-child(odd) {
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
-
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="section" id="アルゴリズムを学ぶ">
 <h1><span class="section-number">8. </span>アルゴリズムを学ぶ<a class="headerlink" href="#アルゴリズムを学ぶ" title="このヘッドラインへのパーマリンク">¶</a></h1>
@@ -480,7 +614,7 @@ div.rendered_html tbody tr:hover {
 <p>アルゴリズムはたとえ名称が耳新しいとしても、全く未知なものではありません。</p>
 <p>みなさんが、高校生のときに習った<strong>ユークリッドの互除法</strong>は、世界最古のアルゴリズムと呼ばれ、 代表的なアルゴリズムとなっています。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">ユークリッドの互除法</p>
+<p class="admonition-title">ユークリッドの互除法</p>
 <p>自然数 <span class="math notranslate nohighlight">\(u, v\)</span> の最大公約数は、次の手順で求められる。</p>
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(u\)</span>を<span class="math notranslate nohighlight">\(v\)</span>を割った商を<span class="math notranslate nohighlight">\(q\)</span>、余りを<span class="math notranslate nohighlight">\(r\)</span>とする</p></li>
@@ -494,7 +628,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">8.1.2. </span>アルゴリズムとレシピ<a class="headerlink" href="#アルゴリズムとレシピ" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>アルゴリズムは、プログラミングにとってレシピに例えられます。もしくは、アルゴリズムとは情報のレシピと呼ぶ人もいます。</p>
 <p>「カスタードクリームを作る」レシピを比較してみましょう。</p>
-<p><img alt="f8ff91ef214a444590ad38709f1b0a20" class="no-scaled-link" src="https://img.cpcdn.com/recipes/644527/840x1461s/5c411dec210c6168f51cbdbccfc0e5b2?u=243036&amp;p=1435802070" style="width: 40%;" /></p>
+<p><img alt="8dfc52d5229c499c8dc8e3487a28efa4" class="no-scaled-link" src="https://img.cpcdn.com/recipes/644527/840x1461s/5c411dec210c6168f51cbdbccfc0e5b2?u=243036&amp;p=1435802070" style="width: 40%;" /></p>
 <p><strong>カスタードクリームのレシピ</strong></p>
 <ol class="arabic simple">
 <li><p>卵黄、砂糖、小麦粉を火にかける</p></li>
@@ -577,7 +711,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>さて、最大公約数は、ここで示したどの方法を用いても、同じ正解に至ります。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">アルゴリズムの公平性</p>
+<p class="admonition-title">アルゴリズムの公平性</p>
 <p>アルゴリズムは、誰が計算しても同じ正解が得られる</p>
 </div>
 </div>
@@ -586,7 +720,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">8.1.4. </span>どう解くべきか？<a class="headerlink" href="#どう解くべきか？" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>アルゴリズムは、コンピュータが発明される以前は、人間が手計算で計算していました。それ以外 方法がなかったからです。しかし、コンピュータが登場した現在では、人間の代わりにプログラミングして問題を解きます。 人間が手計算で解くと、計算間違いなどをするため、<strong>手計算で解く必然性は全くありません</strong>。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">IT化/DXの本質</p>
+<p class="admonition-title">IT化/DXの本質</p>
 <p>コンピュータで処理できることはコンピュータで処理する</p>
 </div>
 <p>昔は、プログラミングという技法が低く見られることがありました。曰く：</p>
@@ -597,7 +731,7 @@ div.rendered_html tbody tr:hover {
 <p>この考え方は、半分あっています。確かに、<strong>アルゴリズムを考えることが重要</strong>です。しかし、プログラミングが必要でないわけではありません。</p>
 <p>現代社会の中で活躍しているアルゴリズムの多くは、コンピュータの発明後、計算機科学者やエンジニアがプログラミングしながら考案したものです。プログラミングという技法を用いなければ生まれなかったでしょう。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">プログラミング</p>
+<p class="admonition-title">プログラミング</p>
 <p>アルゴリズムを考えるための思考の道具</p>
 </div>
 <p>プログラミング力とアルゴリズム力は、車輪の両輪です。アルゴリズムだけ暗記科目として覚える必要は全くありません。<strong>自分でアルゴリズムをプログラミングしてみないと理解できない</strong>こともあります。是非、アルゴリズムをプログラミングしながら、思考力を高めていきましょう。</p>
@@ -642,7 +776,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">全探索</p>
+<p class="admonition-title">全探索</p>
 <p>全ての組み合わせを調べること</p>
 </div>
 <p>コンピュータ上のアルゴリズムは、 コンピュータの性質や強みを活かして、問題の解決にいたるものが多いです。</p>
@@ -693,7 +827,7 @@ x = 5 f(5) = 7
 </div>
 <p>もちろん、方程式の解が整数の場合ばかりではありません。実数の場合もあります。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p class="admonition-title">Let’s try</p>
 <p><span class="math notranslate nohighlight">\(\sqrt{2}\)</span>(つまり、<span class="math notranslate nohighlight">\(x^2 - 2 = 0\)</span> の正の解)を求めてみよう。</p>
 </div>
 <p>1と2の間で、0.1にして刻み幅を小さく探してみます。</p>
@@ -784,7 +918,7 @@ x = 1.414215087890625 f(1.414215087890625) = 4.314817488193512e-06
 </div>
 <p>コンピュータは計算が速いといっても、人間より速いだけで無制限に計算できるわけではありません。 このように<strong>計算量を減らす</strong>工夫が重要になっていきます。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Newton-Raphson 法</p>
+<p class="admonition-title">Newton-Raphson 法</p>
 <p>方程式の求解アルゴリズムとしては， <a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%88%E3%83%B3%E6%B3%95">Newton-Raphson 法</a> など，より収束効率が優れたものが存在します。興味があったら、調べて書いてみよう。</p>
 </div>
 </div>
@@ -806,7 +940,7 @@ x = 1.414215087890625 f(1.414215087890625) = 4.314817488193512e-06
 <li><p>コンピュータの種類やプログラミング言語に依存しない</p></li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">コードの効率:どちらが高速?</p>
+<p class="admonition-title">コードの効率:どちらが高速?</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">*</span> <span class="mi">4</span>
 </pre></div>
 </div>
@@ -856,7 +990,7 @@ Wall time: 202 ms
 </div>
 <p>コンピュータで計測される時刻は精度の限界があります。極端に短い時間(ミリ秒以下)はあまり 信用できません。</p>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">nは35くらいまでに</p>
+<p class="admonition-title">nは35くらいまでに</p>
 <p>理由はあとから説明しますが、<span class="math notranslate nohighlight">\(n\)</span>を大きくしすぎてはいけません。</p>
 </div>
 </div>
@@ -879,7 +1013,7 @@ Wall time: 202 ms
 <h3><span class="section-number">8.3.4. </span>O記法<a class="headerlink" href="#O記法" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>コンピュータ科学では、計算量を表す記法として、O 記法(ランダウの記法、オーダー記法)を用います。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">O記法</p>
+<p class="admonition-title">O記法</p>
 <p>入力規模 <span class="math notranslate nohighlight">\(n\)</span> に対する計算量の増加程度を示す記法</p>
 <ul class="simple">
 <li><p>影響力の大きい(次数の大きい)項以外は無視する</p></li>
@@ -891,7 +1025,7 @@ Wall time: 202 ms
 <p><strong>代表的なアルゴリズムと計算量</strong></p>
 <p><img alt="order-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/b326f3e2-c3ac-9501-983a-2c239d80bcdd.png" /></p>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">暗記ものではないが</p>
+<p class="admonition-title">暗記ものではないが</p>
 <p>アルゴリズムを覚えたら、必ず計算量も確認しておこう</p>
 </div>
 </div>
@@ -905,7 +1039,7 @@ Wall time: 202 ms
 <li><p><span class="math notranslate nohighlight">\(4 \times 10^{12}\)</span> 年かかる</p></li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">指数時間</p>
+<p class="admonition-title">指数時間</p>
 <p>簡単に宇宙の寿命を超えてしまう</p>
 </div>
 <p>宇宙の寿命と言われても実感がわかないと思います。</p>
@@ -918,9 +1052,9 @@ Wall time: 202 ms
 </div>
 <p>この関数は、入力<span class="math notranslate nohighlight">\(n\)</span>に対する計算量は<span class="math notranslate nohighlight">\(O(\left\{\frac{1+\sqrt{t}}{2}\right\}^n)\)</span>と見積もられ、指数時間アルゴリズムです。こんなに簡単ですが..</p>
 <p><span class="math notranslate nohighlight">\(n\)</span>を大きくしていくと、途中から爆発的に計算時間がかかるようになります。</p>
-<p><img alt="cbb52f772a664195a5ec579c907e6059" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
+<p><img alt="2dcb8f42de8d4c77917d5e2b2878efa4" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">フィボナッチ・ベンチマーク </p>
+<p class="admonition-title">フィボナッチ・ベンチマーク </p>
 <p>フィボナッチの再帰関数は、簡単なプログラムで簡単に負荷がかけられるので、プログラミング言語の性能を測る簡単なベンチマークテストとして重宝されてきました。</p>
 </div>
 <p>なお、フィボナッチ数は、線形時間<span class="math notranslate nohighlight">\(O(n)\)</span>で解くアルゴリズムがあります。 詳しくは、動的計画法の回で説明しますので、そちらをお楽しみにお待ちください。</p>
@@ -930,7 +1064,7 @@ Wall time: 202 ms
 <h2><span class="section-number">8.4. </span>NPと計算困難★<a class="headerlink" href="#NPと計算困難★" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>アルゴリズムの計算量(複雑さ)に関する研究が進むにつれてある種の問題は、多項式時間アルゴリズムが見つからないことが明らかになってきました。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">NP 完全問題 (NP complete problem) </p>
+<p class="admonition-title">NP 完全問題 (NP complete problem) </p>
 <p>さらに、同じ難しさのクラスだとわかってきた.</p>
 <ul class="simple">
 <li><p>多項式時間アルゴリズムが見つからない</p></li>
@@ -957,7 +1091,7 @@ Wall time: 202 ms
 </ul>
 <p>クラス P を多項式時間で解ける問題クラスとすると、次の予想がされています。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle"><span class="math notranslate nohighlight">\(P \ne NP\)</span> 予想 </p>
+<p class="admonition-title"><span class="math notranslate nohighlight">\(P \ne NP\)</span> 予想 </p>
 <p><span class="math notranslate nohighlight">\(P \ne NP\)</span> と信じられているが、証明されていない</p>
 <ul class="simple">
 <li><p>（数学の）有名な未解決問題</p></li>
@@ -993,59 +1127,36 @@ https://kei1107.github.io/algorithm/abc145/
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="py10prime.html" class="btn btn-neutral float-right" title="9. 整数アルゴリズム" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="py06tips.html" class="btn btn-neutral float-left" title="7. プログラミング上達のコツ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
+              </div>
+              
         
-        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="py06tips.html" title="previous page"><span class="section-number">7. </span>プログラミング上達のコツ</a>
+    <a class='right-next' id="next-link" href="py10prime.html" title="next page"><span class="section-number">9. </span>整数アルゴリズム</a>
 
         </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>

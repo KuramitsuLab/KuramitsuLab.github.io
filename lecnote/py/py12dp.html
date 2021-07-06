@@ -1,192 +1,320 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="ja" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>12. 動的計画法 &mdash; Python Programming 2021  ドキュメント</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>12. 動的計画法 &#8212; Python Programming 2021  ドキュメント</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="13. 深さ優先探索と幅優先探索" href="py13search.html" />
-    <link rel="prev" title="11. 辞書を作ってみる" href="py11dict.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="11. 辞書を作ってみる" href="py11dict.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">12. 動的計画法</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#フィボナッチ数">12.1. フィボナッチ数</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#再帰関数と限界">12.1.1. 再帰関数と限界</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#メモ化再帰">12.1.2. メモ化再帰</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ループに変換する">12.2. ループに変換する</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#コインの問題">12.3. コインの問題</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#貪欲法">12.3.1. 貪欲法</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#部分解を考える">12.3.2. 部分解を考える</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#再帰で考える">12.3.3. 再帰で考える</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ナップサック問題">12.4. ナップサック問題</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#アプローチ1:-ヒューリスティクス">12.4.1. アプローチ1: ヒューリスティクス</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#アプローチ2:-全探索">12.4.2. アプローチ2: 全探索</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">12.4.3. 動的計画法</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">12.5. 演習問題</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Python Programming 2021</a>
-        
-      </nav>
+      
+      <h1 class="site-logo" id="site-title">Python Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="py01oj.html">
+   1. プログラミングの練習を始めよう
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py02eval.html">
+   2. 変数を評価する
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py03if.html">
+   3. 条件によって動作を変える
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py04forlist.html">
+   4. リストと繰り返し
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py05string.html">
+   5. 文字と情報
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py07func.html">
+   6. 関数、再帰関数、そして高階関数
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py06tips.html">
+   7. プログラミング上達のコツ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py08algo.html">
+   8. アルゴリズムを学ぶ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py10prime.html">
+   9. 整数アルゴリズム
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py09sort.html">
+   10. ソートと計算量
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py11dict.html">
+   11. 辞書を作ってみる
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   12. 動的計画法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py13search.html">
+   13. 深さ優先探索と幅優先探索
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py14pil.html">
+   14. PNGアニメーション
+  </a>
+ </li>
+</ul>
 
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">12. </span>動的計画法</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/py12dp.ipynb.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/py12dp.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2Fpy12dp.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#フィボナッチ数">
+   12.1. フィボナッチ数
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#再帰関数と限界">
+     12.1.1. 再帰関数と限界
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#メモ化再帰">
+     12.1.2. メモ化再帰
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ループに変換する">
+   12.2. ループに変換する
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#コインの問題">
+   12.3. コインの問題
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#貪欲法">
+     12.3.1. 貪欲法
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#部分解を考える">
+     12.3.2. 部分解を考える
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#再帰で考える">
+     12.3.3. 再帰で考える
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ナップサック問題">
+   12.4. ナップサック問題
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#アプローチ1:-ヒューリスティクス">
+     12.4.1. アプローチ1: ヒューリスティクス
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#アプローチ2:-全探索">
+     12.4.2. アプローチ2: 全探索
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     12.4.3. 動的計画法
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#演習問題">
+   12.5. 演習問題
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   
 <style>
 /* CSS for nbsphinx extension */
@@ -434,28 +562,6 @@ div.rendered_html tbody tr:nth-child(odd) {
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
-
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="section" id="動的計画法">
 <h1><span class="section-number">12. </span>動的計画法<a class="headerlink" href="#動的計画法" title="このヘッドラインへのパーマリンク">¶</a></h1>
@@ -497,7 +603,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>このフィボナッチ関数は、n が大きくなると、実行時間が極端にかかるようになります。 計算量は、<span class="math notranslate nohighlight">\(O((\frac{1+\sqrt{5}}{2})^n)\)</span>で指数時間です。 実際に、n を増やしていったときの実行時間を次のように増大していきます。 (Python では、n = 35辺りが限界です。）</p>
-<p><img alt="9b724859620b422890366335b11af683" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
+<p><img alt="a9bd30c6fa984d84a1f36adac66ec20f" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/9d84eb4d-78b5-20d2-fbea-f03548e71866.png" style="width: 50%;" /></p>
 <p>しかし、プログラミング技法で、指数計算時間の限界を解決することができます。</p>
 </div>
 <div class="section" id="メモ化再帰">
@@ -567,7 +673,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>ポイントは、メモ化再帰のときと同じく、途中の計算結果を配列 (memo) に記録しています。 このように途中結果を「部分問題の解」として記録し、より大きな問題の解に活用する方法を<strong>動的計画法</strong>といいます。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle"><strong>DP 表</strong></p>
+<p class="admonition-title"><strong>DP 表</strong></p>
 <p>途中の計算結果を記録した表(配列)のこと</p>
 </div>
 </div>
@@ -575,7 +681,7 @@ div.rendered_html tbody tr:hover {
 <h2><span class="section-number">12.3. </span>コインの問題<a class="headerlink" href="#コインの問題" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>フィボナッチ数列は最初から漸化式が与えられていました。しかし、実際の問題では漸化式が最初から与えられることはありません。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">動的計画法のポイント</p>
+<p class="admonition-title">動的計画法のポイント</p>
 <p>漸化式を発見すること</p>
 </div>
 <p>漸化式を発見する方法をみていきましょう。</p>
@@ -650,10 +756,10 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p class="admonition-title">Let’s try</p>
 <p>コインの問題において、127円の最小枚数を探してみよう</p>
 </div>
-<p><img alt="5bc57f5ad2fa4760be75c6819e28fcbb" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 20%;" /></p>
+<p><img alt="efef135e1a5c43e9aaa88bfb794b0953" class="no-scaled-link" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/6bb60326-617c-af55-f7a0-a0ef1bcfd1e2.png" style="width: 20%;" /></p>
 <p><strong>正解（たぶん）</strong></p>
 <div class="math notranslate nohighlight">
 \[127 = 50 \times 0 + 40 \times 3 + 7\times 1 + 1 \times 0\]</div>
@@ -742,7 +848,7 @@ dp(1+x) = dp(x) + 1\end{split}\]</div>
 </div>
 <p>実は、動的計画表とメモ化再帰は、計算順序がトップダウンかボトムアップかの違いがあるだけで、アルゴリズム的な原理は同じものです。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">初期解がわかっているときは</p>
+<p class="admonition-title">初期解がわかっているときは</p>
 <p>初期解から次の解が見つけられないか考え、動的計画法/再帰構造がないか探す</p>
 </div>
 </div>
@@ -758,7 +864,7 @@ dp(1+x) = dp(x) + 1\end{split}\]</div>
 </ul>
 <p>価値の合計の最大値を求めよ。</p>
 </div><p><strong>(具体例 1)</strong>: ナップサックの容量を 40 のとき、次の品物のどれを選ぶべきか考えてみよう。</p>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 58%" />
 <col style="width: 17%" />
@@ -798,7 +904,7 @@ dp(1+x) = dp(x) + 1\end{split}\]</div>
 </tbody>
 </table>
 <p><strong>(具体例 2)</strong>: アルバイト可能な時間が 6 時間あるとすると、どのアルバイトを選べば最も稼げるだろうか？</p>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 57%" />
 <col style="width: 14%" />
@@ -926,7 +1032,7 @@ dp(1+x) = dp(x) + 1\end{split}\]</div>
 </div>
 <p>この方針は、アイテム数が <span class="math notranslate nohighlight">\(N\)</span> のとき、<span class="math notranslate nohighlight">\(2^N\)</span> 通りの組み合わせを調べなければなりません。したがっ て、<span class="math notranslate nohighlight">\(N\)</span> が大きくなったとき、解を求めるのは難しくなります。</p>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">ナップサック問題 </p>
+<p class="admonition-title">ナップサック問題 </p>
 <p>ナップサック問題は、NP 困難</p>
 </div>
 <p>実用的な逃げ道として、分岐限定法と呼ばれる方法があります。これは、枝刈りによって暫定解からその後の選択に含まれない経路を省略する手法です。</p>
@@ -979,59 +1085,36 @@ https://atcoder.jp/contests/arc075/tasks/arc075_a
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="py13search.html" class="btn btn-neutral float-right" title="13. 深さ優先探索と幅優先探索" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="py11dict.html" class="btn btn-neutral float-left" title="11. 辞書を作ってみる" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
+              </div>
+              
         
-        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="py11dict.html" title="previous page"><span class="section-number">11. </span>辞書を作ってみる</a>
+    <a class='right-next' id="next-link" href="py13search.html" title="next page"><span class="section-number">13. </span>深さ優先探索と幅優先探索</a>
 
         </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>

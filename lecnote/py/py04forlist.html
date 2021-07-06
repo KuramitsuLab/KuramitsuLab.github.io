@@ -1,199 +1,353 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="ja" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>4. リストと繰り返し &mdash; Python Programming 2021  ドキュメント</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4. リストと繰り返し &#8212; Python Programming 2021  ドキュメント</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="5. 文字と情報" href="py05string.html" />
-    <link rel="prev" title="3. 条件によって動作を変える" href="py03if.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="3. 条件によって動作を変える" href="py03if.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py03if.html">3. 条件によって動作を変える</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. リストと繰り返し</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#リストとは">4.1. リストとは</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#インデックス(添字)">4.1.1. インデックス(添字)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#リストの作り方">4.1.2. リストの作り方</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#基本：外延的記法">基本：外延的記法</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#リストの変更（とタプル）">4.1.3. リストの変更（とタプル）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#リストと変数展開">4.1.4. リストと変数展開</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#list()関数">4.1.5. <code class="docutils literal notranslate"><span class="pre">list()</span></code>関数</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#リスト内包記法★">4.1.6. リスト内包記法★</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">4.2. リストと繰り返し</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#for文と列">4.2.1. for文と列</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#break">4.2.2. break</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#リストの操作">4.3. リストの操作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#スライス">4.3.1. スライス</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#破壊的操作">4.3.2. 破壊的操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#リストを並び変える">4.3.3. リストを並び変える</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#リストの集約計算">4.3.4. リストの集約計算</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#２次元リストとzip★">4.3.5. ２次元リストとzip★</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">4.4. 演習問題</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Python Programming 2021</a>
-        
-      </nav>
+      
+      <h1 class="site-logo" id="site-title">Python Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="py01oj.html">
+   1. プログラミングの練習を始めよう
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py02eval.html">
+   2. 変数を評価する
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py03if.html">
+   3. 条件によって動作を変える
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4. リストと繰り返し
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py05string.html">
+   5. 文字と情報
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py07func.html">
+   6. 関数、再帰関数、そして高階関数
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py06tips.html">
+   7. プログラミング上達のコツ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py08algo.html">
+   8. アルゴリズムを学ぶ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py10prime.html">
+   9. 整数アルゴリズム
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py09sort.html">
+   10. ソートと計算量
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py11dict.html">
+   11. 辞書を作ってみる
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py12dp.html">
+   12. 動的計画法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py13search.html">
+   13. 深さ優先探索と幅優先探索
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py14pil.html">
+   14. PNGアニメーション
+  </a>
+ </li>
+</ul>
 
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">4. </span>リストと繰り返し</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/py04forlist.ipynb.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/py04forlist.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2Fpy04forlist.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#リストとは">
+   4.1. リストとは
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#インデックス(添字)">
+     4.1.1. インデックス(添字)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#リストの作り方">
+     4.1.2. リストの作り方
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#基本：外延的記法">
+       基本：外延的記法
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#リストの変更（とタプル）">
+     4.1.3. リストの変更（とタプル）
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#リストと変数展開">
+     4.1.4. リストと変数展開
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#list()関数">
+     4.1.5.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list()
+      </span>
+     </code>
+     関数
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#リスト内包記法★">
+     4.1.6. リスト内包記法★
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id9">
+   4.2. リストと繰り返し
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for文と列">
+     4.2.1. for文と列
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#break">
+     4.2.2. break
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#リストの操作">
+   4.3. リストの操作
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#スライス">
+     4.3.1. スライス
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#破壊的操作">
+     4.3.2. 破壊的操作
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#リストを並び変える">
+     4.3.3. リストを並び変える
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#リストの集約計算">
+     4.3.4. リストの集約計算
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#２次元リストとzip★">
+     4.3.5. ２次元リストとzip★
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#演習問題">
+   4.4. 演習問題
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   
 <style>
 /* CSS for nbsphinx extension */
@@ -441,28 +595,6 @@ div.rendered_html tbody tr:nth-child(odd) {
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
-
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="section" id="リストと繰り返し">
 <h1><span class="section-number">4. </span>リストと繰り返し<a class="headerlink" href="#リストと繰り返し" title="このヘッドラインへのパーマリンク">¶</a></h1>
@@ -492,7 +624,7 @@ div.rendered_html tbody tr:hover {
 <li><p><span class="math notranslate nohighlight">\(a_i\)</span>は、<code class="docutils literal notranslate"><span class="pre">a[i]</span></code>と書き、<strong>０番目から</strong>数える</p></li>
 <li><p>要素には、数値以外の任意の値（文字列、論理値、さらにリストなど）が入る</p></li>
 </ul>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 60%" />
@@ -532,7 +664,7 @@ div.rendered_html tbody tr:hover {
 </tbody>
 </table>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle"><span class="math notranslate nohighlight">\(N\)</span>個数える</p>
+<p class="admonition-title"><span class="math notranslate nohighlight">\(N\)</span>個数える</p>
 <p>プログラミングでは、原則、「<strong>0から</strong><span class="math notranslate nohighlight">\(N-1\)</span>まで」のように0から数えます。</p>
 </div>
 <div class="admonition tip"><p><strong>例題（インデックス）</strong></p>
@@ -567,7 +699,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">IndexError: list index out of range</p>
+<p class="admonition-title">IndexError: list index out of range</p>
 <p>リストの要素数より大きなインデックスにをアクセスしたときに発生します。</p>
 </div>
 <p>インデックスは、<strong>0から数えます</strong>ので、先頭は<code class="docutils literal notranslate"><span class="pre">a[0]</span></code>、末尾は<code class="docutils literal notranslate"><span class="pre">a[4]</span></code>になります。</p>
@@ -591,7 +723,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p class="admonition-title">Let’s try</p>
 <p>リストの大きさが増減しても常に末尾から値が取れるように、 リストの要素数から末尾のインデックスを計算してみよう。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">]</span>
 </pre></div>
@@ -759,7 +891,7 @@ div.rendered_html tbody tr:hover {
 <li><p>タプル: 変更不可能</p></li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">タプル</p>
+<p class="admonition-title">タプル</p>
 <p>要素の値を変更できない分、メモリ利用効率がよい</p>
 </div>
 <p>なお、タプルを変更しようとすると型エラー(TypeError)になります。</p>
@@ -852,7 +984,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">デストラクタ代入（変数への展開）</p>
+<p class="admonition-title">デストラクタ代入（変数への展開）</p>
 <p>要素の数がn個のとき、n個の変数に分割して代入する記法</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># ２個のとき</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1">#3個のとき</span>
@@ -907,8 +1039,8 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle"><code class="docutils literal notranslate"><span class="pre">range()</span></code>は、等差数列を生成する便利な関数です。</p>
-<table class="docutils align-default">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">range()</span></code>は、等差数列を生成する便利な関数です。</p>
+<table class="table">
 <colgroup>
 <col style="width: 21%" />
 <col style="width: 79%" />
@@ -998,7 +1130,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Pythonの集合(Set)</p>
+<p class="admonition-title">Pythonの集合(Set)</p>
 <p>Python で集合を使いたいときは、<code class="docutils literal notranslate"><span class="pre">set()</span></code>で変換します。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;1, 2, 3, 1, 2`])</span>
 </pre></div>
@@ -1011,7 +1143,7 @@ div.rendered_html tbody tr:hover {
 <h2><span class="section-number">4.2. </span>リストと繰り返し<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>前回、プログラミングの頻出する構造として、<strong>N回繰り返す</strong>パターンを練習しました。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">決まり文句: N回繰り返す構造</p>
+<p class="admonition-title">決まり文句: N回繰り返す構造</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
     <span class="c1"># 繰り返す</span>
     <span class="c1"># プログラム</span>
@@ -1050,7 +1182,7 @@ div.rendered_html tbody tr:hover {
 <h3><span class="section-number">4.2.1. </span>for文と列<a class="headerlink" href="#for文と列" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>for文は、 実はリストなどの列をの値を<strong>順番に取り出して</strong>、一つずつ処理する制御構造です。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle"><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">a</span></code> の意味</p>
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">a</span></code> の意味</p>
 <p>列<code class="docutils literal notranslate"><span class="pre">a</span></code>の先頭から順番に値を取り出して、 変数 x に代入し、列<code class="docutils literal notranslate"><span class="pre">a</span></code>の個数だけ繰り返す</p>
 </div>
 <p>つまり、<code class="docutils literal notranslate"><span class="pre">range(10)</span></code>は0から9までの数列なので、<code class="docutils literal notranslate"><span class="pre">range(N)</span></code>で数列を作らなくても、次のようにリストを処理するのと同じになります。</p>
@@ -1082,7 +1214,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">列とリスト</p>
+<p class="admonition-title">列とリスト</p>
 <p>Pythonの理解しにくいところのひとつは、列とリストの違いです。 列は、値の並んだ抽象的な集まりです。リストは、代表的な列ですが、列はリストだけではありません。</p>
 <p><strong>列の例</strong></p>
 <ul class="simple">
@@ -1157,7 +1289,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">enumerate(列)</p>
+<p class="admonition-title">enumerate(列)</p>
 <p><code class="docutils literal notranslate"><span class="pre">enumerate</span></code>は、列に対して、0から番号をつけてくれます。 何番目の要素を処理しているか知りたいとき、重宝します。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
@@ -1235,7 +1367,7 @@ div.rendered_html tbody tr:hover {
 <p>あらら、最小の約数だけでなく、2以上の全ての約数を表示してしまいます。</p>
 <p><code class="docutils literal notranslate"><span class="pre">break</span></code>文を用いて、<strong>それ以上繰り返す必要がないときに繰り返しを抜け出し</strong>てしまいましょう。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">Let’s try</p>
+<p class="admonition-title">Let’s try</p>
 <p>どこに <code class="docutils literal notranslate"><span class="pre">break</span></code>を入れるかわかるかな？</p>
 </div>
 <div class="nbinput docutils container">
@@ -1263,7 +1395,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>そろそろ、<code class="docutils literal notranslate"><span class="pre">break</span></code>は的確に使えるようにしていきましょう。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">効率のよいプログラム</p>
+<p class="admonition-title">効率のよいプログラム</p>
 <p>無駄な繰り返しはしない（さっさとbreakする）</p>
 </div>
 </div>
@@ -1271,7 +1403,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="リストの操作">
 <h2><span class="section-number">4.3. </span>リストの操作<a class="headerlink" href="#リストの操作" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>リストは、Python のオブジェクト指向プログラミングの機能を使って提供されています。メソッドを通して、さまざまな操作ができます。</p>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 21%" />
 <col style="width: 79%" />
@@ -1366,7 +1498,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="破壊的操作">
 <h3><span class="section-number">4.3.2. </span>破壊的操作<a class="headerlink" href="#破壊的操作" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>リストの内容が変わる操作のことを破壊的操作、もしくはinplace操作と呼びます。</p>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 26%" />
 <col style="width: 74%" />
@@ -1508,7 +1640,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">破壊的操作</p>
+<p class="admonition-title">破壊的操作</p>
 <p>破壊的操作はリストの内容が変更されるため、もう一度リストを使うときは、 事前にコピーして複製を作るとよい。</p>
 </div>
 <p><strong>リストの複製</strong></p>
@@ -1540,7 +1672,7 @@ a = [1, 2, 3, 4, 5, 6]
 <h3><span class="section-number">4.3.4. </span>リストの集約計算<a class="headerlink" href="#リストの集約計算" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>リストが使えるようになると、データの集まりをまとめて処理できるようになります。</p>
 <p>特に、リストの要素が数値、つまり数列の場合は、威力を発揮します。</p>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 32%" />
 <col style="width: 68%" />
@@ -1704,7 +1836,7 @@ a = [1, 2, 3, 4, 5, 6]
 </pre></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">zip(a,</span> <span class="pre">b)</span></code>はふたつのリストをタプルのリストにして返してくれる関数です。 名前は、zipperに由来しています。</p>
-<p><img alt="2ed39eb0508c47ea870be392d2cf6211" class="no-scaled-link" src="https://1.bp.blogspot.com/-Mc5vHuzm9No/VWmAi70AJKI/AAAAAAAAtx4/NKBEto8KjxU/s800/fashion_zip_chakku.png" style="width: 40%;" /></p>
+<p><img alt="67daa8236d78445b8b8f14e7a3cf7c03" class="no-scaled-link" src="https://1.bp.blogspot.com/-Mc5vHuzm9No/VWmAi70AJKI/AAAAAAAAtx4/NKBEto8KjxU/s800/fashion_zip_chakku.png" style="width: 40%;" /></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
@@ -1769,59 +1901,36 @@ a = [1, 2, 3, 4, 5, 6]
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="py05string.html" class="btn btn-neutral float-right" title="5. 文字と情報" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="py03if.html" class="btn btn-neutral float-left" title="3. 条件によって動作を変える" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
+              </div>
+              
         
-        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="py03if.html" title="previous page"><span class="section-number">3. </span>条件によって動作を変える</a>
+    <a class='right-next' id="next-link" href="py05string.html" title="next page"><span class="section-number">5. </span>文字と情報</a>
 
         </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>

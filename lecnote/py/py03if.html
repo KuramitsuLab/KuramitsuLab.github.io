@@ -1,189 +1,313 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="ja" >
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>3. 条件によって動作を変える &mdash; Python Programming 2021  ドキュメント</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. 条件によって動作を変える &#8212; Python Programming 2021  ドキュメント</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/translations.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="4. リストと繰り返し" href="py04forlist.html" />
-    <link rel="prev" title="2. 変数を評価する" href="py02eval.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="2. 変数を評価する" href="py02eval.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Python Programming 2021
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="py01oj.html">1. プログラミングの練習を始めよう</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py02eval.html">2. 変数を評価する</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 条件によって動作を変える</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#命題と論理式">3.1. 命題と論理式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#条件分岐">3.2. 条件分岐</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#基本形">3.2.1. 基本形</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#何も処理しない場合">3.2.2. 何も処理しない場合</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ブロック：複数行のコードを処理する">3.2.3. ブロック：複数行のコードを処理する</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#複数の条件があるとき">3.2.4. 複数の条件があるとき</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#条件式（三項演算子）">3.3. 条件式（三項演算子）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#繰り返し">3.4. 繰り返し</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#while文">3.4.1. while文</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#for文">3.4.2. for文</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#シミュレーション">3.4.3. シミュレーション</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#演習問題">3.5. 演習問題</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="py04forlist.html">4. リストと繰り返し</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py05string.html">5. 文字と情報</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py07func.html">6. 関数、再帰関数、そして高階関数</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py06tips.html">7. プログラミング上達のコツ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py08algo.html">8. アルゴリズムを学ぶ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py10prime.html">9. 整数アルゴリズム</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py09sort.html">10. ソートと計算量</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py11dict.html">11. 辞書を作ってみる</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py12dp.html">12. 動的計画法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py13search.html">13. 深さ優先探索と幅優先探索</a></li>
-<li class="toctree-l1"><a class="reference internal" href="py14pil.html">14. PNGアニメーション</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Python Programming 2021</a>
-        
-      </nav>
+      
+      <h1 class="site-logo" id="site-title">Python Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="py01oj.html">
+   1. プログラミングの練習を始めよう
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py02eval.html">
+   2. 変数を評価する
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3. 条件によって動作を変える
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py04forlist.html">
+   4. リストと繰り返し
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py05string.html">
+   5. 文字と情報
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py07func.html">
+   6. 関数、再帰関数、そして高階関数
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py06tips.html">
+   7. プログラミング上達のコツ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py08algo.html">
+   8. アルゴリズムを学ぶ
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py10prime.html">
+   9. 整数アルゴリズム
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py09sort.html">
+   10. ソートと計算量
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py11dict.html">
+   11. 辞書を作ってみる
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py12dp.html">
+   12. 動的計画法
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py13search.html">
+   13. 深さ優先探索と幅優先探索
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py14pil.html">
+   14. PNGアニメーション
+  </a>
+ </li>
+</ul>
 
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">3. </span>条件によって動作を変える</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/py03if.ipynb.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/py03if.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2Fpy03if.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#命題と論理式">
+   3.1. 命題と論理式
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#条件分岐">
+   3.2. 条件分岐
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#基本形">
+     3.2.1. 基本形
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#何も処理しない場合">
+     3.2.2. 何も処理しない場合
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ブロック：複数行のコードを処理する">
+     3.2.3. ブロック：複数行のコードを処理する
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#複数の条件があるとき">
+     3.2.4. 複数の条件があるとき
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#条件式（三項演算子）">
+   3.3. 条件式（三項演算子）
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#繰り返し">
+   3.4. 繰り返し
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#while文">
+     3.4.1. while文
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for文">
+     3.4.2. for文
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#シミュレーション">
+     3.4.3. シミュレーション
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#演習問題">
+   3.5. 演習問題
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   
 <style>
 /* CSS for nbsphinx extension */
@@ -431,28 +555,6 @@ div.rendered_html tbody tr:nth-child(odd) {
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
-
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
 </style>
 <div class="section" id="条件によって動作を変える">
 <h1><span class="section-number">3. </span>条件によって動作を変える<a class="headerlink" href="#条件によって動作を変える" title="このヘッドラインへのパーマリンク">¶</a></h1>
@@ -461,7 +563,7 @@ div.rendered_html tbody tr:hover {
 <h2><span class="section-number">3.1. </span>命題と論理式<a class="headerlink" href="#命題と論理式" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>まずは、高校数学の復習です。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">命題</p>
+<p class="admonition-title">命題</p>
 <p>正しいか正しくないかを判定できる文や式</p>
 </div>
 <p>例</p>
@@ -473,11 +575,11 @@ div.rendered_html tbody tr:hover {
 <p>だから、「<span class="math notranslate nohighlight">\(3\)</span>は<span class="math notranslate nohighlight">\(2\)</span>より大きい」は真ですが、「<span class="math notranslate nohighlight">\(3\)</span>は偶数である」は偽となります。</p>
 <p>Python では、論理式として命題を表現することができます。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">論理式：Python における命題</p>
+<p class="admonition-title">論理式：Python における命題</p>
 <p>評価すると論理値（<code class="docutils literal notranslate"><span class="pre">True</span></code> もしくは <code class="docutils literal notranslate"><span class="pre">False</span></code>）になる式</p>
 </div>
 <p>このような論理式を表現するため、次のような演算子を提供しています。</p>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 32%" />
 <col style="width: 23%" />
@@ -545,7 +647,7 @@ div.rendered_html tbody tr:hover {
 <li><p><span class="math notranslate nohighlight">\(121\)</span>は<span class="math notranslate nohighlight">\(11\)</span>の倍数でない</p></li>
 <li><p>文字<code class="docutils literal notranslate"><span class="pre">&quot;e&quot;</span></code> は文字列<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code>に含まれる</p></li>
 </ol>
-</div><p><img alt="67bf9d86a8cb438cbbb9ae12a51504de" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+</div><p><img alt="6a0111ca86c342348e95c0b72dd6835b" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -638,7 +740,7 @@ True
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">形式論理学</p>
+<p class="admonition-title">形式論理学</p>
 <p>命題の概念は、<a class="reference external" href="https://ja.wikipedia.org/wiki/命題論理">命題論理</a>につながっていき、 コンピュータ上で論理や思考をプログラミングするとき重要になります。</p>
 </div>
 </div>
@@ -650,7 +752,7 @@ True
 <p><img alt="code_if-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/555f7c9d-15b4-1d0b-e593-aa581b4ae16a.png" /></p>
 <p><strong>if文</strong>や条件分岐の考え方は難しいものではありません。 しかし、Python には、インデントによってコードブロックを示すなど、 独特なクセがあります。 いくつか書き方のパターンを見て、書き方をマスターしましょう。</p>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">重要: <strong>インデント（字下げ）</strong></p>
+<p class="admonition-title">重要: <strong>インデント（字下げ）</strong></p>
 <p>コードの前の空白をインデントといいます。 （Python はインデントの深さでコードブロックの始まりと終わりを表ます。）</p>
 </div>
 <div class="section" id="基本形">
@@ -774,7 +876,7 @@ even
 </div>
 <p>ここはインデントによるコードブロックの書き方をしっかり理解しましょう。</p>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">コードブロックとインデントの深さ</p>
+<p class="admonition-title">コードブロックとインデントの深さ</p>
 <p>Pythonは、同じインデントの深さのコードをひとまとまりの処理（コードブロック）とします。 次のように入れ子として書くことができます。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -856,7 +958,7 @@ big
 </pre></div></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">よくある望ましくない例（あまり効率のよくない書き方）</p>
+<p class="admonition-title">よくある望ましくない例（あまり効率のよくない書き方）</p>
 <p><strong>何度も条件分岐をする</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;big&quot;</span><span class="p">)</span>
@@ -885,7 +987,7 @@ big
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">三項演算子</p>
+<p class="admonition-title">三項演算子</p>
 <p>if式は、C/C++やJavaの<strong>三項演算子</strong>に相当します。</p>
 <p><strong>三項演算子の場合</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>＜論理式＞ ? ＜真のときの式＞ : ＜偽のときの式＞
@@ -1004,7 +1106,7 @@ big
 </pre></div></div>
 </div>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">無限ループ</p>
+<p class="admonition-title">無限ループ</p>
 <p>while文の条件がいつまでも真で繰り返しが止まらなくなること</p>
 </div>
 <p>先程の例では、<code class="docutils literal notranslate"><span class="pre">while</span></code>文の中で<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">-</span> <span class="pre">1</span></code>が処理されないと、いつまでも<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>になるため、無限ループになります。</p>
@@ -1017,7 +1119,7 @@ big
 </div>
 <p>無限ループは、頻繁に発生し、主要なバグの原因になります。アプリケーションが反応しなくなる不具合の原因は、ほとんどが「<strong>予期しない無限ループに陥っている</strong>」と言われています。<code class="docutils literal notranslate"><span class="pre">while</span></code>文を書くときは、無限ループにならないように注意して書かなければなりません。</p>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle">防衛的プログラミング( Defensive Programming)</p>
+<p class="admonition-title">防衛的プログラミング( Defensive Programming)</p>
 <p>ソフトウェア工学でより詳しく学びますが、 バグや不具合が発生しないようにコードの書き方を選びます。 （動けば良いというのは、20世紀のプログラミングです。）</p>
 </div>
 </div>
@@ -1033,7 +1135,7 @@ big
 </div>
 <p>特別な事情がない場合は、繰り返しは<code class="docutils literal notranslate"><span class="pre">for</span></code>文を用いるようにしましょう。 特に、<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(N):</span></code>は、<span class="math notranslate nohighlight">\(N\)</span>回繰り返すときの定番の書き方です。</p>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">for 文の変数</p>
+<p class="admonition-title">for 文の変数</p>
 <p>変数 <code class="docutils literal notranslate"><span class="pre">i</span></code>には0から始まる整数が繰り返しの回数分に割り当てられます。 （リストと同じく<strong>0 から始まります。</strong>）</p>
 </div>
 <div class="nbinput docutils container">
@@ -1128,7 +1230,7 @@ big
 </pre></div></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title fa fa-exclamation-circle"><code class="docutils literal notranslate"><span class="pre">break</span></code>文</p>
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">break</span></code>文</p>
 <p>while文やfor文の繰り返しを強制的に抜け出す</p>
 </div>
 </div>
@@ -1154,66 +1256,43 @@ big
 <li><p><a class="reference external" href="https://atcoder.jp/contests/joi2019yo/tasks/joi2019_yo_a">ソーシャルゲーム</a></p></li>
 </ul>
 <div class="admonition warning">
-<p class="admonition-title fa fa-exclamation-circle">インデントのエラーに困ったら</p>
+<p class="admonition-title">インデントのエラーに困ったら</p>
 <p>Python は、コードをコピペすると、空白記号とタブ記号が混ざって、 インデント周りのエラーが発生しやすくなります。 どうにかなりませんかと言われますが、正直、コピペしないで、 自分でインデントを統一的に書くのが確実です。</p>
 </div>
 </div>
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="py04forlist.html" class="btn btn-neutral float-right" title="4. リストと繰り返し" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="py02eval.html" class="btn btn-neutral float-left" title="2. 変数を評価する" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
+              </div>
+              
         
-        &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu)
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="py02eval.html" title="previous page"><span class="section-number">2. </span>変数を評価する</a>
+    <a class='right-next' id="next-link" href="py04forlist.html" title="next page"><span class="section-number">4. </span>リストと繰り返し</a>
 
         </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>
