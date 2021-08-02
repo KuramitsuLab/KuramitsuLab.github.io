@@ -17,15 +17,15 @@ function GetQueryString() {
 problems = [
     //腕試し
     ["複数形", "https://atcoder.jp/contests/abc029/tasks/abc029_a", "初級 文字列"],
-    ["３つのうち一つ", "https://atcoder.jp/contests/abc075/tasks/abc075_a", "条件分岐"], //: if文を覚えていますか？
     ["行列式", "https://atcoder.jp/contests/abc184/tasks/abc184_a", ""],
     ["直方体", "https://atcoder.jp/contests/abc041/tasks/abc041_b", "入出力"], //: 頻出入出力を参考に。
-    ["水の移動", "https://atcoder.jp/contests/abc136/tasks/abc136_a", "落ち着いて考えよう"], //: 落ち着いて考えてみよう
-    ["三桁の回文数", "https://atcoder.jp/contests/abc070/tasks/abc070_a", "初級 文字列"], //: 文字列を覚えていますか？
     ["ディスカウント", "https://atcoder.jp/contests/abc193/tasks/abc193_a", ""], //
     ["Apple Pie", "https://atcoder.jp/contests/abc128/tasks/abc128_a", ""], //
-    ["ラッキー7", "https://atcoder.jp/contests/abc162/tasks/abc162_a", "初級 文字列"], //: 文字列を覚えていますか
     ["二つの数の間", "https://atcoder.jp/contests/abc061/tasks/abc061_a", ""], //
+    ["３つのうち一つ", "https://atcoder.jp/contests/abc075/tasks/abc075_a", "条件分岐"], //: if文を覚えていますか？
+    ["水の移動", "https://atcoder.jp/contests/abc136/tasks/abc136_a", "落ち着いて考えよう"], //: 落ち着いて考えてみよう
+    ["三桁の回文数", "https://atcoder.jp/contests/abc070/tasks/abc070_a", "初級 文字列"], //: 文字列を覚えていますか？
+    ["ラッキー7", "https://atcoder.jp/contests/abc162/tasks/abc162_a", "初級 文字列"], //: 文字列を覚えていますか
     ["ブラックジャック", "https://atcoder.jp/contests/abc147/tasks/abc147_a", "条件分岐"], //
     ["平均値の切り上げ", "https://atcoder.jp/contests/abc082/tasks/abc082_a", ""], //
     ["円", "https://atcoder.jp/contests/abc145/tasks/abc145_a", "数値に変換"], //: 数値に変換しわすれないで
