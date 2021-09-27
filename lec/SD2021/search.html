@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>索引 &#8212; Python Object-Oriented Programming 2021  ドキュメント</title>
+    <title>検索 &#8212; Python Software Development 2021  ドキュメント</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -28,6 +28,7 @@
     
   <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
+    
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -37,11 +38,16 @@
     <script src="_static/translations.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <link rel="index" title="索引" href="#" />
-    <link rel="search" title="検索" href="search.html" />
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="#" />
+  <script src="searchindex.js" defer></script>
+  
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
+
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
@@ -58,10 +64,10 @@
     <a class="navbar-brand text-wrap" href="index.html">
       
       
-      <h1 class="site-logo" id="site-title">Python Object-Oriented Programming 2021  ドキュメント</h1>
+      <h1 class="site-logo" id="site-title">Python Software Development 2021  ドキュメント</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="#" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -73,8 +79,13 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="201prog.html">
-   1. プログラミングを思い出そう
+  <a class="reference internal" href="301uranai.html">
+   1. (対話システムっぽい)相性占い
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="302reg.html">
+   2. 正規表現とパターンマッチ
   </a>
  </li>
 </ul>
@@ -121,7 +132,7 @@
                 data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
                     class="fab fa-github"></i>リポジトリ</button></a>
         <a class="issues-button"
-            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2Fgenindex.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2Fsearch.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
         
@@ -150,13 +161,26 @@
         
               <div>
                 
-
-<h1 id="index">索引</h1>
-
-<div class="genindex-jumpbox">
- 
-</div>
-
+  <h1 id="search-documentation">検索</h1>
+  <div id="fallback" class="admonition warning">
+  <script>$('#fallback').hide();</script>
+  <p>
+    検索機能を使うには JavaScript を有効にしてください。
+  </p>
+  </div>
+  <p>
+    複数の単語を検索すると、次を含む一致のみが表示されます
+     すべての用語。
+  </p>
+  <form action="" method="get">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" />
+    <input type="submit" value="検索" />
+    <span id="search-progress" style="padding-left: 10px"></span>
+  </form>
+  
+  <div id="search-results">
+  
+  </div>
 
               </div>
               
