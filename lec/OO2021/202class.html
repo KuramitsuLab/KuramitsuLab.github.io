@@ -1,0 +1,1243 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. クラスとメソッド定義 &#8212; Python Object-Oriented Programming 2021  ドキュメント</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="3. クラスと継承" href="203oop.html" />
+    <link rel="prev" title="1. プログラミングを思い出そう" href="201prog.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Python Object-Oriented Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="201prog.html">
+   1. プログラミングを思い出そう
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. クラスとメソッド定義
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="203oop.html">
+   3. クラスと継承
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/202class.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2F202class.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#基本な考え方">
+   2.1. 基本な考え方
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#データ構造">
+   2.2. データ構造
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#xy-平面上の点">
+     2.2.1. xy 平面上の点
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#タプル">
+     2.2.2. タプル
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#クラスとオブジェクト">
+   2.3. クラスとオブジェクト
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#インスタンス化">
+     2.3.1. インスタンス化
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#インスタンスかどうか判定する">
+     2.3.2. インスタンスかどうか判定する
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#点P,Qの中間点を求める">
+     2.3.3. 点P,Qの中間点を求める
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#クラスとメソッド">
+   2.4. クラスとメソッド
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#オブジェクトの表示-__repr__">
+     2.4.1. オブジェクトの表示
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       __repr__
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#空間上の点">
+   2.5. 空間上の点
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#動的束縛">
+     2.5.1. 動的束縛
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#コースワーク">
+   2.6. コースワーク
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#(補足)-演算子オーバーロードについて">
+   2.7. (補足) 演算子オーバーロードについて
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Pythonにおける演算子">
+     2.7.1. Pythonにおける演算子
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="クラスとメソッド定義">
+<h1><span class="section-number">2. </span>クラスとメソッド定義<a class="headerlink" href="#クラスとメソッド定義" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>オブジェクト指向プログラミング(object-oriented programming)とは、1960年代の<strong>ソフトウェア危機</strong> のあと、複雑なプログラム（つまり、ソフトウェア）を効率高く開発するために考案されたプログラミング手法です。</p>
+<p>現在のソフトウェア開発におけるスタンダードなプログラミング手法になっています。オブジェクト指向を理解しなければ、プログラミングできないだけでなく、コードも読むことも難しくなります。</p>
+<p>まずは、基本的な考え方を抑えておきましょう。</p>
+<div class="section" id="基本な考え方">
+<h2><span class="section-number">2.1. </span>基本な考え方<a class="headerlink" href="#基本な考え方" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>オブジェクト指向プログラミングを理解するための基本的な概念は次のようなものがあります。</p>
+<ul class="simple">
+<li><p>全ては<strong>オブジェクト(object)</strong></p></li>
+<li><p><strong>メッセージング</strong>: プログラムは、オブジェクト間の <strong>メッセージ通信 (messaging)</strong> とみなす</p></li>
+<li><p>カプセル化: <strong>クラス(class)</strong> でオブジェクトを設計し、外から見える必要がないものはみえなくする</p></li>
+<li><p><strong>クラス継承（抽象化）</strong>: プログラムの共通部分に焦点をあて、クラスを設計する</p></li>
+</ul>
+</div>
+<div class="section" id="データ構造">
+<h2><span class="section-number">2.2. </span>データ構造<a class="headerlink" href="#データ構造" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>オブジェクト指向言語は、歴史的にはSimula3の<a class="reference external" href="https://ja.wikipedia.org/wiki/抽象データ型">抽象データ型(ADT)</a>から発展してきたとされます。 同じく、データ型からオブジェクト指向を理解していきましょう。</p>
+<p>Python は、今まで学んだきた通り、便利なデータ型を提供してくれます。</p>
+<ul class="simple">
+<li><p><strong>論理値(bool)</strong>: <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><strong>整数(int)</strong>: <code class="docutils literal notranslate"><span class="pre">123</span></code></p></li>
+<li><p><strong>浮動少数点数(float)</strong>: <code class="docutils literal notranslate"><span class="pre">1.23</span></code></p></li>
+<li><p><strong>文字列(str)</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;123&quot;</span></code></p></li>
+<li><p><strong>リスト(list)</strong>: <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code></p></li>
+<li><p><strong>タプル(tuple)</strong>: <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code></p></li>
+</ul>
+<p>ところが、世の中のデータは、これらのデータ型だけでは十分ではありません。</p>
+<div class="section" id="xy-平面上の点">
+<h3><span class="section-number">2.2.1. </span>xy 平面上の点<a class="headerlink" href="#xy-平面上の点" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>xy 平面上の点P(1,2)を表現する方法を考えてみましょう。</p>
+<p><img alt="b70afa8161c24a5fb51a77171ed319dd" class="no-scaled-link" src="https://kuramitsulab.github.io/lec/images/xyplane-fs8.png" style="width: 400px;" /></p>
+<p>点Pの x座標, y座標はそれぞれ数値で表現できます。しかし、数値で点を表現すると、ひとつの点につき、<code class="docutils literal notranslate"><span class="pre">px</span></code>, <code class="docutils literal notranslate"><span class="pre">py</span></code> のように２つの変数が必要になります。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">px</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">py</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">qx</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">qy</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;P座標 (</span><span class="si">{</span><span class="n">px</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">py</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Q座標 (</span><span class="si">{</span><span class="n">qx</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">qy</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+P座標 (1, 2)
+Q座標 (2, 3)
+</pre></div></div>
+</div>
+<p>もしプログラム内で扱う点の数が増えたら、点を扱うのが難しくなります。xy平面上の点として、x座標とy座標の値を、1つのデータ構造として、<strong>ひとまとまり</strong>で扱いたくありませんか？</p>
+<div class="admonition note"><p>データ構造</p>
+<p>複数の値からなるデータをひとつの変数から扱えるようにすること</p>
+</div></div>
+<div class="section" id="タプル">
+<h3><span class="section-number">2.2.2. </span>タプル<a class="headerlink" href="#タプル" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Python は、既に学んできたとおり、リストやタプルなどの複数の値をまとめて扱うデータ構造があります。</p>
+<p>タプルを使ってみると：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;P座標 (</span><span class="si">{</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Q座標 (</span><span class="si">{</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+P座標 (1, 2)
+Q座標 (2, 3)
+</pre></div></div>
+</div>
+<p>x座標とy座標をひとまとまりのデータとして扱えるようになります。 しかし、タプルを用いて、平面上の点を記述すると新たな問題も発生します。</p>
+<p><strong>課題点1</strong>: 直感的に、x,y 座標の値を理解しにくい。 次は、点Pと点Qの距離を計算する式ですが …</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sqrt</span><span class="p">((</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>課題点2</strong>: 演算子の意味が異なる。 もし、点Pと点Qを加算してみたら、期待通りの結果が得られますか？</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">+</span> <span class="n">q</span>
+</pre></div>
+</div>
+<p>やはり、平面上の点を表現するための、<strong>より目的に特化したデータ構造</strong>があるといいと思いませんか?</p>
+<div class="admonition note"><p><strong>オブジェクト指向</strong></p>
+<p>目的にあったデータ構造を定義するクラス機能を提供する</p>
+</div></div>
+</div>
+<div class="section" id="クラスとオブジェクト">
+<h2><span class="section-number">2.3. </span>クラスとオブジェクト<a class="headerlink" href="#クラスとオブジェクト" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>クラス(class)は、データ構造を設計するプログラミング機能です。</p>
+<p>まずは、先ほどの平面上の点 <code class="docutils literal notranslate"><span class="pre">(x,y)</span></code> を表す <code class="docutils literal notranslate"><span class="pre">Point</span></code> クラスを作ってみましょう。</p>
+<p><strong>xy平面上の点</strong> <code class="docutils literal notranslate"><span class="pre">Point</span></code>クラス</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+</pre></div>
+</div>
+</div>
+<p>Pointクラス上で定義された変数<code class="docutils literal notranslate"><span class="pre">x</span></code>と<code class="docutils literal notranslate"><span class="pre">y</span></code>のことをプロパティ（Java: フィールド, C++: メンバ変数)と呼びます。平面上の点(x,y)に相当します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">__init__</span></code>は、<strong>コンストラクタ</strong>と呼ばれる特殊な関数です。新しいデータを生成するときに、初期化するために使われます。<code class="docutils literal notranslate"><span class="pre">self</span></code>は、自己参照変数と呼ばれる特殊な変数で、データの自分自身を表します。</p>
+<div class="section" id="インスタンス化">
+<h3><span class="section-number">2.3.1. </span>インスタンス化<a class="headerlink" href="#インスタンス化" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラスは設計図です。実体のあるデータではありません。オブジェクト指向言語では、クラスから作られたデータのことを、<strong>オブジェクト(object)</strong> 、もしくは<strong>インスタンス(instance)</strong> と呼びます。</p>
+<p><img alt="961de3cb768f44018553be4e848b10ac" class="no-scaled-link" src="https://kuramitsulab.github.io/lec/images/class_object-fs8.png" style="width: 50%;" /></p>
+<p><strong>クラスのインスタンス化</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Point</span></code>はクラス名ですが、関数のように呼び出すことができます。このとき、<code class="docutils literal notranslate"><span class="pre">Point</span></code>クラス内で定義されたコンストラクタ<code class="docutils literal notranslate"><span class="pre">__init__(self,</span> <span class="pre">x,</span> <span class="pre">y)</span></code>が呼び出され、与えられた引数の値をプロパティに持つオブジェクト<code class="docutils literal notranslate"><span class="pre">p</span></code>が生成されます。</p>
+<p>オブジェクトのプロパティは、<code class="docutils literal notranslate"><span class="pre">p.x</span></code>のように参照して、値をえます。</p>
+<p><strong>p.x (pのxプロパティ)</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+</pre></div></div>
+</div>
+<p><strong>p.y (pのyプロパティ)</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2
+</pre></div></div>
+</div>
+<div class="admonition important danger"><p>Let’s try</p>
+<p>P(1,2)とQ(2,3)をインスタンス化して、そのx,y座標を表示してみよう</p>
+</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;P座標 (</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Q座標 (</span><span class="si">{</span><span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+P座標 (1, 2)
+Q座標 (2, 3)
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="インスタンスかどうか判定する">
+<h3><span class="section-number">2.3.2. </span>インスタンスかどうか判定する<a class="headerlink" href="#インスタンスかどうか判定する" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>オブジェクト指向プログラミングを始めると、いろいろな種類のオブジェクトが登場します。あるオブジェクトが何のクラスか知りたいことも多くなります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">isinstance(x,</span> <span class="pre">c)</span></code>は、<code class="docutils literal notranslate"><span class="pre">x</span></code> が クラス <code class="docutils literal notranslate"><span class="pre">c</span></code> のインスタンスであるか判定する関数です。</p>
+<p><strong>pは、Pointクラスのインスタンスかどうか？</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">Point</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p><strong>(1,2)は、Pointクラスのインスタンスかどうか？</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">isinstance</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">Point</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False
+</pre></div></div>
+</div>
+<div class="admonition note"><p><strong>クラス名を調べる</strong></p>
+<p>Pythonは、すべてがオブジェクトです。整数値<code class="docutils literal notranslate"><span class="pre">0</span></code>も文字列も全て何かしらのクラスのオブジェクトになっています。xのクラス名は、<code class="docutils literal notranslate"><span class="pre">type(x)</span></code>関数で調べることができます。</p>
+<p>整数値 <code class="docutils literal notranslate"><span class="pre">1</span></code>のクラス名を調べる</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="点P,Qの中間点を求める">
+<h3><span class="section-number">2.3.3. </span>点P,Qの中間点を求める<a class="headerlink" href="#点P,Qの中間点を求める" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Pointクラスに戻って、少し例題で練習しておきましょう。</p>
+<div class="admonition important danger"><p><strong>例題（中間点を求める）</strong></p>
+<p>任意の２点P, Qの中間点を求める関数 mid(p, q)を定義してみよう。</p>
+<p><strong>例</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">mid</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;中間点 (</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ポイントは、関数 mid(p, q)の結果も、Point オブジェクトになる点です。</p>
+</div><p><img alt="7bf3b9ef8d6f470091a93b9c5f404763" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+<p>関数 mid(p,q) は、中間座標を計算したあと、新しく Point クラスをインスタンス化して、 Point オブジェクトとして結果を返します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">mid</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="n">mx</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">my</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">mid</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;中間点 (</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+中間点 (2, 2)
+</pre></div></div>
+</div>
+<div class="admonition important danger"><p>Let’s try</p>
+<p>任意の２点間の距離を求める関数distance(p,q)を定義してみよう。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="k">return</span> <span class="c1"># 自分で完成させよう</span>
+
+</pre></div>
+</div>
+</div>
+</div></div>
+</div>
+<div class="section" id="クラスとメソッド">
+<h2><span class="section-number">2.4. </span>クラスとメソッド<a class="headerlink" href="#クラスとメソッド" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>メソッドは、クラス上に定義された<strong>オブジェクトに対する操作</strong>を記述する関数です。メソッドを定義すると、オブジェクトがますます便利に使えるようになります。</p>
+<div class="admonition warning"><p><strong>メソッドを定義すると</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">mid(p,q)</span></code> の代わりに、<code class="docutils literal notranslate"><span class="pre">p.mid(q)</span></code> のように書ける</p>
+</div><p><strong>メソッドの定義方法</strong></p>
+<ul class="simple">
+<li><p>クラス定義 (class) 内で定義する</p></li>
+<li><p>操作の対象となるオブジェクトは自分自身 (self) になる</p></li>
+</ul>
+<p>まずは、先ほどの mid(p,q) 関数をメソッドとして定義してみます。</p>
+<p><strong>関数定義のメソッド化</strong></p>
+<ul class="simple">
+<li><p>関数定義をクラス内のブロックに移動させる</p></li>
+<li><p>全体的をインデントを下げる</p></li>
+<li><p>関数の第一引数 を <strong>self に変更する</strong></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="c1"># 省略してもよい</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="c1"># 省略してもよい</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">mid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span> <span class="c1"># 先 ほ ど のmid(p,q)のメソッド化</span>
+        <span class="n">mx</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">my</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p>プロパティの値は、<code class="docutils literal notranslate"><span class="pre">p.x</span></code>のようにオブジェクトの変数<code class="docutils literal notranslate"><span class="pre">p</span></code>から参照します。しかし、メソッド定義からみると、自分自身に何の変数名が与えられているかわかりません。そこで、自己参照変数 <code class="docutils literal notranslate"><span class="pre">self</span></code>を用います。</p>
+<div class="admonition important danger"><p>Let’s try</p>
+<p>点P(1,1),Q(3,3)の中間点をメソッドを用いて、求めてみよう。</p>
+</div><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">mid</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;中間点 (</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+中間点 (2, 2)
+</pre></div></div>
+</div>
+<p>クラス定義を始めると、<strong>自己参照変数(self)</strong> の意味が最も理解しにくいところです。多くの学生が何度か書いたら、「突然わかる」ようになるといいます。 Colabは、Pythonを試してみるのに優れた環境なので、何度かメソッドを書いてみてください。</p>
+<div class="admonition important danger"><p>Let’s try</p>
+<p>任意の２点間の距離を求める関数distance(p,q)もメソッドとして定義してみよう。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+        <span class="k">return</span> <span class="c1"># 自分で完成させよう</span>
+
+</pre></div>
+</div>
+</div>
+</div><div class="section" id="オブジェクトの表示-__repr__">
+<h3><span class="section-number">2.4.1. </span>オブジェクトの表示 <code class="docutils literal notranslate"><span class="pre">__repr__</span></code><a class="headerlink" href="#オブジェクトの表示-__repr__" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Python では、<code class="docutils literal notranslate"><span class="pre">__repr__(self)</span></code> というメソッド名は、オブジェクトの内部を文字列として表示のための<strong>特別なメソッド名</strong>になっています。</p>
+<p><code class="docutils literal notranslate"><span class="pre">__repr__(self)</span></code>の定義前: オブジェクトの内部は見えない</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;__main__.Point at 0x110ca6c10&gt;
+</pre></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">__repr__(self)</span></code>を定義する</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">__repr__(self)</span></code>の定義後</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(1, 2)
+</pre></div></div>
+</div>
+<div class="admonition warning"><p><strong>クラスを定義したら</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">__repr__(self)</span></code> も定義しておくと、オブジェクトの内容が見えるので、開発がしやすくなります。</p>
+</div></div>
+</div>
+<div class="section" id="空間上の点">
+<h2><span class="section-number">2.5. </span>空間上の点<a class="headerlink" href="#空間上の点" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ここまでの練習として、空間上の点を表現するクラスを定義してみましょう。</p>
+<div class="admonition important danger"><p><strong>例題（空間上の点）</strong></p>
+<p>空間上の点 (x, y, z) を表現するクラスPoint3Dを定義せよ。また、空間上の2点間の中間点 (mid) と距離 (distance) を求めるメソッドも定義せよ。</p>
+<p><strong>例</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;点P&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;点q&#39;</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;中間点&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">mid</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;距離&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+</pre></div>
+</div>
+</div><p><img alt="04cdb3f814f74a07a84de6f3284de245" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">class</span> <span class="nc">Point3D</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">z</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+    <span class="k">def</span> <span class="nf">mid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="n">q</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="n">Point3D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">dz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">z</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="動的束縛">
+<h3><span class="section-number">2.5.1. </span>動的束縛<a class="headerlink" href="#動的束縛" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラス Point と Point3D を比較したとき、注目したいところはメソッド名です。</p>
+<p>クラスが違えば、同じメソッド名を定義することができます。しかもクラスごとに異なる処理を行うことができます。</p>
+<p>さらに、注目して欲しいのは、2次元版も3次元版も全く同じコード <code class="docutils literal notranslate"><span class="pre">p.distance(q)</span></code> で距離を計算できています。</p>
+<p><strong>Pointの場合</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.4142135623730951
+</pre></div></div>
+</div>
+<p><strong>Point3Dの場合</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.7320508075688772
+</pre></div></div>
+</div>
+<p>オブジェクト指向プログラミングの大きな特徴に<strong>動的束縛 (dynamic binding)</strong> という機構がありま す。これは、実行時に、クラスの種類によって呼び出すメソッドを決定してくれるものです。つまり、pが<code class="docutils literal notranslate"><span class="pre">Point</span></code>クラスなら、<code class="docutils literal notranslate"><span class="pre">Point</span></code>クラスのメソッド、pが<code class="docutils literal notranslate"><span class="pre">Point3D</span></code>クラスなら、<code class="docutils literal notranslate"><span class="pre">Point3D</span></code>クラスのメソッドが呼び出されます。</p>
+<div class="admonition warning"><p><strong>動的束縛</strong></p>
+<p>動的束縛は、if 文などの条件分岐と等価な役割を果たしています。もし、動的束縛を使わないと、次のようにpのクラスごとに処理を切り替えるように書くことになります。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Point3</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">dz</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">q</span><span class="o">.</span><span class="n">z</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">dz</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+</div><p>動的束縛を活かしたプログラミングは、次回、<strong>ポリモーフィズム</strong> としてさらに詳しく取り上げます。</p>
+</div>
+</div>
+<div class="section" id="コースワーク">
+<h2><span class="section-number">2.6. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://ja.wikipedia.org/wiki/有理数">有理数</a>とは、２つの整数 <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> (ただし <span class="math notranslate nohighlight">\(b\)</span> は <span class="math notranslate nohighlight">\(0\)</span> でない)を用いて、</p>
+<div class="math notranslate nohighlight">
+\[\frac{a}{b}\]</div>
+<p>という分数で表せる数です。 <span class="math notranslate nohighlight">\(b = 1\)</span> とすることにより、任意の整数は有理数となります。</p>
+<div class="admonition danger important"><p><strong>演習課題（有理数）</strong></p>
+<p>有理数をクラスで定義してみよう。</p>
+<ol class="arabic simple">
+<li><p>有理数クラスを定義する (クラス名は、<code class="docutils literal notranslate"><span class="pre">Q</span></code>、プロパティは<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>を用いるとよい。)</p></li>
+<li><p>クラス<code class="docutils literal notranslate"><span class="pre">Q</span></code>をインスタンス化し表示できるようにする。例えば、<code class="docutils literal notranslate"><span class="pre">Q(1,2)</span></code>は、<code class="docutils literal notranslate"><span class="pre">1/2</span></code>と表示される. <code class="docutils literal notranslate"><span class="pre">Q(2,1)</span></code>は、<code class="docutils literal notranslate"><span class="pre">2</span></code>と表示される。</p></li>
+<li><p>約分も忘れずに: <code class="docutils literal notranslate"><span class="pre">Q(2,4)</span></code>は、<code class="docutils literal notranslate"><span class="pre">1/2</span></code>と表示される。</p></li>
+<li><p>整数も表せるようにする. 任意の整数x に対し、<code class="docutils literal notranslate"><span class="pre">Q(x,1)</span></code>は<code class="docutils literal notranslate"><span class="pre">x</span></code>と表示される。</p></li>
+<li><p>加算(add)できるようにする。つまり、<code class="docutils literal notranslate"><span class="pre">Q(1,</span> <span class="pre">2).add(Q(1,</span> <span class="pre">3))</span></code>は、<code class="docutils literal notranslate"><span class="pre">5/6</span></code>になる</p></li>
+<li><p>四則演算を全部、実装する</p></li>
+</ol>
+<p><img alt="d4d393db51a04b92b65d25ec7168d8a0" src="https://kuramitsulab.github.io/lec/images/Qcalc-fs8.png" /></p>
+<ol class="arabic simple" start="7">
+<li><p>(上級者向け）次週の演算子オーバーロードを予習し、<code class="docutils literal notranslate"><span class="pre">Q(1,2)</span> <span class="pre">+</span> <span class="pre">Q(1,3)</span></code>のように加算できるようにする。</p></li>
+</ol>
+</div></div>
+<div class="section" id="(補足)-演算子オーバーロードについて">
+<h2><span class="section-number">2.7. </span>(補足) 演算子オーバーロードについて<a class="headerlink" href="#(補足)-演算子オーバーロードについて" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>演算子オーバーロード (operator overloading)</strong> とは、特殊なメソッドを定義することで、演算子を拡張するオブジェクト指向プログラミングの技法です。</p>
+<div class="section" id="Pythonにおける演算子">
+<h3><span class="section-number">2.7.1. </span>Pythonにおける演算子<a class="headerlink" href="#Pythonにおける演算子" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まず、Python において、そもそも演算子がどのように実装されているか、確認するところから始めましょう。</p>
+<p>Python は、純粋なオブジェクト指向プログラミング言語なので、全ての値はオブジェクトになっています。<code class="docutils literal notranslate"><span class="pre">1</span></code>という整数値も、実は<code class="docutils literal notranslate"><span class="pre">int</span></code>クラスのオブジェクトです。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p>オブジェクトへの操作は、全てメソッドを通して行われます。加算は、<code class="docutils literal notranslate"><span class="pre">__add__(x)</span></code>という特殊なメソッドを呼び出した結果です。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p>毎回、<code class="docutils literal notranslate"><span class="pre">(1).__</span> <span class="pre">add__(2)</span></code>のように書くのはつらいので、メソッドコールの<strong>シンタックスシュガー</strong> として、<code class="docutils literal notranslate"><span class="pre">1+2</span></code>が用意されているわけです。</p>
+<p><img alt="417d42d4f1da48e38b3a18f791f424f0" class="no-scaled-link" src="https://kuramitsulab.github.io/lec/images/messaging-fs8.png" style="width: 400px;" /></p>
+<div class="admonition note">
+<p class="admonition-title"><strong>シンタックスシュガー（糖衣構文）</strong></p>
+<p>機械的に置き換えられる簡易記法</p>
+</div>
+<p>とういことで、<code class="docutils literal notranslate"><span class="pre">__add__(self,</span> <span class="pre">x)</span></code>を定義すれば、加算演算子を定義することができます。</p>
+<p><strong>四則演算と演算子オーバーロード</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x.__add__(y)</span></code> : <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.__sub__(y)</span></code> : <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">-</span> <span class="pre">y</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.__mul__(y)</span></code> : <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">y</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.__truediv__(y)</span></code>: <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">/</span> <span class="pre">y</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x.__floordiv__(y)</span></code>: <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">//</span> <span class="pre">y</span></code></p></li>
+</ul>
+<p>Pythonでは、上記以外にもほぼ全ての<a class="reference external" href="https://docs.python.org/ja/3/library/operator.html">演算子</a>がオーバーロードすることができます。</p>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="201prog.html" title="前へ ページ">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">前へ</p>
+                <p class="prevnext-title"><span class="section-number">1. </span>プログラミングを思い出そう</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="203oop.html" title="次へ ページ">
+            <div class="prevnext-info">
+                <p class="prevnext-label">次へ</p>
+                <p class="prevnext-title"><span class="section-number">3. </span>クラスと継承</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

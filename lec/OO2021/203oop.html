@@ -1,0 +1,901 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. クラスと継承 &#8212; Python Object-Oriented Programming 2021  ドキュメント</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="2. クラスとメソッド定義" href="202class.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Python Object-Oriented Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="201prog.html">
+   1. プログラミングを思い出そう
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="202class.html">
+   2. クラスとメソッド定義
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3. クラスと継承
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/203oop.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2F203oop.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#オブジェクト指向設計法">
+   3.1. オブジェクト指向設計法
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#UMLクラス図">
+     3.1.1. UMLクラス図
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#Counterクラスを用いたプログラミング">
+     3.1.2. Counterクラスを用いたプログラミング
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#クラス継承">
+   3.2. クラス継承
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#クラス定義の例">
+     3.2.1. クラス定義の例
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ポリモーフィズム-(多相性)">
+   3.3. ポリモーフィズム (多相性)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#コースワーク">
+   3.4. コースワーク
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="クラスと継承">
+<h1><span class="section-number">3. </span>クラスと継承<a class="headerlink" href="#クラスと継承" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="オブジェクト指向設計法">
+<h2><span class="section-number">3.1. </span>オブジェクト指向設計法<a class="headerlink" href="#オブジェクト指向設計法" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>オブジェクト指向設計法とは、オブジェクト(事物)の性質を考え、<strong>抽象化(abstraction)</strong> しながら、クラスを設計することです。</p>
+<ul class="simple">
+<li><p>オブジェクトは、どのような状態があるか？</p></li>
+<li><p>オブジェクト間にはどのようなメッセージのやりとりがあるか？</p></li>
+</ul>
+<div class="admonition note"><p><strong>抽象化</strong></p>
+<p>不要な情報を捨てて、より本質のみ焦点を当てること</p>
+</div><p>ここでは、カウンターを例に考えます。カウンターをイメージしてください。</p>
+<p>Q: カウンターの内部には、どのような情報がありますか?</p>
+<blockquote>
+<div><p>これは、プロパティの設計になる </p>
+</div></blockquote>
+<p>Q: カウンターとは、どのような情報のやりとりがありますか?</p>
+<blockquote>
+<div><p>これは、メソッドの設計になる</p>
+</div></blockquote>
+<p><img alt="94df2aa0214642fbb8275b1cadf453f5" class="no-scaled-link" src="https://kuramitsulab.github.io/lec/images/counter-fs8.png" style="width: 60%;" /></p>
+<div class="admonition note"><p><strong>インターフェース</strong></p>
+<p>オブジェクトと外部間で情報をやりとりをするメソッドのこと（ソフトウェアの設計でもっとも重要な概念となる）</p>
+</div><div class="section" id="UMLクラス図">
+<h3><span class="section-number">3.1.1. </span>UMLクラス図<a class="headerlink" href="#UMLクラス図" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラス設計は、どのオブジェクト指向プログラミングであっても、基本的に共通です。プログラミングに依存せず、クラス設計を図示する手法として、<a class="reference external" href="https://ja.wikipedia.org/wiki/統一モデリング言語">UMLクラス図</a>があります。</p>
+<p><img alt="a0a4db1b0e754b5cb39ffba99ec4de3f" class="no-scaled-link" src="https://kuramitsulab.github.io/lec/images/uml_counter-fs8.png" style="width: 60%;" /></p>
+<p>大規模なソフトウェア開発では、まず UMLクラス図を用いてクラス設計だけ先に行います。もちろん、UMLクラス図を用いず、Python などのプログラミング言語で直接、ソースコードで設計することもあります。</p>
+<p>UMLクラス図の設計に基づいて、Pythonクラスを定義していきましょう。</p>
+<p><strong>クラス設計: まず、インターフェースだけ定義します。</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Counter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">cnt</span> <span class="p">:</span> <span class="nb">int</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="admonition note"><p><strong>設計と実装</strong></p>
+<p>クラスを設計するときは、先にインターフェースだけ定義し、メソッドの本体は<code class="docutils literal notranslate"><span class="pre">pass</span></code>などにしておきます。インタフェースの設計が終わったら、<code class="docutils literal notranslate"><span class="pre">pass</span></code>の部分を実装していきます。</p>
+</div><p>オブジェクト指向プログラミングでは、クラス設計が重要になります。クラス設計がしっかりしていれば、各メソッドの実装は意外と簡単です。大規模なソフトウェア開発では、クラス設計とメソッド開発は分業して行うことも少なくありません。</p>
+<div class="admonition important note"><p><strong>Let’s try</strong></p>
+<p>クラス設計にしたがって、各メソッドを実装してみよう。（つまり、<code class="docutils literal notranslate"><span class="pre">pass</span></code>の部分を意味のあるコードに書き直す。)</p>
+</div><p><strong>クラスの実装</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Counter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">cnt</span> <span class="p">:</span> <span class="nb">int</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Counterクラスを用いたプログラミング">
+<h3><span class="section-number">3.1.2. </span>Counterクラスを用いたプログラミング<a class="headerlink" href="#Counterクラスを用いたプログラミング" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>インスタンス化の練習を兼ねて、オブジェクト指向プログラミングを練習しておきましょう。</p>
+<div class="admonition danger important"><p><strong>(例題)カウンタ</strong></p>
+<p>関数<code class="docutils literal notranslate"><span class="pre">stat(a,</span> <span class="pre">c)</span></code>は、カウンタ<code class="docutils literal notranslate"><span class="pre">c</span></code>を用いて、数列<code class="docutils literal notranslate"><span class="pre">a</span></code>中の5の倍数の数える。 ただし、数列中に9の倍数が出現したときは、カウンタはリセットされる。 このような関数<code class="docutils literal notranslate"><span class="pre">stat(a,</span> <span class="pre">c)</span></code>を定義してみよう。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">Counter</span><span class="p">):</span>
+    <span class="c1"># 自分で考えよう</span>
+
+</pre></div>
+</div>
+</div>
+</div><p>大して難しくないはずなので、いきなり、答えを書いておきます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">Counter</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">9</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="n">stat</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">c</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="admonition warning"><p><strong>考えてみよう</strong></p>
+<p>関数<code class="docutils literal notranslate"><span class="pre">stat(a,c)</span></code>を一切修正することなく、9の倍数でもリセットされないようにするにはどうしたらいいだろうか？(できるのだろうか？)</p>
+</div></div>
+</div>
+<div class="section" id="クラス継承">
+<h2><span class="section-number">3.2. </span>クラス継承<a class="headerlink" href="#クラス継承" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>クラス継承(class inheritance)</strong> は、オブジェクト指向プログラミングの効率を向上させる手段です。 難解的には難しいところがありますが、まずはシンプルに理解しておきましょう。</p>
+<div class="admonition note"><p>(操作的意味論による解釈)クラス継承 </p>
+<p>新しいクラスを定義するとき、既存のクラスから拡張すること </p>
+</div><p>クラス継承を用いると、<code class="docutils literal notranslate"><span class="pre">Counter</span></code>クラスから、2重に数える<code class="docutils literal notranslate"><span class="pre">DoubleCounter</span></code>クラスをクラス継承で作ることができます。</p>
+<p><img alt="ea79675cd436415e880e8ee2b773d8b6" class="no-scaled-link" src="https://kuramitsulab.github.io/lec/images/uml_extends-fs8.png" style="width: 60%;" /> </p>
+<div class="admonition note"><p><strong>用語</strong></p>
+<p>オブジェクト指向言語では、継承元のクラスのことを <strong>スーパークラス(super class)</strong> 、もしくは <strong>親クラス (parent class)</strong> 、継承されたクラスのことを <strong>サブクラス(sub class)</strong> 、もしくは <strong>子クラス(child class)</strong> と呼びます。</p>
+</div><div class="section" id="クラス定義の例">
+<h3><span class="section-number">3.2.1. </span>クラス定義の例<a class="headerlink" href="#クラス定義の例" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>これも具体例を考えながらみていきましょう。</p>
+<p>ここでは、1回の<code class="docutils literal notranslate"><span class="pre">count()</span></code> 操作で、2回カウントす る <code class="docutils literal notranslate"><span class="pre">DoubleCounter</span></code> クラスを考えます。</p>
+<p><strong>Counterクラスから継承</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">DoubleCounter</span><span class="p">(</span><span class="n">Counter</span><span class="p">):</span>
+    <span class="o">...</span>
+
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">DoubleCounter</span></code> は、<code class="docutils literal notranslate"><span class="pre">Counter</span></code>クラスのサブクラスになります。サブクラスになると：</p>
+<ul class="simple">
+<li><p>スーパークラスのプロパティとメソッドを <strong>そのまま使うことができる</strong></p></li>
+<li><p>新しくプロパティやメソッドを追加することができる</p></li>
+<li><p>スーパークラスのメソッドを <strong>異なる処理をするように書き換えることができる</strong></p></li>
+<li><p>ただし、スーパークラスのプロパティとメソッドを取り除くことはできない</p></li>
+</ul>
+<p><strong>DoubleCounterクラスの定義</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">DoubleCounter</span><span class="p">(</span><span class="n">Counter</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">+=</span> <span class="mi">2</span>
+
+</pre></div>
+</div>
+</div>
+<div class="admonition warning"><p><strong>クラス継承されるので：</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">count()</span></code>メソッドだけ定義しなおせば良い。</p>
+<p>他のメソッドやプロパティは <code class="docutils literal notranslate"><span class="pre">Counter</span></code> クラスの定義をそのまま使うことができます。</p>
+</div><p>実際に試してみると：</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">DoubleCounter</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># 2と表示される。</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2
+</pre></div></div>
+</div>
+<p>このように、オブジェクト指向プログラミングでは、クラス継承を活用することで、既存のクラスを再利用して 効率よくクラスを定義できるようになります。</p>
+<div class="admonition important danger"><p><strong>Let’s try</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">Counter</span></code>クラスを継承して、次のようなカウンタを作ってみよう。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ZeroCounter</span></code>: <code class="docutils literal notranslate"><span class="pre">count()</span></code>を呼んでも、カウントされない</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SecureCounter</span></code>: <code class="docutils literal notranslate"><span class="pre">reset()</span></code>を読んでも、リセットされない</p></li>
+</ul>
+</div></div>
+</div>
+<div class="section" id="ポリモーフィズム-(多相性)">
+<h2><span class="section-number">3.3. </span>ポリモーフィズム (多相性)<a class="headerlink" href="#ポリモーフィズム-(多相性)" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>クラス継承には、ポリモーフィズム(多相性)という優れた効果があります。</p>
+<div class="admonition danger important"><p>Let’s try</p>
+<p>次の関数<code class="docutils literal notranslate"><span class="pre">stat(a,</span> <span class="pre">c)</span></code>を一切変更することなく、9の倍数が出現しても、リセットされないようにしよう。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">Counter</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">9</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+</div><p>ヒント: <code class="docutils literal notranslate"><span class="pre">reset()</span></code>を無効にしたカウンタを作ります。</p>
+<p><strong>失敗する例: reset()のないカウンタ</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">NonResetCounter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">cnt</span> <span class="p">:</span> <span class="nb">int</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<p><strong>動かしてみると</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">NonResetCounter</span><span class="p">()</span>
+<span class="n">stat</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">c</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-9-849ff627b103&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> c <span class="ansi-blue-fg">=</span> NonResetCounter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>stat<span class="ansi-blue-fg">(</span>range<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">100</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> c<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> c<span class="ansi-blue-fg">.</span>show<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-7-b123083c9840&gt;</span> in <span class="ansi-cyan-fg">stat</span><span class="ansi-blue-fg">(a, c)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>             c<span class="ansi-blue-fg">.</span>count<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>         <span class="ansi-green-fg">if</span> x <span class="ansi-blue-fg">%</span> <span class="ansi-cyan-fg">9</span> <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg">             </span>c<span class="ansi-blue-fg">.</span>reset<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;NonResetCounter&#39; object has no attribute &#39;reset&#39;
+</pre></div></div>
+</div>
+<p>次のようにエラー(AttributeError)が発生します。これは、<code class="docutils literal notranslate"><span class="pre">NonResetCounter</span></code>に<code class="docutils literal notranslate"><span class="pre">reset()</span></code>がないからです。</p>
+<blockquote>
+<div><p>AttributeError: ‘NonResetCounter’ object has no attribute ‘reset’</p>
+</div></blockquote>
+<p>つまり、<code class="docutils literal notranslate"><span class="pre">NoResetCounter</span></code>クラスは、一見、<code class="docutils literal notranslate"><span class="pre">Counter</span></code>クラスのように見えますが、<code class="docutils literal notranslate"><span class="pre">reset()</span></code>がないため、<code class="docutils literal notranslate"><span class="pre">Counter</span></code>クラスとして役割が果たせません。</p>
+<div class="admonition note"><p><strong>型エラー</strong></p>
+<p>オブジェクトの種類が異なることによって発生するエラー</p>
+</div><p>一方、次のように、<code class="docutils literal notranslate"><span class="pre">Counter</span></code>クラスを継承し、<code class="docutils literal notranslate"><span class="pre">reset()</span></code>で何もしないように定義すると：</p>
+<p><strong>成功する例: SecureCounterクラス</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">SecureCounter</span><span class="p">(</span><span class="n">Counter</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">SecureCounter</span><span class="p">()</span>
+<span class="n">stat</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">c</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+19
+</pre></div></div>
+</div>
+<p>これは、<code class="docutils literal notranslate"><span class="pre">SecureCounter</span></code>クラスは、<code class="docutils literal notranslate"><span class="pre">Counter</span></code>クラスの機能を全て継承しているため、常に<code class="docutils literal notranslate"><span class="pre">Counter</span></code>としての役割を果たせることが保証されます。</p>
+<p>つまり、継承された<code class="docutils literal notranslate"><span class="pre">SecureCounter</span></code>オブジェクトは、常に<code class="docutils literal notranslate"><span class="pre">Counter</span></code>オブジェクトの代わりに用いても <strong>型エラーにならないことを保証されます。</strong> このような性質を <strong>型安全性</strong> と呼びます。</p>
+<div class="admonition note"><p><strong>型安全性</strong></p>
+<p>型エラー (type error) が発生しないことが保証される</p>
+</div><p>クラス継承は、型安全で、<code class="docutils literal notranslate"><span class="pre">Counter</span></code>, <code class="docutils literal notranslate"><span class="pre">DoubleCounter</span></code>, <code class="docutils literal notranslate"><span class="pre">SecureCounter</span></code>のように、 様々なプログラム実行の振る舞いを変更することができます。<strong>ポリモーフィズム</strong> は、 オブジェクトが、同じインターフェースで、様々な振る舞いを実現する性質です。</p>
+</div>
+<div class="section" id="コースワーク">
+<h2><span class="section-number">3.4. </span>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>オブジェクト指向とクラス継承は大変、強力です。 あらゆるものをモデル化することができます。</p>
+<div class="admonition danger important"><p><strong>演習問題(クラス継承)</strong></p>
+<p>次のソースコードを読んで答えよ。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">class</span> <span class="nc">Expr</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">Val</span><span class="p">(</span><span class="n">Expr</span><span class="p">):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+<span class="k">class</span> <span class="nc">BinaryExpr</span><span class="p">(</span><span class="n">Expr</span><span class="p">):</span>
+    <span class="n">left</span><span class="p">:</span> <span class="n">Expr</span>
+    <span class="n">right</span><span class="p">:</span> <span class="n">Expr</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+
+<span class="k">class</span> <span class="nc">AddExpr</span><span class="p">(</span><span class="n">BinaryExpr</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">MulExpr</span><span class="p">(</span><span class="n">BinaryExpr</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple">
+<li><p>これらのクラスは、何をモデル化したものか？　(ヒント: <code class="docutils literal notranslate"><span class="pre">Expr(AddExpr(Val(1),Val(2)),</span> <span class="pre">Val(3))</span></code> は何？)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eval(self)</span></code>メソッドの役割（目的）は何か？</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Expr</span></code>, <code class="docutils literal notranslate"><span class="pre">Val</span></code>, <code class="docutils literal notranslate"><span class="pre">BinaryExpr</span></code>, <code class="docutils literal notranslate"><span class="pre">AddExpr</span></code>, <code class="docutils literal notranslate"><span class="pre">MulExpr</span></code> の継承関係を<a class="reference external" href="https://cacoo.com/ja/blog/how-to-write-class-diagram/">UMLクラス図</a>にしてみよう</p></li>
+</ol>
+</div></div>
+</div>
+
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="202class.html" title="前へ ページ">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">前へ</p>
+                <p class="prevnext-title"><span class="section-number">2. </span>クラスとメソッド定義</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
