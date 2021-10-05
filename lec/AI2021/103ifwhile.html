@@ -1,0 +1,1124 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>条件分岐と繰り返し &#8212; Python/AI Programming 2021  ドキュメント</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Python/AI Programming 2021  ドキュメント</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="ドキュメントを検索..." aria-label="ドキュメントを検索..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="102python.html">
+   1. Python 入門
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="ナビゲーションを切り替え" aria-controls="site-navigation"
+                title="ナビゲーションを切り替え" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="このページをダウンロード"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/103ifwhile.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="ソースファイルをダウンロード" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="PDFに印刷"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/kkuramitsu/sphinx"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="ソースリポジトリ"><i
+                    class="fab fa-github"></i>リポジトリ</button></a>
+        <a class="issues-button"
+            href="https://github.com/kkuramitsu/sphinx/issues/new?title=Issue%20on%20page%20%2F103ifwhile.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="問題を開く"><i class="fas fa-lightbulb"></i>未解決の問題</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全画面モード"
+        title="全画面モード"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> 目次
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#条件分岐">
+   条件分岐
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#条件式">
+   条件式
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#数当てゲーム">
+   数当てゲーム
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#乱数">
+     乱数
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ユーザに数を当てさせます">
+     ユーザに数を当てさせます
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#while文による繰り返し">
+     while文による繰り返し
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#for文:-指定された回数をループする">
+   for文: 指定された回数をループする
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#コースワーク">
+   コースワーク
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="条件分岐と繰り返し">
+<h1>条件分岐と繰り返し<a class="headerlink" href="#条件分岐と繰り返し" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>健康診断プログラムを作ってみましょう。BMI(ボディマス指数)は、次の式で求められる肥満度を表す体格指数です。</p>
+<img alt="bmi-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/e85c454c-ca9b-00bb-e362-40234c9072df.png" />
+<p><strong>BMIを計算するプログラム</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">h</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;身長(cm)&#39;</span><span class="p">))</span>
+<span class="n">w</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;体重(kg)&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="p">(</span><span class="n">h</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+22.03856749311295
+</pre></div></div>
+</div>
+<p>プログラムは、BMIを計算するプログラムのように、上から順番に評価してゆきます。</p>
+<img alt="code_seq-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/7b643ba4-a47c-8d36-6639-d85e1e1d5a78.png" />
+<div class="section" id="条件分岐">
+<h2>条件分岐<a class="headerlink" href="#条件分岐" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong>条件によっては、評価するプログラムを[X]か[Y]のように切り替えたい</strong>ことがあります。 そのようなときは、<strong>if文と呼ばれる制御構造</strong>を用います。</p>
+<img alt="code_if-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/555f7c9d-15b4-1d0b-e593-aa581b4ae16a.png" />
+<p><strong>if文</strong>や条件分岐の考え方は難しいものではありません。少し例題をときながら書いていきましょう。</p>
+<div class="admonition important dangaer"><p><strong>例題: 食べ過ぎに注意</strong></p>
+<p>ユーザから身長(cm)と体重(kg)を入力し、 BMI25以上なら、「食べ過ぎに注意」と警告するプログラムを書きましょう。</p>
+</div><p><code class="docutils literal notranslate"><span class="pre">if</span></code>は、分岐されるプログラムの部分をインデントすることで区別します。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">h</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;身長(cm)は?&quot;</span><span class="p">))</span>
+<span class="n">w</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;体重(kg)は?&quot;</span><span class="p">))</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">100</span> <span class="c1"># cm から mに変換</span>
+<span class="n">BMI</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">if</span> <span class="n">BMI</span> <span class="o">&gt;=</span> <span class="mf">25.0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;食べ過ぎに注意&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+食べ過ぎに注意
+</pre></div></div>
+</div>
+<p>食べ過ぎに注意でなければ、「この調子です」と標準するようにしましょう。</p>
+<p><strong>``else``節</strong>: そうでなければ</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">h</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;身長(cm)は?&quot;</span><span class="p">))</span>
+<span class="n">w</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;体重(kg)は?&quot;</span><span class="p">))</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">100</span> <span class="c1"># cm から mに変換</span>
+<span class="n">BMI</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">if</span> <span class="n">BMI</span> <span class="o">&gt;=</span> <span class="mf">25.0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;食べ過ぎに注意&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;この調子です&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+この調子です
+</pre></div></div>
+</div>
+<p>if文や条件分岐の考え方は難しいものではありません。 しかし、Python には、インデントによってコードブロックを示すなど、 独特なクセがあります。 いくつか書き方のパターンを見て、書き方をマスターしましょう。</p>
+<div class="admonition warning"><p>重要: インデント（字下げ）</p>
+<p>コードの前の空白をインデントといいます。 （Python はインデントの深さでコードブロックの始まりと終わりを表ます。）</p>
+</div></div>
+<div class="section" id="条件式">
+<h2>条件式<a class="headerlink" href="#条件式" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>条件式の書き方をみておきましょう。</p>
+<p>ある条件が正しいときを<strong>真(True)</strong>、間違っているときは <strong>偽(False)</strong> といいます。 だから、「<span class="math notranslate nohighlight">\(3\)</span>は<span class="math notranslate nohighlight">\(2\)</span>より大きい」は真ですが、「<span class="math notranslate nohighlight">\(3\)</span>は偶数である」は偽となります。</p>
+<p>Python では、<code class="docutils literal notranslate"><span class="pre">True</span></code>と<code class="docutils literal notranslate"><span class="pre">False</span></code>で真偽を表現します。</p>
+<div class="admonition note"><p><strong>条件式</strong></p>
+<p>評価すると論理値（<code class="docutils literal notranslate"><span class="pre">True</span></code> もしくは <code class="docutils literal notranslate"><span class="pre">False</span></code>）になる式を表現します。</p>
+</div><p>このような論理式を表現するため、次のような演算子を提供しています。</p>
+<table class="table">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 23%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>数式</p></th>
+<th class="head"><p>Python</p></th>
+<th class="head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x &lt; y~~~~~\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y より小さいかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \le y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y 以下かどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x &gt; y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y より大きいかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \ge y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y 以上かどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x = y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y と等しいかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \ne y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">!=</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y と等しくないかどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x \in y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y に含まれるかどうか</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \not\in y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">not</span> <span class="pre">in</span> <span class="pre">y</span></code></p></td>
+<td><p>x は y に含まれないかどうか</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(x \land y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">and</span> <span class="pre">y</span></code></p></td>
+<td><p>x かつ y</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(x \lor y\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">or</span> <span class="pre">y</span></code></p></td>
+<td><p>x または y</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\lnot x\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">x</span></code></p></td>
+<td><p>x の否定</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger important"><p><strong>例題（論理式）</strong></p>
+<p>次の命題を論理式として評価してみよう。</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(3\)</span>は<span class="math notranslate nohighlight">\(2\)</span>より大きい</p></li>
+<li><p><span class="math notranslate nohighlight">\(3\)</span>は偶数である</p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi\)</span>は3より大きく、<span class="math notranslate nohighlight">\(3.18\)</span>より小さい (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">math</span> <span class="pre">import</span> <span class="pre">pi</span></code>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(121\)</span>は<span class="math notranslate nohighlight">\(11\)</span>の倍数でない</p></li>
+<li><p>文字<code class="docutils literal notranslate"><span class="pre">&quot;e&quot;</span></code> は文字列<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code>に含まれる</p></li>
+</ol>
+</div><p><img alt="448439e604aa4fa3879d8e74fec1ef45" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/0f9c2b8d-9b0b-e130-e4af-4a4b5c638549.png" /></p>
+<p><strong>:math:`3`は:math:`2`より大きい</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">2</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p><strong>:math:`3`は偶数である</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="mi">3</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False
+</pre></div></div>
+</div>
+<p><strong>:math:`pi`は3より大きく、:math:`3.18`より小さい</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="mf">3.0</span> <span class="o">&lt;</span> <span class="n">pi</span> <span class="o">&lt;</span> <span class="mf">3.18</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p><strong>:math:`121`は:math:`11`の倍数でない</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="mi">121</span> <span class="o">%</span> <span class="mi">11</span> <span class="o">!=</span> <span class="mi">0</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False
+</pre></div></div>
+</div>
+<p><strong>文字``」e」`` は文字列``」Hello」``に含まれる</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="s2">&quot;e&quot;</span> <span class="ow">in</span> <span class="s2">&quot;hello&quot;</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="数当てゲーム">
+<h2>数当てゲーム<a class="headerlink" href="#数当てゲーム" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>数当てゲームとは、コンピュータが生成した０〜１００の整数をユーザが当てるまでの回数を競うゲームです。 コンピュータは、ユーザが正解を当てるまで、「大き過ぎる」「小さ過ぎる」とヒント、ユーザが入力した数値のヒントを返します。</p>
+<div class="section" id="乱数">
+<h3>乱数<a class="headerlink" href="#乱数" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>乱数を生成するときは、<code class="docutils literal notranslate"><span class="pre">random</span></code>モジュールを使います。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p><strong>発生した乱数を確認する</strong></p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;乱数&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ユーザに数を当てさせます">
+<h3>ユーザに数を当てさせます<a class="headerlink" href="#ユーザに数を当てさせます" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まず、ユーザに数当てをしてもらいます。 ユーザが入力した整数を<code class="docutils literal notranslate"><span class="pre">m</span></code>とします。</p>
+<p>乱数<code class="docutils literal notranslate"><span class="pre">n</span></code>と等しければ<code class="docutils literal notranslate"><span class="pre">&quot;正解&quot;</span></code>、もし小さければ<code class="docutils literal notranslate"><span class="pre">&quot;小さ過ぎる&quot;</span></code>、そうでなければ<code class="docutils literal notranslate"><span class="pre">&quot;大き過ぎる&quot;</span></code>と表示するようにします。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;数字を当ててみて&#39;</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;小さ過ぎる&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;大き過ぎる&#39;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+小さ過ぎる
+</pre></div></div>
+</div>
+<p>もちろん、一回で数を当てられるのは稀です。 ゲームにするためには、繰り返して、ユーザに数当てしてもらうようにします。</p>
+<p>ここで、ループの構文<code class="docutils literal notranslate"><span class="pre">while</span></code>文か<code class="docutils literal notranslate"><span class="pre">for</span></code>文を使います。</p>
+<div class="admonition note"><p><strong>ループの構文</strong></p>
+<p>繰り返しのことをループ(loop)と呼びます。</p>
+<p><img alt="a3df2983f3634fc1b5f943f378d877db" src="https://3.bp.blogspot.com/-Fwn3eMre4kE/UNgpPaDL5GI/AAAAAAAAJZg/AeSfSV0NzhE/s1600/mark_arrow_reload.png" /></p>
+</div></div>
+<div class="section" id="while文による繰り返し">
+<h3>while文による繰り返し<a class="headerlink" href="#while文による繰り返し" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>while文は、特殊な条件分岐の構文になります。 if文の代わりに、while文を用いると、 <strong>条件PがTrueの間はブロック``[X]``を繰り返し</strong>ます。</p>
+<img alt="code_while-fs8.png" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/57754/975ed466-4bfa-9560-230a-faa0a09f97e1.png" />
+<p>次は、while文によって、ユーザが入力した数が当たるまで繰り返す例です。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;数字を当ててみて&#39;</span><span class="p">))</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 何回で当てたか数える</span>
+
+<span class="k">while</span> <span class="n">m</span> <span class="o">!=</span> <span class="n">n</span> <span class="p">:</span> <span class="c1"># n と mが等しくない間</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;小さ過ぎる&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;大き過ぎる&#39;</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;もう一度、数字を当ててみて&#39;</span><span class="p">))</span>
+    <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># c = c + 1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;回で当てました！&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+正解
+0 回で当てました！
+</pre></div></div>
+</div>
+<p>ちょっと、ループの制御構造が複雑なので最初は難しいかも知れません。 強制的にループを抜け出す<code class="docutils literal notranslate"><span class="pre">break文</span></code>を使うともうわかりやすく書けます。</p>
+<p><strong>ループしないバージョン</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;数字を当ててみて&#39;</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;小さ過ぎる&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;大き過ぎる&#39;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+大き過ぎる
+</pre></div></div>
+</div>
+<p><strong>無限ループ</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># 常に真です。</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;数字を当ててみて&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;小さ過ぎる&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;大き過ぎる&#39;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+大き過ぎる
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-20-8ae4bb34890c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">while</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">:</span>  <span class="ansi-red-fg"># 常に真です。</span>
+<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg">     </span>m <span class="ansi-blue-fg">=</span> int<span class="ansi-blue-fg">(</span>input<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;数字を当ててみて&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     <span class="ansi-green-fg">if</span> n <span class="ansi-blue-fg">==</span> m<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span>         print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;正解&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Library/Python/3.9/lib/python/site-packages/ipykernel/kernelbase.py</span> in <span class="ansi-cyan-fg">raw_input</span><span class="ansi-blue-fg">(self, prompt)</span>
+<span class="ansi-green-intense-fg ansi-bold">    846</span>                 <span class="ansi-blue-fg">&#34;raw_input was called, but this frontend does not support input requests.&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    847</span>             )
+<span class="ansi-green-fg">--&gt; 848</span><span class="ansi-red-fg">         return self._input_request(str(prompt),
+</span><span class="ansi-green-intense-fg ansi-bold">    849</span>             self<span class="ansi-blue-fg">.</span>_parent_ident<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    850</span>             self<span class="ansi-blue-fg">.</span>_parent_header<span class="ansi-blue-fg">,</span>
+
+<span class="ansi-green-fg">~/Library/Python/3.9/lib/python/site-packages/ipykernel/kernelbase.py</span> in <span class="ansi-cyan-fg">_input_request</span><span class="ansi-blue-fg">(self, prompt, ident, parent, password)</span>
+<span class="ansi-green-intense-fg ansi-bold">    890</span>             <span class="ansi-green-fg">except</span> KeyboardInterrupt<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    891</span>                 <span class="ansi-red-fg"># re-raise KeyboardInterrupt, to truncate traceback</span>
+<span class="ansi-green-fg">--&gt; 892</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> KeyboardInterrupt<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Interrupted by user&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">from</span> <span class="ansi-green-fg">None</span>
+<span class="ansi-green-intense-fg ansi-bold">    893</span>             <span class="ansi-green-fg">except</span> Exception <span class="ansi-green-fg">as</span> e<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    894</span>                 self<span class="ansi-blue-fg">.</span>log<span class="ansi-blue-fg">.</span>warning<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Invalid Message:&#34;</span><span class="ansi-blue-fg">,</span> exc_info<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">KeyboardInterrupt</span>: Interrupted by user
+</pre></div></div>
+</div>
+<div class="admonition warning"><p><strong>無限ループ</strong></p>
+<p>while文の条件がいつまでも真で繰り返しが止まらなくなること (プログラムのバグのひとつ)</p>
+</div><p><strong>break版</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># 常に真です。</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;数字を当ててみて&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解&#39;</span><span class="p">)</span>
+        <span class="k">break</span>  <span class="c1"># 中断</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;小さ過ぎる&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;大き過ぎる&#39;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+大き過ぎる
+小さ過ぎる
+正解
+</pre></div></div>
+</div>
+<div class="admonition danger important"><p><strong>Let’s try</strong></p>
+<p><strong>break版</strong> を、「何回で正解が当てられれたか」表示できるようにしてみよう。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;回で当てました！&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+正解
+0 回で当てました！
+</pre></div></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="for文:-指定された回数をループする">
+<h2>for文: 指定された回数をループする<a class="headerlink" href="#for文:-指定された回数をループする" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">for文</span></code>は、指定された回数繰り返す構文です。 プログラム中で繰り返す部分を<code class="docutils literal notranslate"><span class="pre">for</span></code>文のブロックに入れます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">break</span></code>文は、<code class="docutils literal notranslate"><span class="pre">while</span></code>文や<code class="docutils literal notranslate"><span class="pre">for</span></code>文による繰り返しを強制的に中断する制御構造です。 <code class="docutils literal notranslate"><span class="pre">break</span></code>文を使うと、xとyが等しいとき、繰り返しを中断するようにします。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;数字を当ててみて&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;正解&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;回で当てました！&#39;</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="k">elif</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;小さ過ぎる&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;大き過ぎる&#39;</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+小さ過ぎる
+正解
+2 回で当てました！
+</pre></div></div>
+</div>
+<div class="admonition danger"><p><strong>Let’s try</strong></p>
+<p>ユーザが3回以内で正解を当てられないときは、コンピュータの勝ちになるように直してみよう。 (ユーザに、あと何回と答えられる回数を教えてあげましょう。)</p>
+</div></div>
+<div class="section" id="コースワーク">
+<h2>コースワーク<a class="headerlink" href="#コースワーク" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="admonition danger important"><p><strong>占い</strong></p>
+<p>「<a class="reference external" href="https://se-ec.co.jp/uranai-surveyteam/soulnumber">ソウルナンバー占い</a>」を参考にして、 相性占いをするように直してみよう。</p>
+</div><p><strong>ヒント1. 生年月日を書き出す</strong></p>
+<p>1987年3月23日の生年月日の人は、文字列で<code class="docutils literal notranslate"><span class="pre">'19870323'</span></code>とします</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">birthday</span> <span class="o">=</span> <span class="s1">&#39;19870323&#39;</span>
+
+</pre></div>
+</div>
+</div>
+<p><strong>ヒント2. すべての数字を足す</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">'19870323'</span></code>は、<code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">9</span> <span class="pre">+</span> <span class="pre">8</span> <span class="pre">+</span> <span class="pre">7</span> <span class="pre">+</span> <span class="pre">0</span> <span class="pre">+</span> <span class="pre">3</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">+</span> <span class="pre">3</span></code>を計算します。</p>
+<p>Pythonで書くとこんな感じで各桁が得られます。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">birthday</span><span class="p">:</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+9
+8
+7
+0
+3
+2
+3
+</pre></div></div>
+</div>
+<p>各<code class="docutils literal notranslate"><span class="pre">d</span></code>の和を計算するようにしてみましょう。</p>
+<div class="admonition note"><p><strong>数値と文字列の変換</strong></p>
+<p>Pythonの中では、数値(<code class="docutils literal notranslate"><span class="pre">123</span></code>)と文字列(<code class="docutils literal notranslate"><span class="pre">&quot;123&quot;</span></code>)は別のデータ値になっています。 お互いに、<code class="docutils literal notranslate"><span class="pre">int(x)</span></code>と<code class="docutils literal notranslate"><span class="pre">str(x)</span></code>で変換することができます。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">int(x)</span></code>: <code class="docutils literal notranslate"><span class="pre">x</span></code>を整数値に変換する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str(x)</span></code>: <code class="docutils literal notranslate"><span class="pre">x</span></code>を文字列に変換する</p></li>
+</ul>
+</div><p><strong>ヒント3. 和が1桁になるまで足す</strong></p>
+<p>２重にループを使います。</p>
+</div>
+</div>
+
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          沿って Kimio Kuramitsu<br/>
+        
+            &copy; 著作権 2021, 倉光君郎(Kimio Kuramitsu).<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
