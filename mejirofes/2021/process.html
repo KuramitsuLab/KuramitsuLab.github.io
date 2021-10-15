@@ -1,0 +1,119 @@
+﻿<!doctype html>
+<html lang="ja">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>おしゃれ番長"ほっぺちゃん"-実験概要</title>
+		<meta name="description" content="実験方法紹介">
+		<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+		<link href="https://fonts.google.com/css?family=Philosopher" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="apple-touch-icon" sizes="180x180" href=" images/apple-touch-icon.png ">
+	</head>
+
+	<body>
+		<div id="info" class="big-bg">
+			<header class="page-header wrapper">
+				<!--<h1><a href="index.html"><img class="logo" src="images/logo.png"></a></h1>-->
+				<nav>
+					<ul class="main-nav">
+						<li><a href="mejiromenu.html">Home</a></li>
+						<li><a href="introduction.html">Introduction</a></li>
+						<li><a href="process.html">Process</a></li>
+						<li><a href="acknowledgments.html">Acknowledgments</a></li>
+					</ul>
+                </nav>
+                
+                <div id="nav-drawer">
+					<input id="nav-input" type="checkbox" class="nav-unshown">
+					<label id="nav-open" for="nav-input"><span></span></label>
+					<label class="nav-unshown" id="nav-close" for="nav-input"></label>
+					<div id="nav-content">
+						<a href="mejiromenu.html">Home</a>
+						<br>
+						<a href="introduction.html">Introduction</a>
+						<br>
+						<a href="process.html">Process</a>
+						<br>
+						<a href="acknowledgments.html">Acknowledgments</a>
+						<br>
+                    </div>
+                </div>
+            </header>
+            <br>
+        <div class="pr-contents wrapper">
+            <article>
+                <header class="pr-info">
+                <h2 class="pr-title">&nbsp;&nbsp;実験概要&nbsp;&nbsp;</h2>
+                    <br>
+                    
+　　　　　　　　　　<p>私たちは、街行く人のコーディネートについて話すことがあり、Vision Transformerを用いて私たちのセンスを学習した機械学習モデル「ほっぺちゃん」を作ろうと考えました。
+                    <p>ほっぺちゃんは服装の画像を取り込むと、それがおしゃれかどうかを判別してくれる仕組みになっています。
+                    <p>【イメージ図】
+　　　　　　　　　　<h1><img class="intro-top" src="images/huku4.jpg"width="400px"height="300px""></h1>
+                    <p>まず初めにおしゃれだと思う人のコーデとおしゃれではないと思う人のコーデの写真をそれぞれ200枚集め、Vision Transformerに学習させます。（自分たちの主観が入ってしまうことは否めませんが…）そして、そのデータをもとに自分たちのコーデを評価してもらうという仕組みです。
+                   
+                    <br>
+                    <p>①画像データの取り込み
+　　　　　　　　　　<p>　画像データを読み込み、おしゃれな画像のフォルダ名をgoodに、おしゃれでない画像のフォルダ名はbadに変更しました。
+                    <h1><img class="intro-top" src="images/pr1.jpg"></h1>
+                    </p>
+                    <br>
+                    <p>②すべての画像データをTestデータとTrainデータに分類
+　　　　　　　　　　<p>　GoodもBadもまとめたリストAllFashionを作成し、訓練データとテストデータに分類しました。
+　　　　　　　　　　<h1><img class="intro-top" src="images/pr2.png"></h1>
+                    <br>
+                    <p>③画像にラベル付け
+　　　　　　　　　　<p>　読み込んだGoodとBadの画像データにラベルを付けました。<p>　訓練データとテストデータ両方においてGoodは０、Badは１で登録しました。
+　　　　　　　　　　<h1><img class="intro-top" src="images/pr3.png"></h1>
+                    <p>④画像の正規化
+　　　　　　　　　　<p>　今回のVision Transformerを使った画像処理では画像のサイズがすべて同じであることが好ましいので、画像サイズを変更し統一させました。
+　　　　　　　　　　<h1><img class="intro-top" src="images/pr5.png"></h1>
+                    <br>
+                    <p>⑤データの学習
+　　　　　　　　　　<p>　取り込んだ画像をおしゃれなコーデとおしゃれではないコーデとで分類できるよう学習させました。
+　　　　　　　　　　<h1><img src="images/pr7.png"width="500px"height="450px"></h1>
+                    <br>
+                    <p>⑥テスト
+                    <p>　テストデータをロードし、テストデータの画像分類を行いました。結果はCSVに格納しました。
+                    <h2><img src="images/pr8.png"width="400px"height="250px"></h2>
+                    <p>　結果は、正答率が45％と半分以下になってしまいました。
+　　　　　　　　　　<p>　どうしてこのような低い値になってしまったかを考えた結果、実験者4人で各々に画像を集めたことにより一貫性がなかったことがあげられました。
+　　　　　　　　　　<br>
+                    <p>　そこで今度は、おしゃれな服装とそうでない服装の基準を決めました。
+                    <p>　おしゃれな服装はシンプル(モノトーン、色の統一性がある、柄がない)なもので統一し、そうでない服装は派手な色また派手な柄のものに統一しました。
+　　　　　　　　　　<p>⑦テスト(２回目)
+　　　　　　　　　　<p>　新たに集めた画像を取り込み、1回目と同様に学習させました。
+　　　　　　　　　　<h2><img src="images/pr9.png"width="400px"height="250px"></h2>
+                    <p>　結果は、正答率が54％となり1回目よりも精度が上がりました。
+
+
+                    <h2 id ="demo" class="pr-title">&nbsp;&nbsp;まとめ&nbsp;&nbsp;</h2>
+　　　　　　　　　　<p>1回目の実験ではモデルの正答率が45%という結果となりました。あまり良い結果が出なかった原因として、メンバー4人がそれぞれデータを集めたので、おしゃれだと思う服装とおしゃれではないと思う服装に一貫性がなかったことが挙げられました。2回目の実験では、メンバー4人で意見を合わせて画像を選びなおし、正答率を54%まで上げることに成功しました。
+    <br>それぞれの価値観があるため、人間でさえファッションを確実に評価することは出来ません。その事を踏まえて今回の結果を鑑みると、"ほっぺちゃん"が54%の正答率を出せたことは妥当な数値なのではないかと思いました。しかし、まだまだ精度を上げることが出来るはずです。
+    <br>さらに精度を上げるためには、画像数を増やしていくことが改善策の一つだと考えます。
+                
+                    <br>
+                    <br>
+                    <br>
+
+<ol>
+
+                    </ol>
+                    
+
+                </header>
+            </article>
+        </div>
+        
+        <!--<footer>
+            <div class="wrap">
+                <p><small>ほっぺちゃん</small></p>
+            </div>
+        </footer>-->
+    </body>
+    
+
+</html>

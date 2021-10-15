@@ -1,0 +1,102 @@
+﻿
+<!doctype html>
+<html lang="ja">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>おしゃれ番長"ほっぺちゃん"-ViTについて</title>
+		<meta name="description" content="ViTについて">
+		<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+		<link href="https://fonts.google.com/css?family=Philosopher" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="apple-touch-icon" sizes="180x180" href=" images/apple-touch-icon.png ">
+	</head>
+
+	<body>
+		<div id="info" class="big-bg">
+			<header class="page-header wrapper">
+				<!--<h1><a href="index.html"><img class="logo" src="images/logo.png"></a></h1>-->
+				<nav>
+					<ul class="main-nav">
+						<li><a href="mejiromenu.html">Home</a></li>
+						<li><a href="introduction.html">Introduction</a></li>
+						<li><a href="process.html">Process</a></li>
+						<li><a href="acknowledgments.html">Acknowledgments</a></li>
+					</ul>
+                </nav>
+                
+                <div id="nav-drawer">
+					<input id="nav-input" type="checkbox" class="nav-unshown">
+					<label id="nav-open" for="nav-input"><span></span></label>
+					<label class="nav-unshown" id="nav-close" for="nav-input"></label>
+					<div id="nav-content">
+						<a href="mejiromenu.html">Home</a>
+						<br>
+						<a href="introduction.html">Introduction</a>
+						<br>
+						<a href="process.html">Process</a>
+						<br>
+						<a href="acknowledgments.html">Acknowledgments</a>
+						<br>
+                    </div>
+                </div>
+            </header>
+            <br>
+            <div class="wrapper">
+                <!--<h2 class="page-title">ありがとう倉光先生</h2>-->
+            </div>
+
+        <div class="pr-contents wrapper">
+            <article>
+                <header class="pr-info">
+   
+             <h2 class="pr-title">&nbsp;&nbsp;画像認識について&nbsp;&nbsp;</h2>
+                    <br><br>
+                    <p>画像認識とは、画像から特徴をつかみ、対象物を識別するパターン認識技術の1つです。
+                    <p>画像データから対象物となる輪郭を洗い出し、背景から分離した上で特徴を抽出し、マッチングや変換を行い、目的となるオブジェクトや特徴を特定して認識する仕組みで、その対象物が何であるかを分析します。
+                    <p>人間の場合、「画像に写っているものが何であるか？」について、得ている経験から理解して判断を行い、画像に映る人物やオブジェクトを簡単に特定できます。人間なら無意識に行われている行為ですが、ピクセル単位で情報を管理するコンピューターにとって、画像に何が写っているかを理解するのは非常に難しく、高度で複雑な処理となります。
+                    <br><br>
+                    <h2 class="pr-title">&nbsp;&nbsp;Transformerについて&nbsp;&nbsp;</h2>
+                    <br><br>
+                    <p>Transformerは計算の高速化を妨げていたRNNを利用していません。RNNを使わないことで、並列計算が可能になり計算量も小さくなります。しかし、RNNを利用しなくなったことでデータ同士の長期依存関係を取得できなくなりました。この問題を解決する為に2つ取り入れたことがあります。
+                    <p>・入力と出力の文章同士の広範囲な依存関係を捉えられるAttentionの採用
+                    <p>・単語の位置情報を埋め込む層であるPositionalEncoding層の採用
+                    <p>結果、Attentionによって意味的つながりを取得でき、PositionalEncodingによって位置的つながりを取得できることになります。また、Attention層におけるQuery-Key-Valueモデルの採用したことにより単語同士の照応関係を正確に反映することができます。
+                    <p>以上の特徴により、計算を高速化した上で、文脈情報を保持することに成功し、より正確な変換（翻訳）を可能にすることができました。また、Transformerは他のタスクにも汎用性が高いという利点もあります。
+                    <br>
+                    <br>
+                    <h2 class="pr-title">&nbsp;&nbsp;Vision Transformerについて&nbsp;&nbsp;</h2>
+                    <p>【Vision Transformerのモデル構造】
+                    <p><img class="intro-top" src="images/vision.png">
+                    <p>引用：<a href="https://arxiv.org/abs/2010.11929">“An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale”</a>
+                    <p>①Linear Projection of Flattened Patches（一次データ化されたパッチの線形射影）<br>
+                    <p>Transformerは画像をシークエンスデータとして受け取るため、二次元である画像データをパッチごとに一次元のシークエンスデータに変換して線形射影します。線形射影して得られた出力をPatch Embeddingと呼びます。この線形射影が行われるのは、Transformerではすべての層を通して一定の次元であるデータが使用されるからです。
+                    <p>②Extra learnable [class] embedding（学習可能な[class]トークンの埋め込み）
+                    <p>画像分類を可能にするために、シークエンスデータの先頭に学習可能な[class]トークンを追加します。
+                    <p>③Position Embedding（位置埋め込み）
+                    <p>パッチが画像のどこにあるかを識別する位置情報を付与します。
+                    <p>④Transformer Encoder
+                    <p>TransformerはMultihead Self-AttentionブロックとMulti Layer Pecerptronが交互になる形で構成されています。これらのブロックの前にはLayer Normalizationが、ブロックの後には残差接続(層を飛び越えた接続)が適用されています。Self-Attentionを通して自然言語処理の時と同様にパッチごとの（q, k, v）= (query, key, value)を獲得してパッチごとの対応関係を取得していきます。
+                    <p>⑤MLP
+                    <p>分類ヘッドと接続して画像分類タスクに応用します。活性関数には非線形のGELUを用いています。
+                    <br><br><br>
+                    <p>参考資料：
+                    <p><a href="https://analytics-news.jp/info/image_recognition">画像認識について</a>
+                    <p><a href="https://deepsquare.jp/2020/07/transformer/">自然言語処理の必須知識Transformer</a>
+                    <p><a href="https://deepsquare.jp/2020/10/vision-transformer/">画像認識の革新モデルVision Transformer</a>
+<p><br><br>
+                </header>
+            </article>
+        </div>
+        
+        <!--<footer>
+            <div class="wrap">
+                <p><small>おしゃれ番長"ほっぺちゃん"</small></p>
+            </div>
+        </footer>-->
+    </body>
+    
+
+</html>
