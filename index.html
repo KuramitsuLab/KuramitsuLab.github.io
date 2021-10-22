@@ -1,262 +1,322 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Kuramitsu Laboratory</title>
-  <meta name="description" content="Kuramitsu Laboratory, JWU">
-  <meta name="keywords" content="Kimio Kuramitsu, Konoha, PEG, Nez, YNU, 倉光君郎, 倉光研">
-  <meta name="author" content="Kimio Kuramitsu">
-  <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="bedrock3.css">
-</head>
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Kuramitsu Lab.</title>
+        <link rel="stylesheet" href="./css/reset.css">
+        <Link rel="stylesheet" href="./css/style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@200;400;800&display=swap" rel="stylesheet"> 
+        <script src="js/jquery.min.js"></script>
+        <script src="js/function.js"></script>
+        <script>
+            $(function() {
+                var $win = $(window),
+                    $main = $('main'),
+                    $nav = $('#nav'),
+                    navHeight = $nav.outerHeight(),
+                    navPos = $nav.offset().top,
+                    isheight = 'is-height';
+                    fixedClass = 'is-fixed';
+            
+                $win.on('load scroll', function() {
+                var value = $(this).scrollTop();
+                if ( value > navPos ) {
+                    $nav.addClass(fixedClass);
+                } else {
+                    $nav.removeClass(fixedClass);
+                    $main.css('margint-top', '0');
+                }
+                });
+            });
+        </script>
+        <script>
+            jQuery(function(){
+                var windowWidth = $(window).width();
+                var headerHight = 50; 
+                jQuery('a[href^=#]').click(function() {
+                var speed = 1000;
+                var href= jQuery(this).attr("href");
+                var target = jQuery(href == "#" || href == "" ? 'html' : href);
+                var position = target.offset().top-headerHight;
+                jQuery('body,html').animate({scrollTop:position}, speed, 'swing');
+                return false;
+               });
+            });
+        </script>
+        <script>
+            $(function () {
+                $('.menu').on('click', function () {
+                    $(this).toggleClass('active');
+                    $("#nav").toggleClass('active');
+                })
+            }); 
+            $(function () {
+                $('#nav a').on('click', function () {
+                    $('#nav').toggleClass('active');
+                    $(".menu").toggleClass('active');
+                })
+            });
+        </script>
+    </head>
+    <body>
+        
+        <header>
+            <div id="top">
+                <img src="./images/logo.png">
+            </div>
+            <div id="nav">
+                <ul>
+                    <li><a href="#top">TOP</a></li>
+                    <li><a href="#research">TOPICS</a></li>
+                    <li><a href="#member">MEMBER</a></li>
+                    <!--
+                    <li><a href="#schedule">SCHEDULE</a></li>
+                    -->
+                    <li><a href="#achievement">ACHIEVEMENT</a></li>
+                </ul>
+            </div> 
+            <div class="menu"><span></span><span></span><span></span></div>
+        </header>
+        <main>
 
-<!-- ================================================================== -->
+            <h1>KURAMITSU LAB, JWU</h1>
 
-<body>
-<header>
-  <h1>Kimio Kuramitsu, Ph.D. </h1>
+            <div class="leading">
+                私たちは、日本女子大学理学部数物情報科学科に開設された
+                コンピュータサイエンス系の研究室です。 
+                女子大ならでは視点を活かし、
+                プログラミング、言語、人工知能、情報教育の分野で特色のある研究活動に取り組んでいます。
+                卒業生は、学んだ専門性を活かし、エンジニアから研究開発まで、
+                デジタル社会で生き生きと活躍しています。
+            </div>
 
-  <p>
-    Professor, Graduate School of Science,
-    <a href="https://www.jwu.ac.jp/">Japan Women's University</a>. <br/>
-    Director at Computer Science Research Group.
-  </p>
+            <!-- sips -s format jpeg -Z 320 *.* --out 320 -->
+            <div id="gallery">
+                <img src="./images/320/LIVE2019.jpg">
+                <img src="./images/320/LAB2021b.jpg">
+                <img src="./images/320/TRON2019.jpg">
+                <img src="./images/320/LAB2019.jpg">
+                <img src="./images/320/LAB2020c.jpg">
+                <img src="./images/320/LAB2020.jpg">
+                <img src="./images/320/LIVE2019c.jpg">
+                <img src="./images/320/LAB2021D.jpg">
+                <img src="./images/320/CAKE2019.jpg">
+            </div>    
 
-  <p>
-    Office: Mathematics Laborartory, 100th Aniversary Building<br/>
-    Address: 2-8-1 Mejirodai, Bunkyo-ku, Tokyo, 112-8681 JAPAN<br/>
-    Email: kuramitsuk AT fc DOT jwu.ac.jp<br/>
-  </p>
+            <div id="research">    
+                <h1>TOPICS/KEYWORD</h1>
+                <div class="contens">
+                    <h3>プログラミングとAI</h3>
+                    <p>
+                        深層学習(AI)を活用したプログラミング
+                    </p>
+                    <img src="./images/puppy-ide.png">
+                </div>
+                <div class="contens">
+                    <h3>プログラミング教育</h3>
+                    <p>
+                        文書分類、翻訳 、要約、質問応答など。
+                        ソフトウェア開発をできるようなAIを作っています。
+                        AIの基礎を学びながら取り組みます。
+                    </p>
+                </div>
+                <div class="contens">
+                    <h3>教材開発</h3>
+                    <p>
+                        アルゴリズムからデータサイエンスまで
+                        興味をもって取り組める教材開発を行っています。
+                    </p>
+                    <img src="./images/duffy.png"/>
 
-  <h3> Short Bib. </h3>
+                </div>
+                <div class="contens">
+                    <h3>TRON</h3>
+                    <p>
+                        学生時代は、坂村健教授の元でトロンOSの開発に取り組んでいたため、
+                        基盤ソフトウェア開発、特に言語処理系に興味があります。
+                    </p>
+                </div>
+                <div class="contens">
+                    <h3>解析表現文法</h3>
+                    <p>
 
-  <p>
-    Kimio Kuramitsu is an Professor,
-    leading the Language Engineering Research Group at Japan Women's University.
-    His research interests are in the area of programming language design,
-    open data, ubiquitous and dependable computing.
-    He has received the Yamashita Memorial Research Award at IPSJ.
-    His pedagogical achievements include Konoha and Aspen,
-    the first programming exercise environment for novice students.
-    He earned  his B. E. at the University of Tokyo,
-    and his Ph.D. at the University of Tokyo under the supervision of Prof. Ken Sakamura.
-  </p>
+                    </p>
+                    <img src="./images/pegtree-fs8.png"/>
 
-  <nav>
-    Kimio Kuramitsu Laboratory
+                </div>
+                <div class="contens">
+                    <h3>Puppy</h3>
+                    <p>
+                        私たちが開発した
+                        物理シミュレーションを統合したプログラミング環境です。
+                        <a href="https://playpuppy.github.io/LIVE2019/">
+                            [ACM SPLASH/LIVE2019 Demo]
+                        </a>
+                    </p>
+                    <a href="https://playpuppy.github.io/LIVE2019/">
+                        <img src="./images/puppy.png"/>
+                    </a>
+                </div>
+        </div>
+
+            <div id="member">
+                <h1>MEMBER</h1>
+                <div id="professor">
+                    <h2>Professor</h2>
+                    <img src="./images/320/ME2020.jpg">
+                    <h3>倉光 君郎</h3>
+                    <h4>Kimio Kuramitsu</h4>
+                    <p>
+                        東京大学工学部機械情報工学科<br>
+                        東京大学大学院理学系研究科情報科学専攻<br>
+                        博士（理学）指導教授 坂村健
+                    </p>
+                    <p>
+                        <h5>略歴</h5>
+                        2001年 東大大学院情報学環 助手<br>
+                        2005年 横浜国立大学工学部電子情報工学科 講師<br>
+                        2006年 米ジョージア工科大学 客員研究員<br>
+                        2007年 横浜国立大学大学院物理情報工学専攻 准教授<br>
+                        2018年 日本女子大学理学部数物科学科 教授
+                    </p>
+                    <p>
+                        <h5>研究プロジェクト（研究代表者）</h5>
+                        経済産業省　IPA 未踏ソフトウェア創造事業<br>
+                        総務省　SCOPE-R 組込み向けバーチャルマシン<br>
+                        文部科学省　JST/CREST 高信頼OSプロジェクト<br>
+                    </p>
+                </div>
+                <div id="students">
+                    <h2>Students</h2>
+                    <h5>M2</h5>
+                    <p>Yuka Akinobu</p>
+                    <p>Mari Taguchi</p>
+                    <h5>M1</h5>
+                    <p>Mayu Tomioka</p>
+                    <p>Miyu Tamura</p>
+                    <h5>M0</h5>
+                    <p>Momoka Obara</p>
+                    <p>Shiho Takano</p>
+                    <p>Teruno Kajiura</p>
+                    <h5>B4</h5>
+                    <p>Juri Fukuda</p>
+                    <p>Ayumi Morita</p>
+                    <p>Shiori Komatsu</p>
+                    <p>Mutsumi Dobashi</p>
+                    <p>Chihiro Kon</p>
+                </div>
+<!--
+
+                <h2>Alumnuies</h2>
+                <div id="gallery">
+                    <img src="./images/320/GRAD2019.jpg">
+                </div>    
+-->
+    
+            </div>
+            <div id="achievement">
+                <h1>ACHIEVEMENT</h1>
+
+                <div id="gallery">
+                    <img src="./images/320/SSS2019.jpg">
+                    <img src="./images/320/KOREA2019.jpg">
+                    <img src="./images/320/XSIG2020.jpg">
+                </div>    
+
+                <h2>2021</h2>
+                <div id="contents">                    
+                    <ul>
+<li>Yuka Akinobu, Momoka Obara, Teruno Kajiura, 
+Shiho Takano, Miyu Tamura, Mayu Tomioka, Kimio Kuramitsu.
+Is Neural Machine Translation Approach Accurate Enough for Coding Assistance?
+In Proc. of ACM Beyond Code No Code (BCNC), 2021.</li>
+<li>高野志歩，田村みゆ，富岡真由，秋信有花, 倉光君郎.
+擬似コードから考える自然言語を活かしたプログラミング言語.
+情報処理学会情報教育シンポジウム2021 (SSS2021)，2021. (査読あり) <b>＜学生奨励賞＞</b></li>
+<li>秋信 有花，小原百々雅，倉光君郎.
+Transformer による日本語とPythonコード間の機械翻訳.
+情報処理学会プログラミング研究会(PRO134), 2021.</li>
+<li>縫嶋 慧深，秋信 有花, 倉光君郎. Pythonと日本語変換：Trans-CompilerとTransformerの比較．
+情報処理学会第62回プログラミング・シンポジウム, 2021.</li>
+                    </ul>
+                </div>
+
+                <h2>2020</h2>
+                <div id="contents">                    
+                    <ul>
+<li>Yuka Akinobu, Emi Nuijima and Kimio Kuramitsu. 
+Generating Parallel Corpus of Python Code and Natural Language for Deep Learning. 
+18th Asian Symposium on Programming Languages and Systems (APLAS 2020),(査読あり,ポスター発表), 2020.</li>
+<li>秋信 有花，倉光君郎.
+Puppyによる60分プログラミング体験コースの実践．
+情報処理学会情報教育シンポジウム2020 (SSS2020)，2020. (査読あり) <b>＜最優秀発表賞受賞＞</b></li>
+<li>秋信 有花，倉光君郎.
+    自然言語記述からの近似コード生成を用いた初学者プログラミング支援. 
+    情報処理学会xSIGワークショップ2020, 2020. (査読あり) 
+    <b>＜Outstanding Undergraduate Student Award 受賞＞</b></li>
+
+
+<li>秋信 有花，多田 拓，倉光 君郎: 自然言語処理を用いた初学者向けプログラミング支援．言語処理学会第26回年次大会 (NLP2020), ポスター発表, 2020.</li>
+<li>若杉 祐依，秋信 有花，渡邉 遥輔，倉光 君郎: 解析表現文法によるCNL日本語文法の試作．言語処理学会第26回年次大会 (NLP2020), 2020.</li>
+<li>秋信 有花，縫嶋 慧深，倉光 君郎: プログラミング言語とのギャップを埋めるための形式日本語の提案．NLP若手の会 第15回シンポジウム (YANS2020), 2020.</li>
+<li>縫嶋 慧深，秋信 有花，倉光 君郎: 自然言語とPython間での双方向機械翻訳の実現に向けて．NLP若手の会第15回シンポジウム (YANS2020), 2020.</li>
+<li>秋信 有花，縫嶋 慧深，田村 みゆ，倉光 君郎: 深層学習による自然言語処理技法をプログラミング言語に橋渡しする形式日本語．情報処理学会第131回プログラミング研究発表会 (PRO131), 2020.</li>
+<li>田村 みゆ，杉内 ゆり乃，縫嶋 慧深，田口 真里，秋信 有花，倉光 君郎: オンライン演習下における自由記述感想文からの学習意欲の予測モデル．情報処理学会情報教育シンポジウム2020 (SSS2020)，2020. (査読あり) <デモ・ポスター賞受賞></li>
+<li>富岡 真由，秋信 有花，倉光 君郎: 学習ログとブロックチェーンによる多角的なプログラミング・スキルの証明書．情報処理学会情報教育シンポジウム2020 (SSS2020)，2020. (査読あり)</li>
+
+</ul>
+
+</div>
+<h2>2019</h2>
+<div id="contents">
     <ul>
-	    <li><a href="#topics">Research</a></li>
-      <li><a href="#class">Class</a></li>
-	    <li><a href="#people">Collaborators</a></li>
-	    <li><a href="#acknowledgements">Acknowledgements</a></li>
-    </ul>
-    </ul>
-  </nav>
-</header>
-
-<!-- ================================================================== -->
-
-<section>
-<h2 id="topics">Research</h2>
-
-<p>Kimio's research interests are in the area of:</p>
-
-<ul>
-  <li>Language engineering
-    <ul>
-      <li><b><a href="http://nez-peg.github.io/">Nez</a></b>, open grammar language and tool</li>
-    </ul>
-  </li>
-  <li>Programming language design
-  <ul>
-    <li><b><a href="konoha.html">Konoha</a></b> small, static, extensible scripting language for education</li>
-  </ul>
-  </li>
-  <li>Ubiqitous and Dependable computing
-  <ul>
-    <li><a href="http://www.jst.go.jp/crest/crest-os/osddeos/index-e.html">DEOS</a> - Dependability engineering for open systems</li>
-    <li><a href="http://www.tron.org/">TRON</a> - IoT, Open data, and ubiquitous computing</li></li>
-  </ul>
-</ul>
-
-<h3>Publication (Selected)</h3>
-
-<ul class="publication">
 <li>
-  Kimio Kuramitsu.
-  <a href="https://www.jstage.jst.go.jp/article/ipsjjip/23/4/23_505/_pdf">
-    Packrat parsing with elastic sliding window
-  </a>.
-  <i>Journal of Information Processing</i>, 23(4), pp. 505–512, 2015.
-</li>
-
-<li>
-  Kimio Kuramitsu.
-  <!a href="https://www.jstage.jst.go.jp/article/ipsjjip/23/4/23_505/_pdf">
-    Fast, flexible, and declarative construction of abstract syntax trees with PEGs.
-  </a>.
-  <i>Journal of Information Processing</i>, 24(1), (to appear), 2016.
-  (<a href="http://arxiv.org/abs/1507.08610">preprint</a>)
-</li>
-
-<li>
-  Kimio Kuramitsu, Tetsuro Matsumura.
-  <!a href="https://www.jstage.jst.go.jp/article/ipsjjip/23/4/23_505/_pdf">
-    A declarative extension of parsing expression grammars for recognizing most programming languages.
-  </a>.
-  <i>Journal of Information Processing</i>, 24(2), (to appear), 2016.
-  (<a href="http://arxiv.org/abs/1507.08610">preprint</a>)
-</li>
-
-<p></p>
-
-<li>
-  Ide Masahiro, Kimio Kuramitsu.
-  <a href="http://id.nii.ac.jp/1001/00142222/">
-  A Trace-based Just-in-time Compiler for Ruby (in Japanese)
-  </a>.
-  <i>IPSJ Transaction on Programming</i>, 8(1), pp. 1-10, 2015.
-  (<a href="paper/rujit.pdf">pdf</a>)
-</li>
-
-<li>
-  Nagisa Sekiguchi, and Kimio Kuramitsu.
-  <a href="http://id.nii.ac.jp/1001/00101687/">
-  A shell language with exception handling (in Japanese)
-  </a>.
-  <i>IPSJ Transaction on Programming</i>, 7(2), pp. 11-19, 2014.
-  (<a href="paper/dshell.pdf">pdf</a>)
-</li>
-
-<li>
-  Shunsuke Shida, Masahiro Ide, and Kimio Kuramitsu.
-  <a href="http://id.nii.ac.jp/1001/00096929/">
-  Downsizing Konoha scripting language intended for Mindstorms NXT (in Japanese)
-  </a>.
-  <i>IPSJ Transaction on Programming</i>, 6(4), pp. 1-9, 2013.
-  (<a href="paper/tinykonoha.pdf">pdf</a>)
-</li>
-
-<li>
-  Kimio Kuramitsu.
-  <a href="http://doi.acm.org/10.1145/1942793.1942797">
-  Konoha: implementing a static scripting language with dynamic behaviors
-  </a>.
-  In <i>Proceeding Workshop on Self-Sustaining Systems</i>, pp. 21-29, 2010.
-  (<a href="paper/konoha.pdf">pdf</a>)
-</li>
-
-<p></p>
-
-<li>
-  Kimio Kuramitsu.
-  <a href="http://dx.doi.org/10.1109/UDM.2005.9">
-  Finding Periodic Outliers over a Monogenetic Event Stream
-  </a>
-  In <i>International Workshop on Ubiquitous Data Management UDM 2005. </i>,
-  pp. 97-104, 2005.
-  (<a href="paper/udm2005.pdf">pdf</a>)
-</li>
-
-<li>
-  Kimio Kuramitsu and Ken Sakamura.
-  <a href="http://doi.acm.org/10.1145/376868.376908">
-  Towards ubiquitous database in mobile commerce
-  </a>
-  In <i>Proceedings of the 2nd ACM international workshop on Data engineering for wireless and mobile access</i>,
-  pp. 84-89, 2001.
-  (<a href="paper/mobidb01.pdf">pdf</a>)
-</li>
+    Tada Taku, Yuka Akinobu, Makoto Sakane, Kimio Kuramitsu. 
+    Puppy: an educational simplification of Python with Live Playground. 
+    In Proc. of the ACM SPLASH/LIVE2019. 2019. (査読あり), 2019.</li>
+<li>秋信 有花，坂根 万琴，多田 拓, 倉光君郎.
+Puppy : ライブなコーディング入門環境. 情報処理学会情報教育シンポジウム2019 (SSS2019), 
+ポスター発表, 2019. (査読あり) <b>＜ポスター・デモ発表賞受賞＞</b></li>
+<li>坂根 万琴，多田 拓，秋信 有花，倉光 君郎: Puppy: 物理エンジンを統合した中高生向けPython入門環境．情報処理学会第126回プログラミング研究発表会 (PRO126), 2019.</li>
+<li>渡邉 遥輔，秋信 有花，若杉 祐依，倉光 君郎: 解析表現文法を用いた日本語文法定義の試作．情報処理学会第126回プログラミング研究発表会 (PRO126), 2019.</li>
 
 </ul>
 
-<p>
-  A list of all publication and talks is <a href="publication.html">here</a>.
-</p>
-
-</section>
-
-<!-- ================================================================== -->
-
-<section>
-<h2 id="class">Class</h2>
-
-<ul>
-<li>Computer Architecture (Spring 2015)</li>
-<li>Software Assurance (Spring 2015)</li>
-<li>Introductory Programming (Fall 2015)</li>
-<li>Operating Systems (Fall 2015)</li>
-</ul>
-
-</section>
-
-<!-- ================================================================== -->
-
-<section>
-
-<h2 id="people">Collaborators </h2>
-
-<h3> Collaborators </h3>
-
-<p>
-Collaborators are
-Sugaya Midori,
-Yutaka Matsuno,
-Shuichiro Yamamoto,
-Yutaka Ishikawa,
-Mario Tokoro,
-Calton Pu,
-Masaru Kituregawa,
-Hideyuki Tokuda,
-and
-Ken Sakamura
-</p>
-
-<h3> Students </h3>
-
-<p>
-Graduate students are
-Ide Masahiro (LINE 2015),
-Tetsuro Matsumura (Zuken 2014),
-Atsuchi Uchida (Sony 2014),
-Masaki Ishii (Morgan 2014),
-Shunsuke Sida (Amazon 2013),
-Yuuki Okamoto (Acecnture 2013),
-Shinpei Nakata (Rakuten 2013),
-Takuma Wakamori (NTT 2012),
-Motoki Yoan (Mixi 2012),
-Masaaki Goshima (Mixi 2011),
-"Uh" Hiraoka (Fujitsu 2011),
-Igarashi (JRI 2010),
-Naoki Ishiyama (Nintendo 2009),
-Satoshi Kobayashi (Yahoo! 2009),
-and Ryota Hashimoto (NTT 2008),
-</p>
+</div>
 
 
-<p>
-I am always looking for graduate students and undergraduate interns.
-If you are a prospective PhD student interested in working with me in particular,
-please apply to YNU's graduate school program.
-Feel contact me if you think you have the right skills and relevant interests.
-</p>
+<div id="button">
+                    <a href="index_old.html">MORE</a>
+                </div>
+            </div>
+            <!--
 
-</section>
-
-
-<!-- ================================================================== -->
-
-<section>
-<h2 id="acknowledgements">Acknowledgements</h2>
-
-<p>
-This page is on the <a href="https://education.github.com/">Github Education</a> program.
-Any opinions, findings, and conclusions or recommendations expressed
-in this material are those of the author(s) and do not necessarily
-reflect the views of the Yokohama National University.
-</p>
-</section>
-
-</body>
+            <div id="schedule">
+                <h1>SCHEDULE</h1>
+                <img class="pc" src="./images/schedule_pc.png" width="100%">
+                <img class="ipad" src="./images/schedule_ipad.png" width="100%">
+                <img class="sp" src="./images/schedule_sp.png" width="100%">
+            </div>
+        -->
+        </main>
+        <footer>
+            <div id="title">
+                <h2>Japan Women's University</h2>
+                <h1>Kuramitsu Lab.</h1>
+            </div>
+            <div id="copy">
+                <p>©︎2020 Kuramitsu Lab.</p>
+            </div>
+            <div id="access">
+                <p>
+                    〒112-8681<br>
+                    東京都文京区目白台2丁目8-1<br>
+                    日本女子大学百年館　倉光研究室<br>
+                    mail: xxxx.xxxxx.xxxx@xxx.xx.xx
+                </p>
+            </div>
+        </footer>
+    </body>
 </html>
