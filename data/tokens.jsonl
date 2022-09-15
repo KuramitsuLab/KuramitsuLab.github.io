@@ -1,4 +1,7 @@
-{"type": "Operators", "tok": ""}
+{"type": "CodeLayout", "tok": "\n"}
+{"type": "CodeLayout", "tok": "\t"}
+{"type": "CodeLayout", "tok": "    "}
+{"type": "CodeLayout", "tok": "# Comment"}
 {"type": "Operators", "tok": "+"}
 {"type": "Operators", "tok": "-"}
 {"type": "Operators", "tok": "*"}
