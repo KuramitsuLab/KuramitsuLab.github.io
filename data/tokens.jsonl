@@ -1,5 +1,6 @@
 {"type": "CodeLayout", "tok": "\n"}
 {"type": "CodeLayout", "tok": "\t"}
+{"type": "CodeLayout", "tok": " "}
 {"type": "CodeLayout", "tok": "    "}
 {"type": "CodeLayout", "tok": "# Comment"}
 {"type": "Operators", "tok": "+"}
@@ -133,8 +134,19 @@
 {"type": "UnicodeId", "tok": "あ"}
 {"type": "UnicodeId", "tok": "众"}
 {"type": "UnicodeId", "tok": "줦"}
+{"type": "HelloWorld", "tok": "'こんにちは世界!'"}
+{"type": "HelloWorld", "tok": "'Olá Mundo!'"}
+{"type": "HelloWorld", "tok": "'Ahoj světe!'"}
+{"type": "HelloWorld", "tok": "'Привет мир!'"}
+{"type": "HelloWorld", "tok": "'Γειά σου Κόσμε!'"}
+{"type": "HelloWorld", "tok": "'שלום עולם!'"}
+{"type": "HelloWorld", "tok": "'مرحبا بالعالم!'"}
+{"type": "HelloWorld", "tok": "'नमस्ते दुनिया!'"}
+{"type": "HelloWorld", "tok": "'Chào thế giới!'"}
+{"type": "HelloWorld", "tok": "'สวัสดีชาวโลก!'"}
+{"type": "HelloWorld", "tok": "'안녕하세요 !'"}
+{"type": "HelloWorld", "tok": "'你好 世界!'"}
 {"type": "Unicode", "tok": "'あ'"}
-{"type": "Unicode", "tok": "'Ⅷ'"}
 {"type": "Unicode", "tok": "'Ⅸ'"}
 {"type": "Unicode", "tok": "'♞'"}
 {"type": "Unicode", "tok": "'♟'"}
