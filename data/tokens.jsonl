@@ -1,0 +1,154 @@
+{"type": "CodeLayout", "tok": "\n"}
+{"type": "CodeLayout", "tok": "\t"}
+{"type": "CodeLayout", "tok": " "}
+{"type": "CodeLayout", "tok": "    "}
+{"type": "CodeLayout", "tok": "# Comment"}
+{"type": "Operators", "tok": "+"}
+{"type": "Operators", "tok": "-"}
+{"type": "Operators", "tok": "*"}
+{"type": "Operators", "tok": "**"}
+{"type": "Operators", "tok": "/"}
+{"type": "Operators", "tok": "//"}
+{"type": "Operators", "tok": "%"}
+{"type": "Operators", "tok": "@"}
+{"type": "Operators", "tok": "<<"}
+{"type": "Operators", "tok": ">>"}
+{"type": "Operators", "tok": "&"}
+{"type": "Operators", "tok": "|"}
+{"type": "Operators", "tok": "^"}
+{"type": "Operators", "tok": "~"}
+{"type": "Operators", "tok": ":="}
+{"type": "Operators", "tok": "<"}
+{"type": "Operators", "tok": ">"}
+{"type": "Operators", "tok": "<="}
+{"type": "Operators", "tok": ">="}
+{"type": "Operators", "tok": "=="}
+{"type": "Operators", "tok": "!="}
+{"type": "Delimiters", "tok": "("}
+{"type": "Delimiters", "tok": ")"}
+{"type": "Delimiters", "tok": "["}
+{"type": "Delimiters", "tok": "]"}
+{"type": "Delimiters", "tok": "{"}
+{"type": "Delimiters", "tok": "}"}
+{"type": "Delimiters", "tok": ","}
+{"type": "Delimiters", "tok": ":"}
+{"type": "Delimiters", "tok": "."}
+{"type": "Delimiters", "tok": "@"}
+{"type": "Delimiters", "tok": "="}
+{"type": "Delimiters", "tok": "->"}
+{"type": "Delimiters", "tok": "+="}
+{"type": "Delimiters", "tok": "-="}
+{"type": "Delimiters", "tok": "*="}
+{"type": "Delimiters", "tok": "/="}
+{"type": "Delimiters", "tok": "//="}
+{"type": "Delimiters", "tok": "%="}
+{"type": "Delimiters", "tok": "@="}
+{"type": "Delimiters", "tok": "&="}
+{"type": "Delimiters", "tok": "|="}
+{"type": "Delimiters", "tok": "^="}
+{"type": "Delimiters", "tok": ">>="}
+{"type": "Delimiters", "tok": "<<="}
+{"type": "Delimiters", "tok": "**="}
+{"type": "Numbers", "tok": "7"}
+{"type": "Numbers", "tok": "2147483647"}
+{"type": "Numbers", "tok": "0o177"}
+{"type": "Numbers", "tok": "0b100110111"}
+{"type": "Numbers", "tok": "3"}
+{"type": "Numbers", "tok": "79228162514264337593543950336"}
+{"type": "Numbers", "tok": "0o377"}
+{"type": "Numbers", "tok": "0xdeadbeef"}
+{"type": "Numbers", "tok": "100_000_000_000"}
+{"type": "Numbers", "tok": "0b_1110_0101"}
+{"type": "Numbers", "tok": "3.14"}
+{"type": "Numbers", "tok": "10."}
+{"type": "Numbers", "tok": ".001"}
+{"type": "Numbers", "tok": "1e100"}
+{"type": "Numbers", "tok": "3.14e-10"}
+{"type": "Numbers", "tok": "0e0"}
+{"type": "Numbers", "tok": "3.14_15_93"}
+{"type": "Numbers", "tok": "3.14j"}
+{"type": "Numbers", "tok": "10.j"}
+{"type": "Numbers", "tok": "10j"}
+{"type": "Numbers", "tok": ".001j"}
+{"type": "Numbers", "tok": "1e100j"}
+{"type": "Numbers", "tok": "3.14e-10j"}
+{"type": "Numbers", "tok": "3.14_15_93j"}
+{"type": "Keywords", "tok": "False"}
+{"type": "Keywords", "tok": "await"}
+{"type": "Keywords", "tok": "else"}
+{"type": "Keywords", "tok": "import"}
+{"type": "Keywords", "tok": "pass"}
+{"type": "Keywords", "tok": "None"}
+{"type": "Keywords", "tok": "break"}
+{"type": "Keywords", "tok": "except"}
+{"type": "Keywords", "tok": "in"}
+{"type": "Keywords", "tok": "raise"}
+{"type": "Keywords", "tok": "True"}
+{"type": "Keywords", "tok": "class"}
+{"type": "Keywords", "tok": "finally"}
+{"type": "Keywords", "tok": "is"}
+{"type": "Keywords", "tok": "return"}
+{"type": "Keywords", "tok": "and"}
+{"type": "Keywords", "tok": "continue"}
+{"type": "Keywords", "tok": "for"}
+{"type": "Keywords", "tok": "lambda"}
+{"type": "Keywords", "tok": "try"}
+{"type": "Keywords", "tok": "as"}
+{"type": "Keywords", "tok": "def"}
+{"type": "Keywords", "tok": "from"}
+{"type": "Keywords", "tok": "nonlocal"}
+{"type": "Keywords", "tok": "while"}
+{"type": "Keywords", "tok": "assert"}
+{"type": "Keywords", "tok": "del"}
+{"type": "Keywords", "tok": "global"}
+{"type": "Keywords", "tok": "not"}
+{"type": "Keywords", "tok": "with"}
+{"type": "Keywords", "tok": "async"}
+{"type": "Keywords", "tok": "elif"}
+{"type": "Keywords", "tok": "if"}
+{"type": "Keywords", "tok": "or"}
+{"type": "Keywords", "tok": "yield"}
+{"type": "Strings", "tok": "\"\""}
+{"type": "Strings", "tok": "''"}
+{"type": "Strings", "tok": "\"\"\"\"\"\""}
+{"type": "Strings", "tok": "''''''"}
+{"type": "Strings", "tok": "b'\\x80abc'"}
+{"type": "Strings", "tok": "\"\\N{GREEK CAPITAL LETTER DELTA}\""}
+{"type": "Strings", "tok": "\"\\u0394\""}
+{"type": "Strings", "tok": "'\\u0394'"}
+{"type": "Strings", "tok": "\"\\U00000394\""}
+{"type": "Formatting", "tok": "f\"He said his name is {name!r}.\""}
+{"type": "Formatting", "tok": "f\"He said his name is {repr(name)}.\""}
+{"type": "Formatting", "tok": "f\"result: {value:{width}.{precision}}\""}
+{"type": "Formatting", "tok": "f\"{today:%B %d, %Y}\""}
+{"type": "Formatting", "tok": "f\"{today=:%B %d, %Y}\""}
+{"type": "Formatting", "tok": "f\"{number:#0x}\""}
+{"type": "Formatting", "tok": "f\"{ foo = }\""}
+{"type": "Formatting", "tok": "f\"{line = }\""}
+{"type": "Formatting", "tok": "f\"{line = :20}\""}
+{"type": "Formatting", "tok": "f\"{line = !r:20}\""}
+{"type": "Formatting", "tok": "f\"abc {a[\"x\"]} def\""}
+{"type": "Formatting", "tok": "f\"abc {a['x']} def\""}
+{"type": "UnicodeId", "tok": "Ɵ"}
+{"type": "UnicodeId", "tok": "ε"}
+{"type": "UnicodeId", "tok": "あ"}
+{"type": "UnicodeId", "tok": "众"}
+{"type": "UnicodeId", "tok": "줦"}
+{"type": "HelloWorld", "tok": "'こんにちは世界!'"}
+{"type": "HelloWorld", "tok": "'Olá Mundo!'"}
+{"type": "HelloWorld", "tok": "'Ahoj světe!'"}
+{"type": "HelloWorld", "tok": "'Привет мир!'"}
+{"type": "HelloWorld", "tok": "'Γειά σου Κόσμε!'"}
+{"type": "HelloWorld", "tok": "'שלום עולם!'"}
+{"type": "HelloWorld", "tok": "'مرحبا بالعالم!'"}
+{"type": "HelloWorld", "tok": "'नमस्ते दुनिया!'"}
+{"type": "HelloWorld", "tok": "'Chào thế giới!'"}
+{"type": "HelloWorld", "tok": "'สวัสดีชาวโลก!'"}
+{"type": "HelloWorld", "tok": "'안녕하세요 !'"}
+{"type": "HelloWorld", "tok": "'你好 世界!'"}
+{"type": "Unicode", "tok": "'あ'"}
+{"type": "Unicode", "tok": "'Ⅸ'"}
+{"type": "Unicode", "tok": "'♞'"}
+{"type": "Unicode", "tok": "'♟'"}
+{"type": "Unicode", "tok": "'😀'"}
+{"type": "Unicode", "tok": "'😉'"}
