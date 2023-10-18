@@ -238,7 +238,8 @@ main h1{
 }
 
 #gallery img{
-    width: 33%;
+    /* width: 33%; */
+    width: 20%;
 }
 
 /*---------------- topボタン ----------------------*/
@@ -593,6 +594,7 @@ footer{
     
     #member #professor p{
         margin: 20px 0;
+        
     }
     
     #member #students{
