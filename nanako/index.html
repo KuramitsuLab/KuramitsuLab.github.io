@@ -355,6 +355,7 @@
         <div class="header-controls">
             <button class="btn btn-primary" onclick="executeCode()">実行 (Ctrl+Enter)</button>
             <button class="btn btn-secondary" onclick="clearOutput()">クリア</button>
+            <button class="btn btn-secondary" onclick="downloadHistory()">ダウンロード</button>
             <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
         </div>
     </div>
@@ -407,7 +408,7 @@
 
     <!-- Monaco Editor -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
-    <script src="nanako20251021.js"></script>
+    <script src="nanako20251103.js"></script>
     <script>
         let monacoEditor = null;
         let currentTab = 'output';
@@ -417,6 +418,7 @@
         let errorDecorations = [];
         let lastExecutedCode = '';
         let lastExecutionResult = null;
+        let executionHistory = []; // プログラミング演習の記録
 
         const examples = {
             basic: `# 基本的な操作
@@ -1269,7 +1271,7 @@ result`,
             setTimeout(() => {
                 lastExecutedCode = code;
                 lastExecutionResult = executeCodeInternal(code, true);
-                
+
                 // Store global references for backward compatibility
                 if (lastExecutionResult.success) {
                     window.generatedJS = lastExecutionResult.jsCode;
@@ -1278,6 +1280,9 @@ result`,
                     window.generatedJS = lastExecutionResult.jsCode;
                     window.generatedPython = lastExecutionResult.pyCode;
                 }
+
+                // 実行履歴を記録
+                recordExecution(code, lastExecutionResult);
 
                 loadingEl.style.display = 'none';
             }, 100);
@@ -1290,19 +1295,91 @@ result`,
             outputs = [];
             window.generatedJS = '';
             window.generatedPython = '';
-            
+
             // Clear error highlights
             clearErrorHighlights();
-            
+
             // Reset display
             document.getElementById('output-content').innerHTML = '<div style="color: #666; font-style: italic;">プログラムを実行すると結果がここに表示されます</div>';
-            
+
             // Switch to output tab
             if (currentTab !== 'output') {
                 currentTab = 'output';
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelector('.tab').classList.add('active');
             }
+        }
+
+        // 実行履歴を記録する関数
+        function recordExecution(code, result) {
+            const timestamp = new Date();
+            const record = {
+                timestamp: timestamp,
+                code: code,
+                success: result.success,
+                output: result.output,
+                error: result.error || null
+            };
+            executionHistory.push(record);
+        }
+
+        // 実行履歴をテキスト形式でダウンロードする関数
+        function downloadHistory() {
+            if (executionHistory.length === 0) {
+                alert('まだ実行履歴がありません。プログラムを実行してから記録をダウンロードしてください。');
+                return;
+            }
+
+            // テキスト形式で履歴をまとめる
+            let text = '===================================\n';
+            text += 'Nanako プログラミング演習記録\n';
+            text += '===================================\n\n';
+
+            executionHistory.forEach((record, index) => {
+                const dateStr = record.timestamp.toLocaleString('ja-JP', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+
+                text += `--- 実行 ${index + 1} ---\n`;
+                text += `日時: ${dateStr}\n`;
+                text += `状態: ${record.success ? '成功' : 'エラー'}\n\n`;
+                text += `【コード】\n`;
+                text += record.code + '\n\n';
+
+                if (record.success) {
+                    text += `【実行結果】\n`;
+                    text += record.output + '\n';
+                } else {
+                    text += `【エラー】\n`;
+                    text += record.error + '\n';
+                }
+
+                text += '\n';
+            });
+
+            text += '===================================\n';
+            text += `合計実行回数: ${executionHistory.length}\n`;
+            text += '===================================\n';
+
+            // ファイル名を生成（日付を含む）
+            const now = new Date();
+            const filename = `nanako_記録_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}.txt`;
+
+            // ダウンロード
+            const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         function ensureCodeExecuted() {
