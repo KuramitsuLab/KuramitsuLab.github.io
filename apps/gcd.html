@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>GCD 練習問題</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+      background: #f5f5f0;
+      color: #222;
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+    h1 { font-size: 22px; margin-bottom: 8px; color: #333; }
+    .lead { font-size: 14px; color: #666; margin-bottom: 24px; }
+    .problems { display: flex; flex-direction: column; gap: 16px; }
+    .problem {
+      background: white;
+      border: 1px solid #ddd;
+      border-left: 4px solid #4a7;
+      padding: 20px 24px;
+      border-radius: 6px;
+    }
+    .label { font-size: 12px; color: #888; margin-bottom: 6px; letter-spacing: 0.05em; }
+    .expr {
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 28px;
+      font-weight: 600;
+      color: #222;
+    }
+    .hint { font-size: 12px; color: #999; margin-top: 8px; }
+    .actions { margin-top: 28px; text-align: center; }
+    button {
+      background: #4a7; color: white; border: none;
+      padding: 10px 24px; border-radius: 6px;
+      font-size: 14px; cursor: pointer; font-weight: 600;
+    }
+    button:hover { background: #386; }
+    footer { margin-top: 32px; font-size: 12px; color: #999; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>GCD 練習問題</h1>
+    <p class="lead">ユークリッドの互除法で、次の 3 題の最大公約数を求めましょう。ページをリロードすると新しい問題が出ます。</p>
+
+    <div class="problems" id="problems"></div>
+
+    <div class="actions">
+      <button onclick="location.reload()">新しい問題を出す</button>
+    </div>
+
+    <footer>答えの表示はありません。紙と鉛筆で解いてみましょう。</footer>
+  </div>
+
+  <script>
+    // 引き算によるユークリッドの互除法のステップ数
+    // a == b になるまで、大きい方から小さい方を引く回数
+    function subSteps(a, b) {
+      let steps = 0;
+      while (a !== b) {
+        if (a > b) a -= b; else b -= a;
+        steps++;
+        if (steps > 1000) return Infinity;
+      }
+      return steps;
+    }
+
+    function randInt(lo, hi) {
+      return Math.floor(Math.random() * (hi - lo + 1)) + lo;
+    }
+
+    // min〜max の桁数の 2 数で、minSteps〜maxSteps のステップ数に収まるペアを生成
+    function generatePair(lo, hi, minSteps, maxSteps) {
+      for (let i = 0; i < 5000; i++) {
+        let a = randInt(lo, hi);
+        let b = randInt(lo, hi);
+        if (a === b) continue;
+        if (a < b) [a, b] = [b, a];
+        const s = subSteps(a, b);
+        if (s >= minSteps && s <= maxSteps) return [a, b];
+      }
+      return null;
+    }
+
+    const specs = [
+      { label: "第 1 問", lo: 10,   hi: 99,   min: 2, max: 4 },
+      { label: "第 2 問", lo: 100,  hi: 999,  min: 3, max: 6 },
+      { label: "第 3 問", lo: 1000, hi: 9999, min: 4, max: 8 },
+    ];
+
+    const root = document.getElementById("problems");
+    for (const s of specs) {
+      const pair = generatePair(s.lo, s.hi, s.min, s.max);
+      const div = document.createElement("div");
+      div.className = "problem";
+      if (pair) {
+        div.innerHTML = `
+          <div class="label">${s.label}</div>
+          <div class="expr">gcd(${pair[0]}, ${pair[1]}) = ?</div>
+        `;
+      } else {
+        div.innerHTML = `<div class="label">${s.label}</div><div class="expr">生成失敗</div>`;
+      }
+      root.appendChild(div);
+    }
+  </script>
+</body>
+</html>
