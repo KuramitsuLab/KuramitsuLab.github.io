@@ -1287,7 +1287,7 @@ BGTOA:
   WRITE
   JUMP GCDLOOP
 GDONE:
-  MOVE 0
+  MOVE 2
   READ
   RET`,
 
@@ -1634,58 +1634,6 @@ function _highlightLine(n) { // 0-indexed, -1 to clear
 
 _progInput.addEventListener('input', () => { _updateLineNums(); _resetPC(); });
 _progInput.addEventListener('scroll', () => { _progLines.scrollTop = _progInput.scrollTop; });
-
-// GCD デモプログラム（差し引き法）
-_progInput.value = `# GCD(12, 8) — 差し引き法
-# A == B になるまで大きい方から小さい方を引き続ける
-# IFNEG で A−B の符号を判定、NEG で B−A を得る
-
-SET 12
-MOVE 0
-WRITE
-SET 8
-MOVE 1
-WRITE
-
-GCDLOOP:
-  MOVE 0
-  READ
-  MOVE 2
-  WRITE
-  MOVE 1
-  READ
-  MOVE 3
-  WRITE
-SUBLOOP:
-  MOVE 3
-  READ
-  IFZERO SUBEND
-  DEC
-  WRITE
-  MOVE 0
-  READ
-  DEC
-  WRITE
-  JUMP SUBLOOP
-SUBEND:
-  MOVE 0
-  READ
-  IFZERO DONE
-  IFNEG BGTOA
-  JUMP GCDLOOP
-BGTOA:
-  NEG
-  MOVE 1
-  WRITE
-  MOVE 2
-  READ
-  MOVE 0
-  WRITE
-  JUMP GCDLOOP
-DONE:
-  MOVE 0
-  READ
-`;
 
 _updateLineNums(); // 初期表示
 
