@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>万能チューリングマシン（レジスタ付き）</title>
+<style>
+:root {
+  --bg:      #f5f7fc;
+  --bg2:     #ebeef6;
+  --tape:    #fffef8;
+  --border:  #c4cce0;
+  --accent:  #1a5fd0;
+  --orange:  #c85800;
+  --green:   #127840;
+  --text:    #1a2848;
+  --dim:     #8090b0;
+  --cell-w:  60px;
+  --vp-w:    420px;   /* 7 cells */
+  --vp-h:    80px;
+  --reel-w:  210px;   /* 75% of original 350px */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Courier New', Courier, monospace;
+  min-height: 100vh;
+  min-width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 2rem 3rem;
+  gap: 1.4rem;
+}
+
+h1 {
+  font-size: 1.3rem;
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  font-weight: normal;
+}
+
+/* ===== Machine (flex column) ===== */
+
+.machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+/* Row 1: reels + spacer */
+.reels-row {
+  display: flex;
+  width: calc(var(--reel-w) + var(--vp-w) + var(--reel-w));
+}
+
+.reel-col {
+  width: var(--reel-w);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reel-spacer {
+  width: var(--vp-w);
+  flex-shrink: 0;
+}
+
+/* Vertical tape strip between reel bottom and htape-row */
+.vtape {
+  width: 44px;
+  height: 24px;
+  background: var(--tape);
+  border-left:  1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+/* Row 2: full-width horizontal tape */
+.htape-row {
+  width: calc(var(--reel-w) + var(--vp-w) + var(--reel-w));
+  height: var(--vp-h);
+  background: var(--tape);
+  border-top:    1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Viewport is absolutely positioned inside htape-row */
+.tape-viewport {
+  position: absolute;
+  left: var(--reel-w);
+  top: 0;
+  width: var(--vp-w);
+  height: var(--vp-h);
+  overflow: hidden;
+  background: var(--tape);
+}
+
+/* The scrolling strip of cells */
+.tape-inner {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  will-change: transform;
+}
+
+/* Individual tape cell */
+.cell {
+  width: var(--cell-w);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #d8dde8;
+  flex-shrink: 0;
+}
+
+.cell-val {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #b0b8cc;
+  transition: color 0.15s;
+}
+
+.cell-idx {
+  font-size: 0.75rem;
+  color: #c0c8d8;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* Cell under the head */
+.cell.is-head {
+  background: rgba(26, 95, 208, 0.07);
+}
+.cell.is-head .cell-val {
+  color: var(--accent);
+}
+
+/* Written cells get a different style */
+.cell.has-value .cell-val {
+  color: var(--green);
+}
+.cell.is-head.has-value .cell-val {
+  color: var(--green);
+}
+
+/* Active cell: index text in orange */
+.cell.is-head .cell-idx {
+  color: var(--orange);
+  font-weight: bold;
+}
+
+/* Double-click inline edit input */
+.cell-edit-input {
+  width: 52px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: inherit;
+  text-align: center;
+  border: none;
+  background: transparent;
+  color: var(--orange);
+  outline: 2px solid var(--orange);
+  border-radius: 3px;
+  padding: 0;
+  -moz-appearance: textfield;
+}
+.cell-edit-input::-webkit-inner-spin-button,
+.cell-edit-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+.cell:hover { background: rgba(26, 95, 208, 0.04); cursor: text; }
+.cell.is-head:hover { background: rgba(26, 95, 208, 0.10); }
+
+/* ===== READ / WRITE cell flash ===== */
+
+@keyframes cell-scan {
+  0%   { background: rgba(26,95,208,0.07); box-shadow: none; }
+  30%  { background: rgba(26,95,208,0.38);
+         box-shadow: inset 0 0 0 2px rgba(26,95,208,0.9), 0 0 22px rgba(26,95,208,0.45); }
+  100% { background: rgba(26,95,208,0.07); box-shadow: none; }
+}
+@keyframes cell-val-scan {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.38);
+         color: #6ac0ff;
+         text-shadow: 0 0 16px rgba(26,95,208,1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cell-stamp {
+  0%   { background: rgba(200,88,0,0.05); box-shadow: none; }
+  22%  { background: rgba(200,88,0,0.48);
+         box-shadow: inset 0 0 0 2px rgba(200,88,0,1), 0 0 26px rgba(200,88,0,0.55); }
+  100% { background: rgba(26,95,208,0.07); box-shadow: none; }
+}
+@keyframes cell-val-stamp {
+  0%   { transform: scale(2.0) translateY(-4px); opacity: 0; }
+  32%  { transform: scale(0.92); opacity: 1;
+         color: var(--orange);
+         text-shadow: 0 0 16px rgba(200,88,0,1); }
+  55%  { transform: scale(1.08); }
+  100% { transform: scale(1); color: var(--green); text-shadow: none; }
+}
+
+.cell.is-head.cell-reading {
+  animation: cell-scan 0.5s ease-out forwards;
+}
+.cell.is-head.cell-reading .cell-val {
+  animation: cell-val-scan 0.5s ease-out forwards;
+}
+.cell.is-head.cell-writing {
+  animation: cell-stamp 0.52s ease-out forwards;
+}
+.cell.is-head.cell-writing .cell-val {
+  animation: cell-val-stamp 0.52s cubic-bezier(0.2,0,0.3,1) forwards;
+}
+
+/* Row 3: head indicator row */
+.head-row {
+  display: flex;
+  width: calc(var(--reel-w) + var(--vp-w) + var(--reel-w));
+}
+
+.head-spacer { width: var(--reel-w); flex-shrink: 0; }
+
+.head-center {
+  width: var(--vp-w);
+  display: flex;
+  justify-content: center;
+}
+
+/* ▲ head pointer */
+.head-pointer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+  gap: 1px;
+  line-height: 1;
+}
+.head-arrow-sym {
+  font-size: 1.6rem;
+  color: var(--orange);
+  line-height: 1;
+}
+.head-label {
+  font-size: 1.1rem;
+  color: var(--orange);
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Register panel (below head) ===== */
+
+.reg-ops-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 12px;
+}
+
+.reg-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.reg-title {
+  font-size: 0.62rem;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.reg-display {
+  background: #050808;
+  color: #00dd55;
+  font-size: 3.8rem;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  min-width: 180px;
+  text-align: center;
+  padding: 16px 24px 14px;
+  border: 2px solid #007030;
+  border-radius: 6px;
+  box-shadow:
+    0 0 18px rgba(0,180,70,0.18),
+    inset 0 2px 8px rgba(0,0,0,0.7);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgba(0,220,80,0.6);
+}
+
+@keyframes reg-flash {
+  0%   { background: #050808; color: #00dd55;
+         box-shadow: 0 0 18px rgba(0,180,70,0.18), inset 0 2px 8px rgba(0,0,0,0.7);
+         text-shadow: 0 0 12px rgba(0,220,80,0.6); }
+  18%  { background: #004020; color: #90ffb8;
+         box-shadow: 0 0 32px rgba(0,230,90,0.75), inset 0 1px 4px rgba(0,0,0,0.3);
+         text-shadow: 0 0 24px rgba(0,255,100,0.9); }
+  100% { background: #050808; color: #00dd55;
+         box-shadow: 0 0 18px rgba(0,180,70,0.18), inset 0 2px 8px rgba(0,0,0,0.7);
+         text-shadow: 0 0 12px rgba(0,220,80,0.6); }
+}
+.reg-display.flash {
+  animation: reg-flash 0.4s ease-out forwards;
+}
+
+/* ===== Buttons ===== */
+
+.op-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.op-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.op-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.op-btn label {
+  font-size: 0.6rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.op-btn input[type="number"] {
+  width: 64px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 6px;
+  background: var(--tape);
+  color: var(--text);
+}
+
+button {
+  padding: 8px 18px;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.13s;
+  white-space: nowrap;
+}
+
+button:hover:not(:disabled) {
+  background: rgba(26, 95, 208, 0.12);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+button.btn-active {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+button.btn-active:hover:not(:disabled) {
+  background: #a84800;
+  border-color: #a84800;
+  color: #fff;
+}
+
+button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+button.btn-reset {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fff;
+}
+
+button.btn-reset:hover:not(:disabled) {
+  background: #991b1b;
+  border-color: #991b1b;
+  color: #fff;
+}
+
+/* ===== Program Editor ===== */
+
+.prog-area {
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.prog-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+
+.prog-header-title {
+  flex: 1;
+  font-size: 0.68rem;
+  color: var(--dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.prog-header button {
+  padding: 3px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.prog-editor {
+  display: flex;
+  height: 360px;
+  font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 0.88rem;
+  line-height: 22px;
+}
+
+.line-nums {
+  width: 38px;
+  padding: 8px 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  flex-shrink: 0;
+  text-align: right;
+  user-select: none;
+}
+
+.ln {
+  height: 22px;
+  padding: 0 7px 0 0;
+  font-size: 0.75rem;
+  color: var(--dim);
+  line-height: 22px;
+  box-sizing: border-box;
+}
+
+.ln.active {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 0 2px 2px 0;
+}
+
+.prog-input {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 22px;
+  background: var(--tape);
+  color: var(--text);
+  overflow-y: auto;
+  tab-size: 2;
+}
+
+.prog-input::-webkit-scrollbar { width: 4px; }
+.prog-input::-webkit-scrollbar-track { background: transparent; }
+.prog-input::-webkit-scrollbar-thumb { background: #c0c8d8; border-radius: 2px; }
+
+.snippet-input {
+  font-size: 0.82rem;
+  font-family: inherit;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--tape);
+  color: var(--text);
+  outline: none;
+  width: 90px;
+}
+.snippet-input:focus { border-color: var(--accent); }
+
+</style>
+</head>
+<body>
+
+<h1>▶ 万能チューリングマシン（レジスタ付き）</h1>
+
+<!-- ===== Machine ===== -->
+<div class="machine">
+
+  <!-- Row 1: Reels (tape exits from 6 o'clock) -->
+  <div class="reels-row">
+
+    <!-- Left reel column -->
+    <div class="reel-col">
+      <svg id="reelL" width="210" height="204" viewBox="0 0 350 340">
+        <!-- drop shadow -->
+        <circle cx="178" cy="173" r="155" fill="#1a0800" opacity="0.28"/>
+        <!-- outer flange -->
+        <circle cx="175" cy="170" r="155" fill="#4a2206" stroke="#2a1002" stroke-width="2.5"/>
+        <!-- rim highlight -->
+        <circle cx="175" cy="170" r="148" fill="none" stroke="#6a3410" stroke-width="2" opacity="0.55"/>
+        <!-- wound tape rings -->
+        <circle cx="175" cy="170" r="112" fill="none" stroke="#3a1604" stroke-width="20"/>
+        <circle cx="175" cy="170" r="89"  fill="none" stroke="#2a1002" stroke-width="10"/>
+        <!-- spokes -->
+        <g id="spokes-L" style="transform-box:fill-box; transform-origin:center">
+          <line x1="175" y1="136" x2="175" y2="72"  stroke="#9a5828" stroke-width="7" stroke-linecap="round"/>
+          <line x1="175" y1="204" x2="175" y2="268" stroke="#9a5828" stroke-width="7" stroke-linecap="round"/>
+          <line x1="141" y1="170" x2="77"  y2="170" stroke="#9a5828" stroke-width="7" stroke-linecap="round"/>
+          <line x1="209" y1="170" x2="273" y2="170" stroke="#9a5828" stroke-width="7" stroke-linecap="round"/>
+          <line x1="199" y1="146" x2="244" y2="101" stroke="#b87038" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="199" y1="194" x2="244" y2="239" stroke="#b87038" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="151" y1="146" x2="106" y2="101" stroke="#b87038" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="151" y1="194" x2="106" y2="239" stroke="#b87038" stroke-width="4.5" stroke-linecap="round"/>
+        </g>
+        <!-- hub -->
+        <circle cx="175" cy="170" r="34" fill="#3a1604" stroke="#2a1002" stroke-width="2"/>
+        <circle cx="175" cy="170" r="16" fill="#6a3010"/>
+        <circle cx="175" cy="170" r="8"  fill="#c86010" opacity="0.9"/>
+        <!-- Bottom tape exit (6 o'clock) — drawn last to appear on top -->
+        <rect x="0"   y="316" width="350" height="24" fill="#f5f7fc"/>
+        <rect x="153" y="310" width="44"  height="30" fill="#fffef8"/>
+        <line x1="153" y1="304" x2="153" y2="340" stroke="#c4cce0" stroke-width="1"/>
+        <line x1="197" y1="304" x2="197" y2="340" stroke="#c4cce0" stroke-width="1"/>
+      </svg>
+      <!-- Vertical tape: reel bottom → htape-row -->
+      <div class="vtape"></div>
+    </div>
+
+    <!-- Spacer (= viewport width) -->
+    <div class="reel-spacer"></div>
+
+    <!-- Right reel column -->
+    <div class="reel-col">
+      <svg id="reelR" width="210" height="204" viewBox="0 0 350 340">
+        <circle cx="178" cy="173" r="155" fill="#1a0800" opacity="0.28"/>
+        <circle cx="175" cy="170" r="155" fill="#4a2206" stroke="#2a1002" stroke-width="2.5"/>
+        <circle cx="175" cy="170" r="148" fill="none" stroke="#6a3410" stroke-width="2" opacity="0.55"/>
+        <circle cx="175" cy="170" r="112" fill="none" stroke="#3a1604" stroke-width="20"/>
+        <circle cx="175" cy="170" r="89"  fill="none" stroke="#2a1002" stroke-width="10"/>
+        <g id="spokes-R" style="transform-box:fill-box; transform-origin:center">
+          <line x1="175" y1="136" x2="175" y2="72"  stroke="#9a5828" stroke-width="7" stroke-linecap="round"/>
+          <line x1="175" y1="204" x2="175" y2="268" stroke="#9a5828" stroke-width="7" stroke-linecap="round"/>
+          <line x1="141" y1="170" x2="77"  y2="170" stroke="#9a5828" stroke-width="7" stroke-linecap="round"/>
+          <line x1="209" y1="170" x2="273" y2="170" stroke="#9a5828" stroke-width="7" stroke-linecap="round"/>
+          <line x1="199" y1="146" x2="244" y2="101" stroke="#b87038" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="199" y1="194" x2="244" y2="239" stroke="#b87038" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="151" y1="146" x2="106" y2="101" stroke="#b87038" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="151" y1="194" x2="106" y2="239" stroke="#b87038" stroke-width="4.5" stroke-linecap="round"/>
+        </g>
+        <circle cx="175" cy="170" r="34" fill="#3a1604" stroke="#2a1002" stroke-width="2"/>
+        <circle cx="175" cy="170" r="16" fill="#6a3010"/>
+        <circle cx="175" cy="170" r="8"  fill="#c86010" opacity="0.9"/>
+        <!-- Bottom tape exit -->
+        <rect x="0"   y="316" width="350" height="24" fill="#f5f7fc"/>
+        <rect x="153" y="310" width="44"  height="30" fill="#fffef8"/>
+        <line x1="153" y1="304" x2="153" y2="340" stroke="#c4cce0" stroke-width="1"/>
+        <line x1="197" y1="304" x2="197" y2="340" stroke="#c4cce0" stroke-width="1"/>
+      </svg>
+      <div class="vtape"></div>
+    </div>
+
+  </div><!-- reels-row -->
+
+  <!-- Row 2: Horizontal tape (reels width + viewport width) -->
+  <div class="htape-row">
+    <div class="tape-viewport" id="tapeViewport">
+      <div class="tape-inner" id="tapeInner"></div>
+    </div>
+  </div>
+
+  <!-- Row 3: Head indicator (centered under viewport) -->
+  <div class="head-row">
+    <div class="head-spacer"></div>
+    <div class="head-center">
+      <div class="head-pointer">
+        <div class="head-arrow-sym">▲</div>
+        <div class="head-label" id="posDisplay">M[0]</div>
+      </div>
+    </div>
+    <div class="head-spacer"></div>
+  </div>
+
+</div><!-- machine -->
+
+<!-- ===== Register + Operation Panel ===== -->
+<div class="reg-ops-row">
+  <div class="reg-panel">
+    <div class="reg-title">Register</div>
+    <div class="reg-display" id="regDisplay">0</div>
+  </div>
+
+  <div class="op-panel">
+    <!-- Row 1: LEFT / MOVE / RIGHT / READ / WRITE / RESET -->
+    <div class="op-row">
+      <button onclick="tm.left()" title="1マス左へ">◀</button>
+      <button onclick="tm.move()" title="レジスタの値の位置へ移動">MOVE</button>
+      <button onclick="tm.right()" title="1マス右へ">▶</button>
+      <button onclick="tm.read()">READ</button>
+      <button onclick="tm.write()">WRITE</button>
+      <button class="btn-reset" onclick="tm.reset()">RESET</button>
+    </div>
+    <!-- Row 2: SET / INC / DEC / NEG -->
+    <div class="op-row">
+      <div class="op-btn" style="display:none">
+        <label>SET</label>
+        <div style="display:flex;gap:4px">
+          <input type="number" id="setVal" value="0" step="1" />
+          <button onclick="tm.set(document.getElementById('setVal').value)">SET</button>
+        </div>
+      </div>
+      <button onclick="tm.inc()">INC</button>
+      <button onclick="tm.dec()">DEC</button>
+      <button onclick="tm.neg()">NEG</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Program Editor ===== -->
+<div class="prog-area">
+  <div class="prog-header">
+    <span class="prog-header-title">プログラム</span>
+    <button id="runBtn" onclick="runProg()">▶ 実行</button>
+    <button id="fastBtn" onclick="toggleFast()" title="高速モード（効果音・アニメーションなし）">⚡ 高速</button>
+    <button id="stepBtn" onclick="stepProg()">⊳ ステップ</button>
+    <button id="stopBtn" onclick="stopProg()" disabled>■ 停止</button>
+    <button id="snippetBtn" onclick="toggleSnippetSearch()" title="スニペット挿入">🔍</button>
+    <span id="snippetBox" style="display:none; align-items:center; gap:4px;">
+      <input type="text" id="snippetInput" class="snippet-input" placeholder="sub …"
+        oninput="liveSnippet(this.value)"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();insertSnippet();}if(event.key==='Escape')toggleSnippetSearch();" />
+    </span>
+  </div>
+  <div class="prog-editor">
+    <div class="line-nums" id="lineNums"><div class="ln" id="ln-1">1</div></div>
+    <textarea class="prog-input" id="progInput" spellcheck="false"></textarea>
+  </div>
+</div>
+
+
+<div style="font-size:0.72rem; color:var(--dim); letter-spacing:0.08em; margin-top:1rem;">© 2026 Kimio Kuramitsu</div>
+
+<!-- ===== Script ===== -->
+<script>
+'use strict';
+
+// ── Configuration ──────────────────────────────────────────────────────────
+const CELL_W    = 60;    // px per cell
+const VISIBLE   = 7;     // cells shown in viewport (odd number)
+const BUFFER    = 60;    // extra cells rendered off-screen on each side
+const VP_W      = CELL_W * VISIBLE;          // 420 px
+const HALF_VIS  = Math.floor(VISIBLE / 2);  // 3
+// Total rendered cells: BUFFER + VISIBLE + BUFFER
+const TOTAL     = BUFFER + VISIBLE + BUFFER; // 129
+
+// ── TuringMachine ──────────────────────────────────────────────────────────
+class TuringMachine {
+  constructor() {
+    this.tape       = {};   // sparse: index → value
+    this.register   = 0;
+    this.headPos    = 0;    // absolute tape position
+    this.bp         = 0;    // base pointer (frame origin)
+    this._callStack = [];   // { bp, returnPC } stack
+    this.rotL       = 0;    // reel rotation angles (degrees)
+    this.rotR       = 0;
+    this._busy      = false;
+    this._fastMode  = false;
+
+    this._el = {
+      inner:  document.getElementById('tapeInner'),
+      reg:    document.getElementById('regDisplay'),
+      pos:    document.getElementById('posDisplay'),
+      spkL:   document.getElementById('spokes-L'),
+      spkR:   document.getElementById('spokes-R'),
+    };
+    this._ac = null;  // AudioContext (lazy init)
+
+    this._render();
+    this._log('チューリングマシン 起動完了', 'log-info');
+    this._log('コマンド: SET n  LEFT  MOVE [n]  RIGHT  READ  WRITE  INC [n]  DEC [n]  NEG  JUMP n  IFZERO n  IFNEG n  CALL lbl  RET', 'log-info');
+  }
+
+  // ── Private: logging (no-op) ───────────────────────────────────────────
+  _log() {}
+
+  // ── Private: status display ───────────────────────────────────────────
+  _updateStatus() {
+    this._el.reg.textContent = this.register;
+    const rel = this.headPos - this.bp;
+    const dep = this._callStack.length;
+    this._el.pos.textContent = dep > 0 ? `M[${rel}] (depth:${dep})` : `M[${rel}]`;
+  }
+
+  // ── Private: flash the head cell (type: 'read' | 'write') ────────────
+  _flashCell(type) {
+    const cell = this._el.inner.querySelector('.is-head');
+    if (!cell) return;
+    const cls = type === 'read' ? 'cell-reading' : 'cell-writing';
+    cell.classList.remove('cell-reading', 'cell-writing');
+    void cell.offsetWidth;
+    cell.classList.add(cls);
+    setTimeout(() => cell.classList.remove(cls), 600);
+  }
+
+  // ── Private: flash register display ──────────────────────────────────
+  _flashReg() {
+    const el = this._el.reg;
+    el.classList.remove('flash');
+    void el.offsetWidth;  // force reflow to restart animation
+    el.classList.add('flash');
+  }
+
+  // ── Private: cash register sound (Web Audio API) ──────────────────────
+  _initAudio() {
+    if (this._ac) return;
+    try { this._ac = new (window.AudioContext || window.webkitAudioContext)(); } catch(_) {}
+  }
+
+  _beepRegister() {
+    if (this._fastMode) return;
+    this._initAudio();
+    const ac = this._ac;
+    if (!ac) return;
+    if (ac.state === 'suspended') ac.resume();
+    const t = ac.currentTime;
+
+    // 1. Short mechanical click (filtered noise)
+    const len = Math.floor(ac.sampleRate * 0.022);
+    const buf = ac.createBuffer(1, len, ac.sampleRate);
+    const d   = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2) * 0.3;
+    const click = ac.createBufferSource();
+    click.buffer = buf;
+    const clickG = ac.createGain();
+    clickG.gain.value = 1;
+    click.connect(clickG); clickG.connect(ac.destination);
+    click.start(t);
+
+    // 2. High ding
+    const ding1 = ac.createOscillator();
+    ding1.type = 'triangle';
+    ding1.frequency.setValueAtTime(1760, t + 0.018);
+    ding1.frequency.exponentialRampToValueAtTime(1320, t + 0.12);
+    const g1 = ac.createGain();
+    g1.gain.setValueAtTime(0, t + 0.018);
+    g1.gain.linearRampToValueAtTime(0.35, t + 0.028);
+    g1.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+    ding1.connect(g1); g1.connect(ac.destination);
+    ding1.start(t + 0.018); ding1.stop(t + 0.25);
+
+    // 3. Lower ding (chord)
+    const ding2 = ac.createOscillator();
+    ding2.type = 'sine';
+    ding2.frequency.setValueAtTime(880, t + 0.025);
+    ding2.frequency.exponentialRampToValueAtTime(660, t + 0.14);
+    const g2 = ac.createGain();
+    g2.gain.setValueAtTime(0, t + 0.025);
+    g2.gain.linearRampToValueAtTime(0.2, t + 0.04);
+    g2.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+    ding2.connect(g2); g2.connect(ac.destination);
+    ding2.start(t + 0.025); ding2.stop(t + 0.3);
+  }
+
+  // ── Private: mechanical stamp sound for WRITE ────────────────────────
+  _beepWrite() {
+    if (this._fastMode) return;
+    this._initAudio();
+    const ac = this._ac;
+    if (!ac) return;
+    if (ac.state === 'suspended') ac.resume();
+    const t = ac.currentTime;
+
+    // Low thud (filtered noise)
+    const len = Math.floor(ac.sampleRate * 0.05);
+    const buf = ac.createBuffer(1, len, ac.sampleRate);
+    const d   = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 1.4) * 0.55;
+    const noise = ac.createBufferSource();
+    noise.buffer = buf;
+    const lp = ac.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 280;
+    const ng = ac.createGain();
+    ng.gain.value = 1.3;
+    noise.connect(lp); lp.connect(ng); ng.connect(ac.destination);
+    noise.start(t);
+
+    // Short descending tone (stamp confirm)
+    const osc = ac.createOscillator();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(520, t + 0.018);
+    osc.frequency.exponentialRampToValueAtTime(260, t + 0.12);
+    const og = ac.createGain();
+    og.gain.setValueAtTime(0, t + 0.018);
+    og.gain.linearRampToValueAtTime(0.12, t + 0.030);
+    og.gain.exponentialRampToValueAtTime(0.001, t + 0.16);
+    osc.connect(og); og.connect(ac.destination);
+    osc.start(t + 0.018); osc.stop(t + 0.18);
+  }
+
+  // ── Private: swoosh sound for JUMP ───────────────────────────────────
+  _beepJump(taken) {
+    if (this._fastMode) return;
+    this._initAudio();
+    const ac = this._ac;
+    if (!ac) return;
+    if (ac.state === 'suspended') ac.resume();
+    const t = ac.currentTime;
+
+    if (taken) {
+      // ジャンプ実行: 上昇スウィープ → 着地クリック
+      const osc = ac.createOscillator();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, t);
+      osc.frequency.exponentialRampToValueAtTime(880, t + 0.12);
+      const g = ac.createGain();
+      g.gain.setValueAtTime(0.18, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+      osc.connect(g); g.connect(ac.destination);
+      osc.start(t); osc.stop(t + 0.2);
+
+      // 着地クリック
+      const len = Math.floor(ac.sampleRate * 0.018);
+      const buf = ac.createBuffer(1, len, ac.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i/len, 2) * 0.4;
+      const click = ac.createBufferSource();
+      click.buffer = buf;
+      const cg = ac.createGain(); cg.gain.value = 1;
+      click.connect(cg); cg.connect(ac.destination);
+      click.start(t + 0.14);
+    } else {
+      // スキップ（IFZERO 条件不成立）: 短い低音クリックのみ
+      const len = Math.floor(ac.sampleRate * 0.015);
+      const buf = ac.createBuffer(1, len, ac.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i/len, 2) * 0.25;
+      const click = ac.createBufferSource();
+      click.buffer = buf;
+      const cg = ac.createGain(); cg.gain.value = 1;
+      click.connect(cg); cg.connect(ac.destination);
+      click.start(t);
+    }
+  }
+
+  // ── Private: ascending arpeggio for CALL ─────────────────────────────
+  _beepCall() {
+    if (this._fastMode) return;
+    this._initAudio();
+    const ac = this._ac;
+    if (!ac) return;
+    if (ac.state === 'suspended') ac.resume();
+    const t = ac.currentTime;
+    [330, 440, 660].forEach((freq, i) => {
+      const osc = ac.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const g = ac.createGain();
+      g.gain.setValueAtTime(0,    t + i * 0.07);
+      g.gain.linearRampToValueAtTime(0.22, t + i * 0.07 + 0.016);
+      g.gain.exponentialRampToValueAtTime(0.001, t + i * 0.07 + 0.13);
+      osc.connect(g); g.connect(ac.destination);
+      osc.start(t + i * 0.07); osc.stop(t + i * 0.07 + 0.15);
+    });
+  }
+
+  // ── Private: descending arpeggio for RET ──────────────────────────────
+  _beepRet() {
+    if (this._fastMode) return;
+    this._initAudio();
+    const ac = this._ac;
+    if (!ac) return;
+    if (ac.state === 'suspended') ac.resume();
+    const t = ac.currentTime;
+    [660, 440, 330].forEach((freq, i) => {
+      const osc = ac.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const g = ac.createGain();
+      g.gain.setValueAtTime(0,    t + i * 0.07);
+      g.gain.linearRampToValueAtTime(0.22, t + i * 0.07 + 0.016);
+      g.gain.exponentialRampToValueAtTime(0.001, t + i * 0.07 + 0.13);
+      osc.connect(g); g.connect(ac.destination);
+      osc.start(t + i * 0.07); osc.stop(t + i * 0.07 + 0.15);
+    });
+  }
+
+  // ── Private: render all cells (no animation) ─────────────────────────
+  _render() {
+    // Start index: headPos is at position (BUFFER + HALF_VIS) in the render array
+    const start    = this.headPos - BUFFER - HALF_VIS;
+    const inner    = this._el.inner;
+    inner.innerHTML = '';
+
+    for (let i = 0; i < TOTAL; i++) {
+      const idx  = start + i;
+      const val  = this.tape[idx];
+      const isHead = (idx === this.headPos);
+
+      const cell  = document.createElement('div');
+      let cls = 'cell';
+      if (isHead)           cls += ' is-head';
+      if (val !== undefined) cls += ' has-value';
+      cell.className = cls;
+      cell.dataset.idx = idx;
+
+      const vDiv = document.createElement('div');
+      vDiv.className = 'cell-val';
+      vDiv.textContent = (val !== undefined) ? val : '0';
+
+      const iDiv = document.createElement('div');
+      iDiv.className = 'cell-idx';
+      iDiv.textContent = idx - this.bp;
+
+      cell.appendChild(vDiv);
+      cell.appendChild(iDiv);
+      cell.addEventListener('dblclick', (e) => {
+        e.stopPropagation();
+        this._editCell(cell, idx);
+      });
+      inner.appendChild(cell);
+    }
+
+    // Position tape so headPos cell is centered in viewport
+    // head local index = BUFFER + HALF_VIS
+    const headLocal = BUFFER + HALF_VIS;
+    const centerX   = VP_W / 2 - (headLocal * CELL_W + CELL_W / 2);
+    inner.style.transition = 'none';
+    inner.style.transform  = `translateX(${centerX}px)`;
+
+    this._updateStatus();
+  }
+
+  // ── Private: slide tape strip via CSS transition ──────────────────────
+  _slideTape(delta, ms) {
+    const inner     = this._el.inner;
+    const headLocal = BUFFER + HALF_VIS;
+    const baseX     = VP_W / 2 - (headLocal * CELL_W + CELL_W / 2);
+    inner.style.transition = `transform ${ms}ms cubic-bezier(0.35, 0, 0.25, 1)`;
+    inner.style.transform  = `translateX(${baseX - delta * CELL_W}px)`;
+  }
+
+  // ── Private: animate reel rotation with rAF (synced to tape duration) ─
+  _animateReels(delta, ms) {
+    const startL = this.rotL, endL = startL + delta * 30;  // 30° per cell
+    const startR = this.rotR, endR = startR + delta * 30;
+    const t0 = performance.now();
+
+    const tick = (now) => {
+      const p    = Math.min(1, (now - t0) / ms);
+      // ease-in-out quad — matches the feel of cubic-bezier(0.35,0,0.25,1)
+      const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+      this._el.spkL.style.transform = `rotate(${startL + (endL - startL) * ease}deg)`;
+      this._el.spkR.style.transform = `rotate(${startR + (endR - startR) * ease}deg)`;
+      if (p < 1) requestAnimationFrame(tick);
+      else { this.rotL = endL; this.rotR = endR; }
+    };
+    requestAnimationFrame(tick);
+  }
+
+  // ── Private: update a single cell's display in place ─────────────────
+  _updateCell(idx) {
+    const cell = this._el.inner.querySelector(`[data-idx="${idx}"]`);
+    if (!cell) return;
+    const val = this.tape[idx];
+    cell.querySelector('.cell-val').textContent = (val !== undefined) ? val : '0';
+    cell.classList.toggle('has-value', val !== undefined);
+  }
+
+  // ── Private: inline cell value editor (double-click) ──────────────────
+  _editCell(cell, idx) {
+    if (cell.querySelector('.cell-edit-input')) return;
+    const vDiv = cell.querySelector('.cell-val');
+    if (!vDiv) return;
+    const currentVal = this.tape[idx] ?? 0;
+
+    const input = document.createElement('input');
+    input.className = 'cell-edit-input';
+    input.type = 'number';
+    input.value = currentVal;
+    vDiv.replaceWith(input);
+    input.select();
+
+    const commit = () => {
+      const raw = input.value.trim();
+      const newVal = raw === '' ? 0 : Number(raw);
+      if (!isNaN(newVal)) {
+        this.tape[idx] = newVal;
+        this._log(`edit: M[${idx - this.bp}] ← ${newVal}`, 'log-val');
+      }
+      this._render();
+    };
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter')  { e.preventDefault(); input.blur(); }
+      if (e.key === 'Escape') { this._render(); }
+    });
+    input.addEventListener('blur', commit);
+    input.focus();
+  }
+
+  // ── Public API ────────────────────────────────────────────────────────
+
+  /** レジスタに値をセット */
+  set(value) {
+    this.register = Number(value);
+    this._log(`set(${value})  →  register = ${this.register}`, 'log-op');
+    this._updateStatus();
+    this._flashReg();
+    this._beepRegister();
+  }
+
+  /** テープをレジスタ（またはn）の位置へ移動 */
+  async move(n) {
+    if (n === undefined) n = this.register;
+    n = Math.round(Number(n));
+    if (this._busy) { this._log('⚠ 移動中です', 'log-err'); return; }
+
+    const target = this.bp + n;   // frame-relative → absolute
+    const from   = this.headPos - this.bp;
+    const delta  = target - this.headPos;
+    this._log(`move(${n})  [M[${from}] → M[${n}]]  Δ=${delta >= 0 ? '+' : ''}${delta}`, 'log-op');
+    if (delta === 0) return;
+
+    this._busy = true;
+
+    if (this._fastMode) {
+      this.headPos = target;
+      this._render();
+      this._busy = false;
+      return;
+    }
+
+    const absDelta = Math.abs(delta);
+    const ms = Math.min(700, Math.max(220, absDelta * 45));
+
+    if (absDelta > BUFFER - HALF_VIS) {
+      // 大きなジャンプ: リールだけ短めにアニメーション、テープは即再描画
+      this._animateReels(delta, 320);
+      await new Promise(r => setTimeout(r, 350));
+      this.headPos = target;
+      this._render();
+    } else {
+      // テープとリールを同時にアニメーション
+      this._slideTape(delta, ms);
+      this._animateReels(delta, ms);
+      await new Promise(r => setTimeout(r, ms + 30));
+      this.headPos = target;
+      this._render();
+    }
+
+    this._busy = false;
+  }
+
+  /** 現在位置を±n ステップ移動 */
+  step(n = 1) {
+    return this.move((this.headPos + n) - this.bp);
+  }
+
+  /** ヘッド位置の値を読み込みレジスタへ */
+  read() {
+    const v = this.tape[this.headPos] ?? 0;
+    this.register = v;
+    this._log(`read()  M[${this.headPos - this.bp}] = ${v}  →  register = ${v}`, 'log-op');
+    this._flashCell('read');
+    this._updateStatus();
+    this._flashReg();
+    this._beepRegister();
+    return v;
+  }
+
+  /** ヘッド位置にレジスタ（またはv）の値を書き込む */
+  write(v) {
+    if (v === undefined) v = this.register;
+    v = Number(v);
+    this.tape[this.headPos] = v;
+    this._log(`write(${v})  M[${this.headPos - this.bp}] ← ${v}`, 'log-val');
+    this._updateCell(this.headPos);
+    this._flashCell('write');
+    this._beepWrite();
+  }
+
+  /** ヘッドを1マス左へ */
+  left() { return this.step(-1); }
+
+  /** ヘッドを1マス右へ */
+  right() { return this.step(1); }
+
+  /** レジスタを1増やす */
+  inc(n = 1) {
+    this.register += n;
+    this._log(`inc(${n})  →  register = ${this.register}`, 'log-op');
+    this._updateStatus();
+    this._flashReg();
+    this._beepRegister();
+  }
+
+  /** レジスタを1減らす */
+  dec(n = 1) {
+    this.register -= n;
+    this._log(`dec(${n})  →  register = ${this.register}`, 'log-op');
+    this._updateStatus();
+    this._flashReg();
+    this._beepRegister();
+  }
+
+  neg() {
+    this.register = -this.register;
+    this._log(`neg()  →  register = ${this.register}`, 'log-op');
+    this._updateStatus();
+    this._flashReg();
+    this._beepRegister();
+  }
+
+  /** デモシーケンス */
+  async demo() {
+    if (this._busy) return;
+    this._log('── デモ開始 ──', 'log-info');
+    this.set(0); await this.move(0);
+    this.write(1);
+    await this.step(1); this.write(2);
+    await this.step(1); this.write(3);
+    await this.step(1); this.write(4);
+    await this.step(-3);
+    this.read();
+    this.set(10); await this.move();
+    this.write(99);
+    await this.move(0);
+    this.read();
+    this._log('── デモ終了 ──', 'log-info');
+  }
+
+  /** テープとレジスタをリセット */
+  reset() {
+    this.tape       = {};
+    this.register   = 0;
+    this.headPos    = 0;
+    this.bp         = 0;
+    this._callStack = [];
+    this.rotL       = 0;
+    this.rotR       = 0;
+    this._el.spkL.style.transform = '';
+    this._el.spkR.style.transform = '';
+    this._render();
+    this._log('リセット完了', 'log-info');
+  }
+}
+
+// ── Initialize ──────────────────────────────────────────────────────────────
+const tm = new TuringMachine();
+
+function toggleFast() {
+  tm._fastMode = !tm._fastMode;
+  document.getElementById('fastBtn').classList.toggle('btn-active', tm._fastMode);
+}
+
+// ── Snippet search ────────────────────────────────────────────────────────────
+
+const SNIPPETS = {
+  sub: `# M[0]=A, M[1]=B → register = A - B
+SUBTRACT:
+LOOP:
+  MOVE 1
+  READ
+  IFZERO DONE
+  DEC
+  WRITE
+  MOVE 0
+  READ
+  DEC
+  WRITE
+  JUMP LOOP
+DONE:
+  MOVE 0
+  READ
+  RET`,
+
+  double: `# M[0]=A → register = A * 2
+DOUBLE:
+  MOVE 0
+  READ
+  MOVE 1
+  WRITE
+DBLLOOP:
+  MOVE 1
+  READ
+  IFZERO DBLEND
+  DEC
+  WRITE
+  MOVE 0
+  READ
+  INC
+  WRITE
+  JUMP DBLLOOP
+DBLEND:
+  MOVE 0
+  READ
+  RET`,
+
+  add: `# M[0]=A, M[1]=B → register = A + B
+ADD:
+  MOVE 1
+  READ
+  MOVE 2
+  WRITE
+ADDLOOP:
+  MOVE 2
+  READ
+  IFZERO ADDEND
+  DEC
+  WRITE
+  MOVE 0
+  READ
+  INC
+  WRITE
+  JUMP ADDLOOP
+ADDEND:
+  MOVE 0
+  READ
+  RET`,
+
+  gcd: `# M[0]=A, M[1]=B → register = gcd(A, B)
+GCD:
+GCDLOOP:
+  MOVE 1
+  READ
+  IFZERO GCDEND
+  MOVE 0
+  READ
+  MOVE 2
+  WRITE
+GSUB:
+  MOVE 1
+  READ
+  MOVE 3
+  WRITE
+GSUBIN:
+  MOVE 3
+  READ
+  IFZERO GCHECK
+  DEC
+  WRITE
+  MOVE 2
+  READ
+  DEC
+  WRITE
+  JUMP GSUBIN
+GCHECK:
+  MOVE 2
+  READ
+  IFNEG GADD
+  JUMP GSUB
+GADD:
+  MOVE 1
+  READ
+  MOVE 3
+  WRITE
+GADDIN:
+  MOVE 3
+  READ
+  IFZERO GSWAP
+  DEC
+  WRITE
+  MOVE 2
+  READ
+  INC
+  WRITE
+  JUMP GADDIN
+GSWAP:
+  MOVE 1
+  READ
+  MOVE 0
+  WRITE
+  MOVE 2
+  READ
+  MOVE 1
+  WRITE
+  JUMP GCDLOOP
+GCDEND:
+  MOVE 0
+  READ
+  RET`,
+
+  mod: `# M[0]=A, M[1]=B → register = A mod B
+MODULO:
+  MOVE 0
+  READ
+  MOVE 2
+  WRITE
+MODLOOP:
+  MOVE 1
+  READ
+  MOVE 3
+  WRITE
+MODSUB:
+  MOVE 3
+  READ
+  IFZERO MODCHECK
+  DEC
+  WRITE
+  MOVE 2
+  READ
+  DEC
+  WRITE
+  JUMP MODSUB
+MODCHECK:
+  MOVE 2
+  READ
+  IFNEG MODADD
+  JUMP MODLOOP
+MODADD:
+  MOVE 1
+  READ
+  MOVE 3
+  WRITE
+MODFIX:
+  MOVE 3
+  READ
+  IFZERO MODEND
+  DEC
+  WRITE
+  MOVE 2
+  READ
+  INC
+  WRITE
+  JUMP MODFIX
+MODEND:
+  MOVE 2
+  READ
+  RET`,
+
+  div: `# M[0]=A, M[1]=B → register = A / B (整数除算)
+# メモリレイアウト:
+#   M[2]=商  M[3]=余り(作業)  M[4]=フレームリンク置き場
+#   M[5]=SUBTRACT の M[0](余りコピー)  M[6]=SUBTRACT の M[1](B コピー)
+DIVIDE:
+  MOVE 0
+  READ
+  MOVE 3
+  WRITE
+  SET 0
+  MOVE 2
+  WRITE
+DIVLOOP:
+  MOVE 3
+  READ
+  MOVE 5
+  WRITE
+  MOVE 1
+  READ
+  MOVE 6
+  WRITE
+  MOVE 5
+  CALL SUBTRACT
+  IFNEG DIVEND
+  MOVE 3
+  WRITE
+  MOVE 2
+  READ
+  INC
+  WRITE
+  JUMP DIVLOOP
+DIVEND:
+  MOVE 2
+  READ
+  RET
+
+SUBTRACT:
+SUBLOOP:
+  MOVE 1
+  READ
+  IFZERO SUBDONE
+  DEC
+  WRITE
+  MOVE 0
+  READ
+  DEC
+  WRITE
+  JUMP SUBLOOP
+SUBDONE:
+  MOVE 0
+  READ
+  RET`,
+
+  fact: `# M[0]=N → register = N! (階乗)
+# M[2]=結果  M[3]=カウンタ  M[4]=フレームリンク置き場
+# M[5]=MULTIPLY の M[0]  M[6]=MULTIPLY の M[1]
+FACTORIAL:
+  MOVE 0
+  READ
+  MOVE 3
+  WRITE
+  SET 1
+  MOVE 2
+  WRITE
+FACTLOOP:
+  MOVE 3
+  READ
+  IFZERO FACTEND
+  MOVE 2
+  READ
+  MOVE 5
+  WRITE
+  MOVE 3
+  READ
+  MOVE 6
+  WRITE
+  MOVE 5
+  CALL MULTIPLY
+  MOVE 2
+  WRITE
+  MOVE 3
+  READ
+  DEC
+  WRITE
+  JUMP FACTLOOP
+FACTEND:
+  MOVE 2
+  READ
+  RET
+
+MULTIPLY:
+  SET 0
+  MOVE 2
+  WRITE
+MLOOP:
+  MOVE 1
+  READ
+  IFZERO MEND
+  DEC
+  WRITE
+  MOVE 0
+  READ
+  MOVE 3
+  WRITE
+MILOOP:
+  MOVE 3
+  READ
+  IFZERO MNEXT
+  DEC
+  WRITE
+  MOVE 2
+  READ
+  INC
+  WRITE
+  JUMP MILOOP
+MNEXT:
+  JUMP MLOOP
+MEND:
+  MOVE 2
+  READ
+  RET`,
+
+  fib: `# M[0]=N → register = fib(N)  (0,1,1,2,3,5,8,…)
+# M[2]=prev  M[3]=curr  M[4]=counter
+# M[5]=フレームリンク置き場  M[6]=ADD の M[0]  M[7]=ADD の M[1]
+FIBONACCI:
+  MOVE 0
+  READ
+  IFZERO FIBZERO
+  DEC
+  IFZERO FIBONE
+  MOVE 4
+  WRITE
+  SET 0
+  MOVE 2
+  WRITE
+  SET 1
+  MOVE 3
+  WRITE
+FIBLOOP:
+  MOVE 4
+  READ
+  IFZERO FIBEND
+  DEC
+  WRITE
+  MOVE 2
+  READ
+  MOVE 6
+  WRITE
+  MOVE 3
+  READ
+  MOVE 7
+  WRITE
+  MOVE 6
+  CALL ADD
+  MOVE 5
+  WRITE
+  MOVE 3
+  READ
+  MOVE 2
+  WRITE
+  MOVE 5
+  READ
+  MOVE 3
+  WRITE
+  JUMP FIBLOOP
+FIBEND:
+  MOVE 3
+  READ
+  RET
+FIBZERO:
+  SET 0
+  RET
+FIBONE:
+  SET 1
+  RET
+
+ADD:
+  MOVE 1
+  READ
+  MOVE 2
+  WRITE
+ADDLOOP:
+  MOVE 2
+  READ
+  IFZERO ADDEND
+  DEC
+  WRITE
+  MOVE 0
+  READ
+  INC
+  WRITE
+  JUMP ADDLOOP
+ADDEND:
+  MOVE 0
+  READ
+  RET`,
+
+  mul: `# M[0]=A, M[1]=B → register = A * B
+MULTIPLY:
+  SET 0
+  MOVE 2
+  WRITE
+MLOOP:
+  MOVE 1
+  READ
+  IFZERO MEND
+  DEC
+  WRITE
+  MOVE 0
+  READ
+  MOVE 3
+  WRITE
+MILOOP:
+  MOVE 3
+  READ
+  IFZERO MNEXT
+  DEC
+  WRITE
+  MOVE 2
+  READ
+  INC
+  WRITE
+  JUMP MILOOP
+MNEXT:
+  JUMP MLOOP
+MEND:
+  MOVE 2
+  READ
+  RET`,
+};
+
+function toggleSnippetSearch() {
+  const box = document.getElementById('snippetBox');
+  const btn = document.getElementById('snippetBtn');
+  const opening = box.style.display === 'none' || !box.style.display;
+  box.style.display = opening ? 'inline-flex' : 'none';
+  btn.classList.toggle('btn-active', opening);
+  if (opening) {
+    const inp = document.getElementById('snippetInput');
+    inp.value = '';
+    inp.focus();
+  }
+}
+
+function liveSnippet(val) {
+  const key = val.trim().toLowerCase();
+  const inp = document.getElementById('snippetInput');
+  inp.style.borderColor = (key && !(key in SNIPPETS)) ? '#c02020' : '';
+}
+
+function insertSnippet() {
+  const key = document.getElementById('snippetInput').value.trim().toLowerCase();
+  const code = SNIPPETS[key];
+  if (!code) return;
+
+  const ta = _progInput;
+  ta.value = code + '\n';
+  ta.selectionStart = ta.selectionEnd = ta.value.length;
+  ta.focus();
+  _updateLineNums();
+
+  document.getElementById('snippetBox').style.display = 'none';
+  document.getElementById('snippetBtn').classList.remove('btn-active');
+}
+
+
+// ── Program Editor ────────────────────────────────────────────────────────────
+
+const _progLines = document.getElementById('lineNums');
+const _progInput = document.getElementById('progInput');
+
+function _updateLineNums() {
+  const count = Math.max(1, _progInput.value.split('\n').length);
+  while (_progLines.children.length < count) {
+    const i = _progLines.children.length + 1;
+    const d = document.createElement('div');
+    d.className = 'ln';
+    d.id = `ln-${i}`;
+    d.textContent = i;
+    _progLines.appendChild(d);
+  }
+  while (_progLines.children.length > count) _progLines.lastChild.remove();
+}
+
+function _highlightLine(n) { // 0-indexed, -1 to clear
+  _progLines.querySelectorAll('.ln.active').forEach(e => e.classList.remove('active'));
+  if (n >= 0) {
+    const el = document.getElementById(`ln-${n + 1}`);
+    if (el) el.classList.add('active');
+  }
+}
+
+_progInput.addEventListener('input', () => { _updateLineNums(); _resetPC(); });
+_progInput.addEventListener('scroll', () => { _progLines.scrollTop = _progInput.scrollTop; });
+_updateLineNums(); // 初期表示
+
+// ── Program Runner ────────────────────────────────────────────────────────────
+
+let _progPC      = 0;   // shared program counter (0-indexed)
+let _progRunning = false;
+let _progAbort   = false;
+
+function _setProgBtns(running) {
+  document.getElementById('runBtn').disabled  = running;
+  document.getElementById('stepBtn').disabled = running;
+  document.getElementById('stopBtn').disabled = !running;
+}
+
+function _resetPC() {
+  _progPC = 0;
+  _highlightLine(-1);
+}
+
+function _isSkippable(line) {
+  const s = line.replace(/#.*$/, '').trim();
+  return !s || /^[A-Za-z_]\w*:$/.test(s);
+}
+
+function _buildLabelMap(rawLines) {
+  const map = {};
+  rawLines.forEach((line, i) => {
+    const s = line.replace(/#.*$/, '').trim();
+    const m = s.match(/^([A-Za-z_]\w*):$/);
+    if (m) map[m[1].toUpperCase()] = i;
+  });
+  return map;
+}
+
+function _resolveJump(arg, labelMap) {
+  if (arg === undefined) return 0;
+  if (/^-?\d+$/.test(String(arg))) return Number(arg) - 1;
+  const key = String(arg).toUpperCase();
+  return key in labelMap ? labelMap[key] : -1;
+}
+
+function _parseCmd(line) {
+  const stripped = line.replace(/#.*$/, '').trim();
+  if (!stripped || /^[A-Za-z_]\w*:$/.test(stripped)) return null;
+  return stripped.match(/^(SET|LEFT|RIGHT|MOVE|READ|WRITE|INC|DEC|NEG|JUMP|IFZERO|IFNEG|CALL|RET)\s*(-?\d+|[A-Za-z_]\w*)?$/i);
+}
+
+async function _execLine(cmd, arg) {
+  switch (cmd) {
+    case 'SET':   tm.set(arg ?? 0); break;
+    case 'LEFT':  await tm.left(); break;
+    case 'RIGHT': await tm.right(); break;
+    case 'MOVE':  await tm.move(arg); break;
+    case 'READ':  tm.read(); break;
+    case 'WRITE': tm.write(); break;
+    case 'INC':   tm.inc(arg ?? 1); break;
+    case 'DEC':   tm.dec(arg ?? 1); break;
+    case 'NEG':   tm.neg(); break;
+  }
+}
+
+function _scrollToLine(n) {
+  _progLines.scrollTop = _progInput.scrollTop = Math.max(0, (n - 2) * 22);
+}
+
+// ── ステップ実行 ──────────────────────────────────────────────────────────────
+
+async function stepProg() {
+  if (_progRunning) return;
+  tm._initAudio();
+
+  const rawLines = _progInput.value.split('\n');
+  const labelMap = _buildLabelMap(rawLines);
+
+  // Skip blank / comment / label-definition lines
+  while (_progPC < rawLines.length && _isSkippable(rawLines[_progPC])) _progPC++;
+
+  if (_progPC >= rawLines.length) {
+    _highlightLine(-1);
+    _progPC = 0;
+    tm._log('── プログラム終了 ──', 'log-info');
+    return;
+  }
+
+  const line = rawLines[_progPC].trim();
+  _highlightLine(_progPC);
+  _scrollToLine(_progPC);
+
+  const m = _parseCmd(line);
+  if (!m) {
+    tm._log(`行${_progPC + 1}: 不明な命令 "${line}"`, 'log-err');
+    _progPC++;
+    return;
+  }
+
+  const cmd = m[1].toUpperCase();
+  const raw2 = m[2];
+  const arg = raw2 !== undefined && /^-?\d+$/.test(raw2) ? Number(raw2) : raw2;
+
+  if (cmd === 'JUMP') {
+    tm._beepJump(true);
+    _progPC = _resolveJump(raw2, labelMap);
+  } else if (cmd === 'IFZERO') {
+    const taken = (tm.register === 0);
+    tm._beepJump(taken);
+    _progPC = taken ? (raw2 === undefined ? rawLines.length - 1 : _resolveJump(raw2, labelMap)) : _progPC + 1;
+  } else if (cmd === 'IFNEG') {
+    const taken = (tm.register < 0);
+    tm._beepJump(taken);
+    _progPC = taken ? (raw2 === undefined ? rawLines.length - 1 : _resolveJump(raw2, labelMap)) : _progPC + 1;
+  } else if (cmd === 'CALL') {
+    const absHead = tm.headPos;
+    tm._log(`call(${raw2})  bp: ${tm.bp} → ${absHead}`, 'log-op');
+    tm._callStack.push({ bp: tm.bp, returnPC: _progPC + 1 });
+    tm.tape[absHead - 1] = tm.bp;   // フレームリンクは HEAD-1
+    tm.bp = absHead;                 // M[0] = HEAD のまま
+    tm.headPos = tm.bp;
+    tm._render();
+    tm._beepCall();
+    _progPC = _resolveJump(raw2, labelMap);
+  } else if (cmd === 'RET') {
+    const frame = tm._callStack.pop();
+    if (!frame) { tm._log('⚠ コールスタック空', 'log-err'); _progPC++; }
+    else {
+      tm._log(`ret()  bp: ${tm.bp} → ${frame.bp}`, 'log-op');
+      tm.bp = frame.bp;
+      tm.headPos = tm.bp;
+      tm._render();
+      tm._beepRet();
+      _progPC = frame.returnPC;
+    }
+  } else {
+    await _execLine(cmd, arg);
+    _progPC++;
+  }
+}
+
+// ── 連続実行 ──────────────────────────────────────────────────────────────────
+
+async function runProg() {
+  if (_progRunning) return;
+  tm._initAudio();
+  const rawLines = _progInput.value.split('\n');
+  if (rawLines.every(l => !l.trim())) return;
+
+  _progRunning = true;
+  _progAbort   = false;
+  _setProgBtns(true);
+
+  if (_progPC === 0) tm._log('── プログラム開始 ──', 'log-info');
+  else               tm._log(`── 再開 (行${_progPC + 1}〜) ──`, 'log-info');
+
+  let steps = 0;
+  const MAX_STEPS = 2000;
+
+  const labelMap = _buildLabelMap(rawLines);
+
+  while (_progPC < rawLines.length && !_progAbort && steps < MAX_STEPS) {
+    if (_isSkippable(rawLines[_progPC])) { _progPC++; continue; }
+
+    const m = _parseCmd(rawLines[_progPC]);
+    if (!m) {
+      tm._log(`行${_progPC + 1}: 不明な命令 "${rawLines[_progPC].trim()}"`, 'log-err');
+      break;
+    }
+
+    const cmd = m[1].toUpperCase();
+    const raw2 = m[2];
+    const arg = raw2 !== undefined && /^-?\d+$/.test(raw2) ? Number(raw2) : raw2;
+
+    _highlightLine(_progPC);
+    _scrollToLine(_progPC);
+
+    if (cmd === 'JUMP') { tm._beepJump(true); _progPC = _resolveJump(raw2, labelMap); steps++; continue; }
+    if (cmd === 'IFZERO') {
+      const taken = (tm.register === 0);
+      tm._beepJump(taken);
+      _progPC = taken ? (raw2 === undefined ? rawLines.length - 1 : _resolveJump(raw2, labelMap)) : _progPC + 1;
+      steps++; continue;
+    }
+    if (cmd === 'IFNEG') {
+      const taken = (tm.register < 0);
+      tm._beepJump(taken);
+      _progPC = taken ? (raw2 === undefined ? rawLines.length - 1 : _resolveJump(raw2, labelMap)) : _progPC + 1;
+      steps++; continue;
+    }
+    if (cmd === 'CALL') {
+      const absHead = tm.headPos;
+      tm._log(`call(${raw2})  bp: ${tm.bp} → ${absHead}`, 'log-op');
+      tm._callStack.push({ bp: tm.bp, returnPC: _progPC + 1 });
+      tm.tape[absHead - 1] = tm.bp;   // フレームリンクは HEAD-1
+      tm.bp = absHead;                 // M[0] = HEAD のまま
+      tm.headPos = tm.bp;
+      tm._render();
+      tm._beepCall();
+      _progPC = _resolveJump(raw2, labelMap);
+      steps++; continue;
+    }
+    if (cmd === 'RET') {
+      const frame = tm._callStack.pop();
+      if (!frame) { tm._log('⚠ コールスタック空', 'log-err'); break; }
+      tm._log(`ret()  bp: ${tm.bp} → ${frame.bp}`, 'log-op');
+      tm.bp = frame.bp;
+      tm.headPos = tm.bp;
+      tm._render();
+      tm._beepRet();
+      _progPC = frame.returnPC;
+      steps++; continue;
+    }
+
+    await _execLine(cmd, arg);
+    if (!tm._fastMode) await new Promise(r => setTimeout(r, 80));
+    _progPC++;
+    steps++;
+  }
+
+  if (_progAbort)          tm._log('── 停止 ──', 'log-info');
+  else if (steps >= MAX_STEPS) tm._log('⚠ 最大ステップ数(2000)に達しました', 'log-err');
+  else                     tm._log('── プログラム終了 ──', 'log-info');
+
+  if (!_progAbort) { _highlightLine(-1); _progPC = 0; }
+  _progRunning = false;
+  _setProgBtns(false);
+}
+
+function stopProg() {
+  _progAbort = true;
+}
+
+// AudioContext requires user gesture — init on first click anywhere
+document.addEventListener('click', () => tm._initAudio(), { once: true });
+</script>
+</body>
+</html>
