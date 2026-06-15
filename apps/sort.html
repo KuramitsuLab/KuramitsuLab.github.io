@@ -130,6 +130,8 @@
   .complexity td { padding: 5px 4px; border-bottom: 1px solid var(--line); }
   .complexity td:first-child { color: var(--muted); }
   .complexity td:last-child { text-align: right; font-family: ui-monospace, Menlo, monospace; }
+  .complexity .note { margin: 10px 0 0; padding: 8px 10px; font-size: 12px; line-height: 1.6;
+    color: var(--text); background: #fff7e0; border: 1px solid #ffe2a8; border-radius: 8px; }
   .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 10px; }
   .legend span { display: inline-flex; align-items: center; gap: 6px; }
   .legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
@@ -175,6 +177,8 @@
       </select>
     </div>
     <button id="shuffle">🎲 ランダム生成</button>
+    <button id="best" title="昇順に整列済み（多くのソートで最良ケース）">⬆ 最良ケース</button>
+    <button id="worst" title="降順に並んだ配列（多くのソートで最悪ケース）">⬇ 最悪ケース</button>
     <div class="spacer"></div>
     <div class="field">
       <label>再生速度</label>
@@ -225,6 +229,7 @@
         <tr><td>空間計算量</td><td id="cSpace">—</td></tr>
         <tr><td>安定ソート</td><td id="cStable">—</td></tr>
       </table>
+      <p id="cNote" class="note" style="display:none"></p>
     </div>
   </div>
 
@@ -242,7 +247,8 @@ const INFO = {
   selection: { best:"O(n²)",     avg:"O(n²)",       worst:"O(n²)",       space:"O(1)", stable:"× 不安定" },
   insertion: { best:"O(n)",      avg:"O(n²)",       worst:"O(n²)",       space:"O(1)", stable:"○ 安定" },
   shell:     { best:"O(n log n)",avg:"O(n^1.25)",   worst:"O(n²)",       space:"O(1)", stable:"× 不安定" },
-  quick:     { best:"O(n log n)",avg:"O(n log n)",  worst:"O(n²)",       space:"O(log n)", stable:"× 不安定" },
+  quick:     { best:"O(n log n)",avg:"O(n log n)",  worst:"O(n²)",       space:"O(log n)", stable:"× 不安定",
+    note:"このクイックソートは末尾要素をピボットにする方式です。整列済み（昇順・降順）データはピボットが常に最大/最小になり、分割が最も偏って O(n²) の最悪ケースになります（降順＝「最悪ケース」ボタン）。「最良ケース」ボタンは、各分割でピボットがちょうど中央に来るようピボット位置から逆算した配列を生成するので、毎回ほぼ均等に分割され O(n log n) になります（見た目は整列していません）。" },
   merge:     { best:"O(n log n)",avg:"O(n log n)",  worst:"O(n log n)",  space:"O(n)", stable:"○ 安定" },
   heap:      { best:"O(n log n)",avg:"O(n log n)",  worst:"O(n log n)",  space:"O(1)", stable:"× 不安定" },
 };
@@ -561,20 +567,56 @@ function showComplexity(key) {
   $("cWorst").textContent = c.worst;
   $("cSpace").textContent = c.space;
   $("cStable").textContent = c.stable;
+  const note = $("cNote");
+  if (c.note) { note.textContent = c.note; note.style.display = ""; }
+  else { note.textContent = ""; note.style.display = "none"; }
 }
 
 // ====================================================================
 // 制御
 // ====================================================================
-function regenerate() {
+// クイックソート(末尾ピボット/Lomuto)の最良ケース配列を「ピボット位置から逆算」して作る。
+// 各範囲[lo..hi]のピボット(=末尾)を中央ランク m=(lo+hi)/2 にすると分割が毎回均等になる。
+// Lomuto分割は「pivot未満」を元の相対順のまま前方へ詰め、「pivot超」には先頭→末尾の
+// 左回転を施す。よって分割後に望む左右部分列へ割れるよう、各範囲を
+//   [左部分列] + [右部分列を右に1つ回転] + [ピボット]
+// の順で構成すればよい（rankで構成し、最後に高さ値へ写像）。
+function quickBestRanks(n) {
+  function construct(lo, hi) {
+    if (lo > hi) return [];
+    if (lo === hi) return [lo];
+    const m = (lo + hi) >> 1;            // ピボット＝中央ランク（最終位置も m）
+    const left = construct(lo, m - 1);   // 分割後そのまま左部分へ
+    const right = construct(m + 1, hi);  // 分割後の右部分にしたい列
+    // 「pivot超」要素は分割で左回転される → 逆算は右回転（末尾を先頭へ）
+    const gpre = right.length ? [right[right.length - 1], ...right.slice(0, -1)] : [];
+    return [...left, ...gpre, m];
+  }
+  return construct(0, n - 1);
+}
+
+// mode: "random"（既定）/ "best"（最良ケース）/ "worst"（降順）
+function regenerate(mode) {
   stop();
   const n = parseInt($("size").value, 10);
   arr = [];
-  // 等間隔の値をシャッフル（n=10 なら 10,20,…,100）。重複なしで高さがきれいに分かれる。
+  // 等間隔の値（n=10 なら 10,20,…,100）。重複なしで高さがきれいに分かれる。
   for (let i = 1; i <= n; i++) arr.push(Math.round(i / n * 100));
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+  if (mode === "best") {
+    if ($("algo").value === "quick") {
+      // クイックソートだけは昇順だと最悪。ピボット位置から逆算した均等分割配列にする。
+      const vals = arr.slice();                  // 昇順の高さ値（rank順）
+      arr = quickBestRanks(n).map(r => vals[r]);
+    }
+    // それ以外は昇順のまま（多くのソートで最良ケース）。
+  } else if (mode === "worst") {
+    arr.reverse(); // 降順（多くのソートで最悪ケース）。
+  } else {
+    // ランダム：Fisher–Yates でシャッフル。
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
   }
   prepare();
   buildBars();
@@ -617,9 +659,11 @@ function stop() {
 }
 
 // ---- イベント ----
-$("shuffle").onclick = regenerate;
+$("shuffle").onclick = () => regenerate("random");
+$("best").onclick = () => regenerate("best");
+$("worst").onclick = () => regenerate("worst");
 $("algo").onchange = () => { stop(); prepare(); buildBars(); renderFrame(0); };
-$("size").onchange = regenerate;
+$("size").onchange = () => regenerate("random");
 $("play").onclick = play;
 $("next").onclick = () => { stop(); goTo(cur + 1); };
 $("prev").onclick = () => { stop(); goTo(cur - 1); };
@@ -632,11 +676,11 @@ document.addEventListener("keydown", e => {
   if (e.key === "ArrowRight") { stop(); goTo(cur + 1); e.preventDefault(); }
   else if (e.key === "ArrowLeft") { stop(); goTo(cur - 1); e.preventDefault(); }
   else if (e.key === " ") { play(); e.preventDefault(); }
-  else if (e.key === "r" || e.key === "R") { regenerate(); }
+  else if (e.key === "r" || e.key === "R") { regenerate("random"); }
 });
 
 // 初期化
-regenerate();
+regenerate("random");
 </script>
 </body>
 </html>

@@ -116,6 +116,8 @@
         <option value="dfs">DFS（深さ優先・スタック）</option>
         <option value="bfs">BFS（幅優先・キュー）</option>
         <option value="astar">A*（エースター・最短＆賢い）</option>
+        <option value="wallL">壁伝い・左手法（左手を壁に）</option>
+        <option value="wallR">壁伝い・右手法（右手を壁に）</option>
         <option value="random">ランダムウォーク</option>
       </select>
     </div>
@@ -221,6 +223,10 @@ const INFO = {
             shortest:"○ 最短を保証（h が妥当なら）", note:"ゴールへの推定距離 h を足した f が小さいマスを優先。BFS より無駄な探索が少ない。" },
   random: { struct:"なし（その場で乱択）", time:"期待値は大きい（不定）", space:"O(1)",
             shortest:"× 保証されない", note:"毎回ランダムに隣へ。同じ所を何度も通る。運次第で非常に遅い。" },
+  wallL:  { struct:"なし（向き＋左手の規則）", time:"O(壁の長さ)", space:"O(1)",
+            shortest:"× 保証されない", note:"左手を壁につけたまま進む。ループの無い迷路なら必ずゴールに着くが遠回り。" },
+  wallR:  { struct:"なし（向き＋右手の規則）", time:"O(壁の長さ)", space:"O(1)",
+            shortest:"× 保証されない", note:"右手を壁につけたまま進む。左手法と対称。地図も座標も持たずに解ける。" },
 };
 
 // セルの状態コード
@@ -487,6 +493,61 @@ function* randomWalk() {
   yield { st, stats, desc:`上限 ${maxSteps} 歩に到達。ゴールに着けませんでした（運が悪い例）`, op:"打切り" };
 }
 
+// 壁伝い法（左手法 / 右手法）。地図も座標も持たず、「今の向き」と
+// 「どちらの手を壁につけるか」だけで進む。優先順位に従って曲がれる方向を
+// 選ぶので、ループの無い迷路なら必ずゴールへ着く（ただし遠回り）。
+function* wallFollower(rightHand) {
+  const st = makeState();
+  const stats = { visited:0, frontier:0, steps:0, pathLen:null };
+  const visitCount = new Uint16Array(W*H);
+  const DIR = [[-1,0],[0,1],[1,0],[0,-1]];        // 0:北 1:東 2:南 3:西
+  const ARROW = ["北 ↑","東 →","南 ↓","西 ←"];
+  const hand = rightHand ? "右手" : "左手";
+  let node = startIdx;
+  let dir = 1;                                     // 最初は東を向く
+  const maxSteps = W*H*8;                          // ループ迷路での暴走防止
+  visitCount[node] = 1; stats.visited = 1;
+  st[node] = CURRENT;
+  yield { st, stats, desc:`スタートに立ち、${hand}を壁につけて進みます（向き：${ARROW[dir]}）`, op:"開始" };
+
+  while (stats.steps < maxSteps) {
+    if (node === goalIdx) {
+      stats.pathLen = stats.steps;
+      st[node] = PATH;
+      yield { st, stats, desc:`ゴール到達！ ${stats.steps} 歩でたどり着きました（${hand}法）`, op:"到達" };
+      yield { st, stats, desc:`壁伝い完了（歩数 ${stats.steps} ／ 訪問 ${stats.visited} マス）。最短とは限りません。`, op:"完了" };
+      return;
+    }
+    // 曲がる優先順位：右手法は「右→直進→左→後ろ」、左手法はその左右逆。
+    const order = rightHand
+      ? [(dir+1)%4, dir, (dir+3)%4, (dir+2)%4]
+      : [(dir+3)%4, dir, (dir+1)%4, (dir+2)%4];
+    const [r,c] = rc(node);
+    let moved = false;
+    for (const d of order) {
+      const nr = r+DIR[d][0], nc = c+DIR[d][1];
+      if (nr>=0 && nr<H && nc>=0 && nc<W && grid[idx(nr,nc)]===OPEN) {
+        dir = d;
+        st[node] = VISITED;
+        node = idx(nr,nc);
+        stats.steps++;
+        if (visitCount[node] === 0) stats.visited++;
+        visitCount[node]++;
+        st[node] = CURRENT;
+        const revisit = visitCount[node] > 1 ? `（${visitCount[node]}回目）` : "";
+        yield { st, stats, desc:`${hand}に沿って ${ARROW[dir]} へ → (${nr},${nc}) ${revisit}`, op:"移動" };
+        moved = true;
+        break;
+      }
+    }
+    if (!moved) {
+      yield { st, stats, desc:"四方が壁で動けません（孤立）", op:"終了" };
+      return;
+    }
+  }
+  yield { st, stats, desc:`上限 ${maxSteps} 歩に到達。ループのある迷路では戻れないことがあります。`, op:"打切り" };
+}
+
 // ====================================================================
 // 録画
 // ====================================================================
@@ -494,6 +555,8 @@ function record(algoKey) {
   const gen = algoKey==="bfs"   ? dfsBfs(true)
             : algoKey==="dfs"   ? dfsBfs(false)
             : algoKey==="astar" ? aStar()
+            : algoKey==="wallL" ? wallFollower(false)
+            : algoKey==="wallR" ? wallFollower(true)
             : randomWalk();
   const out = [];
   // 初期フレーム（地形のみ）
@@ -565,10 +628,10 @@ function showInfo(key) {
   $("iSpace").textContent = x.space;
   $("iShortest").textContent = x.shortest;
   $("iNote").textContent = x.note;
-  $("frontierLab").textContent = key==="random" ? "（使わない）"
-                               : key==="bfs"   ? "キューの長さ"
+  $("frontierLab").textContent = key==="bfs"   ? "キューの長さ"
                                : key==="astar" ? "open の数"
-                               : "スタックの長さ";
+                               : key==="dfs"   ? "スタックの長さ"
+                               : "（使わない）";
 }
 
 // ====================================================================
